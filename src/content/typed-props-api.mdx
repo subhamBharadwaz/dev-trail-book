@@ -1,0 +1,105 @@
+export const meta = {
+  slug: "typed-props-api",
+  category: "typescript",
+  title: "Typed props, unknown data & runtime checks",
+  description: "Keep compile-time guarantees separate from external input.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["typescript", "week-1", "interview-prep"],
+  questions: [
+    {
+      question: "Does response.json() validate an interface?",
+      answer:
+        "No. JSON parsing establishes JSON syntax. You still need runtime checks or a schema to establish the application’s expected shape.",
+    },
+    {
+      question: "Why prefer unknown to any at a boundary?",
+      answer:
+        "unknown requires a check before unsafe operations. any permits unchecked access and can spread incorrect assumptions into the application.",
+    },
+    {
+      question: "What is the risk of response.json() as NoteInput?",
+      answer:
+        "The assertion changes the compiler’s view without checking the actual payload; malformed values can fail at runtime.",
+    },
+  ],
+  facts: [
+    "Type assertions do not transform or validate data.",
+    "Use discriminants to model valid request states.",
+    "Keep server and client contracts explicit.",
+  ],
+  source: "https://www.typescriptlang.org/docs/handbook/2/narrowing.html",
+  code: 'type User = { id: number; name: string };\nfunction isUser(value: unknown): value is User {\n return typeof value === "object" && value !== null\n && "id" in value && typeof value.id === "number"\n && "name" in value && typeof value.name === "string";\n}\nconst data: unknown = await response.json();\nif (!Array.isArray(data) || !data.every(isUser)) {\n throw new Error("Unexpected user response");\n}\n// data is now User[] within this branch.',
+  codeLanguage: "ts",
+  origin: "study-plan",
+  planWeek: 1,
+  planPages: [3],
+  quizDistractors: [
+    "Yes. The interface is embedded in the HTTP response.",
+    "Yes. A type assertion performs full runtime validation.",
+  ],
+};
+
+## The idea
+
+TypeScript checks code before execution; it does not prove that a network response matches an interface. Treat data from APIs, forms, storage, and tools as untrusted until runtime checks establish the shape you need.
+
+## Why it matters
+
+Use narrow component contracts and explicit success/error unions. Avoid asserting response.json() into a desired type just to silence the compiler. For nested or evolving APIs, use a schema validator and handle failed parsing as an expected boundary outcome.
+
+## A practical example
+
+```ts
+type User = { id: number; name: string };
+function isUser(value: unknown): value is User {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "id" in value &&
+    typeof value.id === "number" &&
+    "name" in value &&
+    typeof value.name === "string"
+  );
+}
+const data: unknown = await response.json();
+if (!Array.isArray(data) || !data.every(isUser)) {
+  throw new Error("Unexpected user response");
+}
+// data is now User[] within this branch.
+```
+
+## Common mistakes
+
+Checking only Array.isArray is insufficient when every element must contain required properties. Validate the complete contract you use.
+
+## Try it yourself
+
+Validate an array containing one malformed user. Render a clear error instead of failing later when a row tries to read name.
+
+## Keep exploring
+
+Read the [technical reference](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
+
+## Runtime narrowing and typed form boundaries
+
+```ts
+type NoteInput = { title: string };
+function isNoteInput(value: unknown): value is NoteInput {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "title" in value &&
+    typeof value.title === "string" &&
+    value.title.trim().length > 0 &&
+    value.title.length <= 200
+  );
+}
+const raw: unknown = JSON.parse('{"title":"Interview notes"}');
+if (!isNoteInput(raw)) throw new Error("Invalid note");
+const title = raw.title.trim();
+```
+
+unknown forces a check before use; any disables that protection. A type assertion does not validate bytes. Narrow unions using a discriminant and make exhaustive switches fail on unhandled variants. Model optional, null and absent values deliberately. FormData.get can return string, File or null. Use generics to preserve relationships between inputs and outputs rather than casting a response to T. Pick/Omit/Partial are compile-time transformations, not validation. A production schema can centralize runtime constraints; parse exceptions and malformed JSON still need handling.

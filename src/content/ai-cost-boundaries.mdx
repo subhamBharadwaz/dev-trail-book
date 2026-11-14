@@ -1,0 +1,85 @@
+export const meta = {
+  slug: "ai-cost-boundaries",
+  category: "ai",
+  title: "Context, latency, usage & data boundaries",
+  description: "Explain the operating costs of one small AI feature.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["ai", "week-6", "interview-prep"],
+  questions: [
+    {
+      question: "Is time to first output the same as total generation time?",
+      answer:
+        "No. First-output latency measures how soon useful progress appears; total duration measures when the complete operation finishes.",
+    },
+    {
+      question:
+        "Can a cost estimate ignore provider accounting and current prices?",
+      answer:
+        "No. Use actual usage where available and the current model-specific pricing rules. Treat estimates as estimates.",
+    },
+    {
+      question:
+        "Why are first-chunk latency and total duration different metrics?",
+      answer:
+        "One measures time until initial feedback; the other measures the complete operation, including generation and downstream work.",
+    },
+  ],
+  facts: [
+    "A larger context can add cost and latency.",
+    "Bound retries and output size.",
+    "Log only what the operational task needs.",
+  ],
+  source: "https://developer.mozilla.org/en-US/docs/Web/API/Performance/now",
+  code: 'const measurement = {\n  requestId: crypto.randomUUID(),\n  startedAt: performance.now(),\n  firstChunkMs: null,\n  totalMs: null,\n  inputTokens: null,\n  outputTokens: null,\n  status: "connecting",\n};\n// When supplied by your integration, attach actual usage and timing.\n// Keep credentials and private prompt text out of routine telemetry.',
+  codeLanguage: "ts",
+  origin: "study-plan",
+  planWeek: 6,
+  planPages: [4],
+  quizDistractors: [
+    "Yes. First-output latency and total completion time are always equal.",
+    "Yes. Receiving the first chunk means generation has finished.",
+  ],
+};
+
+## The idea
+
+An AI feature has input/context limits, output limits, provider latency, transport latency, and application overhead. Log the measurements needed to understand behavior without storing sensitive prompts or credentials unnecessarily.
+
+## Why it matters
+
+Track time to first useful output separately from total duration. Usage and cost estimates require the relevant provider’s current accounting and prices; this note deliberately uses variables rather than claiming fixed rates. Decide what data may leave the application and how long logs should retain it.
+
+## A practical example
+
+```ts
+const measurement = {
+  requestId: crypto.randomUUID(),
+  startedAt: performance.now(),
+  firstChunkMs: null,
+  totalMs: null,
+  inputTokens: null,
+  outputTokens: null,
+  status: "connecting",
+};
+// When supplied by your integration, attach actual usage and timing.
+// Keep credentials and private prompt text out of routine telemetry.
+```
+
+## Common mistakes
+
+Do not claim an exact token count or cost when the integration did not return enough information to calculate it.
+
+## Try it yourself
+
+Instrument a tiny streaming feature with status, first-chunk latency, duration, and usage. Explain what private data is deliberately excluded.
+
+## Keep exploring
+
+Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 4, Week 6. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
+
+## Context, latency and cost reasoning
+
+A context window bounds the combined request and generated output according to the model protocol. Reserve output space before adding history or retrieved text; do not blindly truncate away the current question or required instructions. Select relevant context, bound tool-result size and summarize deliberately. Track first-output latency separately from total duration. Record actual provider usage when returned; cost estimates require the exact model, current rates, token categories and relevant caching rules. Keep unreported usage unknown. Redact customer data, credentials and prompt text from routine logs, with deliberate retention and access controls.

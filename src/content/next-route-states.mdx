@@ -1,0 +1,77 @@
+export const meta = {
+  slug: "next-route-states",
+  category: "nextjs",
+  title: "Layouts, loading, errors & missing pages",
+  description: "Give each route outcome a deliberate UI.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["nextjs", "week-3", "interview-prep"],
+  questions: [
+    {
+      question:
+        "Is an empty successful collection the same as a failed request?",
+      answer:
+        "No. Distinguish empty data, loading, expected form errors, missing resources, and unexpected failures.",
+    },
+    {
+      question: "Why does error.tsx need a client boundary?",
+      answer:
+        "The error fallback supports browser-side recovery behavior. Follow the error-file contract for the installed Next.js version.",
+    },
+  ],
+  facts: [
+    "Use loading UI at a useful boundary.",
+    "Do not expose internal exception details to visitors.",
+    "Provide a way to recover or navigate after an error.",
+  ],
+  source: "https://nextjs.org/docs/app/getting-started/error-handling",
+  code: '// app/journal/[id]/page.tsx\nimport { notFound } from "next/navigation";\nexport default async function EntryPage({ params }) {\n  const { id } = await params;\n  const entry = await getEntryForCurrentUser(id);\n  if (!entry) notFound();\n  return <article><h1>{entry.title}</h1></article>;\n}\n// Add segment loading.tsx, error.tsx, and not-found.tsx as needed.',
+  codeLanguage: "tsx",
+  origin: "study-plan",
+  planWeek: 3,
+  planPages: [3],
+  quizDistractors: [
+    "Yes. Empty results should always render a server-error page.",
+    "Yes. A missing item always means the network request failed.",
+  ],
+};
+
+## The idea
+
+An App Router segment can define a page and supporting files such as layout.tsx, loading.tsx, error.tsx, and not-found.tsx. Layouts express shared structure; loading UI provides a pending boundary; error and not-found UI communicate different outcomes.
+
+## Why it matters
+
+Expected validation failures should be represented in the relevant form or action state. Unexpected exceptions belong in an error boundary with a useful recovery path. A missing record is not automatically a server outage, and a pending request is not an empty successful result.
+
+## A practical example
+
+```tsx
+// app/journal/[id]/page.tsx
+import { notFound } from "next/navigation";
+export default async function EntryPage({ params }) {
+  const { id } = await params;
+  const entry = await getEntryForCurrentUser(id);
+  if (!entry) notFound();
+  return (
+    <article>
+      <h1>{entry.title}</h1>
+    </article>
+  );
+}
+// Add segment loading.tsx, error.tsx, and not-found.tsx as needed.
+```
+
+## Common mistakes
+
+A single spinner cannot communicate every request state. Keep pending, missing, empty, and failed outcomes distinct.
+
+## Try it yourself
+
+Test a slow journal read, an empty account, an absent entry, and an unexpected data error. Write the UI for each case.
+
+## Keep exploring
+
+Read the [technical reference](https://nextjs.org/docs/app/getting-started/error-handling) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 3. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

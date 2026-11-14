@@ -1,0 +1,79 @@
+export const meta = {
+  slug: "daily-learning-loop",
+  category: "interviews",
+  title: "The daily loop & sustainable fallback plans",
+  description: "Protect recall, implementation, interviews, and applications.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["interviews", "week-1", "interview-prep"],
+  questions: [
+    {
+      question:
+        "Should a missed day be repaid by doubling the next day’s workload?",
+      answer:
+        "The plan says to resume the normal routine. Use a smaller fallback when needed and avoid a punishment cycle that makes the schedule less sustainable.",
+    },
+    {
+      question: "What is the learning loop?",
+      answer:
+        "Recall from memory, check gaps, build a small proof, break/debug it, and explain it aloud. Attempt independently before asking for hints.",
+    },
+  ],
+  facts: [
+    "A rest/review day is part of the plan.",
+    "Applications continue alongside learning.",
+    "The twenty-minute minimum is a fallback, not the full workload.",
+  ],
+  source: "https://developer.mozilla.org/en-US/docs/Learn_web_development",
+  code: "const normalMinutes = {\n  technicalDepth: 90, implementation: 90,\n  dsa: 60, interviewPractice: 60, applications: 60,\n};\nconst fallbackMinutes = {\n  technical: 45, dsa: 25, spokenRecall: 20, applications: 30,\n};\nconst minimumMinutes = { explain: 5, code: 10, nextAction: 5 };\n// Use evidence of understanding, not elapsed time alone.",
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 1,
+  planPages: [2],
+  quizDistractors: [
+    "Always double the next day’s workload after a missed session.",
+    "Restart the entire curriculum whenever one study day is missed.",
+  ],
+};
+
+## The idea
+
+The plan uses six focused study days and a review/rest day. A normal six-hour allocation is 90 minutes technical depth, 90 implementation/debugging, 60 DSA, 60 interview practice, and 60 applications/outreach. Breaks and meals sit outside those blocks.
+
+## Why it matters
+
+Run the learning loop in order: recall, check gaps, build a proof, break/debug it, explain aloud. On a constrained day, use the two-hour fallback. On a very difficult day, use the twenty-minute minimum and resume normally afterward instead of doubling the next workload.
+
+## A practical example
+
+```js
+const normalMinutes = {
+  technicalDepth: 90,
+  implementation: 90,
+  dsa: 60,
+  interviewPractice: 60,
+  applications: 60,
+};
+const fallbackMinutes = {
+  technical: 45,
+  dsa: 25,
+  spokenRecall: 20,
+  applications: 30,
+};
+const minimumMinutes = { explain: 5, code: 10, nextAction: 5 };
+// Use evidence of understanding, not elapsed time alone.
+```
+
+## Common mistakes
+
+Do not restart all previously completed topics automatically. Use a recall check to find the actual gap.
+
+## Try it yourself
+
+Write today’s one concrete proof, one DSA re-solve, one spoken answer, and one application action before starting.
+
+## Keep exploring
+
+Read the [technical reference](https://developer.mozilla.org/en-US/docs/Learn_web_development) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 2, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

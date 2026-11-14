@@ -1,0 +1,69 @@
+export const meta = {
+  slug: "performance-profiling",
+  category: "testing",
+  title: "Profile first: bundles, waterfalls & render cost",
+  description: "Choose a fix using evidence from the slow interaction.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["testing", "week-5", "interview-prep"],
+  questions: [
+    {
+      question: "Should every calculation be memoized before profiling?",
+      answer:
+        "No. Memoization has cost and complexity. First establish that repeated calculation is a meaningful bottleneck and that its inputs allow reuse.",
+    },
+    {
+      question: "What is a request waterfall?",
+      answer:
+        "Dependent or late-started requests run sequentially, extending the critical path. Identify which dependencies are real before parallelizing.",
+    },
+  ],
+  facts: [
+    "A smaller bundle is not the only performance goal.",
+    "Measure production-like behavior.",
+    "Report baseline, change, result, and trade-offs.",
+  ],
+  source: "https://react.dev/reference/react/Profiler",
+  code: "const start = performance.now();\nconst visible = topics.filter(matchesQuery);\nconst duration = performance.now() - start;\nconsole.log({ duration, count: visible.length });\n// Pair a local measurement with a full interaction trace.\n// A tiny filtering duration is not evidence to add useMemo everywhere.",
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 5,
+  planPages: [4],
+  quizDistractors: [
+    "Yes. useMemo always makes every calculation faster.",
+    "Yes. Rendering a component once is proof that it needs memoization.",
+  ],
+};
+
+## The idea
+
+A slow page can spend time on network requests, server work, JavaScript transfer and execution, rendering, layout, or expensive interactions. These are different bottlenecks. A profiler and a network trace help identify which one currently limits the experience.
+
+## Why it matters
+
+Reproduce the problem under meaningful conditions, record a baseline, make one bounded change, and measure again. Memoization helps only when it avoids enough expensive repeated work. Code splitting helps initial loading when it defers work the first task does not need.
+
+## A practical example
+
+```js
+const start = performance.now();
+const visible = topics.filter(matchesQuery);
+const duration = performance.now() - start;
+console.log({ duration, count: visible.length });
+// Pair a local measurement with a full interaction trace.
+// A tiny filtering duration is not evidence to add useMemo everywhere.
+```
+
+## Common mistakes
+
+Do not claim a measured improvement without recording comparable before and after conditions.
+
+## Try it yourself
+
+Profile a filterable page and record its slowest user-visible interaction. Implement one justified fix and compare traces.
+
+## Keep exploring
+
+Read the [technical reference](https://react.dev/reference/react/Profiler) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 4, Week 5. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

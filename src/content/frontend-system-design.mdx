@@ -1,0 +1,71 @@
+export const meta = {
+  slug: "frontend-system-design",
+  category: "interviews",
+  title: "A frontend design answer: dashboard, search or chat",
+  description: "Lead with requirements, ownership, and failure behavior.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["interviews", "week-6", "interview-prep"],
+  questions: [
+    {
+      question: "What comes before choosing libraries in a design interview?",
+      answer:
+        "Clarify the user task, requirements, constraints, and expected scale. Then justify the component and data architecture against them.",
+    },
+    {
+      question: "What should the failure discussion include?",
+      answer:
+        "Pending, empty, failed, stale, unauthorized, and canceled work where relevant, plus recovery and accessibility behavior.",
+    },
+  ],
+  facts: [
+    "State ownership matters more than a long library list.",
+    "Explain API and cache boundaries.",
+    "A 30–45 minute answer needs prioritization.",
+  ],
+  source: "https://react.dev/learn/thinking-in-react",
+  code: 'const design = {\n  task: "Find a journal entry quickly",\n  localState: ["draft query", "keyboard highlight"],\n  remoteState: ["result pages", "request status"],\n  contract: { input: "query + cursor", output: "items + nextCursor" },\n  failures: ["timeout", "permission change", "empty result", "stale response"],\n  evidence: ["keyboard task", "latency trace", "failure-path test"],\n};',
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 6,
+  planPages: [4],
+  quizDistractors: [
+    "Choose the most fashionable stack before clarifying the task.",
+    "Start by designing every possible backend service in detail.",
+  ],
+};
+
+## The idea
+
+A frontend design discussion should start with the user task, expected scale, accessibility needs, and constraints. Then describe components, state ownership, data contracts, rendering boundaries, caching, and failure handling. A diagram is useful only when it clarifies those decisions.
+
+## Why it matters
+
+For a search feature, distinguish the draft input from the submitted query and remote results. For chat, distinguish message identity, streaming progress, cancellation, and persisted history. For a dashboard, explain which reads can run independently and how stale data is communicated.
+
+## A practical example
+
+```js
+const design = {
+  task: "Find a journal entry quickly",
+  localState: ["draft query", "keyboard highlight"],
+  remoteState: ["result pages", "request status"],
+  contract: { input: "query + cursor", output: "items + nextCursor" },
+  failures: ["timeout", "permission change", "empty result", "stale response"],
+  evidence: ["keyboard task", "latency trace", "failure-path test"],
+};
+```
+
+## Common mistakes
+
+Do not claim a familiar library solves the requirements without explaining the data flow and the remaining failure modes.
+
+## Try it yourself
+
+Run a timed 30-minute search design interview. Spend the last five minutes on accessibility, latency, and failure trade-offs.
+
+## Keep exploring
+
+Read the [technical reference](https://react.dev/learn/thinking-in-react) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 4, Week 6. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

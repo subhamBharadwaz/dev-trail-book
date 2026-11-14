@@ -1,0 +1,73 @@
+export const meta = {
+  slug: "rendering-keys",
+  category: "react",
+  title: "Rendering, reconciliation & stable keys",
+  description: "Keep identity stable when a list changes.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["react", "week-2", "interview-prep"],
+  questions: [
+    {
+      question: "Does a re-render always replace the DOM?",
+      answer:
+        "No. React computes a new UI description and commits the required changes. A component rendering again does not mean its entire DOM is recreated.",
+    },
+    {
+      question: "Why are random keys harmful?",
+      answer:
+        "They change identity on every render, causing remounts and loss of local state rather than preserving the same logical item.",
+    },
+  ],
+  facts: [
+    "Keys are unique among siblings, not globally.",
+    "Changing a key intentionally resets component state.",
+    "Rendering must not perform side effects.",
+  ],
+  source: "https://react.dev/learn/rendering-lists",
+  code: "function Notes({ notes }) {\n  return <ul>{notes.map(note =>\n    <NoteRow key={note.id} note={note} />\n  )}</ul>;\n}\n// Preserve note.id when editing or reordering a note.",
+  codeLanguage: "tsx",
+  origin: "study-plan",
+  planWeek: 2,
+  planPages: [3],
+  quizDistractors: [
+    "Yes. Every re-render deletes and rebuilds the whole DOM.",
+    "A re-render always remounts every child.",
+  ],
+};
+
+## The idea
+
+Rendering computes what the UI should look like. React then commits necessary changes. Keys help match siblings between renders, so state follows a logical item rather than its position in a list.
+
+## Why it matters
+
+Use a stable identifier from your data. Index keys become risky when you insert, remove, or reorder items; random keys force fresh identities on every render. A key is meaningful within its sibling list and is not passed as a normal component prop.
+
+## A practical example
+
+```tsx
+function Notes({ notes }) {
+  return (
+    <ul>
+      {notes.map((note) => (
+        <NoteRow key={note.id} note={note} />
+      ))}
+    </ul>
+  );
+}
+// Preserve note.id when editing or reordering a note.
+```
+
+## Common mistakes
+
+Memoization does not repair broken identity or impure rendering. Correctness comes before reducing renders.
+
+## Try it yourself
+
+Build an editable list and insert an item at the start. Compare stable IDs with index keys and observe which input state moves.
+
+## Keep exploring
+
+Read the [technical reference](https://react.dev/learn/rendering-lists) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 2. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

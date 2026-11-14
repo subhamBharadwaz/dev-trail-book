@@ -1,0 +1,145 @@
+export const meta = {
+  slug: "ai-streaming",
+  category: "ai",
+  title: "Streaming AI output: stop, retry & failures",
+  description: "Treat partial output as an unfinished result.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["ai", "week-6", "interview-prep"],
+  questions: [
+    {
+      question: "Does a network chunk always equal one complete model message?",
+      answer:
+        "No. Transport chunk boundaries are independent of application framing. Decode text safely and parse the endpoint’s actual protocol.",
+    },
+    {
+      question: "Should Stop be displayed as a server failure?",
+      answer:
+        "No. Represent intentional cancellation distinctly, preserve useful partial output when appropriate, and make a new attempt an explicit action.",
+    },
+    {
+      question: "Why guard chunks with a request version?",
+      answer:
+        "Cancellation may arrive after a callback is queued; version checks prevent obsolete requests from updating the current UI.",
+    },
+    {
+      question: "Does a retry continue the same model response?",
+      answer:
+        "Not automatically. Treat it as a new attempt unless the server protocol explicitly supports safe resumption.",
+    },
+  ],
+  facts: [
+    "A 200 status does not guarantee that a stream finishes.",
+    "Do not expose provider secrets in browser code.",
+    "Test disconnects and malformed protocol events.",
+  ],
+  source:
+    "https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams",
+  code: 'async function readTextStream(signal, onChunk) {\n  const response = await fetch("/api/answer", { method: "POST", signal });\n  if (!response.ok || !response.body) throw new Error("Stream unavailable");\n  const reader = response.body.pipeThrough(new TextDecoderStream()).getReader();\n  try {\n    while (true) {\n      const { done, value } = await reader.read();\n      if (done) break;\n      onChunk(value);\n    }\n  } finally { reader.releaseLock(); }\n}\n// The caller owns AbortController, pending UI, cancellation, and retry.',
+  codeLanguage: "ts",
+  origin: "study-plan",
+  planWeek: 6,
+  planPages: [4],
+  quizDistractors: [
+    "Yes. Every chunk is guaranteed to contain one complete logical message.",
+    "Yes. UTF-8 characters and application events always align with network chunks.",
+  ],
+  planRecordedStatus: "covered",
+};
+
+## The idea
+
+A streamed response arrives in chunks while generation is still in progress. The UI should distinguish idle, connecting, streaming, completed, stopped, and failed states. Stopping intentionally is different from a transport failure, and a partial response should not be presented as a validated final answer.
+
+## Why it matters
+
+Keep private provider credentials on a server boundary. The example reads a plain-text stream from your own endpoint. If the endpoint uses SSE or another framed protocol, parse that protocol explicitly; network chunks do not correspond one-to-one with application messages.
+
+## A practical example
+
+```ts
+async function readTextStream(signal, onChunk) {
+  const response = await fetch("/api/answer", { method: "POST", signal });
+  if (!response.ok || !response.body) throw new Error("Stream unavailable");
+  const reader = response.body.pipeThrough(new TextDecoderStream()).getReader();
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      onChunk(value);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+}
+// The caller owns AbortController, pending UI, cancellation, and retry.
+```
+
+## Common mistakes
+
+Do not silently retry a partially generated response and concatenate two unrelated answers as if they were one continuous result.
+
+## Try it yourself
+
+Create a small existing-project streaming feature with Stop, retry, partial output, and distinct error feedback. Test a failure after several chunks.
+
+## Keep exploring
+
+Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 4, Week 6. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
+
+## Caller ownership: Stop, retry and obsolete results
+
+The following plain-text transport example owns cancellation and prevents a superseded request from changing the visible output. Supply the existing readTextStream helper above; SSE or an SDK event protocol needs its own parser. A completed transport is not proof that a structured answer passed validation.
+
+```ts
+type StreamState = {
+  status: "streaming" | "complete" | "stopped" | "error";
+  text: string;
+};
+function createStreamController(publish: (state: StreamState) => void) {
+  let active: AbortController | undefined;
+  let version = 0;
+  let text = "";
+  return {
+    async start() {
+      const current = ++version;
+      active?.abort();
+      const controller = new AbortController();
+      active = controller;
+      text = "";
+      publish({ status: "streaming", text });
+      try {
+        await readTextStream(controller.signal, (chunk: string) => {
+          if (current !== version) return;
+          text += chunk;
+          publish({ status: "streaming", text });
+        });
+        if (current === version) publish({ status: "complete", text });
+      } catch {
+        if (current === version)
+          publish({
+            status: controller.signal.aborted ? "stopped" : "error",
+            text,
+          });
+      } finally {
+        if (current === version) active = undefined;
+      }
+    },
+    stop() {
+      ++version;
+      active?.abort();
+      active = undefined;
+      publish({ status: "stopped", text });
+    },
+    dispose() {
+      ++version;
+      active?.abort();
+      active = undefined;
+    },
+  };
+}
+```
+
+Create the controller once for its UI owner, call dispose on unmount, and let Retry invoke start for a fresh attempt. Do not concatenate the retry onto an older partial answer. Test Stop before the first chunk, Stop after output, HTTP failure, midstream disconnect, retry success, malformed framing, navigation cleanup and two overlapping starts. For expensive server work, propagate cancellation when supported and enforce a server timeout and quota.

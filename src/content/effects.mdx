@@ -1,0 +1,69 @@
+export const meta = {
+  origin: "study-plan",
+  planWeek: 2,
+  planPages: [3],
+  codeLanguage: "tsx",
+  category: "react",
+  slug: "effects",
+  title: "You might not need an Effect",
+  description:
+    "Use Effects for synchronization and keep derived data in render.",
+  minutes: 10,
+  level: "Core concept",
+  tags: ["effects", "hooks", "state"],
+  questions: [
+    {
+      question: "Why does an Effect run twice in development?",
+      answer:
+        "Strict Mode performs an extra setup and cleanup cycle in development to reveal missing cleanup and other synchronization bugs.",
+    },
+    {
+      question: "Can I omit a dependency?",
+      answer:
+        "Every reactive value used by the Effect belongs in its dependencies. Change the code structure when a dependency creates unwanted resynchronization; do not suppress it blindly.",
+    },
+  ],
+  facts: [
+    "Cleanup runs before a changed Effect sets up again, and on unmount.",
+    "Effects run after a commit, not during rendering.",
+    "Browser online status is a hint; it does not guarantee your API is reachable.",
+  ],
+  source: "https://react.dev/learn/you-might-not-need-an-effect",
+  code: 'import { useEffect, useState } from "react";\n\nexport function OnlineStatus() {\n  const [online, setOnline] = useState(navigator.onLine);\n  useEffect(() => {\n    const update = () => setOnline(navigator.onLine);\n    window.addEventListener("online", update);\n    window.addEventListener("offline", update);\n    return () => {\n      window.removeEventListener("online", update);\n      window.removeEventListener("offline", update);\n    };\n  }, []);\n  return <p>{online ? "Online" : "Offline"}</p>;\n}',
+};
+
+## The idea
+
+An Effect synchronizes a component with an external system, such as a subscription, timer, or browser API. It is not the default place to calculate data.
+
+## Why it matters
+
+Keep event-specific work in event handlers. Derive values during rendering. Use an Effect when an external resource needs to stay synchronized with the rendered component.
+
+## A practical example
+
+```tsx
+import { useEffect, useState } from "react";
+
+export function OnlineStatus() {
+  const [online, setOnline] = useState(navigator.onLine);
+  useEffect(() => {
+    const update = () => setOnline(navigator.onLine);
+    window.addEventListener("online", update);
+    window.addEventListener("offline", update);
+    return () => {
+      window.removeEventListener("online", update);
+      window.removeEventListener("offline", update);
+    };
+  }, []);
+  return <p>{online ? "Online" : "Offline"}</p>;
+}
+```
+
+## Try it yourself
+
+Add a console message to setup and cleanup. Mount and unmount the component, then explain the order you see.
+
+## Keep exploring
+
+Read the [official documentation](https://react.dev/learn/you-might-not-need-an-effect) for the complete behavior and further examples.

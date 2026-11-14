@@ -1,0 +1,100 @@
+export const meta = {
+  slug: "promise-chains",
+  category: "javascript",
+  title: "Promise chains, failures & concurrent work",
+  description:
+    "Follow how returned values and thrown errors settle the next promise.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["javascript", "week-1", "interview-prep"],
+  questions: [
+    {
+      question:
+        "Does Promise.all cancel the other operations when one rejects?",
+      answer:
+        "No. Its combined result rejects, but the remaining work is not automatically canceled. Use an explicit cancellation mechanism when the operation supports it.",
+    },
+    {
+      question: "What happens when a catch handler returns an ordinary value?",
+      answer:
+        "The promise returned from catch fulfills with that value, allowing the following success handler to run. Throw again when failure should continue.",
+    },
+    {
+      question: "Does Promise.all cancel other requests after one fails?",
+      answer:
+        "No. Coordinate AbortControllers separately if cancellation is required.",
+    },
+  ],
+  facts: [
+    "A promise settles only once.",
+    "Return the promise for work that the next step must wait for.",
+    "finally is for cleanup, not a success-only action.",
+  ],
+  source:
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+  code: "Promise.resolve(2)\n .then(value => value * 3)\n .then(value => { throw new Error(`Unexpected ${value}`); })\n .catch(error => ({ ok: false, message: error.message }))\n .then(result => console.log(result));\n// catch returns a value here, so the final step is fulfilled.\n// A finally handler normally preserves the earlier outcome,\n// but a thrown error or rejected return can replace it.",
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 1,
+  planPages: [3],
+  quizDistractors: [
+    "Yes. Rejecting the combined promise automatically aborts every input operation.",
+    "Yes. Promise.all rolls back all side effects of earlier operations.",
+  ],
+  planRecordedStatus: "covered",
+};
+
+## The idea
+
+A promise represents an eventual settlement. A then handler returns a new promise: returning a value fulfills the next step, returning a promise adopts its outcome, and throwing rejects the next step. A catch handles a rejection and can recover by returning a value or continue failure by throwing.
+
+## Why it matters
+
+Always return or await asynchronous work that the surrounding operation depends on. Promise.all is useful when every result is required; allSettled preserves individual outcomes when partial success is useful. Neither automatically cancels remaining operations when one rejects.
+
+## A practical example
+
+```js
+Promise.resolve(2)
+  .then((value) => value * 3)
+  .then((value) => {
+    throw new Error(`Unexpected ${value}`);
+  })
+  .catch((error) => ({ ok: false, message: error.message }))
+  .then((result) => console.log(result));
+// catch returns a value here, so the final step is fulfilled.
+// A finally handler normally preserves the earlier outcome,
+// but a thrown error or rejected return can replace it.
+```
+
+## Common mistakes
+
+Forgetting to return a nested asynchronous operation can make the outer chain finish too early and lose its error path.
+
+## Try it yourself
+
+Build a three-step chain with one rejected step. Compare recovery by returning a value with propagation by throwing again.
+
+## Keep exploring
+
+Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
+
+## Combinators, ordering and failure behavior
+
+```ts
+async function loadDashboard() {
+  const [profile, activity] = await Promise.all([
+    fetch("/api/profile").then(check),
+    fetch("/api/activity").then(check),
+  ]);
+  return { profile, activity };
+}
+function check(response: Response) {
+  if (!response.ok) throw new Error(String(response.status));
+  return response.json();
+}
+```
+
+Promise.all preserves input ordering and rejects when a member rejects; it does not automatically cancel the other requests. allSettled waits for every result, useful for explicitly independent partial success. race settles on the first settled member. any fulfills on the first fulfillment, and rejects with AggregateError if all reject. A timeout race does not stop underlying work; pass cancellation where supported. Returning a value from catch recovers the chain; throwing keeps it rejected. finally normally preserves the outcome, but a thrown error or rejected returned promise can replace it.

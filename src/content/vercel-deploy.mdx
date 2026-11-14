@@ -1,0 +1,58 @@
+export const meta = {
+  codeLanguage: "bash",
+  category: "tooling",
+  slug: "vercel-deploy",
+  title: "From local to live on Vercel",
+  description: "Understand the build output before your first deployment.",
+  minutes: 5,
+  level: "Practical guide",
+  tags: ["vercel", "deployment", "vite"],
+  questions: [
+    {
+      question: "Are VITE_ variables secret?",
+      answer:
+        "No. Variables exposed through the VITE_ prefix are included in client code. Keep private credentials in server-side code.",
+    },
+    {
+      question: "Does this MVP need route rewrites?",
+      answer:
+        "Its hash routes work with static hosting without a rewrite. If you later adopt pathname routes, configure a fallback to index.html.",
+    },
+  ],
+  facts: [
+    "Commit the lockfile for reproducible dependency resolution.",
+    "Verify the output directory matches the build.",
+    "Preview deployments help review changes before production.",
+  ],
+  source: "https://vercel.com/docs/frameworks/frontend/vite",
+  code: "bun install\nbun run build\nbun run preview\n\n# In Vercel project settings:\n# Framework preset: Vite\n# Build command: bun run build\n# Output directory: dist",
+};
+
+## The idea
+
+A Vite production build turns your application into static files. Vercel can build those files and serve them through its hosting platform.
+
+## Why it matters
+
+Check the production build locally before connecting the repository. Set the framework to Vite, build command to bun run build, and output directory to dist.
+
+## A practical example
+
+```bash
+bun install
+bun run build
+bun run preview
+
+# In Vercel project settings:
+# Framework preset: Vite
+# Build command: bun run build
+# Output directory: dist
+```
+
+## Try it yourself
+
+Adapt this example to a small feature in your own project. Write down what the input is, what changes, and how you would handle a failure.
+
+## Keep exploring
+
+Read the [official documentation](https://vercel.com/docs/frameworks/frontend/vite) for the complete behavior and further examples.

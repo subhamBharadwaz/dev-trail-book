@@ -1,0 +1,78 @@
+export const meta = {
+  slug: "authenticated-mutations",
+  category: "backend",
+  title: "An authenticated mutation, end to end",
+  description:
+    "Connect validation, ownership, database writes, and safe errors.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["backend", "week-4", "interview-prep"],
+  questions: [
+    {
+      question: "Where should ownership be enforced for an update?",
+      answer:
+        "At the server mutation/data boundary, ideally in the constrained write itself or a transactionally sound authorization flow.",
+    },
+    {
+      question: "Why inspect the affected-row count?",
+      answer:
+        "A request can be valid while no accessible target matches. A successful query execution alone does not prove that the intended record was updated.",
+    },
+  ],
+  facts: [
+    "Validate lengths and formats as well as types.",
+    "Do not return raw database exceptions to clients.",
+    "Keep access rules reusable across Actions and HTTP handlers.",
+  ],
+  source:
+    "https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html",
+  code: 'async function renameEntry(userId, entryId, rawTitle) {\n  if (typeof rawTitle !== "string" || !rawTitle.trim()) {\n    return { ok: false, error: "A title is required" };\n  }\n  const title = rawTitle.trim();\n  if (title.length > 200) return { ok: false, error: "Title is too long" };\n  const result = await db.entries.updateMany({\n    where: { id: entryId, ownerId: userId }, data: { title },\n  });\n  if (result.count !== 1) return { ok: false, error: "Entry unavailable" };\n  return { ok: true };\n}',
+  codeLanguage: "ts",
+  origin: "study-plan",
+  planWeek: 4,
+  planPages: [4],
+  quizDistractors: [
+    "Only in the component that renders the edit button.",
+    "Only in a query parameter sent by the caller.",
+  ],
+};
+
+## The idea
+
+A reliable mutation crosses several boundaries: identify the caller, validate the request, authorize access to the target, perform the write, and return a safe result. Keep those checks close enough to the actual write that another transport cannot bypass them.
+
+## Why it matters
+
+Use a constrained update that includes the owner or tenant condition. Check its affected-row count. Apply transactions when several writes must succeed or fail together. Log internal diagnostics separately from the safe message returned to a user.
+
+## A practical example
+
+```ts
+async function renameEntry(userId, entryId, rawTitle) {
+  if (typeof rawTitle !== "string" || !rawTitle.trim()) {
+    return { ok: false, error: "A title is required" };
+  }
+  const title = rawTitle.trim();
+  if (title.length > 200) return { ok: false, error: "Title is too long" };
+  const result = await db.entries.updateMany({
+    where: { id: entryId, ownerId: userId },
+    data: { title },
+  });
+  if (result.count !== 1) return { ok: false, error: "Entry unavailable" };
+  return { ok: true };
+}
+```
+
+## Common mistakes
+
+A read-then-write sequence without a consistent authorization condition can allow stale assumptions. Put the access restriction on the write.
+
+## Try it yourself
+
+Exercise invalid input, a missing record, another user’s record, a database failure, and a successful rename.
+
+## Keep exploring
+
+Read the [technical reference](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 4, Week 4. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

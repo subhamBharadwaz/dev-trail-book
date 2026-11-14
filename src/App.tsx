@@ -1,3 +1,17 @@
+import { PageBoundary } from "./app/page-boundary";
+import { AppRoutes } from "./app/app-routes";
+import { ReadingProvider } from "./app/reading-provider";
+import { AppLayout } from "./components/layout/app-layout";
+import { useRoute } from "./hooks/use-route";
 export default function App() {
-  return <main className="mx-auto max-w-3xl p-8"><h1 className="text-3xl font-medium">Dev Trailbook</h1><p className="mt-4 text-muted-ink">Your developer field notes.</p></main>;
+  const route = useRoute();
+  return (
+    <ReadingProvider>
+      <AppLayout route={route}>
+        <PageBoundary key={route.path}>
+          <AppRoutes route={route} />
+        </PageBoundary>
+      </AppLayout>
+    </ReadingProvider>
+  );
 }

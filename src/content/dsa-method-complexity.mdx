@@ -1,0 +1,73 @@
+export const meta = {
+  slug: "dsa-method-complexity",
+  category: "dsa",
+  title: "The DSA solving loop & complexity review",
+  description:
+    "Build evidence of retention rather than a problem-count streak.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["dsa", "week-7", "interview-prep"],
+  questions: [
+    {
+      question: "Does solving many problems once prove retention?",
+      answer:
+        "No. Independent re-solves and explanations after a delay provide better evidence that the pattern is understood.",
+    },
+    {
+      question: "Should sorting be omitted from a complexity claim?",
+      answer:
+        "No. Include preprocessing and relevant output costs, not just the final scan.",
+    },
+  ],
+  facts: [
+    "State assumptions about collection operations.",
+    "A hint should be followed by an independent reproduction.",
+    "Classify misses as knowledge, implementation, communication, or time.",
+  ],
+  source: "https://cp-algorithms.com/index.html",
+  code: 'const review = {\n  problem: "Two Sum",\n  invariant: "Map contains only previously visited values",\n  time: "Expected O(n)",\n  extraSpace: "O(n)",\n  edges: ["duplicates", "index zero", "no solution"],\n  nextAttempts: ["about 2 days later", "about 7 days later"],\n};\n// Write this from memory after solving, not by copying the answer.',
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 7,
+  planPages: [6],
+  quizDistractors: [
+    "Yes. A high one-time problem count is enough to prove mastery.",
+    "Yes. Reading a solution is equivalent to reproducing it without notes.",
+  ],
+};
+
+## The idea
+
+Use a repeatable sequence: clarify the contract, describe a brute-force approach, identify redundant work, improve the algorithm, analyze time and space, test edges, then write working code. A serious independent attempt should come before a hint.
+
+## Why it matters
+
+The plan targets roughly 35–50 understood unique problems with repeated solves, adjusted to interview needs. Re-solve misses after roughly two and seven days. In an explanation, separate input size, output size, auxiliary space, recursion, and preprocessing cost.
+
+## A practical example
+
+```js
+const review = {
+  problem: "Two Sum",
+  invariant: "Map contains only previously visited values",
+  time: "Expected O(n)",
+  extraSpace: "O(n)",
+  edges: ["duplicates", "index zero", "no solution"],
+  nextAttempts: ["about 2 days later", "about 7 days later"],
+};
+// Write this from memory after solving, not by copying the answer.
+```
+
+## Common mistakes
+
+Do not count a copied solution as an independent solve. Record the exact gap and prove the repair later.
+
+## Try it yourself
+
+Take one missed problem, explain the brute-force and improved solution, then schedule two closed-book re-solves.
+
+## Keep exploring
+
+Read the [technical reference](https://cp-algorithms.com/index.html) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 6, Week 7. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

@@ -1,0 +1,71 @@
+export const meta = {
+  slug: "stale-closures",
+  category: "react",
+  title: "State snapshots & stale closures",
+  description: "Understand why a delayed callback sees an older render.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["react", "week-1", "interview-prep"],
+  questions: [
+    {
+      question: "Why can a callback read an old state value?",
+      answer:
+        "It closes over the bindings from a particular render. A later render creates new bindings; it does not rewrite the old closure.",
+    },
+    {
+      question: "When should I use a functional updater?",
+      answer:
+        "When the next state depends on the pending previous state. React can apply the updater to the current queued value.",
+    },
+  ],
+  facts: [
+    "A state setter schedules another render.",
+    "Functional updaters should be pure.",
+    "Do not suppress dependencies to freeze an Effect accidentally.",
+  ],
+  source: "https://react.dev/learn/state-as-a-snapshot",
+  code: 'import { useState } from "react";\nexport function DelayedCounter() {\n  const [count, setCount] = useState(0);\n  function addLater() {\n    setTimeout(() => setCount(current => current + 1), 300);\n  }\n  return <button onClick={addLater}>{count}</button>;\n}',
+  codeLanguage: "tsx",
+  origin: "study-plan",
+  planWeek: 1,
+  planPages: [3],
+  quizDistractors: [
+    "A later render edits all existing closure bindings in place.",
+    "React state can only be read inside useEffect.",
+  ],
+};
+
+## The idea
+
+Each render creates a snapshot of state and the functions that refer to it. A delayed callback retains the bindings from the render that created it. This is ordinary closure behavior, not React randomly losing an update.
+
+## Why it matters
+
+Use a functional state updater when the next value depends on the previous value. When synchronizing external systems, declare the reactive dependencies used by the Effect. A ref can hold a mutable value, but using one to hide dependencies can conceal a synchronization bug.
+
+## A practical example
+
+```tsx
+import { useState } from "react";
+export function DelayedCounter() {
+  const [count, setCount] = useState(0);
+  function addLater() {
+    setTimeout(() => setCount((current) => current + 1), 300);
+  }
+  return <button onClick={addLater}>{count}</button>;
+}
+```
+
+## Common mistakes
+
+Using a mutable ref for everything removes useful render-time state. Decide whether a value belongs to the UI snapshot or to an external mutable resource.
+
+## Try it yourself
+
+Click the delayed counter five times quickly. Compare count + 1 with current =&gt; current + 1 and explain the result.
+
+## Keep exploring
+
+Read the [technical reference](https://react.dev/learn/state-as-a-snapshot) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

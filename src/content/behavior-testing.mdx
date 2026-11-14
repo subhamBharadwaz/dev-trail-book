@@ -1,0 +1,78 @@
+export const meta = {
+  slug: "behavior-testing",
+  category: "testing",
+  title: "Test user behavior, async UI & failures",
+  description: "Write tests that fail when the experience breaks.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["testing", "week-5", "interview-prep"],
+  questions: [
+    {
+      question: "Should a test wait a fixed 500 ms for every async update?",
+      answer:
+        "Prefer waiting for the specific expected element or condition. Fixed delays are often slow, flaky, and unrelated to the behavior under test.",
+    },
+    {
+      question: "What should a failed form test verify?",
+      answer:
+        "The failure message, preserved input when appropriate, restored usable controls, and an available recovery action.",
+    },
+  ],
+  facts: [
+    "An accessible query also checks part of the UI contract.",
+    "Test failure paths, not only success.",
+    "Real-browser checks cover layout and focus behavior jsdom cannot fully model.",
+  ],
+  source: "https://testing-library.com/docs/guiding-principles/",
+  code: 'test("keeps an error visible after a failed save", async () => {\n  const user = userEvent.setup();\n  render(<EntryForm save={async () => { throw new Error("offline"); }} />);\n  await user.type(screen.getByRole("textbox", { name: "Title" }), "Notes");\n  await user.click(screen.getByRole("button", { name: "Save" }));\n  expect(await screen.findByRole("alert")).toHaveTextContent("Try again");\n  expect(screen.getByRole("textbox", { name: "Title" })).toHaveValue("Notes");\n});\n// The matchers above require the jest-dom Vitest setup.',
+  codeLanguage: "tsx",
+  origin: "study-plan",
+  planWeek: 5,
+  planPages: [4],
+  quizDistractors: [
+    "Yes. Fixed sleeps are always more reliable than waiting for an outcome.",
+    "Yes. Every asynchronous test must sleep for the longest possible request.",
+  ],
+};
+
+## The idea
+
+A useful component test checks what someone can do and observe: find a labelled control, enter a value, submit, wait for the relevant state, and recover from a failure. It should not merely repeat the component’s internal implementation.
+
+## Why it matters
+
+Use role and accessible-name queries where possible. Await asynchronous user interactions and wait for the specific expected result rather than sleeping for a fixed time. Mock an external boundary when appropriate, but keep the page’s real state transitions in the test.
+
+## A practical example
+
+```tsx
+test("keeps an error visible after a failed save", async () => {
+  const user = userEvent.setup();
+  render(
+    <EntryForm
+      save={async () => {
+        throw new Error("offline");
+      }}
+    />,
+  );
+  await user.type(screen.getByRole("textbox", { name: "Title" }), "Notes");
+  await user.click(screen.getByRole("button", { name: "Save" }));
+  expect(await screen.findByRole("alert")).toHaveTextContent("Try again");
+  expect(screen.getByRole("textbox", { name: "Title" })).toHaveValue("Notes");
+});
+// The matchers above require the jest-dom Vitest setup.
+```
+
+## Common mistakes
+
+An always-passing test is not useful evidence. Assert visible outcomes after the interaction, not simply that render returned.
+
+## Try it yourself
+
+Break the error message, remove the label, and disable retry one at a time. Confirm a relevant test fails for each regression.
+
+## Keep exploring
+
+Read the [technical reference](https://testing-library.com/docs/guiding-principles/) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 4, Week 5. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

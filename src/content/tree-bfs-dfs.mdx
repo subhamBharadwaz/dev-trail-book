@@ -1,0 +1,101 @@
+export const meta = {
+  slug: "tree-bfs-dfs",
+  category: "dsa",
+  title: "Trees: breadth-first & depth-first traversal",
+  description: "Choose a queue or stack according to the exploration order.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["dsa", "week-4", "interview-prep"],
+  questions: [
+    {
+      question: "Which traversal naturally visits a tree level by level?",
+      answer:
+        "Breadth-first search, using a queue. Nodes discovered earlier at the current frontier are processed before their deeper descendants.",
+    },
+    {
+      question: "Why might an iterative DFS be preferable to recursive DFS?",
+      answer:
+        "It avoids depending on the language runtime’s recursion depth limit for a very deep tree.",
+    },
+    {
+      question: "When does BFS use more memory than DFS?",
+      answer:
+        "A very wide tree can require a large BFS frontier while DFS keeps a path and deferred branches.",
+    },
+  ],
+  facts: [
+    "A general graph may require visited-state tracking.",
+    "Traversal order and output order are contract choices.",
+    "BFS memory can be large for a wide tree.",
+  ],
+  source: "https://cp-algorithms.com/graph/breadth-first-search.html",
+  code: "function breadthFirst(root) {\n if (!root) return [];\n const queue = [root], values = [];\n for (let head = 0; head < queue.length; head++) {\n const node = queue[head];\n values.push(node.value);\n if (node.left) queue.push(node.left);\n if (node.right) queue.push(node.right);\n }\n return values;\n}\n// An index avoids repeatedly shifting all queue elements.",
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 4,
+  planPages: [4],
+  quizDistractors: [
+    "Depth-first search always visits every shallower node first.",
+    "A recursive call automatically gives breadth-first ordering.",
+  ],
+};
+
+## The idea
+
+Breadth-first traversal explores by distance in edges from the root; depth-first traversal follows one branch before returning to alternatives. A queue expresses BFS. A stack or recursion expresses DFS. Trees do not need a visited set when the structure truly has no cycles and each child is reached once.
+
+## Why it matters
+
+The traversal touches each node once in O(n) time. Extra space depends on maximum width for BFS or depth/pending branches for DFS. Use an explicit stack when recursion depth can exceed the runtime’s call-stack limit.
+
+## A practical example
+
+```js
+function breadthFirst(root) {
+  if (!root) return [];
+  const queue = [root],
+    values = [];
+  for (let head = 0; head < queue.length; head++) {
+    const node = queue[head];
+    values.push(node.value);
+    if (node.left) queue.push(node.left);
+    if (node.right) queue.push(node.right);
+  }
+  return values;
+}
+// An index avoids repeatedly shifting all queue elements.
+```
+
+## Common mistakes
+
+Do not call every nested object a tree without checking for shared references or cycles. That changes the traversal contract.
+
+## Try it yourself
+
+Implement iterative preorder DFS and compare its output with BFS on the same asymmetric tree.
+
+## Keep exploring
+
+Read the [technical reference](https://cp-algorithms.com/graph/breadth-first-search.html) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 4, Week 4. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
+
+## Complete DFS and compare traversal memory
+
+```ts
+type Tree = { value: number; left?: Tree; right?: Tree };
+function preorder(root?: Tree): number[] {
+  if (!root) return [];
+  const stack: Tree[] = [root],
+    result: number[] = [];
+  while (stack.length) {
+    const node = stack.pop()!;
+    result.push(node.value);
+    if (node.right) stack.push(node.right);
+    if (node.left) stack.push(node.left);
+  }
+  return result;
+}
+```
+
+Preorder visits root, left, right; pushing right first makes the LIFO stack visit left first. Inorder visits left/root/right and postorder left/right/root. Tree traversal is O(n) time. DFS auxiliary memory is O(h), worst O(n) for skewed trees; BFS uses O(w) for maximum width. Output storage is separate. For graphs, cycles require a visited set; a tree-only algorithm is not automatically graph-safe.

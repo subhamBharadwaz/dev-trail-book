@@ -1,0 +1,80 @@
+export const meta = {
+  slug: "semantic-responsive",
+  category: "styling",
+  title: "Semantic HTML, Flexbox, Grid & responsive layouts",
+  description: "Build a usable page before adding visual polish.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["styling", "week-2", "interview-prep"],
+  questions: [
+    {
+      question: "Should a clickable div replace a button?",
+      answer:
+        "Usually no. A native button supplies keyboard and semantic behavior. A styled div requires you to recreate that contract correctly.",
+    },
+    {
+      question: "Is a breakpoint a device-specific rule?",
+      answer:
+        "It is a layout decision. Choose a breakpoint where the content and available space need a different arrangement, rather than assuming every device has one fixed width.",
+    },
+  ],
+  facts: [
+    "Test keyboard focus and text zoom.",
+    "Grid and Flexbox are complementary.",
+    "A label should remain useful without a placeholder.",
+  ],
+  source:
+    "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Responsive_Design",
+  code: '<main className="mx-auto max-w-5xl px-4 py-8">\n  <h1 className="text-3xl font-semibold">Your notes</h1>\n  <section aria-label="Topic collections"\n    className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">\n    <a href="/topics/react" className="rounded-xl border p-5\n      focus-visible:outline-2 focus-visible:outline-offset-4">\n      <h2 className="text-lg font-medium">React</h2>\n      <p className="mt-2 text-sm">Components and state.</p>\n    </a>\n  </section>\n</main>',
+  codeLanguage: "tsx",
+  origin: "study-plan",
+  planWeek: 2,
+  planPages: [3],
+  quizDistractors: [
+    "Yes. A div has the same default keyboard behavior as a button.",
+    "Yes. Adding an onClick handler automatically supplies button semantics.",
+  ],
+};
+
+## The idea
+
+Choose elements by meaning: buttons perform actions, links navigate, headings describe structure, and labels name form fields. CSS then controls presentation. The box model distinguishes content, padding, borders, and margins; box-sizing changes how declared dimensions include those pieces.
+
+## Why it matters
+
+Use Flexbox for arranging items along one primary axis and Grid for relationships across rows and columns. Start with a narrow layout, allow content to wrap, and add breakpoints when the content needs more room. Test zoom and long text as well as device widths.
+
+## A practical example
+
+```tsx
+<main className="mx-auto max-w-5xl px-4 py-8">
+  <h1 className="text-3xl font-semibold">Your notes</h1>
+  <section
+    aria-label="Topic collections"
+    className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+  >
+    <a
+      href="/topics/react"
+      className="rounded-xl border p-5
+      focus-visible:outline-2 focus-visible:outline-offset-4"
+    >
+      <h2 className="text-lg font-medium">React</h2>
+      <p className="mt-2 text-sm">Components and state.</p>
+    </a>
+  </section>
+</main>
+```
+
+## Common mistakes
+
+Do not hide essential actions on mobile just to make a screenshot fit. Reorganize the layout while keeping the task available.
+
+## Try it yourself
+
+Implement the same filterable list at narrow, medium, and wide widths. Test a very long topic title and 200% zoom.
+
+## Keep exploring
+
+Read the [technical reference](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Responsive_Design) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 2. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

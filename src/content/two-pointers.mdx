@@ -1,0 +1,108 @@
+export const meta = {
+  slug: "two-pointers",
+  category: "dsa",
+  title: "Two pointers: sorted pairs & palindromes",
+  description: "Use a monotonic move instead of restarting the scan.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["dsa", "week-1", "interview-prep"],
+  questions: [
+    {
+      question:
+        "Why does moving the left pointer help when the sorted pair sum is too small?",
+      answer:
+        "With ascending input, increasing the left value can increase the sum. Pairs using that smaller left value with any smaller right value cannot reach the target.",
+    },
+    {
+      question:
+        "Can the same movement rule be applied unchanged to unsorted input?",
+      answer:
+        "No. The ordering property is the reason the discarded candidates can be ruled out.",
+    },
+    {
+      question: "What proves the Two Pointers loop terminates?",
+      answer:
+        "Each iteration advances at least one pointer, reducing the unprocessed interval until the pointers meet.",
+    },
+  ],
+  facts: [
+    "Explain why each move safely discards candidates.",
+    "Keep left < right when indices must differ.",
+    "Include preprocessing in the complexity claim.",
+  ],
+  source: "https://usaco.guide/silver/two-pointers",
+  code: "function sortedPair(nums, target) {\n let left = 0, right = nums.length - 1;\n while (left < right) {\n const sum = nums[left] + nums[right];\n if (sum === target) return [left, right];\n if (sum < target) left++; else right--;\n }\n return null;\n}\n// nums must already be sorted in ascending order.",
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 1,
+  planPages: [3],
+  quizDistractors: [
+    "Because moving left always decreases the value.",
+    "Because pointer movement works independently of sorting.",
+  ],
+  planRecordedStatus: "pending",
+};
+
+## The idea
+
+Two-pointer algorithms maintain positions whose movement is justified by an invariant. In a sorted numeric array, a sum below the target lets you move the left pointer right; a sum above the target lets you move the right pointer left. Without sorting, that reasoning is invalid.
+
+## Why it matters
+
+The plan’s Two Pointers #1–2 are unnamed. Use Sorted Pair Sum and ASCII Palindrome as equivalent practice if the original list is unavailable. Sorting first changes time cost and may require preserving original indices, so do not conceal that preprocessing.
+
+## A practical example
+
+```js
+function sortedPair(nums, target) {
+  let left = 0,
+    right = nums.length - 1;
+  while (left < right) {
+    const sum = nums[left] + nums[right];
+    if (sum === target) return [left, right];
+    if (sum < target) left++;
+    else right--;
+  }
+  return null;
+}
+// nums must already be sorted in ascending order.
+```
+
+## Common mistakes
+
+A pattern is not an excuse to move a pointer arbitrarily. State which possibilities each move eliminates.
+
+## Try it yourself
+
+Implement a second exercise that checks an ASCII-normalized palindrome from both ends. Test empty and one-character strings.
+
+## Keep exploring
+
+Read the [technical reference](https://usaco.guide/silver/two-pointers) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
+
+## Complete the second Two Pointers exercise
+
+```ts
+function isAsciiPalindrome(input: string): boolean {
+  const value = input.toLowerCase();
+  const allowed = (c: string) => /^[a-z0-9]$/.test(c);
+  let left = 0,
+    right = value.length - 1;
+  while (left < right) {
+    if (!allowed(value[left])) {
+      left++;
+      continue;
+    }
+    if (!allowed(value[right])) {
+      right--;
+      continue;
+    }
+    if (value[left++] !== value[right--]) return false;
+  }
+  return true;
+}
+```
+
+The contract deliberately keeps ASCII letters and digits only. Test empty input, punctuation-only input, mixed case, one character and a mismatch. Each pointer advances monotonically: O(n) time. This implementation allocates a lowercase copy, so auxiliary space is O(n); do not claim O(1) total space. This is an explicit equivalent for the second unnamed PDF exercise.

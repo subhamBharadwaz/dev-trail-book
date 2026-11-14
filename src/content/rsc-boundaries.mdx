@@ -1,0 +1,75 @@
+export const meta = {
+  slug: "rsc-boundaries",
+  category: "nextjs",
+  title: "Server & Client Component boundaries",
+  description: "Choose a boundary based on data access and interaction.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["nextjs", "week-3", "interview-prep"],
+  questions: [
+    {
+      question:
+        "Does use client mean the component can never render initial HTML on the server?",
+      answer:
+        "No. Client Components can participate in the initial server-rendered HTML. The boundary determines browser-side component behavior and what code is shipped.",
+    },
+    {
+      question: "Can a client prop include a database connection?",
+      answer:
+        "No. Pass data supported by React’s serialization contract, not privileged server resources or arbitrary functions.",
+    },
+  ],
+  facts: [
+    "Server Components and SSR describe different aspects of rendering.",
+    "The RSC payload is not the same artifact as HTML.",
+    "Enforce authorization where the data is read.",
+  ],
+  source:
+    "https://nextjs.org/docs/app/getting-started/server-and-client-components",
+  code: '// app/journal/page.tsx — Server Component\nimport { getEntriesForCurrentUser } from "@/data/entries";\nimport { EntryFilter } from "./entry-filter";\nexport default async function JournalPage() {\n  const entries = await getEntriesForCurrentUser();\n  return <EntryFilter entries={entries.map(entry => ({\n    id: entry.id, title: entry.title,\n  }))} />;\n}\n// entry-filter.tsx begins with \'use client\' and owns filter state.',
+  codeLanguage: "ts",
+  origin: "study-plan",
+  planWeek: 3,
+  planPages: [3],
+  quizDistractors: [
+    "Yes. use client disables all server-generated initial HTML.",
+    "Yes. Client Components run only in a web worker.",
+  ],
+};
+
+## The idea
+
+In the App Router, a Server Component can load server-side data and compose UI without shipping its component implementation as browser JavaScript. A Client Component supplies interactivity and browser hooks. The use client directive defines a module boundary; it is not a command to fetch all data in the browser.
+
+## Why it matters
+
+Keep secrets and privileged data access on the server. Pass an intentionally small, serializable view model into an interactive component. Client Components can contribute to server-generated initial HTML, so client does not mean that no server rendering is involved.
+
+## A practical example
+
+```ts
+// app/journal/page.tsx — Server Component
+import { getEntriesForCurrentUser } from "@/data/entries";
+import { EntryFilter } from "./entry-filter";
+export default async function JournalPage() {
+  const entries = await getEntriesForCurrentUser();
+  return <EntryFilter entries={entries.map(entry => ({
+    id: entry.id, title: entry.title,
+  }))} />;
+}
+// entry-filter.tsx begins with 'use client' and owns filter state.
+```
+
+## Common mistakes
+
+Marking a large subtree use client can unnecessarily expand the client bundle. Start with the smallest interactive boundary that meets the requirement.
+
+## Try it yourself
+
+Draw the journal page boundary. List exactly what data crosses into the interactive filter and why each field is needed.
+
+## Keep exploring
+
+Read the [technical reference](https://nextjs.org/docs/app/getting-started/server-and-client-components) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 3. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

@@ -1,0 +1,74 @@
+export const meta = {
+  slug: "read-only-tools",
+  category: "ai",
+  title: "A small read-only tool with clear boundaries",
+  description: "Make tool status and results understandable.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["ai", "week-6", "interview-prep"],
+  questions: [
+    {
+      question: "Does a read-only tool need authorization?",
+      answer:
+        "Yes. Reading can disclose protected information. Enforce which data the current caller may access.",
+    },
+    {
+      question: "Can retrieved text grant permission for another action?",
+      answer:
+        "No. Treat retrieved instructions as untrusted content. Application permissions come from the authorized task and access policy.",
+    },
+  ],
+  facts: [
+    "Read-only is not equivalent to public.",
+    "Constrain destination URLs and resource IDs.",
+    "Show tool status rather than leaving the user to infer it.",
+  ],
+  source:
+    "https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/timeout_static",
+  code: 'const allowed = new Set(["public-topic-index", "public-glossary"]);\nasync function readCollection(input, user) {\n  if (!allowed.has(input.collection)) throw new Error("Unknown collection");\n  await authorizeCollectionRead(user, input.collection);\n  const response = await fetch(buildAllowedUrl(input.collection), {\n    signal: AbortSignal.timeout(5000),\n  });\n  if (!response.ok) throw new Error("Collection unavailable");\n  return validateCollection(await response.json());\n}',
+  codeLanguage: "ts",
+  origin: "study-plan",
+  planWeek: 6,
+  planPages: [4],
+  quizDistractors: [
+    "No. Reading is always public and cannot disclose sensitive data.",
+    "No. A model-selected ID should bypass the app’s access checks.",
+  ],
+};
+
+## The idea
+
+A tool interface exposes an application capability through a constrained contract. A read-only tool can retrieve allowed information without changing state, but it still needs input validation, authorization, output validation, time limits, and a useful error model.
+
+## Why it matters
+
+Let the application enforce which resources a caller may inspect. Treat instructions embedded in retrieved content as data, not new permissions. The exercise in the plan is one bounded read-only tool, with clear pending, success, empty, and failed states.
+
+## A practical example
+
+```ts
+const allowed = new Set(["public-topic-index", "public-glossary"]);
+async function readCollection(input, user) {
+  if (!allowed.has(input.collection)) throw new Error("Unknown collection");
+  await authorizeCollectionRead(user, input.collection);
+  const response = await fetch(buildAllowedUrl(input.collection), {
+    signal: AbortSignal.timeout(5000),
+  });
+  if (!response.ok) throw new Error("Collection unavailable");
+  return validateCollection(await response.json());
+}
+```
+
+## Common mistakes
+
+Do not turn a collection name into an arbitrary user-supplied fetch URL. Keep the network destination under application control.
+
+## Try it yourself
+
+Build a tool that reads one permitted note collection. Test an unknown collection, access denial, timeout, empty result, and malformed output.
+
+## Keep exploring
+
+Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/timeout_static) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 4, Week 6. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

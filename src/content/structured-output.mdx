@@ -1,0 +1,87 @@
+export const meta = {
+  slug: "structured-output",
+  category: "ai",
+  title: "Structured output & runtime validation",
+  description: "A promised schema still needs a checked boundary.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["ai", "week-6", "interview-prep"],
+  questions: [
+    {
+      question: "Does valid JSON guarantee the application’s expected schema?",
+      answer:
+        "No. JSON syntax and application shape are separate checks. Validate required fields, value types, and business constraints.",
+    },
+    {
+      question: "What belongs in the failure path?",
+      answer:
+        "A safe explanation, a way to retry or recover, and no attempt to use an unvalidated object as though it were correct.",
+    },
+    {
+      question: "Can schema-valid output still be wrong?",
+      answer:
+        "Yes. Shape validation does not establish factual truth, authorization, safe HTML, or business correctness.",
+    },
+  ],
+  facts: [
+    "Validate model and tool results like other external input.",
+    "Avoid unlimited automatic repair retries.",
+    "Do not trust generated HTML merely because it fits a schema.",
+  ],
+  source: "https://json-schema.org/understanding-json-schema",
+  code: 'type Summary = { title: string; facts: string[] };\nfunction isSummary(value: unknown): value is Summary {\n  if (typeof value !== "object" || value === null) return false;\n  return "title" in value && typeof value.title === "string"\n    && "facts" in value && Array.isArray(value.facts)\n    && value.facts.every(item => typeof item === "string");\n}\nconst parsed: unknown = JSON.parse(rawModelText);\nif (!isSummary(parsed)) throw new Error("Unexpected summary format");\n// Add length limits and business constraints at the same boundary.',
+  codeLanguage: "ts",
+  origin: "study-plan",
+  planWeek: 6,
+  planPages: [4],
+  quizDistractors: [
+    "Yes. JSON.parse guarantees all required application fields.",
+    "Yes. Any valid JSON value automatically satisfies a TypeScript interface.",
+  ],
+  planRecordedStatus: "covered",
+};
+
+## The idea
+
+Structured model output is useful when the application needs a predictable object rather than free-form prose. Define the contract, request it through a supported server integration, parse the response, and validate the result before using it.
+
+## Why it matters
+
+Handle malformed JSON, a schema mismatch, refusal, timeout, and missing required content as deliberate outcomes. A TypeScript interface or a JSON.parse call is not sufficient validation. Keep the exercise small: one schema and one feature, rather than a new platform.
+
+## A practical example
+
+```ts
+type Summary = { title: string; facts: string[] };
+function isSummary(value: unknown): value is Summary {
+  if (typeof value !== "object" || value === null) return false;
+  return (
+    "title" in value &&
+    typeof value.title === "string" &&
+    "facts" in value &&
+    Array.isArray(value.facts) &&
+    value.facts.every((item) => typeof item === "string")
+  );
+}
+const parsed: unknown = JSON.parse(rawModelText);
+if (!isSummary(parsed)) throw new Error("Unexpected summary format");
+// Add length limits and business constraints at the same boundary.
+```
+
+## Common mistakes
+
+Do not repair arbitrary invalid output with silent coercions that change its meaning. Decide what the application may safely accept.
+
+## Try it yourself
+
+Test missing facts, a number in the facts array, malformed JSON, and an unexpectedly long title. Keep invalid data out of the rendered feature.
+
+## Keep exploring
+
+Read the [technical reference](https://json-schema.org/understanding-json-schema) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 4, Week 6. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
+
+## Validation failure matrix
+
+Test invalid JSON, null, an array instead of an object, missing title, non-string title, a facts value that is not an array, one non-string fact, excessive title length, excessive fact count and business-invalid content. Define these limits in a server-side schema and reject before rendering or storing. Validate the complete result after streaming finishes; partial JSON is not a final object. Report refusal separately where the provider protocol supports it. Bound repair retries and preserve a safe failure state.

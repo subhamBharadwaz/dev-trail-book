@@ -1,0 +1,75 @@
+export const meta = {
+  slug: "reducers-context-refs",
+  category: "react",
+  title: "Reducers, context & refs",
+  description: "Choose a state tool according to ownership and lifetime.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["react", "week-2", "interview-prep"],
+  questions: [
+    {
+      question: "Does changing ref.current trigger a render?",
+      answer:
+        "No. Use state when the UI must render a changed value. Refs are appropriate for mutable information not used as the rendered snapshot.",
+    },
+    {
+      question: "Does context replace a reducer?",
+      answer:
+        "No. Context distributes values; a reducer defines how state transitions. You may distribute reducer state and dispatch through context.",
+    },
+  ],
+  facts: [
+    "Reducers return new state without mutating previous state.",
+    "Place providers around the smallest useful shared subtree.",
+    "A reducer action should describe an event or intention.",
+  ],
+  source: "https://react.dev/learn/scaling-up-with-reducer-and-context",
+  code: 'function reducer(state, action) {\n  switch (action.type) {\n    case "saved":\n      return { ...state, saved: [...state.saved, action.id] };\n    case "cleared":\n      return { ...state, saved: [] };\n    default: return state;\n  }\n}\nconst [state, dispatch] = useReducer(reducer, { saved: [] });\n// dispatch({ type: "saved", id: "closures" });',
+  codeLanguage: "tsx",
+  origin: "study-plan",
+  planWeek: 2,
+  planPages: [3],
+  quizDistractors: [
+    "Yes. Assigning any value to a ref schedules a render.",
+    "A ref and useState always have identical rendering behavior.",
+  ],
+};
+
+## The idea
+
+A reducer describes state transitions with actions. Context distributes a value through a subtree. A ref stores a mutable value whose changes do not trigger rendering. These tools solve different problems and can be composed without putting every value into global state.
+
+## Why it matters
+
+Keep transient input state close to its input. Share reading progress when several views need it. Use refs for DOM nodes, timer handles, or other imperative resources. A context provider changing its value can update consumers; context is not automatically a performance optimization.
+
+## A practical example
+
+```tsx
+function reducer(state, action) {
+  switch (action.type) {
+    case "saved":
+      return { ...state, saved: [...state.saved, action.id] };
+    case "cleared":
+      return { ...state, saved: [] };
+    default:
+      return state;
+  }
+}
+const [state, dispatch] = useReducer(reducer, { saved: [] });
+// dispatch({ type: "saved", id: "closures" });
+```
+
+## Common mistakes
+
+Do not move all state into context simply to avoid passing one prop. Wider ownership creates more coupling.
+
+## Try it yourself
+
+Model save, unsave, and mark-read actions. Keep the search input local while sharing saved IDs with the sidebar.
+
+## Keep exploring
+
+Read the [technical reference](https://react.dev/learn/scaling-up-with-reducer-and-context) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 2. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

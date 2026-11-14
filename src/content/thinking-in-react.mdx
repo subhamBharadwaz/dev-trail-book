@@ -1,0 +1,76 @@
+export const meta = {
+  origin: "study-plan",
+  planWeek: 2,
+  planPages: [3],
+  codeLanguage: "tsx",
+  category: "react",
+  slug: "thinking-in-react",
+  title: "Thinking in components",
+  description:
+    "Break an interface into pieces and find the smallest useful state.",
+  minutes: 7,
+  level: "Start here",
+  tags: ["components", "state", "props"],
+  questions: [
+    {
+      question: "Should filtered data be state?",
+      answer:
+        "Usually no. Calculate it during render from the original list and the current filter. Storing both introduces synchronization work.",
+    },
+    {
+      question: "Where should shared state live?",
+      answer:
+        "In the closest common parent of the components that need it, unless a wider state solution is justified.",
+    },
+  ],
+  facts: [
+    "Props are read-only inputs.",
+    "Use stable keys from your data for list items.",
+    "Rendering should be pure: the same inputs produce the same output.",
+  ],
+  source: "https://react.dev/learn/thinking-in-react",
+  code: 'import { useState } from "react";\n\nexport function TopicFilter({ topics }) {\n  const [query, setQuery] = useState("");\n  const visible = topics.filter(topic =>\n    topic.title.toLowerCase().includes(query.toLowerCase())\n  );\n  return <>\n    <input aria-label="Filter topics" value={query}\n      onChange={event => setQuery(event.target.value)} />\n    <ul>{visible.map(topic =>\n      <li key={topic.id}>{topic.title}</li>\n    )}</ul>\n  </>;\n}',
+};
+
+## The idea
+
+Build a component around a clear responsibility. Pass information down through props, and move shared state to the closest common parent.
+
+## Why it matters
+
+First build a static version from your data. Then identify what changes through interaction. Values you can calculate from props or state usually do not need their own state.
+
+## A practical example
+
+```tsx
+import { useState } from "react";
+
+export function TopicFilter({ topics }) {
+  const [query, setQuery] = useState("");
+  const visible = topics.filter((topic) =>
+    topic.title.toLowerCase().includes(query.toLowerCase()),
+  );
+  return (
+    <>
+      <input
+        aria-label="Filter topics"
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+      />
+      <ul>
+        {visible.map((topic) => (
+          <li key={topic.id}>{topic.title}</li>
+        ))}
+      </ul>
+    </>
+  );
+}
+```
+
+## Try it yourself
+
+Adapt this example to a small feature in your own project. Write down what the input is, what changes, and how you would handle a failure.
+
+## Keep exploring
+
+Read the [official documentation](https://react.dev/learn/thinking-in-react) for the complete behavior and further examples.

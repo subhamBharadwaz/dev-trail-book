@@ -1,0 +1,105 @@
+export const meta = {
+  slug: "hashmap-practice",
+  category: "dsa",
+  title: "HashMap practice: duplicates & frequencies",
+  description:
+    "Fill the plan’s two unnamed HashMap slots with explicit exercises.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["dsa", "week-1", "interview-prep"],
+  questions: [
+    {
+      question: "When is a Set sufficient instead of a count map?",
+      answer:
+        "When the algorithm only needs membership or uniqueness. Use counts when multiplicity changes the answer.",
+    },
+    {
+      question: "Are these the exact original HashMap #3–4 problems?",
+      answer:
+        "The plan did not name them. They are explicit equivalent exercises; keep your original list if it is available.",
+    },
+    {
+      question: "Why is a Set insufficient for an anagram check?",
+      answer:
+        "A Set loses multiplicity: aab and abb contain the same distinct characters but are not anagrams.",
+    },
+  ],
+  facts: [
+    "Choose a structure according to the information required.",
+    "Counting repeated values differs from deduplicating them.",
+    "State character and numeric input assumptions.",
+  ],
+  source:
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+  code: "function containsDuplicate(nums) {\n const seen = new Set();\n for (const value of nums) {\n if (seen.has(value)) return true;\n seen.add(value);\n }\n return false;\n}\nfunction frequencies(text) {\n const counts = new Map();\n for (const char of text) counts.set(char, (counts.get(char) ?? 0) + 1);\n return counts;\n}\n// Compare character counts to finish Valid Anagram.",
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 1,
+  planPages: [3],
+  quizDistractors: [
+    "A Set is always enough when exact occurrence counts matter.",
+    "A Set automatically stores the frequency of each member.",
+  ],
+  planRecordedStatus: "pending",
+};
+
+## The idea
+
+The PDF names HashMap #3–4 without specifying problems. Use your existing list if you have it; this site offers Contains Duplicate and Valid Anagram as clearly labelled equivalents. One uses a set for membership; the other uses a map for counts.
+
+## Why it matters
+
+The underlying question is what information must survive between iterations. Membership needs only seen/not-seen. Frequency needs an integer per key. Explain the invariant and edge cases rather than treating every collection problem as the same template.
+
+## A practical example
+
+```js
+function containsDuplicate(nums) {
+  const seen = new Set();
+  for (const value of nums) {
+    if (seen.has(value)) return true;
+    seen.add(value);
+  }
+  return false;
+}
+function frequencies(text) {
+  const counts = new Map();
+  for (const char of text) counts.set(char, (counts.get(char) ?? 0) + 1);
+  return counts;
+}
+// Compare character counts to finish Valid Anagram.
+```
+
+## Common mistakes
+
+Do not silently replace the original exercise list. These are replacements only where the original names are unavailable.
+
+## Try it yourself
+
+Finish Valid Anagram and test repeated characters. Explain why a Set alone cannot distinguish aab from abb.
+
+## Keep exploring
+
+Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
+
+## Complete the second HashMap exercise
+
+```ts
+function validAnagram(a: string, b: string): boolean {
+  const left = Array.from(a),
+    right = Array.from(b);
+  if (left.length !== right.length) return false;
+  const counts = new Map<string, number>();
+  for (const c of left) counts.set(c, (counts.get(c) ?? 0) + 1);
+  for (const c of right) {
+    const remaining = counts.get(c) ?? 0;
+    if (!remaining) return false;
+    counts.set(c, remaining - 1);
+  }
+  return true;
+}
+```
+
+This compares Unicode code points, not grapheme clusters; normalization and case folding require an explicit product rule. Time O(n + m), auxiliary space O(k). Check empty strings, duplicate counts, unequal lengths and emoji. Together with the existing Contains Duplicate example, this fills the two unnamed HashMap slots with labelled equivalents.

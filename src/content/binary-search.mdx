@@ -1,0 +1,74 @@
+export const meta = {
+  slug: "binary-search",
+  category: "dsa",
+  title: "Binary search with a half-open interval",
+  description: "Keep the candidate range and exit condition consistent.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["dsa", "week-3", "interview-prep"],
+  questions: [
+    {
+      question: "Does lower bound always return an exact target match?",
+      answer:
+        "No. It returns the first position whose value is at least the target, or the array length. Check the value if an exact match is required.",
+    },
+    {
+      question: "Why must the search interval shrink on every iteration?",
+      answer:
+        "Without strict progress, the loop may revisit the same bounds indefinitely. Align updates with the interval convention.",
+    },
+  ],
+  facts: [
+    "Choose inclusive or half-open bounds and stay consistent.",
+    "Handle duplicates and an absent target.",
+    "Binary search can also search monotonic predicates.",
+  ],
+  source: "https://cp-algorithms.com/num_methods/binary_search.html",
+  code: "function lowerBound(nums, target) {\n  let left = 0, right = nums.length;\n  while (left < right) {\n    const mid = left + Math.floor((right - left) / 2);\n    if (nums[mid] < target) left = mid + 1;\n    else right = mid;\n  }\n  return left;\n}\n// O(log n) time, O(1) extra space for sorted random-access input.",
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 3,
+  planPages: [3],
+  quizDistractors: [
+    "Yes. A lower-bound result always proves the target exists.",
+    "Yes. It returns -1 whenever there is no exact match.",
+  ],
+};
+
+## The idea
+
+Binary search repeatedly discards a portion of an ordered search space. A lower-bound search finds the first index whose value is at least the target. Using a half-open interval [left, right) makes the empty-range condition left === right straightforward.
+
+## Why it matters
+
+Write the invariant before the loop: values before left are too small, and right is an excluded boundary. Lower bound is not automatically an exact match, so check the returned index and value if the caller asks whether a target exists.
+
+## A practical example
+
+```js
+function lowerBound(nums, target) {
+  let left = 0,
+    right = nums.length;
+  while (left < right) {
+    const mid = left + Math.floor((right - left) / 2);
+    if (nums[mid] < target) left = mid + 1;
+    else right = mid;
+  }
+  return left;
+}
+// O(log n) time, O(1) extra space for sorted random-access input.
+```
+
+## Common mistakes
+
+Mixing left &lt;= right with updates written for a half-open interval creates off-by-one errors and nontermination.
+
+## Try it yourself
+
+Test empty input, one element, duplicate targets, and targets below or above the entire array.
+
+## Keep exploring
+
+Read the [technical reference](https://cp-algorithms.com/num_methods/binary_search.html) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 3. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

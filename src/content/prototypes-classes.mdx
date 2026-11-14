@@ -1,0 +1,76 @@
+export const meta = {
+  slug: "prototypes-classes",
+  category: "javascript",
+  title: "Prototypes, classes & shared behavior",
+  description: "Trace property lookup through the prototype chain.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["javascript", "week-1", "interview-prep"],
+  questions: [
+    {
+      question: "Are ordinary class methods copied into every instance?",
+      answer:
+        "No. They are normally defined on the class prototype and shared by instances.",
+    },
+    {
+      question: "What does Object.hasOwn check?",
+      answer:
+        "Whether the object itself owns a property. Unlike the in operator, it does not include inherited properties.",
+    },
+  ],
+  facts: [
+    "Instances can share methods while keeping separate state.",
+    "Overriding an own property can hide an inherited one.",
+    "Private class fields are not ordinary public properties.",
+  ],
+  source:
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain",
+  code: 'class Counter {\n  value = 0;\n  increment() { this.value += 1; }\n}\nconst a = new Counter();\nconst b = new Counter();\na.increment();\nconsole.log(a.value, b.value); // 1, 0\nconsole.log(a.increment === b.increment); // true\nconsole.log(Object.hasOwn(a, "value")); // true',
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 1,
+  planPages: [3],
+  quizDistractors: [
+    "Yes. Every new instance gets a separate copy of each ordinary method.",
+    "Methods are stored only on the constructor and cannot be inherited.",
+  ],
+};
+
+## The idea
+
+Objects can delegate property lookup to a prototype. If a property is absent on the object, lookup continues through that chain. Class methods are normally shared through the prototype; instance fields belong to each instance. JavaScript classes use this object model rather than introducing an unrelated inheritance mechanism.
+
+## Why it matters
+
+Check whether behavior belongs to each instance or can be shared. Favor composition when inheritance obscures ownership. Being able to explain own properties versus inherited properties is more useful than memorizing the spelling of class syntax.
+
+## A practical example
+
+```js
+class Counter {
+  value = 0;
+  increment() {
+    this.value += 1;
+  }
+}
+const a = new Counter();
+const b = new Counter();
+a.increment();
+console.log(a.value, b.value); // 1, 0
+console.log(a.increment === b.increment); // true
+console.log(Object.hasOwn(a, "value")); // true
+```
+
+## Common mistakes
+
+Do not mutate built-in prototypes to solve local application problems. It can unexpectedly affect unrelated code.
+
+## Try it yourself
+
+Add a getter to Counter, inspect its prototype, and compare it with an arrow function stored as an instance field.
+
+## Keep exploring
+
+Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

@@ -1,0 +1,60 @@
+export const meta = {
+  codeLanguage: "js",
+  category: "tooling",
+  slug: "vite-mdx",
+  title: "Build a content site with MDX",
+  description: "Keep notes in Markdown and add components when they help.",
+  minutes: 7,
+  level: "Practical guide",
+  tags: ["vite", "mdx", "markdown"],
+  questions: [
+    {
+      question: "Why MDX instead of plain Markdown?",
+      answer:
+        "Use MDX when your notes benefit from components, such as a live example. Plain Markdown is sufficient when all content is static prose.",
+    },
+    {
+      question: "Can I compile arbitrary user MDX safely?",
+      answer:
+        "MDX can execute JavaScript. This site compiles repository-owned content; it does not evaluate untrusted submitted MDX.",
+    },
+  ],
+  facts: [
+    "MDX supports both Markdown syntax and JSX.",
+    "Keep article metadata separate from presentation decisions.",
+    "Run the MDX plugin before the React plugin in Vite.",
+  ],
+  source: "https://mdxjs.com/getting-started/",
+  code: 'import mdx from "@mdx-js/rollup";\nimport react from "@vitejs/plugin-react";\nimport { defineConfig } from "vite";\n\nexport default defineConfig({\n  plugins: [\n    { enforce: "pre", ...mdx() },\n    react({ include: /\\.(jsx|js|mdx|md|tsx|ts)$/ }),\n  ],\n});',
+};
+
+## The idea
+
+MDX combines Markdown with JSX. You can write headings, links, lists, and fenced code, then embed React components where an explanation needs interaction.
+
+## Why it matters
+
+Compile trusted content at build time with the official MDX Rollup plugin. Keep each topic in its own file, export metadata, and let Vite discover the collection.
+
+## A practical example
+
+```js
+import mdx from "@mdx-js/rollup";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  plugins: [
+    { enforce: "pre", ...mdx() },
+    react({ include: /\.(jsx|js|mdx|md|tsx|ts)$/ }),
+  ],
+});
+```
+
+## Try it yourself
+
+Create a new topic file with metadata, two headings, a code block, and one question. Confirm it appears in the library.
+
+## Keep exploring
+
+Read the [official documentation](https://mdxjs.com/getting-started/) for the complete behavior and further examples.

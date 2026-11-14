@@ -1,0 +1,96 @@
+export const meta = {
+  slug: "search-abort-races",
+  category: "react",
+  title: "Search: debounce, cancellation & stale results",
+  description:
+    "Repair the aborted-request error from our user-search exercise.",
+  minutes: 8,
+  level: "Discussion recap",
+  tags: ["react", "week-1", "interview-prep"],
+  questions: [
+    {
+      question: "Should an aborted search show a failure message?",
+      answer:
+        "Not when it was canceled because a newer query replaced it or the component unmounted. Treat expected cancellation separately from a real failure.",
+    },
+    {
+      question: "Why guard finally as well as success?",
+      answer:
+        "A stale request can finish after a new one starts. Its finally must not incorrectly clear the newer request’s loading state.",
+    },
+  ],
+  facts: [
+    "Check response.ok before parsing successful application data.",
+    "AbortController instances are single-use cancellation owners.",
+    "The public users endpoint from the exercise returns a full list; local filtering can fetch once.",
+  ],
+  source: "https://developer.mozilla.org/en-US/docs/Web/API/AbortController",
+  code: 'useEffect(() => {\n  const controller = new AbortController();\n  let active = true;\n  const timer = setTimeout(async () => {\n    setLoading(true); setError("");\n    try {\n      const response = await fetch(\n        `/api/users?q=${encodeURIComponent(search)}`,\n        { signal: controller.signal }\n      );\n      if (!response.ok) throw new Error("Search failed");\n      const data = await response.json();\n      if (active) setUsers(data);\n    } catch (error) {\n      if (active && !controller.signal.aborted) {\n        setError(error instanceof Error ? error.message : "Search failed");\n      }\n    } finally { if (active) setLoading(false); }\n  }, 300);\n  return () => {\n    active = false; clearTimeout(timer); controller.abort();\n  };\n}, [search]);',
+  codeLanguage: "tsx",
+  origin: "discussion",
+  planWeek: 1,
+  planPages: [3],
+  quizDistractors: [
+    "Yes. All cancellations should be displayed as fatal errors.",
+    "AbortController automatically retries canceled requests.",
+  ],
+  discussionSource: {
+    title: "React User Search App",
+    url: "https://chatgpt.com/c/6adee764-1214-83ee-9ac5-ba46b5a443f2",
+  },
+};
+
+## The idea
+
+The earlier search exercise added AbortController to an Effect and then displayed “The operation was aborted” during normal typing. That cancellation is expected cleanup, not a failure to show to the user. Keep genuine request failures visible while ignoring work that belongs to an obsolete query.
+
+## Why it matters
+
+A timer limits request frequency; abort cancels supported work; an active flag prevents an obsolete continuation from writing state. Guard finally too: an old request must not clear the loading state of a newer request. This example assumes /api/users implements server-side name filtering and returns an array.
+
+## A practical example
+
+```tsx
+useEffect(() => {
+  const controller = new AbortController();
+  let active = true;
+  const timer = setTimeout(async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const response = await fetch(
+        `/api/users?q=${encodeURIComponent(search)}`,
+        { signal: controller.signal },
+      );
+      if (!response.ok) throw new Error("Search failed");
+      const data = await response.json();
+      if (active) setUsers(data);
+    } catch (error) {
+      if (active && !controller.signal.aborted) {
+        setError(error instanceof Error ? error.message : "Search failed");
+      }
+    } finally {
+      if (active) setLoading(false);
+    }
+  }, 300);
+  return () => {
+    active = false;
+    clearTimeout(timer);
+    controller.abort();
+  };
+}, [search]);
+```
+
+## Common mistakes
+
+Do not paste a Markdown-formatted link into the fetch URL. The endpoint must be an actual URL string. Cancellation should not erase a genuine error from the currently active request.
+
+## Try it yourself
+
+Test rapid typing, clearing the input, slow responses, a 500 response, and unmounting. For a fetch-all API, fetch once and filter locally instead.
+
+## Keep exploring
+
+Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF. The explanation also uses the accessible discussion excerpt.

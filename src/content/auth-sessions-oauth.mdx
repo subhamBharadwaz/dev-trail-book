@@ -1,0 +1,73 @@
+export const meta = {
+  slug: "auth-sessions-oauth",
+  category: "security",
+  title: "Authentication, authorization, sessions & OAuth",
+  description: "Prove identity separately from granting permission.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["security", "week-4", "interview-prep"],
+  questions: [
+    {
+      question: "Does authentication automatically authorize every record?",
+      answer:
+        "No. After identifying a user, check their permission for the requested operation and resource.",
+    },
+    {
+      question: "Is the payload of a signed JWT necessarily secret?",
+      answer:
+        "No. Signing protects integrity, not confidentiality. Do not put secrets into an ordinary signed token payload.",
+    },
+  ],
+  facts: [
+    "Use secure cookie attributes appropriate to the deployment.",
+    "Recheck access at server data and mutation boundaries.",
+    "Do not describe OAuth alone as a complete user-authentication protocol.",
+  ],
+  source:
+    "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html",
+  code: "async function readEntry(request, entryId) {\n  const session = await authenticateRequest(request);\n  if (!session) return { status: 401 };\n  const entry = await db.entries.findFirst({\n    where: { id: entryId, ownerId: session.userId },\n  });\n  if (!entry) return { status: 404 };\n  return { status: 200, data: toEntryView(entry) };\n}",
+  codeLanguage: "ts",
+  origin: "study-plan",
+  planWeek: 4,
+  planPages: [4],
+  quizDistractors: [
+    "Yes. Any authenticated user may access every record by default.",
+    "Yes. A valid token removes the need to check resource ownership.",
+  ],
+};
+
+## The idea
+
+Authentication establishes who is making a request. Authorization decides whether that identity may perform a particular action on a particular resource. A session cookie or token is a mechanism for carrying identity-related state; neither is permission by itself.
+
+## Why it matters
+
+An opaque server-side session and a signed JWT have different revocation and storage trade-offs. A signature does not encrypt token content. OAuth delegates access; OpenID Connect adds identity conventions on top. Prefer established libraries and providers to inventing a protocol.
+
+## A practical example
+
+```ts
+async function readEntry(request, entryId) {
+  const session = await authenticateRequest(request);
+  if (!session) return { status: 401 };
+  const entry = await db.entries.findFirst({
+    where: { id: entryId, ownerId: session.userId },
+  });
+  if (!entry) return { status: 404 };
+  return { status: 200, data: toEntryView(entry) };
+}
+```
+
+## Common mistakes
+
+Hiding an edit button is a usability choice, not a permission check. Treat IDs and claimed roles from the browser as untrusted.
+
+## Try it yourself
+
+Create a two-user test: each user can read their own entry but cannot read or edit the other’s entry by changing its ID.
+
+## Keep exploring
+
+Read the [technical reference](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 4, Week 4. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

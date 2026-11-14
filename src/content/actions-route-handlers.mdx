@@ -1,0 +1,74 @@
+export const meta = {
+  slug: "actions-route-handlers",
+  category: "nextjs",
+  title: "Server Actions vs Route Handlers",
+  description: "Choose an interface for the caller you actually have.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["nextjs", "week-3", "interview-prep"],
+  questions: [
+    {
+      question: "Does using a Server Action remove the need for authorization?",
+      answer:
+        "No. Treat the action as a callable mutation boundary. Authenticate and authorize the specific operation on the server.",
+    },
+    {
+      question: "When does a Route Handler fit better?",
+      answer:
+        "When a webhook, external client, or other caller needs an explicit HTTP API rather than React’s action integration.",
+    },
+  ],
+  facts: [
+    "Validate request bodies at runtime.",
+    "Return safe, consistent errors.",
+    "Shared mutation rules belong below the transport interface.",
+  ],
+  source: "https://nextjs.org/docs/app/getting-started/mutating-data",
+  code: '// app/api/entries/route.ts — illustrative server helpers\nexport async function POST(request: Request) {\n  const user = await requireUser();\n  const input = await request.json().catch(() => null);\n  const parsed = entrySchema.safeParse(input);\n  if (!parsed.success) {\n    return Response.json({ error: "Invalid entry" }, { status: 400 });\n  }\n  const entry = await createEntryForUser(user.id, parsed.data);\n  return Response.json({ id: entry.id }, { status: 201 });\n}',
+  codeLanguage: "ts",
+  origin: "study-plan",
+  planWeek: 3,
+  planPages: [3],
+  quizDistractors: [
+    "Yes. A hidden Action can never be called without the matching button.",
+    "Yes. React automatically enforces your business permissions.",
+  ],
+};
+
+## The idea
+
+A Server Action is a server function integrated with React-driven mutations. A Route Handler implements an HTTP endpoint with an explicit method, request, and response. Both cross a trust boundary and require input validation and access checks.
+
+## Why it matters
+
+Use an Action for an app form when that integration fits. Use a Route Handler for webhooks, external clients, or an HTTP contract you intend to expose. Do not duplicate the business rules in both; keep validation and mutation logic in a shared server layer.
+
+## A practical example
+
+```ts
+// app/api/entries/route.ts — illustrative server helpers
+export async function POST(request: Request) {
+  const user = await requireUser();
+  const input = await request.json().catch(() => null);
+  const parsed = entrySchema.safeParse(input);
+  if (!parsed.success) {
+    return Response.json({ error: "Invalid entry" }, { status: 400 });
+  }
+  const entry = await createEntryForUser(user.id, parsed.data);
+  return Response.json({ id: entry.id }, { status: 201 });
+}
+```
+
+## Common mistakes
+
+Do not assume a hidden button protects a server function. The permission check must run at the actual data or mutation boundary.
+
+## Try it yourself
+
+Model one create-entry operation as a form Action and as an HTTP handler. Keep one shared authorization and mutation function.
+
+## Keep exploring
+
+Read the [technical reference](https://nextjs.org/docs/app/getting-started/mutating-data) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 3. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

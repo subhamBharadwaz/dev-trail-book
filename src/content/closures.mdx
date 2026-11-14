@@ -1,0 +1,73 @@
+export const meta = {
+  origin: "discussion",
+  planWeek: 1,
+  planPages: [3],
+  planRecordedStatus: "covered",
+  discussionSource: {
+    title: "JavaScript Closures Explained",
+    url: "https://chatgpt.com/c/6adafd56-69a4-83ee-8d58-9b10a3e3075a",
+  },
+  codeLanguage: "js",
+  category: "javascript",
+  slug: "closures",
+  title: "Closures, without the confusion",
+  description:
+    "Understand how functions remember the scope they were created in.",
+  minutes: 8,
+  level: "Fundamentals",
+  tags: ["scope", "functions", "interviews"],
+  questions: [
+    {
+      question: "Does a closure copy a variable?",
+      answer:
+        "No. It retains access to the lexical binding. Later changes to that binding can be observed by the closure.",
+    },
+    {
+      question: "Why does let help inside a loop?",
+      answer:
+        "A let declaration in a for loop creates a new binding for each iteration. Callbacks can therefore retain different iteration values.",
+    },
+    {
+      question: "Can closures retain memory?",
+      answer:
+        "Yes. Values reachable through a retained closure remain reachable. Remove listeners and subscriptions when they are no longer needed.",
+    },
+  ],
+  facts: [
+    "Scope is determined by where a function is defined, not where it is called.",
+    "Each call to the outer function can create an independent lexical environment.",
+    "A retained closure can keep referenced objects in memory.",
+  ],
+  source:
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures",
+  code: "function createCounter() {\n  let count = 0;\n  return () => ++count;\n}\n\nconst next = createCounter();\nconsole.log(next()); // 1\nconsole.log(next()); // 2",
+};
+
+## The idea
+
+A closure is a function together with access to its surrounding lexical environment. That access remains available even after the outer function has returned.
+
+## Why it matters
+
+Closures let you keep state private, create reusable handlers, and understand why a callback reads a particular value.
+
+## A practical example
+
+```js
+function createCounter() {
+  let count = 0;
+  return () => ++count;
+}
+
+const next = createCounter();
+console.log(next()); // 1
+console.log(next()); // 2
+```
+
+## Try it yourself
+
+Create two counters. Call one three times and the other once. Explain why their values stay independent.
+
+## Keep exploring
+
+Read the [official documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures) for the complete behavior and further examples.

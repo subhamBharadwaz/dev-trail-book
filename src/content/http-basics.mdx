@@ -1,0 +1,61 @@
+export const meta = {
+  origin: "study-plan",
+  planWeek: 4,
+  planPages: [4],
+  codeLanguage: "js",
+  category: "web",
+  slug: "http-basics",
+  title: "HTTP, requests & responses",
+  description: "Read the contract between your browser and a server.",
+  minutes: 6,
+  level: "Fundamentals",
+  tags: ["http", "network", "api"],
+  questions: [
+    {
+      question: "What does a 204 response mean?",
+      answer:
+        "The request succeeded and there is no response content. Do not try to parse an empty response body as JSON.",
+    },
+    {
+      question: "Does CORS secure an API from every caller?",
+      answer:
+        "No. CORS is a browser-enforced cross-origin access mechanism. Server authorization is still required.",
+    },
+  ],
+  facts: [
+    "GET is defined as a safe method and should not request a state change.",
+    "A successful HTTP status does not validate the shape of the body.",
+    "Use HTTPS to protect data in transit.",
+  ],
+  source: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview",
+  code: "async function getTopic(id) {\n  const response = await fetch(\n    `/api/topics/${encodeURIComponent(id)}`\n  );\n  if (response.status === 404) return null;\n  if (!response.ok) {\n    throw new Error(`Request failed: ${response.status}`);\n  }\n  return response.json();\n}",
+};
+
+## The idea
+
+HTTP is a request-response protocol. A request includes a method, a target, headers, and sometimes a body; a response includes a status, headers, and sometimes a body.
+
+## Why it matters
+
+Treat status codes as part of the API contract. Distinguish transport failures from application errors, and handle empty responses before trying to parse JSON.
+
+## A practical example
+
+```js
+async function getTopic(id) {
+  const response = await fetch(`/api/topics/${encodeURIComponent(id)}`);
+  if (response.status === 404) return null;
+  if (!response.ok) {
+    throw new Error(`Request failed: ${response.status}`);
+  }
+  return response.json();
+}
+```
+
+## Try it yourself
+
+Adapt this example to a small feature in your own project. Write down what the input is, what changes, and how you would handle a failure.
+
+## Keep exploring
+
+Read the [official documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview) for the complete behavior and further examples.

@@ -1,0 +1,71 @@
+export const meta = {
+  slug: "event-loop",
+  category: "javascript",
+  title: "The event loop, tasks & microtasks",
+  description: "Predict execution order before running the code.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["javascript", "week-1", "interview-prep"],
+  questions: [
+    {
+      question: "Does a zero-delay timer run immediately?",
+      answer:
+        "No. Its callback runs in a later task after the current execution and relevant microtasks. The delay is a scheduling threshold, not a deadline.",
+    },
+    {
+      question: "Can microtasks delay the page?",
+      answer:
+        "Yes. A chain that continually queues more microtasks can postpone tasks and rendering opportunities. Split expensive work intentionally.",
+    },
+  ],
+  facts: [
+    "Promises do not create a separate JavaScript thread.",
+    "Microtasks queued by other microtasks are drained at the checkpoint.",
+    "Browser and Node.js host scheduling are not identical.",
+  ],
+  source:
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model",
+  code: 'console.log("A");\nsetTimeout(() => console.log("timer"), 0);\nPromise.resolve().then(() => console.log("promise"));\nqueueMicrotask(() => console.log("microtask"));\nconsole.log("B");\n// A, B, promise, microtask, timer',
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 1,
+  planPages: [3],
+  quizDistractors: [
+    "Yes. A zero-delay timer interrupts synchronous code.",
+    "Yes. Timers always run before promise callbacks.",
+  ],
+  planRecordedStatus: "covered",
+};
+
+## The idea
+
+Synchronous JavaScript runs on the current call stack. Promise reactions and queueMicrotask callbacks enter the microtask queue. In a browser, a microtask checkpoint drains that queue before the next task is selected. A timer callback cannot interrupt the currently running code.
+
+## Why it matters
+
+First identify synchronous work, then queued microtasks, then timer tasks. This gives you a reliable explanation of why a resolved promise runs before a zero-delay timeout. Rendering opportunities and host scheduling still matter; a timer delay is not a promise of an exact execution time.
+
+## A practical example
+
+```js
+console.log("A");
+setTimeout(() => console.log("timer"), 0);
+Promise.resolve().then(() => console.log("promise"));
+queueMicrotask(() => console.log("microtask"));
+console.log("B");
+// A, B, promise, microtask, timer
+```
+
+## Common mistakes
+
+Do not explain every asynchronous callback as one FIFO queue. Distinguish microtasks from tasks and avoid assuming that a timer means a new worker.
+
+## Try it yourself
+
+Add a promise inside the timer and a timer inside a promise. Write the complete order before executing it.
+
+## Keep exploring
+
+Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
