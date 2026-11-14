@@ -1,0 +1,345 @@
+{
+  "source": "User-confirmed December 2026 job plan",
+  "pages": 6,
+  "sourceDate": "2026-10-23",
+  "targetEnd": "2026-12-31",
+  "discussionCoverage": "Only accessible recent excerpts from the named chats were available; older unseen turns are not represented as recovered transcripts.",
+  "newLessons": 55,
+  "chatSources": [
+    {
+      "title": "JavaScript Closures Explained",
+      "url": "https://chatgpt.com/c/6adafd56-69a4-83ee-8d58-9b10a3e3075a"
+    },
+    {
+      "title": "React User Search App",
+      "url": "https://chatgpt.com/c/6adee764-1214-83ee-9ac5-ba46b5a443f2"
+    },
+    {
+      "title": "Full Stack Interview prep",
+      "url": "https://chatgpt.com/c/6acfd806-4990-83ee-b4f6-b94dd1dabdc4"
+    }
+  ],
+  "recordedCovered": [
+    "ai-streaming",
+    "async-await",
+    "closures",
+    "debounce-throttle",
+    "event-loop",
+    "promise-chains",
+    "scope-hoisting",
+    "streaming-suspense",
+    "structured-output"
+  ],
+  "recordedPending": [
+    "group-anagrams",
+    "hashmap-practice",
+    "two-pointers",
+    "two-sum-hashmap"
+  ],
+  "notes": [
+    {
+      "slug": "event-loop",
+      "week": 1,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "scope-hoisting",
+      "week": 1,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "this-binding",
+      "week": 1,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "prototypes-classes",
+      "week": 1,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "debounce-throttle",
+      "week": 1,
+      "origin": "discussion"
+    },
+    {
+      "slug": "stale-closures",
+      "week": 1,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "search-abort-races",
+      "week": 1,
+      "origin": "discussion"
+    },
+    {
+      "slug": "rendering-keys",
+      "week": 2,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "controlled-inputs",
+      "week": 2,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "reducers-context-refs",
+      "week": 2,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "typed-props-api",
+      "week": 1,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "semantic-responsive",
+      "week": 2,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "browser-rendering",
+      "week": 1,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "rsc-boundaries",
+      "week": 3,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "hydration-rsc",
+      "week": 3,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "next-route-states",
+      "week": 3,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "server-data-fetching",
+      "week": 3,
+      "origin": "discussion"
+    },
+    {
+      "slug": "caching-revalidation",
+      "week": 3,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "actions-route-handlers",
+      "week": 3,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "redirect-errors",
+      "week": 3,
+      "origin": "discussion"
+    },
+    {
+      "slug": "streaming-suspense",
+      "week": 3,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "rest-pagination",
+      "week": 4,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "idempotency",
+      "week": 4,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "auth-sessions-oauth",
+      "week": 4,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "authenticated-mutations",
+      "week": 4,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "web-security",
+      "week": 4,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "sql-joins",
+      "week": 4,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "sql-indexes-transactions",
+      "week": 4,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "optimistic-forms",
+      "week": 5,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "behavior-testing",
+      "week": 5,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "performance-profiling",
+      "week": 5,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "debug-build-spec",
+      "week": 5,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "two-sum-hashmap",
+      "week": 1,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "group-anagrams",
+      "week": 1,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "hashmap-practice",
+      "week": 1,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "two-pointers",
+      "week": 1,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "sliding-window",
+      "week": 2,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "stack-patterns",
+      "week": 2,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "binary-search",
+      "week": 3,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "merge-intervals",
+      "week": 4,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "tree-bfs-dfs",
+      "week": 4,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "heap-basics",
+      "week": 5,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "dsa-method-complexity",
+      "week": 7,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "ai-streaming",
+      "week": 6,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "structured-output",
+      "week": 6,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "read-only-tools",
+      "week": 6,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "ai-cost-boundaries",
+      "week": 6,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "retrieval-evaluation",
+      "week": 6,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "frontend-system-design",
+      "week": 6,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "project-stories",
+      "week": 7,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "daily-learning-loop",
+      "week": 1,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "application-scorecard",
+      "week": 1,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "mock-company-prep",
+      "week": 8,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "december-buffer",
+      "week": 9,
+      "origin": "study-plan"
+    },
+    {
+      "slug": "promise-chains",
+      "week": 1,
+      "origin": "study-plan"
+    }
+  ],
+  "coverageAudit": {
+    "date": "2026-11-14",
+    "manifest": "pdf-coverage-audit.json",
+    "newLessons": [
+      "api-validation-errors",
+      "security-boundary-drills",
+      "sql-query-debugging",
+      "layout-form-details",
+      "react-render-debugging",
+      "performance-investigation",
+      "next-request-trace",
+      "dsa-40-problem-bank",
+      "pdf-coverage-checklist"
+    ],
+    "expandedLessons": [
+      "hashmap-practice",
+      "two-pointers",
+      "tree-bfs-dfs",
+      "debounce-throttle",
+      "typed-props-api",
+      "this-binding",
+      "promise-chains",
+      "retrieval-evaluation",
+      "ai-streaming",
+      "structured-output",
+      "ai-cost-boundaries",
+      "mock-company-prep"
+    ]
+  }
+}

@@ -8,6 +8,7 @@ export const studyWeeks = [
     description:
       "Recall completed JavaScript, repair gaps, and start applications.",
     slugs: [
+      "dsa-40-problem-bank",
       "daily-learning-loop",
       "event-loop",
       "scope-hoisting",
@@ -44,6 +45,7 @@ export const studyWeeks = [
     description:
       "Practice state ownership, Effects, responsive layout, and keyboard behavior.",
     slugs: [
+      "layout-form-details",
       "thinking-in-react",
       "rendering-keys",
       "stale-closures",
@@ -73,6 +75,7 @@ export const studyWeeks = [
     description:
       "Trace server/client boundaries, loading UI, data reads, mutations, and caching.",
     slugs: [
+      "next-request-trace",
       "rsc-boundaries",
       "hydration-rsc",
       "next-route-states",
@@ -103,6 +106,9 @@ export const studyWeeks = [
     description:
       "Connect API contracts, access checks, database behavior, and failure handling.",
     slugs: [
+      "sql-query-debugging",
+      "security-boundary-drills",
+      "api-validation-errors",
       "http-basics",
       "rest-pagination",
       "idempotency",
@@ -131,6 +137,8 @@ export const studyWeeks = [
     description:
       "Deliver a tested async UI and justify performance changes with evidence.",
     slugs: [
+      "performance-investigation",
+      "react-render-debugging",
       "controlled-inputs",
       "optimistic-forms",
       "behavior-testing",
@@ -181,6 +189,7 @@ export const studyWeeks = [
     description:
       "Use closed-book recall, real project stories, and timed technical tasks.",
     slugs: [
+      "pdf-coverage-checklist",
       "project-stories",
       "frontend-system-design",
       "debug-build-spec",

@@ -1,0 +1,77 @@
+# PDF coverage audit — 14 November 2026
+
+## What this audit establishes
+
+Every syllabus group and execution rule on the six PDF pages is linked below. Coverage means explanatory content and practice prompts exist; it does not prove personal mastery, completion of exercises, or an employment outcome. The original PDF is the source for the schedule, and technical details are expansions with primary references. Readiness is evidence you build and rehearse, not a percentage of notes opened.
+
+## Page-by-page coverage
+
+### Page 1: Role focus, completed/pending status, resume point, no new capstone
+
+[daily learning loop](#/topic/daily-learning-loop), [application scorecard](#/topic/application-scorecard), [event loop](#/topic/event-loop), [closures](#/topic/closures), [promise chains](#/topic/promise-chains), [debounce throttle](#/topic/debounce-throttle), [this binding](#/topic/this-binding), [prototypes classes](#/topic/prototypes-classes), [stale closures](#/topic/stale-closures), [dsa 40 problem bank](#/topic/dsa-40-problem-bank).
+
+### Page 2: Six-day routine, six-hour blocks, independent recall, fallback schedules, mocks, spaced re-solves
+
+[daily learning loop](#/topic/daily-learning-loop), [dsa method complexity](#/topic/dsa-method-complexity), [application scorecard](#/topic/application-scorecard).
+
+### Page 3: Week 1: JS, autocomplete, browser, typed data, initial DSA and first applications
+
+[this binding](#/topic/this-binding), [prototypes classes](#/topic/prototypes-classes), [stale closures](#/topic/stale-closures), [search abort races](#/topic/search-abort-races), [browser rendering](#/topic/browser-rendering), [typed props api](#/topic/typed-props-api), [two sum hashmap](#/topic/two-sum-hashmap), [group anagrams](#/topic/group-anagrams), [hashmap practice](#/topic/hashmap-practice), [two pointers](#/topic/two-pointers), [application scorecard](#/topic/application-scorecard).
+
+### Page 3: Week 2: rendering, keys, snapshots, inputs, reducer/context/ref, Effects, responsive accessible UI
+
+[rendering keys](#/topic/rendering-keys), [controlled inputs](#/topic/controlled-inputs), [reducers context refs](#/topic/reducers-context-refs), [effects](#/topic/effects), [semantic responsive](#/topic/semantic-responsive), [layout form details](#/topic/layout-form-details), [accessible ui](#/topic/accessible-ui), [sliding window](#/topic/sliding-window), [stack patterns](#/topic/stack-patterns).
+
+### Page 3: Week 3: server/client, serialization, SSR/CSR/hydration/RSC, route states, caching, reads/mutations
+
+[next request trace](#/topic/next-request-trace), [rsc boundaries](#/topic/rsc-boundaries), [hydration rsc](#/topic/hydration-rsc), [next route states](#/topic/next-route-states), [caching revalidation](#/topic/caching-revalidation), [server data fetching](#/topic/server-data-fetching), [actions route handlers](#/topic/actions-route-handlers), [redirect errors](#/topic/redirect-errors), [streaming suspense](#/topic/streaming-suspense), [binary search](#/topic/binary-search).
+
+### Page 4: Week 4: HTTP, REST, validation, errors, pagination, idempotency
+
+[http basics](#/topic/http-basics), [rest pagination](#/topic/rest-pagination), [api validation errors](#/topic/api-validation-errors), [idempotency](#/topic/idempotency), [authenticated mutations](#/topic/authenticated-mutations).
+
+### Page 4: Week 4: sessions/JWT/OAuth, authz, XSS/CSRF/CORS, SQL injection, secrets, rate limits
+
+[auth sessions oauth](#/topic/auth-sessions-oauth), [web security](#/topic/web-security), [security boundary drills](#/topic/security-boundary-drills).
+
+### Page 4: Week 4: joins, indexes, transactions, N+1, intervals and trees
+
+[sql joins](#/topic/sql-joins), [sql indexes transactions](#/topic/sql-indexes-transactions), [sql query debugging](#/topic/sql-query-debugging), [merge intervals](#/topic/merge-intervals), [tree bfs dfs](#/topic/tree-bfs-dfs).
+
+### Page 4: Week 5: composition, state, forms, optimistic rollback, tests, keyboard/focus/errors, measured performance
+
+[react render debugging](#/topic/react-render-debugging), [optimistic forms](#/topic/optimistic-forms), [behavior testing](#/topic/behavior-testing), [accessible ui](#/topic/accessible-ui), [layout form details](#/topic/layout-form-details), [performance profiling](#/topic/performance-profiling), [performance investigation](#/topic/performance-investigation), [debug build spec](#/topic/debug-build-spec), [heap basics](#/topic/heap-basics).
+
+### Page 4: Week 6: bounded AI streaming/stop/retry/errors, schemas, read-only tools, costs/context/latency/data; optional retrieval ten cases
+
+[ai streaming](#/topic/ai-streaming), [structured output](#/topic/structured-output), [read only tools](#/topic/read-only-tools), [ai cost boundaries](#/topic/ai-cost-boundaries), [retrieval evaluation](#/topic/retrieval-evaluation), [frontend system design](#/topic/frontend-system-design).
+
+### Page 5: Weeks 7–8: closed-book explanations, timed tasks, six stories, two projects, JD evidence, formats, mocks
+
+[project stories](#/topic/project-stories), [mock company prep](#/topic/mock-company-prep), [debug build spec](#/topic/debug-build-spec), [frontend system design](#/topic/frontend-system-design), [dsa method complexity](#/topic/dsa-method-complexity).
+
+### Page 5: Week 9 and buffer: actual rounds, targeted repair, applications, employer questions, written terms, January continuation
+
+[mock company prep](#/topic/mock-company-prep), [december buffer](#/topic/december-buffer), [application scorecard](#/topic/application-scorecard).
+
+### Page 6: DSA scope, 35–50 range, complexity/edges/code, spaced retention, optional heaps
+
+[dsa 40 problem bank](#/topic/dsa-40-problem-bank), [dsa method complexity](#/topic/dsa-method-complexity), [heap basics](#/topic/heap-basics).
+
+### Page 6: Scorecard, response/screen/technical bottlenecks, fallback, readiness evidence and scope exclusions
+
+[application scorecard](#/topic/application-scorecard), [daily learning loop](#/topic/daily-learning-loop), [december buffer](#/topic/december-buffer), [project stories](#/topic/project-stories).
+
+## Evidence checklist
+
+- Explain closures, event-loop ordering, state snapshots and server/client boundaries without notes.
+- Deliver a responsive keyboard-usable UI from a written spec in 60–90 minutes; show loading, empty, error and retry states.
+- Demonstrate an authorized, validated mutation and explain duplicate/retry behavior, SQL and security boundaries.
+- Show user-behavior tests for async success, failure and accessible errors; explain a measured performance change.
+- Explain two real projects with your own contribution, architecture, difficult decision, honest outcome and next improvement.
+- Solve representative DSA patterns independently and re-solve after roughly two and seven days.
+- Keep a truthful resume, 60-second introduction, application tracker and two weekly mocks active.
+
+## Boundaries and remaining work
+
+The 40-problem bank contains original-statement links and practice prompts; it is not 40 fully worked solutions. The site cannot supply your truthful project evidence or perform interviews for you. Optional heaps and retrieval remain optional. Start applications before completing this checklist. Use actual interview feedback to choose three gaps each week. No new capstone, deep DevOps, Kubernetes, fine-tuning or broad framework hopping is added.

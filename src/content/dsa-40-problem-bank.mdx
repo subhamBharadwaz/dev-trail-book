@@ -1,0 +1,150 @@
+export const meta = {
+  slug: "dsa-40-problem-bank",
+  category: "dsa",
+  title: "40-problem DSA practice bank & re-solve method",
+  description:
+    "Turn the PDF\u2019s 35\u201350-problem range into a bounded practice list.",
+  minutes: 12,
+  level: "Interview depth",
+  tags: ["pdf-audit", "micro-topics", "week-1"],
+  questions: [
+    {
+      question: "When is a problem understood?",
+      answer:
+        "You can independently explain the invariant, implement a correct solution, analyze complexity and handle edge cases on a later re-solve.",
+    },
+    {
+      question: "Should you finish all 40 before applying?",
+      answer:
+        "No. Applications start in week one; use role requirements and actual interview feedback to prioritize practice.",
+    },
+    {
+      question: "Which unnamed exercises fill the PDF slots?",
+      answer:
+        "Contains Duplicate and Valid Anagram are explicit HashMap equivalents; sorted pair search and ASCII Valid Palindrome are explicit Two Pointers equivalents.",
+    },
+  ],
+  facts: [
+    "You can independently explain the invariant, implement a correct solution, analyze complexity and handle edge cases on a later re-solve.",
+    "No. Applications start in week one; use role requirements and actual interview feedback to prioritize practice.",
+    "Contains Duplicate and Valid Anagram are explicit HashMap equivalents; sorted pair search and ASCII Valid Palindrome are explicit Two Pointers equivalents.",
+  ],
+  source: "https://leetcode.com/problemset/",
+  code: "type Attempt = {\n  problem: string; attemptedAt: string; independent: boolean;\n  timeComplexity: string; spaceComplexity: string;\n  edgeCases: string[]; recurringError?: string;\n  reviewAfterDays: [2, 7];\n};",
+  codeLanguage: "ts",
+  origin: "study-plan",
+  planWeek: 1,
+  planPages: [3],
+  quizDistractors: [
+    "This can be assumed without checking inputs, ownership, or failures.",
+    "The UI alone guarantees correctness for all callers.",
+  ],
+};
+
+## The idea
+
+Turn the PDF’s 35–50-problem range into a bounded practice list.
+
+## How to use this bank
+
+The PDF suggests roughly 35–50 well-understood unique problems plus re-solves. This is a curated set of 40, not a claim that 40 solutions are already mastered. The PDF names only Two Sum and Group Anagrams; all other titles below are suggested equivalents or practice choices. Use existing notes for pattern explanations and worked examples, attempt each problem independently, then use the original statement/editorial to check your reasoning. Full solutions for every listed problem are not included here.
+
+For each attempt record: clarified contract, brute force, invariant, improved approach, time/space complexity, empty/duplicate/boundary cases, actual working code, hints used and two-day/seven-day re-solve dates. Do not count a copied answer as an independent solve.
+
+## HashMap
+
+- [Two Sum](https://leetcode.com/problems/two-sum/): explain the invariant, test edge cases, and re-solve without notes.
+- [Group Anagrams](https://leetcode.com/problems/group-anagrams/): explain the invariant, test edge cases, and re-solve without notes.
+- [Contains Duplicate](https://leetcode.com/problems/contains-duplicate/): explain the invariant, test edge cases, and re-solve without notes.
+- [Valid Anagram](https://leetcode.com/problems/valid-anagram/): explain the invariant, test edge cases, and re-solve without notes.
+- [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/): explain the invariant, test edge cases, and re-solve without notes.
+- [Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/): explain the invariant, test edge cases, and re-solve without notes.
+
+## Two Pointers
+
+- [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/): explain the invariant, test edge cases, and re-solve without notes.
+- [Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii---input-array-is-sorted/): explain the invariant, test edge cases, and re-solve without notes.
+- [Container With Most Water](https://leetcode.com/problems/container-with-most-water/): explain the invariant, test edge cases, and re-solve without notes.
+- [3Sum](https://leetcode.com/problems/3sum/): explain the invariant, test edge cases, and re-solve without notes.
+- [Move Zeroes](https://leetcode.com/problems/move-zeroes/): explain the invariant, test edge cases, and re-solve without notes.
+
+## Sliding Window
+
+- [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/): explain the invariant, test edge cases, and re-solve without notes.
+- [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/): explain the invariant, test edge cases, and re-solve without notes.
+- [Permutation in String](https://leetcode.com/problems/permutation-in-string/): explain the invariant, test edge cases, and re-solve without notes.
+- [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/): explain the invariant, test edge cases, and re-solve without notes.
+- [Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/): explain the invariant, test edge cases, and re-solve without notes.
+
+## Stack
+
+- [Valid Parentheses](https://leetcode.com/problems/valid-parentheses/): explain the invariant, test edge cases, and re-solve without notes.
+- [Min Stack](https://leetcode.com/problems/min-stack/): explain the invariant, test edge cases, and re-solve without notes.
+- [Daily Temperatures](https://leetcode.com/problems/daily-temperatures/): explain the invariant, test edge cases, and re-solve without notes.
+- [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/): explain the invariant, test edge cases, and re-solve without notes.
+- [Next Greater Element I](https://leetcode.com/problems/next-greater-element-i/): explain the invariant, test edge cases, and re-solve without notes.
+
+## Binary Search
+
+- [Binary Search](https://leetcode.com/problems/binary-search/): explain the invariant, test edge cases, and re-solve without notes.
+- [Search Insert Position](https://leetcode.com/problems/search-insert-position/): explain the invariant, test edge cases, and re-solve without notes.
+- [Search a 2D Matrix](https://leetcode.com/problems/search-a-2d-matrix/): explain the invariant, test edge cases, and re-solve without notes.
+- [Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/): explain the invariant, test edge cases, and re-solve without notes.
+- [Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/): explain the invariant, test edge cases, and re-solve without notes.
+
+## Intervals
+
+- [Merge Intervals](https://leetcode.com/problems/merge-intervals/): explain the invariant, test edge cases, and re-solve without notes.
+- [Insert Interval](https://leetcode.com/problems/insert-interval/): explain the invariant, test edge cases, and re-solve without notes.
+- [Non-overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/): explain the invariant, test edge cases, and re-solve without notes.
+- [Interval List Intersections](https://leetcode.com/problems/interval-list-intersections/): explain the invariant, test edge cases, and re-solve without notes.
+
+## Trees BFS/DFS
+
+- [Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/): explain the invariant, test edge cases, and re-solve without notes.
+- [Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/): explain the invariant, test edge cases, and re-solve without notes.
+- [Same Tree](https://leetcode.com/problems/same-tree/): explain the invariant, test edge cases, and re-solve without notes.
+- [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/): explain the invariant, test edge cases, and re-solve without notes.
+- [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/): explain the invariant, test edge cases, and re-solve without notes.
+- [Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/): explain the invariant, test edge cases, and re-solve without notes.
+- [Path Sum](https://leetcode.com/problems/path-sum/): explain the invariant, test edge cases, and re-solve without notes.
+- [Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/): explain the invariant, test edge cases, and re-solve without notes.
+- [Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree/): explain the invariant, test edge cases, and re-solve without notes.
+- [Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/): explain the invariant, test edge cases, and re-solve without notes.
+
+## A practical example
+
+```ts
+type Attempt = {
+  problem: string;
+  attemptedAt: string;
+  independent: boolean;
+  timeComplexity: string;
+  spaceComplexity: string;
+  edgeCases: string[];
+  recurringError?: string;
+  reviewAfterDays: [2, 7];
+};
+```
+
+## Interview drill
+
+### When is a problem understood?
+
+You can independently explain the invariant, implement a correct solution, analyze complexity and handle edge cases on a later re-solve.
+
+### Should you finish all 40 before applying?
+
+No. Applications start in week one; use role requirements and actual interview feedback to prioritize practice.
+
+### Which unnamed exercises fill the PDF slots?
+
+Contains Duplicate and Valid Anagram are explicit HashMap equivalents; sorted pair search and ASCII Valid Palindrome are explicit Two Pointers equivalents.
+
+## Try it yourself
+
+Pick four weak patterns, solve one from each, and schedule two spaced re-solves. Keep optional heaps out until the core is reliable.
+
+## Keep exploring
+
+[Official reference](https://leetcode.com/problemset/). Study-plan expansion, page 3.

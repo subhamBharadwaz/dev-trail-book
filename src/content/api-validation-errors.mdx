@@ -1,0 +1,113 @@
+export const meta = {
+  slug: "api-validation-errors",
+  category: "backend",
+  title: "API validation, status codes & pagination contracts",
+  description:
+    "Define successful responses and failures before writing the UI.",
+  minutes: 12,
+  level: "Interview depth",
+  tags: ["pdf-audit", "micro-topics", "week-4"],
+  questions: [
+    {
+      question: "Does fetch reject on a 404 response?",
+      answer:
+        "No. Check response.ok or status; fetch normally rejects for transport failures or aborts, not HTTP error statuses.",
+    },
+    {
+      question: "Why use a tie-breaker in cursor pagination?",
+      answer:
+        "Equal timestamps otherwise make ordering ambiguous; a unique ID provides a stable total order.",
+    },
+    {
+      question: "Can TypeScript replace server validation?",
+      answer:
+        "No. Types disappear at runtime, and clients can send arbitrary bytes.",
+    },
+    {
+      question: "When is a retry dangerous?",
+      answer:
+        "When a mutation may already have committed but its response was lost; retry using a server-enforced idempotency contract or first reconcile the result.",
+    },
+  ],
+  facts: [
+    "No. Check response.ok or status; fetch normally rejects for transport failures or aborts, not HTTP error statuses.",
+    "Equal timestamps otherwise make ordering ambiguous; a unique ID provides a stable total order.",
+    "No. Types disappear at runtime, and clients can send arbitrary bytes.",
+  ],
+  source: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status",
+  code: 'type Failure = { error: { code: string; message: string; fields?: Record<string, string> } };\nfunction parsePage(raw: string | null): number {\n  if (raw === null) return 20;\n  if (!/^\\d+$/.test(raw)) throw new Error("Invalid limit");\n  const limit = Number(raw);\n  if (!Number.isSafeInteger(limit) || limit < 1 || limit > 100)\n    throw new Error("Limit must be between 1 and 100");\n  return limit;\n}\nasync function readJson(response: Response): Promise<unknown> {\n  if (response.status === 204) return undefined;\n  const body: unknown = await response.json();\n  if (!response.ok) throw new Error(`Request failed (${response.status})`);\n  return body;\n}',
+  codeLanguage: "ts",
+  origin: "study-plan",
+  planWeek: 4,
+  planPages: [4],
+  quizDistractors: [
+    "This can be assumed without checking inputs, ownership, or failures.",
+    "The UI alone guarantees correctness for all callers.",
+  ],
+};
+
+## The idea
+
+Define successful responses and failures before writing the UI.
+
+## Status and method decisions
+
+GET reads and must not perform a requested mutation. PUT describes replacement and is idempotent by intended effect. PATCH describes a partial change and is not inherently idempotent. DELETE is idempotent by intended effect even if later responses differ. POST is not inherently idempotent; use an agreed idempotency key when retries could duplicate a purchase or job.
+
+Use 200 for a successful body, 201 for creation (often with Location), 202 for accepted work that is not finished, and 204 for success without a body. A 304 is cache validation, not a JSON success body. Distinguish malformed input (400), missing/invalid authentication (401), insufficient permission (403), absence (404), conflicting current state (409), failed preconditions (412), semantically invalid content (422 under your API convention), throttling (429), and server failure (5xx). Avoid leaking stack traces, SQL or private resource existence.
+
+## Validate at the boundary
+
+Treat JSON as unknown. Check object shape, required fields, lengths, allowed enum values and cross-field rules. Reject or deliberately strip unknown keys; never pass unfiltered input into a database update. Client validation improves feedback; server validation enforces the contract. Limit body size and list size. Return stable error codes, safe messages and field paths; retain a request ID in server logs.
+
+## Pagination correctness
+
+Offset pagination is simple but inserts can shift pages. Cursor pagination uses a stable total order, for example created_at plus unique id. Encode and validate both cursor values; scope the query to the authenticated owner on every page. Fetch limit + 1 to determine hasNextPage. Cursors are positions, not permission tokens. Reset the cursor when search or filters change.
+
+## A practical example
+
+```ts
+type Failure = {
+  error: { code: string; message: string; fields?: Record<string, string> };
+};
+function parsePage(raw: string | null): number {
+  if (raw === null) return 20;
+  if (!/^\d+$/.test(raw)) throw new Error("Invalid limit");
+  const limit = Number(raw);
+  if (!Number.isSafeInteger(limit) || limit < 1 || limit > 100)
+    throw new Error("Limit must be between 1 and 100");
+  return limit;
+}
+async function readJson(response: Response): Promise<unknown> {
+  if (response.status === 204) return undefined;
+  const body: unknown = await response.json();
+  if (!response.ok) throw new Error(`Request failed (${response.status})`);
+  return body;
+}
+```
+
+## Interview drill
+
+### Does fetch reject on a 404 response?
+
+No. Check response.ok or status; fetch normally rejects for transport failures or aborts, not HTTP error statuses.
+
+### Why use a tie-breaker in cursor pagination?
+
+Equal timestamps otherwise make ordering ambiguous; a unique ID provides a stable total order.
+
+### Can TypeScript replace server validation?
+
+No. Types disappear at runtime, and clients can send arbitrary bytes.
+
+### When is a retry dangerous?
+
+When a mutation may already have committed but its response was lost; retry using a server-enforced idempotency contract or first reconcile the result.
+
+## Try it yourself
+
+Design create/list/update contracts for notes. Write examples for malformed JSON, invalid fields, unauthenticated access, conflict, empty page and retry after a lost response.
+
+## Keep exploring
+
+[Official reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status). Study-plan expansion, page 4.

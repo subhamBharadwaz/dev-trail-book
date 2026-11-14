@@ -54,6 +54,13 @@ export function RoadmapPage() {
         </span>
         <span>Source: December 2026 job plan · 6 pages</span>
       </div>
+      <a
+        href="#/topic/pdf-coverage-checklist"
+        className="mt-6 flex items-center justify-between gap-4 rounded-xl border border-line bg-green-soft p-5 text-sm font-medium text-green"
+      >
+        <span>PDF coverage audit &amp; interview-readiness checklist</span>
+        <ArrowRight size={16} aria-hidden="true" />
+      </a>
       <section className="mt-8 rounded-xl border border-line bg-surface p-5">
         <div className="flex items-center gap-2 text-green">
           <MessageSquare size={17} />

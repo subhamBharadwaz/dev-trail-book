@@ -1,0 +1,107 @@
+export const meta = {
+  slug: "performance-investigation",
+  category: "testing",
+  title: "Profile renders, bundles & request waterfalls",
+  description:
+    "A performance claim needs a measured baseline, a hypothesis and comparable results.",
+  minutes: 12,
+  level: "Interview depth",
+  tags: ["pdf-audit", "micro-topics", "week-5"],
+  questions: [
+    {
+      question: "How do you identify a request waterfall?",
+      answer:
+        "Inspect request start and completion timing to find requests that wait on earlier work without a true data dependency.",
+    },
+    {
+      question: "Why compare production builds?",
+      answer:
+        "Development instrumentation and compilation behavior can distort timings and bundle behavior.",
+    },
+    {
+      question: "Does a smaller bundle guarantee a faster interaction?",
+      answer:
+        "No. Network, execution, rendering and server work can dominate; measure the target workload.",
+    },
+    {
+      question: "When can lazy loading fail to reduce initial code?",
+      answer:
+        "When another eager import already pulls the same module into the initial graph.",
+    },
+  ],
+  facts: [
+    "Inspect request start and completion timing to find requests that wait on earlier work without a true data dependency.",
+    "Development instrumentation and compilation behavior can distort timings and bundle behavior.",
+    "No. Network, execution, rendering and server work can dominate; measure the target workload.",
+  ],
+  source: "https://react.dev/reference/react/Profiler",
+  code: 'type Measurement = { run: number; durationMs: number };\nfunction median(samples: Measurement[]): number {\n  if (!samples.length) throw new Error("No measurements");\n  const ordered = samples.map(x => x.durationMs).sort((a, b) => a - b);\n  const middle = Math.floor(ordered.length / 2);\n  return ordered.length % 2 ? ordered[middle]\n    : (ordered[middle - 1] + ordered[middle]) / 2;\n}\n// Record several comparable baseline and candidate runs.\n// Keep device, data, route and network conditions fixed.',
+  codeLanguage: "ts",
+  origin: "study-plan",
+  planWeek: 5,
+  planPages: [4],
+  quizDistractors: [
+    "This can be assumed without checking inputs, ownership, or failures.",
+    "The UI alone guarantees correctness for all callers.",
+  ],
+};
+
+## The idea
+
+A performance claim needs a measured baseline, a hypothesis and comparable results.
+
+## Follow the critical path
+
+Reproduce one interaction or route with representative data. Record device, build mode, network throttle, cache state and dataset. Inspect the browser Network waterfall: are independent requests accidentally sequential, are there duplicate requests, and is a large image blocking useful content? Parallelize independent requests, but retain true dependencies. Distinguish server latency from transfer, JavaScript parsing, rendering and layout work.
+
+Inspect production bundle output and a compatible analyzer. Split a rarely visited editor or chart at its route boundary; do not add dozens of tiny chunks without measuring overhead. Tree shaking depends on module structure and side effects. A dynamic import reduces initial work only if the imported module is not already eagerly reachable elsewhere.
+
+## React and browser tools answer different questions
+
+Use React Profiler to identify expensive commits and repeated component work. A browser performance trace reveals long tasks, forced layouts and paint work. Repeated layout reads after writes can cause layout thrashing; batch measurements and updates. For a huge list first constrain data and render work; consider virtualization when needed and verify accessibility and scroll behavior. Memoization has comparison and maintenance costs.
+
+## Report evidence
+
+Keep raw runs and compare a median and slow cases with the same workload. Test cold and warm navigation separately. Report the specific improvement, for example removal of an avoidable request dependency, rather than claiming the entire app is faster. Check correctness, keyboard behavior and failure states after optimization. Lab observations are not substitutes for representative field measurements.
+
+## A practical example
+
+```ts
+type Measurement = { run: number; durationMs: number };
+function median(samples: Measurement[]): number {
+  if (!samples.length) throw new Error("No measurements");
+  const ordered = samples.map((x) => x.durationMs).sort((a, b) => a - b);
+  const middle = Math.floor(ordered.length / 2);
+  return ordered.length % 2
+    ? ordered[middle]
+    : (ordered[middle - 1] + ordered[middle]) / 2;
+}
+// Record several comparable baseline and candidate runs.
+// Keep device, data, route and network conditions fixed.
+```
+
+## Interview drill
+
+### How do you identify a request waterfall?
+
+Inspect request start and completion timing to find requests that wait on earlier work without a true data dependency.
+
+### Why compare production builds?
+
+Development instrumentation and compilation behavior can distort timings and bundle behavior.
+
+### Does a smaller bundle guarantee a faster interaction?
+
+No. Network, execution, rendering and server work can dominate; measure the target workload.
+
+### When can lazy loading fail to reduce initial code?
+
+When another eager import already pulls the same module into the initial graph.
+
+## Try it yourself
+
+Profile a real route, save five baseline runs, implement one justified fix and save five comparable runs. Record the median, limitations and a regression check.
+
+## Keep exploring
+
+[Official reference](https://react.dev/reference/react/Profiler). Study-plan expansion, page 4.
