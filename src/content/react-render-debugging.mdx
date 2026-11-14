@@ -1,0 +1,116 @@
+export const meta = {
+  slug: "react-render-debugging",
+  category: "react",
+  title: "React identity, composition & async form debugging",
+  description: "Debug state ownership and identity before adding memoization.",
+  minutes: 12,
+  level: "Interview depth",
+  tags: ["pdf-audit", "micro-topics", "week-5"],
+  questions: [
+    {
+      question: "Does every React render update the DOM?",
+      answer:
+        "No. React calculates output and commits only necessary host changes.",
+    },
+    {
+      question: "Why can an index key corrupt an editable row after sorting?",
+      answer:
+        "The position can refer to a different item while React preserves state for that position.",
+    },
+    {
+      question: "Can useMemo fix an incorrect dependency list?",
+      answer:
+        "No. Correct data flow and dependencies are required independently of performance caching.",
+    },
+    {
+      question: "Why is rolling back an entire list snapshot unsafe?",
+      answer:
+        "A later successful operation may have changed the list; restoring the old snapshot can erase unrelated changes.",
+    },
+  ],
+  facts: [
+    "No. React calculates output and commits only necessary host changes.",
+    "The position can refer to a different item while React preserves state for that position.",
+    "No. Correct data flow and dependencies are required independently of performance caching.",
+  ],
+  source: "https://react.dev/learn/you-might-not-need-an-effect",
+  code: 'type Result = { ok: true } | { ok: false; message: string };\nasync function submitTitle(form: FormData): Promise<Result> {\n  const raw = form.get("title");\n  if (typeof raw !== "string" || !raw.trim())\n    return { ok: false, message: "Enter a title" };\n  try {\n    const response = await fetch("/api/notes", {\n      method: "POST", headers: { "Content-Type": "application/json" },\n      body: JSON.stringify({ title: raw.trim() }),\n    });\n    if (!response.ok) return { ok: false, message: "Save failed. Try again." };\n    return { ok: true };\n  } catch {\n    return { ok: false, message: "Connection failed. Check before retrying." };\n  }\n}',
+  codeLanguage: "ts",
+  origin: "study-plan",
+  planWeek: 5,
+  planPages: [4],
+  quizDistractors: [
+    "This can be assumed without checking inputs, ownership, or failures.",
+    "The UI alone guarantees correctness for all callers.",
+  ],
+};
+
+## The idea
+
+Debug state ownership and identity before adding memoization.
+
+## Identity and render reasoning
+
+A render calculates the next UI; a commit applies changes. A re-render is not necessarily a DOM mutation. State is associated with a component's position, type and key. Stable domain keys preserve identity during reorder; index keys can attach an edited value to the wrong row. Changing a key intentionally resets a subtree. Do not define a component function inside another component when its identity must be stable.
+
+Keep one owner for each piece of state; derive filtered lists and totals during render. Lift shared state to the nearest common owner, not automatically to global context. Compose sections through props/children before introducing a mega-component with many flags. A ref retains mutable information without triggering renders; do not expect ref writes to update displayed output.
+
+## Effects and memoization
+
+Use Effects to synchronize with external systems. Event-specific mutations belong in handlers. Dependencies describe all reactive values used; suppressing the linter can freeze a stale closure. Cleanup must undo subscriptions and ignore or abort obsolete async work. Strict Mode development setup/cleanup checks can reveal missing cleanup. useMemo caches a computation; useCallback caches a function identity; neither is a correctness mechanism. Context changes can re-render consumers even if their parent is memoized. Measure before splitting context or memoizing.
+
+## Async forms and optimistic rollback
+
+Represent idle, pending, success and failure explicitly. Prevent duplicate submission while pending, but preserve input on failure. Associate errors and responses with the submitted request so an older result cannot overwrite a newer edit. For optimistic creation use a temporary ID and replace it with the server ID. A naive full-list snapshot rollback can delete unrelated concurrent successes: revert only the failed operation or reconcile from the server. Explain what retry means when the first request may have committed.
+
+## Behavior-test matrix
+
+Test valid submission, validation failure without a request, delayed success, server rejection, network failure, duplicate click, keyboard submit, focus on invalid input, input preservation and an older response arriving last. Assert user-visible behavior and outgoing payloads rather than internal state variable names.
+
+## A practical example
+
+```ts
+type Result = { ok: true } | { ok: false; message: string };
+async function submitTitle(form: FormData): Promise<Result> {
+  const raw = form.get("title");
+  if (typeof raw !== "string" || !raw.trim())
+    return { ok: false, message: "Enter a title" };
+  try {
+    const response = await fetch("/api/notes", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title: raw.trim() }),
+    });
+    if (!response.ok) return { ok: false, message: "Save failed. Try again." };
+    return { ok: true };
+  } catch {
+    return { ok: false, message: "Connection failed. Check before retrying." };
+  }
+}
+```
+
+## Interview drill
+
+### Does every React render update the DOM?
+
+No. React calculates output and commits only necessary host changes.
+
+### Why can an index key corrupt an editable row after sorting?
+
+The position can refer to a different item while React preserves state for that position.
+
+### Can useMemo fix an incorrect dependency list?
+
+No. Correct data flow and dependencies are required independently of performance caching.
+
+### Why is rolling back an entire list snapshot unsafe?
+
+A later successful operation may have changed the list; restoring the old snapshot can erase unrelated changes.
+
+## Try it yourself
+
+Create a failing row-reorder test and fix it using stable keys. Then test two overlapping optimistic mutations where one succeeds and one fails.
+
+## Keep exploring
+
+[Official reference](https://react.dev/learn/you-might-not-need-an-effect). Study-plan expansion, page 4.

@@ -1,0 +1,71 @@
+export const meta = {
+  origin: "study-plan",
+  planWeek: 1,
+  planPages: [3],
+  codeLanguage: "ts",
+  category: "typescript",
+  slug: "discriminated-unions",
+  title: "Model state with unions",
+  description: "Make impossible UI states harder to represent.",
+  minutes: 8,
+  level: "Core concept",
+  tags: ["types", "state", "narrowing"],
+  questions: [
+    {
+      question: "Does TypeScript validate API responses?",
+      answer:
+        "No. Types are erased at runtime. Validate untrusted data at the boundary using runtime checks or a schema validator.",
+    },
+    {
+      question: "Why use a literal status?",
+      answer:
+        "A shared property with distinct literal values lets TypeScript narrow the entire object after a check.",
+    },
+  ],
+  facts: [
+    "A type assertion does not perform runtime validation.",
+    "Use unknown when a value must be checked before use.",
+    "Unions express alternatives; intersections combine requirements.",
+  ],
+  source: "https://www.typescriptlang.org/docs/handbook/2/narrowing.html",
+  code: 'type LoadState<T> =\n  | { status: "idle" }\n  | { status: "loading" }\n  | { status: "success"; data: T }\n  | { status: "error"; message: string };\n\nfunction describe(state: LoadState<string[]>) {\n  switch (state.status) {\n    case "success": return `${state.data.length} topics`;\n    case "error": return state.message;\n    case "loading": return "Loading…";\n    case "idle": return "Ready when you are";\n  }\n}',
+};
+
+## The idea
+
+A discriminated union describes a set of alternatives with a shared literal property. Checking that property narrows the value to a particular alternative.
+
+## Why it matters
+
+Instead of unrelated loading, error, and data flags, describe each valid state explicitly. The type checker can then help you handle the possible cases.
+
+## A practical example
+
+```ts
+type LoadState<T> =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "success"; data: T }
+  | { status: "error"; message: string };
+
+function describe(state: LoadState<string[]>) {
+  switch (state.status) {
+    case "success":
+      return `${state.data.length} topics`;
+    case "error":
+      return state.message;
+    case "loading":
+      return "Loading…";
+    case "idle":
+      return "Ready when you are";
+  }
+}
+```
+
+## Try it yourself
+
+Add a new state called empty. Decide where the UI should handle it and what data it needs.
+
+## Keep exploring
+
+Read the [official documentation](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) for the complete behavior and further examples.

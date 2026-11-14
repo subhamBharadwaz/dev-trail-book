@@ -1,0 +1,74 @@
+export const meta = {
+  slug: "scope-hoisting",
+  category: "javascript",
+  title: "Scope, hoisting & the temporal dead zone",
+  description: "Explain what exists before a declaration is evaluated.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["javascript", "week-1", "interview-prep"],
+  questions: [
+    {
+      question: "Can you read a let binding before initialization?",
+      answer:
+        "No. Reading it while it is in the temporal dead zone throws a ReferenceError.",
+    },
+    {
+      question: "Does const make an object deeply immutable?",
+      answer:
+        "No. It prevents reassignment of the binding. Object properties can still change unless you enforce additional constraints.",
+    },
+  ],
+  facts: [
+    "var is scoped to a function or the surrounding script/module.",
+    "let and const are block-scoped.",
+    "const requires an initializer for an ordinary declaration.",
+  ],
+  source:
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types",
+  code: 'console.log(total); // undefined\nvar total = 3;\n\nfunction read() {\n  // Reading label here would throw ReferenceError.\n  const label = "ready";\n  return label;\n}\nconsole.log(read());',
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 1,
+  planPages: [3],
+  quizDistractors: [
+    "It returns undefined just like var.",
+    "It reads the value from the nearest future assignment.",
+  ],
+  planRecordedStatus: "covered",
+};
+
+## The idea
+
+Lexical scope determines where a binding is visible. Function declarations are initialized early in their scope; var bindings begin as undefined. let and const bindings exist in their scope but cannot be accessed before initialization: that interval is the temporal dead zone.
+
+## Why it matters
+
+The useful interview explanation is not that JavaScript physically moves source lines. Explain how bindings are created and initialized, then track execution. Block scope, function scope, and module scope determine which value a name refers to.
+
+## A practical example
+
+```js
+console.log(total); // undefined
+var total = 3;
+
+function read() {
+  // Reading label here would throw ReferenceError.
+  const label = "ready";
+  return label;
+}
+console.log(read());
+```
+
+## Common mistakes
+
+Do not confuse an unavailable binding with a binding whose value is undefined. They produce different behavior.
+
+## Try it yourself
+
+Compare var and let inside a loop with delayed callbacks. Explain which bindings each callback retains.
+
+## Keep exploring
+
+Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

@@ -1,0 +1,112 @@
+export const meta = {
+  slug: "security-boundary-drills",
+  category: "security",
+  title: "Security boundaries: XSS, CSRF, CORS & abuse",
+  description:
+    "Explain each attack through the boundary it crosses and the control that blocks it.",
+  minutes: 12,
+  level: "Interview depth",
+  tags: ["pdf-audit", "micro-topics", "week-4"],
+  questions: [
+    {
+      question: "Does CORS authorize a caller?",
+      answer:
+        "No. Authorization must be enforced on the server for every protected operation.",
+    },
+    {
+      question: "Does HttpOnly prevent XSS from submitting a mutation?",
+      answer:
+        "No. It restricts cookie reads by JavaScript, but injected code may still act with the user\u2019s browser session.",
+    },
+    {
+      question: "Why check owner_id in the update query?",
+      answer:
+        "It binds the write to the authenticated owner at the data boundary and avoids trusting a client-supplied identity.",
+    },
+    {
+      question: "Can a per-process counter enforce a global quota?",
+      answer:
+        "No. Multiple workers have independent state; production enforcement needs an appropriate shared atomic mechanism.",
+    },
+  ],
+  facts: [
+    "No. Authorization must be enforced on the server for every protected operation.",
+    "No. It restricts cookie reads by JavaScript, but injected code may still act with the user\u2019s browser session.",
+    "It binds the write to the authenticated owner at the data boundary and avoids trusting a client-supplied identity.",
+  ],
+  source:
+    "https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html",
+  code: '// PostgreSQL: parameters bind values, never concatenate user input.\nconst query = {\n  text: "UPDATE notes SET title = $1 WHERE id = $2 AND owner_id = $3 RETURNING id",\n  values: [validatedTitle, noteId, authenticatedUserId],\n};\n// Pass this query to the server-side database client.\n// Dynamic column names need an explicit allowlist, not value placeholders.',
+  codeLanguage: "ts",
+  origin: "study-plan",
+  planWeek: 4,
+  planPages: [4],
+  quizDistractors: [
+    "This can be assumed without checking inputs, ownership, or failures.",
+    "The UI alone guarantees correctness for all callers.",
+  ],
+};
+
+## The idea
+
+Explain each attack through the boundary it crosses and the control that blocks it.
+
+## Threat-to-control map
+
+| Threat               | Failure                                                              | Main control                                                               | Verify                                      |
+| -------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------- |
+| XSS                  | Untrusted data becomes executable markup                             | Safe text rendering; vetted sanitization for required HTML                 | Payload is inert text; unsafe URLs rejected |
+| CSRF                 | Browser sends ambient credentials for an attacker-triggered mutation | Framework CSRF protection, token/origin checks appropriate to architecture | Cross-origin mutation rejected              |
+| CORS mistake         | Browser exposes credentialed responses to an untrusted origin        | Exact origin allowlist; deliberate credential policy                       | Untrusted Origin receives no permission     |
+| SQL injection        | Data changes query syntax                                            | Parameterized values; allowlist dynamic identifiers                        | Quotes remain bound data                    |
+| Broken authorization | Caller modifies someone else's record                                | Ownership/role checks in the server query or mutation boundary             | User A cannot access user B's record        |
+| Secret exposure      | A credential enters browser code or logs                             | Server-only secrets; redact logs; rotate exposed credentials               | Inspect built assets and log samples        |
+| Abuse                | Unlimited attempts or expensive requests                             | Shared atomic limits, quotas, timeouts and bounded payloads                | 429 plus agreed retry behavior              |
+
+CORS controls browser response access; it is not authentication and does not prevent all request sending. A command-line client is not bound by browser CORS. HttpOnly blocks JavaScript cookie reads, not actions executed by XSS in the victim's page. SameSite helps mitigate CSRF but must fit your login flow and is not a universal replacement for CSRF defenses.
+
+## Sessions, JWT and OAuth details
+
+A session cookie should be Secure over HTTPS, HttpOnly where appropriate, scoped narrowly, and given an intentional SameSite policy. Rotate session identifiers on login and privilege changes; expire and revoke sessions on the server. JWT payloads are commonly encoded, not encrypted. Verify signature, allowed algorithm, issuer, audience and expiry with a maintained library; plan revocation and rotation. OAuth delegates authorization; use OpenID Connect for identity where needed. Use a maintained authorization-code-with-PKCE flow and validate state/nonce according to the protocol. Do not invent a home-grown auth system.
+
+## Rate-limit design
+
+An in-memory map is a single-process demonstration, not a distributed guarantee. Choose a shared atomic counter or token bucket, an authenticated-user limit plus suitable IP/route safeguards, and a defined window. Discuss proxy trust, shared IPs, burst allowance, expiry and what happens if the limiter fails. Do not log raw tokens or full prompts containing customer secrets.
+
+## A practical example
+
+```ts
+// PostgreSQL: parameters bind values, never concatenate user input.
+const query = {
+  text: "UPDATE notes SET title = $1 WHERE id = $2 AND owner_id = $3 RETURNING id",
+  values: [validatedTitle, noteId, authenticatedUserId],
+};
+// Pass this query to the server-side database client.
+// Dynamic column names need an explicit allowlist, not value placeholders.
+```
+
+## Interview drill
+
+### Does CORS authorize a caller?
+
+No. Authorization must be enforced on the server for every protected operation.
+
+### Does HttpOnly prevent XSS from submitting a mutation?
+
+No. It restricts cookie reads by JavaScript, but injected code may still act with the user’s browser session.
+
+### Why check owner_id in the update query?
+
+It binds the write to the authenticated owner at the data boundary and avoids trusting a client-supplied identity.
+
+### Can a per-process counter enforce a global quota?
+
+No. Multiple workers have independent state; production enforcement needs an appropriate shared atomic mechanism.
+
+## Try it yourself
+
+Threat-model one existing mutation. Demonstrate forbidden cross-user access, invalid input, a CSRF failure, a safely rendered XSS string, and rate-limit exhaustion.
+
+## Keep exploring
+
+[Official reference](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html). Study-plan expansion, page 4.

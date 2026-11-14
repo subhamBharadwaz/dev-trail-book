@@ -1,0 +1,71 @@
+export const meta = {
+  slug: "sql-joins",
+  category: "databases",
+  title: "SQL joins & relationship cardinality",
+  description: "Predict how many rows a relationship produces.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["databases", "week-4", "interview-prep"],
+  questions: [
+    {
+      question: "Does a LEFT JOIN drop a parent with no matching child?",
+      answer:
+        "No. It preserves that parent and supplies nulls for the unmatched right-side columns, unless a later filter removes it.",
+    },
+    {
+      question: "Why can a join unexpectedly increase row count?",
+      answer:
+        "A parent may match several children. The output cardinality reflects those matches rather than guaranteeing one row per parent.",
+    },
+  ],
+  facts: [
+    "COUNT(*) and COUNT(child.id) can differ after an outer join.",
+    "A WHERE condition on a right-side column can remove unmatched rows.",
+    "Understand relationships before optimizing the query.",
+  ],
+  source: "https://www.postgresql.org/docs/current/tutorial-join.html",
+  code: "SELECT e.id, e.title, COUNT(t.id) AS tag_count\nFROM entries e\nLEFT JOIN entry_tags et ON et.entry_id = e.id\nLEFT JOIN tags t ON t.id = et.tag_id\nWHERE e.owner_id = $1\nGROUP BY e.id, e.title\nORDER BY e.id;\n-- COUNT(t.id) counts matched tags, not the preserved null row.",
+  codeLanguage: "sql",
+  origin: "study-plan",
+  planWeek: 4,
+  planPages: [4],
+  quizDistractors: [
+    "Yes. LEFT JOIN always removes unmatched left-side rows.",
+    "Yes. LEFT JOIN behaves exactly like INNER JOIN for unmatched parents.",
+  ],
+};
+
+## The idea
+
+A join combines rows according to a relationship condition. INNER JOIN returns matches; LEFT JOIN also preserves unmatched rows from its left side. A one-to-many join can produce several output rows per parent, which affects counts, pagination, and aggregate results.
+
+## Why it matters
+
+Before writing a join, state the cardinality and the shape the caller needs. For parent-level pagination, joining children too early can change which parents fit on a page. Keep authorization predicates in the query and use parameter binding for external values.
+
+## A practical example
+
+```sql
+SELECT e.id, e.title, COUNT(t.id) AS tag_count
+FROM entries e
+LEFT JOIN entry_tags et ON et.entry_id = e.id
+LEFT JOIN tags t ON t.id = et.tag_id
+WHERE e.owner_id = $1
+GROUP BY e.id, e.title
+ORDER BY e.id;
+-- COUNT(t.id) counts matched tags, not the preserved null row.
+```
+
+## Common mistakes
+
+Do not fix duplicate-looking rows by adding DISTINCT without understanding the relationship. It may hide the wrong query shape.
+
+## Try it yourself
+
+Create one entry with two tags and one entry with none. Predict the joined rows and both count expressions before running the query.
+
+## Keep exploring
+
+Read the [technical reference](https://www.postgresql.org/docs/current/tutorial-join.html) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 4, Week 4. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

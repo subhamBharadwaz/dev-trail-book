@@ -1,0 +1,71 @@
+export const meta = {
+  slug: "hydration-rsc",
+  category: "nextjs",
+  title: "HTML, hydration & the RSC payload",
+  description: "Explain the different artifacts in a page load.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["nextjs", "week-3", "interview-prep"],
+  questions: [
+    {
+      question: "Is hydration the same thing as receiving HTML?",
+      answer:
+        "No. HTML can display content before interactive browser behavior is connected. Hydration associates the client tree and handlers with compatible markup.",
+    },
+    {
+      question: "Should suppressHydrationWarning be the default fix?",
+      answer:
+        "No. Investigate nondeterministic values, invalid markup, and server/client differences. Suppressing a warning does not repair the underlying data flow.",
+    },
+  ],
+  facts: [
+    "Stable initial output makes hydration predictable.",
+    "Browser APIs are unavailable during server execution.",
+    "RSC payloads support composition and navigation, not just first paint.",
+  ],
+  source:
+    "https://nextjs.org/docs/app/getting-started/server-and-client-components",
+  code: '"use client";\nimport { useEffect, useState } from "react";\nexport function LocalTime() {\n  const [time, setTime] = useState<string | null>(null);\n  useEffect(() => setTime(new Date().toLocaleTimeString()), []);\n  return <span>{time ?? "Local time loads after hydration"}</span>;\n}',
+  codeLanguage: "tsx",
+  origin: "study-plan",
+  planWeek: 3,
+  planPages: [3],
+  quizDistractors: [
+    "Yes. Hydration is just another name for downloading HTML.",
+    "Hydration runs SQL queries inside the browser.",
+  ],
+};
+
+## The idea
+
+HTML provides an initial document. Hydration connects browser-side React behavior to compatible pre-rendered markup. The RSC payload describes rendered Server Component output and references needed to compose it with Client Components. These are related parts of an experience, not three names for the same response.
+
+## Why it matters
+
+The initial browser render must match the pre-rendered markup closely enough for hydration. Reading a browser-only value while generating the initial render can create a mismatch. Prefer stable initial output and synchronize browser-specific values after the boundary is ready.
+
+## A practical example
+
+```tsx
+"use client";
+import { useEffect, useState } from "react";
+export function LocalTime() {
+  const [time, setTime] = useState<string | null>(null);
+  useEffect(() => setTime(new Date().toLocaleTimeString()), []);
+  return <span>{time ?? "Local time loads after hydration"}</span>;
+}
+```
+
+## Common mistakes
+
+Do not describe every Server Component update as hydration. Server output and interactive client behavior have different responsibilities.
+
+## Try it yourself
+
+Cause a mismatch with a random value, then replace it with a stable server-provided value or an intentional client-only update.
+
+## Keep exploring
+
+Read the [technical reference](https://nextjs.org/docs/app/getting-started/server-and-client-components) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 3. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

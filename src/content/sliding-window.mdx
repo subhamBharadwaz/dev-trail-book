@@ -1,0 +1,75 @@
+export const meta = {
+  slug: "sliding-window",
+  category: "dsa",
+  title: "Sliding windows & the longest unique substring",
+  description: "Maintain a valid contiguous range as you scan.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["dsa", "week-2", "interview-prep"],
+  questions: [
+    {
+      question: "Why use Math.max when moving the left boundary?",
+      answer:
+        "A repeated character may occur before the current window. Its old index must not move the left boundary backward and reintroduce invalid characters.",
+    },
+    {
+      question: "What makes this a window problem?",
+      answer:
+        "The candidate is a contiguous range whose validity can be maintained while the boundaries move, rather than an arbitrary subsequence.",
+    },
+  ],
+  facts: [
+    "Window and subsequence are different contracts.",
+    "State what the tracked map represents.",
+    "An empty input should return zero here.",
+  ],
+  source: "https://usaco.guide/silver/two-pointers",
+  code: "function longestUnique(text) {\n  const last = new Map();\n  let left = 0, best = 0;\n  for (let right = 0; right < text.length; right++) {\n    const char = text[right];\n    if (last.has(char)) left = Math.max(left, last.get(char) + 1);\n    last.set(char, right);\n    best = Math.max(best, right - left + 1);\n  }\n  return best;\n}",
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 2,
+  planPages: [3],
+  quizDistractors: [
+    "To allow the left boundary to move backward whenever a character repeats.",
+    "To sort the window without extra storage.",
+  ],
+};
+
+## The idea
+
+A sliding window tracks a contiguous range while its endpoints move forward. For the longest substring without repeated characters, remember the most recent index of each character and move the left boundary past a repeat that lies inside the current window.
+
+## Why it matters
+
+The left boundary must never move backward. This is why the update uses Math.max. With the usual map-operation assumptions, each character is processed once and the scan takes expected O(n) time. This example uses JavaScript UTF-16 indexing; define a different representation if the problem requires grapheme clusters.
+
+## A practical example
+
+```js
+function longestUnique(text) {
+  const last = new Map();
+  let left = 0,
+    best = 0;
+  for (let right = 0; right < text.length; right++) {
+    const char = text[right];
+    if (last.has(char)) left = Math.max(left, last.get(char) + 1);
+    last.set(char, right);
+    best = Math.max(best, right - left + 1);
+  }
+  return best;
+}
+```
+
+## Common mistakes
+
+Do not apply sliding windows when the required property cannot be maintained by justified endpoint movements.
+
+## Try it yourself
+
+Trace abba and abcabcbb by hand, writing left, right, last, and best after each step.
+
+## Keep exploring
+
+Read the [technical reference](https://usaco.guide/silver/two-pointers) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 2. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

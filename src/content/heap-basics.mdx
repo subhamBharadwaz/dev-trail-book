@@ -1,0 +1,75 @@
+export const meta = {
+  slug: "heap-basics",
+  category: "dsa",
+  title: "Heaps & priority queues — optional extension",
+  description: "Add this after the core patterns are reliable.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["dsa", "week-5", "interview-prep"],
+  questions: [
+    {
+      question: "Is a heap array globally sorted?",
+      answer:
+        "No. Its parent-child invariant guarantees the root priority, not a complete ordering of all array elements.",
+    },
+    {
+      question: "When should this optional topic take priority?",
+      answer:
+        "When target roles or a recurring interview problem need it and the core patterns are already dependable.",
+    },
+  ],
+  facts: [
+    "Define min-heap versus max-heap.",
+    "Removal needs sift-down, not only sift-up.",
+    "A heap is not a binary search tree.",
+  ],
+  source: "https://docs.python.org/3/library/heapq.html",
+  code: "function pushMinHeap(heap, value) {\n  heap.push(value);\n  let i = heap.length - 1;\n  while (i > 0) {\n    const parent = Math.floor((i - 1) / 2);\n    if (heap[parent] <= heap[i]) break;\n    [heap[parent], heap[i]] = [heap[i], heap[parent]];\n    i = parent;\n  }\n}\n// Insertion: O(log n); minimum lookup at heap[0]: O(1).",
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 5,
+  planPages: [4],
+  quizDistractors: [
+    "Yes. Reading the heap array from left to right always yields sorted output.",
+    "Yes. A heap has exactly the same ordering invariant as a binary search tree.",
+  ],
+  optional: true,
+};
+
+## The idea
+
+A binary min-heap maintains a partial order: each parent is no greater than its children. The minimum is at the root, but the array is not globally sorted. Insertion appends the value and restores the invariant by moving it upward.
+
+## Why it matters
+
+The PDF makes introductory heaps conditional on reliable core patterns and role relevance. Use them for repeated minimum/maximum access or bounded top-k problems when the trade-off is justified. This example implements insertion only; a complete priority queue also needs removal and downward repair.
+
+## A practical example
+
+```js
+function pushMinHeap(heap, value) {
+  heap.push(value);
+  let i = heap.length - 1;
+  while (i > 0) {
+    const parent = Math.floor((i - 1) / 2);
+    if (heap[parent] <= heap[i]) break;
+    [heap[parent], heap[i]] = [heap[i], heap[parent]];
+    i = parent;
+  }
+}
+// Insertion: O(log n); minimum lookup at heap[0]: O(1).
+```
+
+## Common mistakes
+
+Do not expand into optional structures while repeated failures remain in HashMap, Two Pointers, or Binary Search.
+
+## Try it yourself
+
+Insert 7, 2, 9, and 1. Verify the parent-child invariant after every insertion before implementing removal.
+
+## Keep exploring
+
+Read the [technical reference](https://docs.python.org/3/library/heapq.html) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 4, Week 5. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

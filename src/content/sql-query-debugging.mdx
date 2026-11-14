@@ -1,0 +1,113 @@
+export const meta = {
+  slug: "sql-query-debugging",
+  category: "databases",
+  title: "SQL query plans, N+1 & concurrent writes",
+  description:
+    "Make database correctness and performance visible with concrete queries.",
+  minutes: 12,
+  level: "Interview depth",
+  tags: ["pdf-audit", "micro-topics", "week-4"],
+  questions: [
+    {
+      question:
+        "Why can LEFT JOIN plus WHERE child.active = true drop empty parents?",
+      answer:
+        "The WHERE condition excludes NULL-extended child rows; place the child restriction in ON if empty parents must remain.",
+    },
+    {
+      question: "Does BEGIN alone prevent overselling?",
+      answer:
+        "No. A read-then-write sequence can race; use a suitable atomic update, locking or isolation policy.",
+    },
+    {
+      question: "Why might an index make writes slower?",
+      answer:
+        "Every affected index must be maintained alongside table changes, adding work and storage.",
+    },
+    {
+      question: "How do you prove an N+1 fix?",
+      answer:
+        "Compare bounded query counts and representative end-to-end timings before and after while checking identical results.",
+    },
+  ],
+  facts: [
+    "The WHERE condition excludes NULL-extended child rows; place the child restriction in ON if empty parents must remain.",
+    "No. A read-then-write sequence can race; use a suitable atomic update, locking or isolation policy.",
+    "Every affected index must be maintained alongside table changes, adding work and storage.",
+  ],
+  source: "https://www.postgresql.org/docs/current/transaction-iso.html",
+  code: "-- Parameter $1 is the authenticated owner.\nSELECT n.id, n.title, COUNT(c.id) AS comment_count\nFROM notes n LEFT JOIN comments c ON c.note_id = n.id\nWHERE n.owner_id = $1\nGROUP BY n.id, n.title\nORDER BY n.id;\n\n-- Atomic stock reservation; inspect affected rows / RETURNING.\nUPDATE inventory SET available = available - 1\nWHERE id = $1 AND available > 0\nRETURNING available;\n\n-- Candidate index for an owner's ordered feed; measure before keeping.\nCREATE INDEX notes_owner_created_id ON notes(owner_id, created_at DESC, id DESC);",
+  codeLanguage: "sql",
+  origin: "study-plan",
+  planWeek: 4,
+  planPages: [4],
+  quizDistractors: [
+    "This can be assumed without checking inputs, ownership, or failures.",
+    "The UI alone guarantees correctness for all callers.",
+  ],
+};
+
+## The idea
+
+Make database correctness and performance visible with concrete queries.
+
+## Join and NULL traps
+
+INNER JOIN removes unmatched parents. LEFT JOIN retains them, but a right-table predicate in WHERE can remove the null-extended rows and effectively change the result. Put the right-side restriction in ON when unmatched parents should remain. COUNT(\*) counts joined rows; COUNT(child.id) skips NULL and correctly gives zero for a missing child. One-to-many joins multiply rows, so check counts before aggregating unrelated child tables.
+
+## Diagnose N+1
+
+Fetching 20 parents and then fetching children in a loop can make 21 queries. Inspect database query logs and request timings. Use a suitable join or fetch all children with one bounded IN query and group them. Avoid joining several huge collections into a Cartesian explosion. Select required columns and paginate parents deliberately.
+
+## Index trade-offs and EXPLAIN
+
+An index adds storage and write work. Column order must match predicates and ordering; a composite B-tree often benefits from equality on its leading columns before the range/order portion. A sequential scan can be correct for a small table or broad match. Compare estimated/actual rows, scan type and timing on representative data. EXPLAIN ANALYZE executes the statement: do not casually run it on production mutations.
+
+## Transactions do not automatically prevent every race
+
+ACID covers atomicity, consistency constraints, isolation and durability. Use a transaction when multiple writes must succeed together; roll back on failure. A read-then-write stock check can still race under common isolation levels. Prefer an atomic conditional update, an appropriate row lock, or a stronger isolation strategy with bounded whole-transaction retries. PostgreSQL Read Committed uses statement snapshots; Serializable may reject a transaction that must be retried. Deadlocks can occur when locks are acquired in different orders: keep transactions short and acquire locks consistently.
+
+## A practical example
+
+```sql
+-- Parameter $1 is the authenticated owner.
+SELECT n.id, n.title, COUNT(c.id) AS comment_count
+FROM notes n LEFT JOIN comments c ON c.note_id = n.id
+WHERE n.owner_id = $1
+GROUP BY n.id, n.title
+ORDER BY n.id;
+
+-- Atomic stock reservation; inspect affected rows / RETURNING.
+UPDATE inventory SET available = available - 1
+WHERE id = $1 AND available > 0
+RETURNING available;
+
+-- Candidate index for an owner's ordered feed; measure before keeping.
+CREATE INDEX notes_owner_created_id ON notes(owner_id, created_at DESC, id DESC);
+```
+
+## Interview drill
+
+### Why can LEFT JOIN plus WHERE child.active = true drop empty parents?
+
+The WHERE condition excludes NULL-extended child rows; place the child restriction in ON if empty parents must remain.
+
+### Does BEGIN alone prevent overselling?
+
+No. A read-then-write sequence can race; use a suitable atomic update, locking or isolation policy.
+
+### Why might an index make writes slower?
+
+Every affected index must be maintained alongside table changes, adding work and storage.
+
+### How do you prove an N+1 fix?
+
+Compare bounded query counts and representative end-to-end timings before and after while checking identical results.
+
+## Try it yourself
+
+Seed owners with zero, one and many notes/comments. Test join counts. Run two concurrent stock reservations with one item left and prove only one succeeds.
+
+## Keep exploring
+
+[Official reference](https://www.postgresql.org/docs/current/transaction-iso.html). Study-plan expansion, page 4.

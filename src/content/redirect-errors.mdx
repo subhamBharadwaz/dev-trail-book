@@ -1,0 +1,81 @@
+export const meta = {
+  slug: "redirect-errors",
+  category: "nextjs",
+  title: "redirect(), try/catch & the success path",
+  description: "Capture the exact misconception from our interview discussion.",
+  minutes: 6,
+  level: "Discussion recap",
+  tags: ["nextjs", "week-3", "interview-prep"],
+  questions: [
+    {
+      question:
+        "Why can redirect inside a try block produce a false save error?",
+      answer:
+        "redirect throws a special framework signal. A catch can mistake it for a mutation failure even though the save succeeded.",
+    },
+    {
+      question: "Why not put the success redirect in finally?",
+      answer:
+        "Finally runs after both success and failure. A failed save could still navigate away and hide the error.",
+    },
+  ],
+  facts: [
+    "Return from the failure branch before the redirect.",
+    "Authenticate and validate before writing data.",
+    "Use an allowed internal destination, not unchecked user-supplied redirect input.",
+  ],
+  source: "https://nextjs.org/docs/app/api-reference/functions/redirect",
+  code: '"use server";\nimport { redirect } from "next/navigation";\nexport async function saveJournal(formData: FormData) {\n  const user = await requireUser();\n  const input = parseEntry(formData);\n  if (!input.ok) return { error: "Check the entry fields" };\n  try {\n    await saveEntryForUser(user.id, input.value);\n  } catch {\n    return { error: "Could not save entry" };\n  }\n  redirect("/journal");\n}',
+  codeLanguage: "ts",
+  origin: "discussion",
+  planWeek: 3,
+  planPages: [3],
+  quizDistractors: [
+    "The catch is skipped automatically because redirects do not throw.",
+    "The database save is automatically undone when redirect is caught.",
+  ],
+  discussionSource: {
+    title: "Full Stack Interview prep",
+    url: "https://chatgpt.com/c/6acfd806-4990-83ee-b4f6-b94dd1dabdc4",
+  },
+};
+
+## The idea
+
+Next.js redirect() ends the current control flow by throwing a framework redirect signal. A surrounding catch can intercept that signal and report a failure even after the database save succeeded. That is why the redirect belongs after a mutation try/catch whose failure branch returns.
+
+## Why it matters
+
+Finally is also the wrong success-only location: it runs after both success and failure. Keep save errors inside the catch and put navigation on the path reached only after success. The helper names in this example represent your application’s validated, authorized server layer.
+
+## A practical example
+
+```ts
+"use server";
+import { redirect } from "next/navigation";
+export async function saveJournal(formData: FormData) {
+  const user = await requireUser();
+  const input = parseEntry(formData);
+  if (!input.ok) return { error: "Check the entry fields" };
+  try {
+    await saveEntryForUser(user.id, input.value);
+  } catch {
+    return { error: "Could not save entry" };
+  }
+  redirect("/journal");
+}
+```
+
+## Common mistakes
+
+The misconception was that redirect avoids catch automatically. It does not: the redirect signal is thrown. Moving it outside the caught region preserves the intended control flow.
+
+## Try it yourself
+
+Explain the success and failure paths aloud. Simulate a thrown save error and confirm that the redirect is not reached.
+
+## Keep exploring
+
+Read the [technical reference](https://nextjs.org/docs/app/api-reference/functions/redirect) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 3. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF. The explanation also uses the accessible discussion excerpt.

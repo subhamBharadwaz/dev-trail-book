@@ -1,0 +1,71 @@
+export const meta = {
+  slug: "web-security",
+  category: "security",
+  title: "XSS, CSRF, CORS, injection & secrets",
+  description: "Match each threat to the boundary it crosses.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["security", "week-4", "interview-prep"],
+  questions: [
+    {
+      question: "Does CORS replace server authorization?",
+      answer:
+        "No. CORS governs certain browser cross-origin access. Non-browser callers still need authentication, authorization, and input validation.",
+    },
+    {
+      question: "Why use parameterized SQL?",
+      answer:
+        "Parameters are treated as data rather than executable query syntax, preventing the input from rewriting the query structure.",
+    },
+  ],
+  facts: [
+    "A signed token is not an XSS defense.",
+    "Cookie-based state-changing operations need an appropriate CSRF strategy.",
+    "Treat generated HTML and model output as untrusted content.",
+  ],
+  source:
+    "https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html",
+  code: '// Parameter binding keeps user input out of SQL syntax.\nconst result = await client.query(\n  "SELECT id, title FROM entries WHERE owner_id = $1 AND title = $2",\n  [user.id, title]\n);\n// Do not build SQL by concatenating title into the query text.\n// Do not expose private API keys through VITE_ or public client props.',
+  codeLanguage: "ts",
+  origin: "study-plan",
+  planWeek: 4,
+  planPages: [4],
+  quizDistractors: [
+    "Yes. CORS validates every user’s business permissions.",
+    "Yes. Blocking a browser origin prevents all non-browser requests.",
+  ],
+};
+
+## The idea
+
+XSS executes attacker-controlled content in a trusted page. CSRF abuses a browser’s ambient credentials to request unwanted actions. SQL injection changes query meaning through unsafe input construction. CORS is a browser cross-origin access mechanism; it does not authorize every client of an API.
+
+## Why it matters
+
+Use safe rendering and context-appropriate encoding, framework-compatible CSRF protections, parameterized database queries, server-side access checks, and secrets kept outside client bundles. Rate limiting reduces abuse pressure but is not a substitute for any of those controls.
+
+## A practical example
+
+```ts
+// Parameter binding keeps user input out of SQL syntax.
+const result = await client.query(
+  "SELECT id, title FROM entries WHERE owner_id = $1 AND title = $2",
+  [user.id, title],
+);
+// Do not build SQL by concatenating title into the query text.
+// Do not expose private API keys through VITE_ or public client props.
+```
+
+## Common mistakes
+
+Do not claim one setting such as HttpOnly, CORS, or HTTPS solves all web-security problems. Each protects a different boundary.
+
+## Try it yourself
+
+Map one authenticated form against XSS, CSRF, SQL injection, leaked secrets, and repeated requests. Explain the specific control for each threat.
+
+## Keep exploring
+
+Read the [technical reference](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 4, Week 4. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

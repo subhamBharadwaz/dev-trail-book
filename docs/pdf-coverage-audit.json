@@ -1,0 +1,197 @@
+{
+  "source": "/home/werewolf/Downloads/Subham_December_2026_Job_Plan.pdf",
+  "auditedOn": "2026-11-14",
+  "coverage": [
+    {
+      "page": 1,
+      "requirement": "Role focus, completed/pending status, resume point, no new capstone",
+      "slugs": [
+        "daily-learning-loop",
+        "application-scorecard",
+        "event-loop",
+        "closures",
+        "promise-chains",
+        "debounce-throttle",
+        "this-binding",
+        "prototypes-classes",
+        "stale-closures",
+        "dsa-40-problem-bank"
+      ]
+    },
+    {
+      "page": 2,
+      "requirement": "Six-day routine, six-hour blocks, independent recall, fallback schedules, mocks, spaced re-solves",
+      "slugs": [
+        "daily-learning-loop",
+        "dsa-method-complexity",
+        "application-scorecard"
+      ]
+    },
+    {
+      "page": 3,
+      "requirement": "Week 1: JS, autocomplete, browser, typed data, initial DSA and first applications",
+      "slugs": [
+        "this-binding",
+        "prototypes-classes",
+        "stale-closures",
+        "search-abort-races",
+        "browser-rendering",
+        "typed-props-api",
+        "two-sum-hashmap",
+        "group-anagrams",
+        "hashmap-practice",
+        "two-pointers",
+        "application-scorecard"
+      ]
+    },
+    {
+      "page": 3,
+      "requirement": "Week 2: rendering, keys, snapshots, inputs, reducer/context/ref, Effects, responsive accessible UI",
+      "slugs": [
+        "rendering-keys",
+        "controlled-inputs",
+        "reducers-context-refs",
+        "effects",
+        "semantic-responsive",
+        "layout-form-details",
+        "accessible-ui",
+        "sliding-window",
+        "stack-patterns"
+      ]
+    },
+    {
+      "page": 3,
+      "requirement": "Week 3: server/client, serialization, SSR/CSR/hydration/RSC, route states, caching, reads/mutations",
+      "slugs": [
+        "next-request-trace",
+        "rsc-boundaries",
+        "hydration-rsc",
+        "next-route-states",
+        "caching-revalidation",
+        "server-data-fetching",
+        "actions-route-handlers",
+        "redirect-errors",
+        "streaming-suspense",
+        "binary-search"
+      ]
+    },
+    {
+      "page": 4,
+      "requirement": "Week 4: HTTP, REST, validation, errors, pagination, idempotency",
+      "slugs": [
+        "http-basics",
+        "rest-pagination",
+        "api-validation-errors",
+        "idempotency",
+        "authenticated-mutations"
+      ]
+    },
+    {
+      "page": 4,
+      "requirement": "Week 4: sessions/JWT/OAuth, authz, XSS/CSRF/CORS, SQL injection, secrets, rate limits",
+      "slugs": [
+        "auth-sessions-oauth",
+        "web-security",
+        "security-boundary-drills"
+      ]
+    },
+    {
+      "page": 4,
+      "requirement": "Week 4: joins, indexes, transactions, N+1, intervals and trees",
+      "slugs": [
+        "sql-joins",
+        "sql-indexes-transactions",
+        "sql-query-debugging",
+        "merge-intervals",
+        "tree-bfs-dfs"
+      ]
+    },
+    {
+      "page": 4,
+      "requirement": "Week 5: composition, state, forms, optimistic rollback, tests, keyboard/focus/errors, measured performance",
+      "slugs": [
+        "react-render-debugging",
+        "optimistic-forms",
+        "behavior-testing",
+        "accessible-ui",
+        "layout-form-details",
+        "performance-profiling",
+        "performance-investigation",
+        "debug-build-spec",
+        "heap-basics"
+      ]
+    },
+    {
+      "page": 4,
+      "requirement": "Week 6: bounded AI streaming/stop/retry/errors, schemas, read-only tools, costs/context/latency/data; optional retrieval ten cases",
+      "slugs": [
+        "ai-streaming",
+        "structured-output",
+        "read-only-tools",
+        "ai-cost-boundaries",
+        "retrieval-evaluation",
+        "frontend-system-design"
+      ]
+    },
+    {
+      "page": 5,
+      "requirement": "Weeks 7–8: closed-book explanations, timed tasks, six stories, two projects, JD evidence, formats, mocks",
+      "slugs": [
+        "project-stories",
+        "mock-company-prep",
+        "debug-build-spec",
+        "frontend-system-design",
+        "dsa-method-complexity"
+      ]
+    },
+    {
+      "page": 5,
+      "requirement": "Week 9 and buffer: actual rounds, targeted repair, applications, employer questions, written terms, January continuation",
+      "slugs": ["mock-company-prep", "december-buffer", "application-scorecard"]
+    },
+    {
+      "page": 6,
+      "requirement": "DSA scope, 35–50 range, complexity/edges/code, spaced retention, optional heaps",
+      "slugs": ["dsa-40-problem-bank", "dsa-method-complexity", "heap-basics"]
+    },
+    {
+      "page": 6,
+      "requirement": "Scorecard, response/screen/technical bottlenecks, fallback, readiness evidence and scope exclusions",
+      "slugs": [
+        "application-scorecard",
+        "daily-learning-loop",
+        "december-buffer",
+        "project-stories"
+      ]
+    }
+  ],
+  "newLessons": [
+    "api-validation-errors",
+    "security-boundary-drills",
+    "sql-query-debugging",
+    "layout-form-details",
+    "react-render-debugging",
+    "performance-investigation",
+    "next-request-trace",
+    "dsa-40-problem-bank",
+    "pdf-coverage-checklist"
+  ],
+  "expandedLessons": [
+    "hashmap-practice",
+    "two-pointers",
+    "tree-bfs-dfs",
+    "debounce-throttle",
+    "typed-props-api",
+    "this-binding",
+    "promise-chains",
+    "retrieval-evaluation",
+    "ai-streaming",
+    "structured-output",
+    "ai-cost-boundaries",
+    "mock-company-prep"
+  ],
+  "limitations": [
+    "Coverage is not mastery or a hiring guarantee.",
+    "40-problem bank is a practice inventory, not 40 worked solutions."
+  ]
+}

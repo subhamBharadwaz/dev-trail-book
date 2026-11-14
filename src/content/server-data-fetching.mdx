@@ -1,0 +1,77 @@
+export const meta = {
+  slug: "server-data-fetching",
+  category: "nextjs",
+  title: "Where the initial journal fetch belongs",
+  description: "Load initial server-owned data near the route.",
+  minutes: 6,
+  level: "Discussion recap",
+  tags: ["nextjs", "week-3", "interview-prep"],
+  questions: [
+    {
+      question:
+        "Where would you start an initial private journal fetch in the App Router?",
+      answer:
+        "Usually in the Server Component route or its server data layer, with authentication and per-user authorization. Pass the required view model into interactive children.",
+    },
+    {
+      question: "When is client fetching reasonable?",
+      answer:
+        "For browser-only information, interaction-driven updates, polling, or client-side cache behavior that the product needs. Choose based on the data lifecycle, not a blanket rule.",
+    },
+  ],
+  facts: [
+    "Never send a server credential as a client prop.",
+    "Parallelize independent operations, not dependent ones.",
+    "A loading boundary should match the user-visible wait.",
+  ],
+  source: "https://nextjs.org/docs/app/getting-started/fetching-data",
+  code: "export default async function JournalPage() {\n  const user = await requireUser();\n  const [entries, tags] = await Promise.all([\n    getEntriesForUser(user.id),\n    getTagsForUser(user.id),\n  ]);\n  return <JournalView entries={entries} tags={tags} />;\n}\n// The data functions enforce access and expose a safe view model.",
+  codeLanguage: "tsx",
+  origin: "discussion",
+  planWeek: 3,
+  planPages: [3],
+  quizDistractors: [
+    "Always fetch initial server-owned data in a browser Effect.",
+    "Put database credentials in props so the client can load the journal.",
+  ],
+  discussionSource: {
+    title: "Full Stack Interview prep",
+    url: "https://chatgpt.com/c/6acfd806-4990-83ee-b4f6-b94dd1dabdc4",
+  },
+};
+
+## The idea
+
+The latest interview question asked whether the journal page’s initial data should come from a Server Component page or a Client Component Effect. For server-owned initial data in an App Router route, the Server Component is usually the natural starting point. Interactive refreshes and browser-only data may still need a client data layer.
+
+## Why it matters
+
+A server read can authenticate, query directly, and return only the fields the UI needs. Calling your own Route Handler from a Server Component adds an HTTP boundary that may be unnecessary. Start independent reads together and choose caching according to freshness and access requirements.
+
+## A practical example
+
+```tsx
+export default async function JournalPage() {
+  const user = await requireUser();
+  const [entries, tags] = await Promise.all([
+    getEntriesForUser(user.id),
+    getTagsForUser(user.id),
+  ]);
+  return <JournalView entries={entries} tags={tags} />;
+}
+// The data functions enforce access and expose a safe view model.
+```
+
+## Common mistakes
+
+Do not move an initial read into useEffect merely because one child has a button. Keep data ownership and interaction ownership separate.
+
+## Try it yourself
+
+Explain the journal route from request to database to rendered output. Identify the authorization check and the exact client props.
+
+## Keep exploring
+
+Read the [technical reference](https://nextjs.org/docs/app/getting-started/fetching-data) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 3. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF. The explanation also uses the accessible discussion excerpt.

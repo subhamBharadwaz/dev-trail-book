@@ -1,0 +1,86 @@
+export const meta = {
+  slug: "streaming-suspense",
+  category: "nextjs",
+  title: "Streaming routes & useful Suspense boundaries",
+  description:
+    "Reveal independent sections without waiting for the slowest read.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["nextjs", "week-3", "interview-prep"],
+  questions: [
+    {
+      question: "Does Suspense make the database query itself faster?",
+      answer:
+        "No. It controls pending UI and when independently ready content can be revealed. The underlying query still needs its own performance work.",
+    },
+    {
+      question: "What makes a useful boundary?",
+      answer:
+        "A section whose loading state makes sense to the user and whose completion can be revealed without blocking unrelated content.",
+    },
+  ],
+  facts: [
+    "Streaming is distinct from client polling.",
+    "Start independent reads early.",
+    "Provide stable, meaningful fallbacks.",
+  ],
+  source: "https://nextjs.org/docs/app/getting-started/fetching-data",
+  code: 'import { Suspense } from "react";\nexport default function Dashboard() {\n  return <main>\n    <h1>Your journal</h1>\n    <Suspense fallback={<p>Loading activity…</p>}>\n      <RecentActivity />\n    </Suspense>\n  </main>;\n}\nasync function RecentActivity() {\n  const entries = await getRecentEntriesForCurrentUser();\n  return <ul>{entries.map(entry => <li key={entry.id}>{entry.title}</li>)}</ul>;\n}',
+  codeLanguage: "tsx",
+  origin: "study-plan",
+  planWeek: 3,
+  planPages: [3],
+  quizDistractors: [
+    "Yes. Adding Suspense reduces every database query duration.",
+    "Yes. Suspense runs SQL in a separate browser thread.",
+  ],
+  planRecordedStatus: "covered",
+};
+
+## The idea
+
+Streaming can progressively send UI while slower server work finishes. A Suspense boundary defines where a fallback is shown and what can be revealed independently. It does not make the underlying data source faster.
+
+## Why it matters
+
+Put a boundary around a meaningful section, such as a slow activity list, rather than wrapping every line. Keep important initial content available early. Measure whether a waterfall is caused by dependent reads, an overly broad boundary, or work started too late.
+
+## A practical example
+
+```tsx
+import { Suspense } from "react";
+export default function Dashboard() {
+  return (
+    <main>
+      <h1>Your journal</h1>
+      <Suspense fallback={<p>Loading activity…</p>}>
+        <RecentActivity />
+      </Suspense>
+    </main>
+  );
+}
+async function RecentActivity() {
+  const entries = await getRecentEntriesForCurrentUser();
+  return (
+    <ul>
+      {entries.map((entry) => (
+        <li key={entry.id}>{entry.title}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Common mistakes
+
+Do not claim that any arbitrary Promise inside a browser Effect automatically activates Suspense. Use a supported data integration or framework pattern.
+
+## Try it yourself
+
+Introduce an artificial slow activity read. Confirm that the heading arrives before the list and that failure has a clear fallback.
+
+## Keep exploring
+
+Read the [technical reference](https://nextjs.org/docs/app/getting-started/fetching-data) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 3. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

@@ -1,0 +1,121 @@
+export const meta = {
+  slug: "layout-form-details",
+  category: "styling",
+  title: "Box model, Flexbox/Grid & accessible form details",
+  description:
+    "Build a narrow-screen form that stays usable with keyboard navigation and long content.",
+  minutes: 12,
+  level: "Interview depth",
+  tags: ["pdf-audit", "micro-topics", "week-2"],
+  questions: [
+    {
+      question: "Why does a long code line break a flex layout?",
+      answer:
+        "The flex item may retain its intrinsic minimum width; allow the correct item to shrink and put horizontal overflow on the code region.",
+    },
+    {
+      question: "Is a placeholder an accessible label?",
+      answer:
+        "No. Provide a persistent visible label connected to the control.",
+    },
+    {
+      question: "When should you use Grid instead of Flexbox?",
+      answer:
+        "Use Grid when row and column relationships drive the layout; Flexbox is useful for primarily one-dimensional arrangements.",
+    },
+    {
+      question: "What should happen after invalid submission?",
+      answer:
+        "Keep the user\u2019s input, expose specific linked errors and move focus intentionally to the first invalid field or an error summary.",
+    },
+  ],
+  facts: [
+    "The flex item may retain its intrinsic minimum width; allow the correct item to shrink and put horizontal overflow on the code region.",
+    "No. Provide a persistent visible label connected to the control.",
+    "Use Grid when row and column relationships drive the layout; Flexbox is useful for primarily one-dimensional arrangements.",
+  ],
+  source:
+    "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout",
+  code: 'function EmailField({ error }: { error?: string }) {\n  return (\n    <div className="min-w-0 space-y-2">\n      <label htmlFor="email" className="block font-medium">Email</label>\n      <input id="email" name="email" type="email" autoComplete="email"\n        required aria-invalid={Boolean(error)}\n        aria-describedby={error ? "email-error" : undefined}\n        className="box-border w-full rounded-md border px-3 py-2 focus-visible:outline-2 focus-visible:outline-offset-2" />\n      {error && <p id="email-error" role="alert">{error}</p>}\n    </div>\n  );\n}',
+  codeLanguage: "tsx",
+  origin: "study-plan",
+  planWeek: 2,
+  planPages: [3],
+  quizDistractors: [
+    "This can be assumed without checking inputs, ownership, or failures.",
+    "The UI alone guarantees correctness for all callers.",
+  ],
+};
+
+## The idea
+
+Build a narrow-screen form that stays usable with keyboard navigation and long content.
+
+## Layout mechanics
+
+With content-box, declared width excludes padding and borders. Border-box includes them; margin remains outside. Flexbox primarily arranges a row or column; Grid coordinates rows and columns. Flex children may refuse to shrink below intrinsic content size: apply min-w-0 where appropriate. For a flexible Grid track use minmax(0, 1fr) to prevent long text from forcing overflow. Use overflow-x-auto on code/table regions instead of allowing the entire page to scroll horizontally.
+
+Use mobile-first base utilities, then sm/md/lg changes driven by content needs. A sidebar can collapse to a named menu trigger on narrow screens. Test long headings, translated labels, 200% zoom and empty content. Avoid fixed heights for text containers. Use gap for item spacing; understand when margins collapse in normal block flow. Relative positioning establishes the containing block for positioned descendants; z-index also depends on stacking contexts, not just a bigger number.
+
+## Form and focus behavior
+
+Use native inputs with visible labels; placeholders are not labels. Group related choices with fieldset/legend. Set button type=button for actions that must not submit. Make Enter submission intentional. Keep a visible focus indicator, logical DOM order, sufficient contrast, and errors linked using aria-describedby plus aria-invalid. After a failed submission, focus an error summary or first invalid field deliberately. Do not steal focus while a user is typing. For a dialog use the UI SDK focus handling, Escape dismissal, accessible title and restoration to its trigger.
+
+## Timed acceptance criteria
+
+In 60–90 minutes, build a filterable list with clear loading, empty, error and retry states. At 320px width, the page must not overflow. Operate everything by keyboard; verify focus after opening/closing an overlay. Submit blank and malformed values; show actionable errors without deleting input. Explain state ownership and demonstrate one behavior test.
+
+## A practical example
+
+```tsx
+function EmailField({ error }: { error?: string }) {
+  return (
+    <div className="min-w-0 space-y-2">
+      <label htmlFor="email" className="block font-medium">
+        Email
+      </label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        autoComplete="email"
+        required
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? "email-error" : undefined}
+        className="box-border w-full rounded-md border px-3 py-2 focus-visible:outline-2 focus-visible:outline-offset-2"
+      />
+      {error && (
+        <p id="email-error" role="alert">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+```
+
+## Interview drill
+
+### Why does a long code line break a flex layout?
+
+The flex item may retain its intrinsic minimum width; allow the correct item to shrink and put horizontal overflow on the code region.
+
+### Is a placeholder an accessible label?
+
+No. Provide a persistent visible label connected to the control.
+
+### When should you use Grid instead of Flexbox?
+
+Use Grid when row and column relationships drive the layout; Flexbox is useful for primarily one-dimensional arrangements.
+
+### What should happen after invalid submission?
+
+Keep the user’s input, expose specific linked errors and move focus intentionally to the first invalid field or an error summary.
+
+## Try it yourself
+
+Build the same list with Flexbox and Grid using Tailwind only. Explain the trade-off and test keyboard, 320px width, zoom and a 100-character title.
+
+## Keep exploring
+
+[Official reference](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout). Study-plan expansion, page 3.

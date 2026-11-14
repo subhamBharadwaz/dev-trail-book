@@ -1,0 +1,71 @@
+export const meta = {
+  slug: "sql-indexes-transactions",
+  category: "databases",
+  title: "Indexes, transactions & N+1 queries",
+  description: "Measure query behavior and protect multi-write invariants.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["databases", "week-4", "interview-prep"],
+  questions: [
+    {
+      question: "Is adding an index always a performance improvement?",
+      answer:
+        "No. Its usefulness depends on the query and data distribution, and it increases storage and write-maintenance work. Measure the actual plan and latency.",
+    },
+    {
+      question: "What is an N+1 query pattern?",
+      answer:
+        "One query loads a collection, then another query runs separately for each item. It often creates excessive round trips that batching or a suitable join can avoid.",
+    },
+  ],
+  facts: [
+    "Transaction isolation does not mean every possible race is eliminated.",
+    "Composite index column order matters.",
+    "EXPLAIN ANALYZE actually executes the statement.",
+  ],
+  source: "https://www.postgresql.org/docs/current/indexes.html",
+  code: "CREATE INDEX entries_owner_created_id\nON entries (owner_id, created_at DESC, id DESC);\n\nBEGIN;\nINSERT INTO entries (id, owner_id, title) VALUES ($1, $2, $3);\nINSERT INTO entry_tags (entry_id, tag_id) VALUES ($1, $4);\nCOMMIT;\n-- Roll back the transaction if either required write fails.",
+  codeLanguage: "sql",
+  origin: "study-plan",
+  planWeek: 4,
+  planPages: [4],
+  quizDistractors: [
+    "Yes. Every additional index makes all queries and writes faster.",
+    "Yes. Indexes have no storage or write cost.",
+  ],
+};
+
+## The idea
+
+An index can reduce work for compatible lookups or ordering, at a cost in storage and write maintenance. A transaction groups operations under the database’s consistency and isolation rules. An N+1 query pattern performs one read for parents and another per parent, multiplying round trips.
+
+## Why it matters
+
+Use EXPLAIN to understand a query plan and realistic data to measure improvement. Use transactions for invariants such as creating an entry and its initial tags together. Batching or joining related reads can remove N+1 work; transaction boundaries alone do not remove it.
+
+## A practical example
+
+```sql
+CREATE INDEX entries_owner_created_id
+ON entries (owner_id, created_at DESC, id DESC);
+
+BEGIN;
+INSERT INTO entries (id, owner_id, title) VALUES ($1, $2, $3);
+INSERT INTO entry_tags (entry_id, tag_id) VALUES ($1, $4);
+COMMIT;
+-- Roll back the transaction if either required write fails.
+```
+
+## Common mistakes
+
+Do not run EXPLAIN ANALYZE on a production mutation as though it were read-only. Use a safe environment and understand execution behavior.
+
+## Try it yourself
+
+Compare loading tags one entry at a time with one batched query. Measure query count and inspect the relevant index plan.
+
+## Keep exploring
+
+Read the [technical reference](https://www.postgresql.org/docs/current/indexes.html) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 4, Week 4. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

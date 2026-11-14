@@ -1,0 +1,74 @@
+export const meta = {
+  slug: "two-sum-hashmap",
+  category: "dsa",
+  title: "Two Sum & the complement map",
+  description: "Trade a repeated search for remembered values.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["dsa", "week-1", "interview-prep"],
+  questions: [
+    {
+      question: "Why check the complement before inserting the current index?",
+      answer:
+        "The map should contain only earlier elements, so a match uses two different indices rather than reusing the current element.",
+    },
+    {
+      question: "What are the expected time and space costs?",
+      answer:
+        "Expected O(n) time and O(n) extra space using the usual efficient hash-map model. The brute-force pair scan is O(n²).",
+    },
+  ],
+  facts: [
+    "Map.has works even when a stored index is zero.",
+    "Duplicate values can form a valid pair.",
+    "Explain the no-solution result.",
+  ],
+  source: "https://leetcode.com/problems/two-sum/description/",
+  code: "function twoSum(nums, target) {\n  const seen = new Map();\n  for (let i = 0; i < nums.length; i++) {\n    const needed = target - nums[i];\n    if (seen.has(needed)) return [seen.get(needed), i];\n    seen.set(nums[i], i);\n  }\n  return null;\n}\nconsole.log(twoSum([3, 3], 6)); // [0, 1]",
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 1,
+  planPages: [3],
+  quizDistractors: [
+    "To allow the same element to match itself twice.",
+    "Because Map cannot store index zero.",
+  ],
+  planRecordedStatus: "pending",
+};
+
+## The idea
+
+For each value x, the matching value is target - x. A map can remember values already visited and their indices, so you can test the complement before storing the current value. Under the usual hash-map assumptions, this gives expected linear time and linear extra space.
+
+## Why it matters
+
+The invariant is that the map contains only earlier indices. Checking first prevents an element from matching itself. State the contract for no solution and duplicates before coding; the plan explicitly records Two Sum as pending.
+
+## A practical example
+
+```js
+function twoSum(nums, target) {
+  const seen = new Map();
+  for (let i = 0; i < nums.length; i++) {
+    const needed = target - nums[i];
+    if (seen.has(needed)) return [seen.get(needed), i];
+    seen.set(nums[i], i);
+  }
+  return null;
+}
+console.log(twoSum([3, 3], 6)); // [0, 1]
+```
+
+## Common mistakes
+
+Do not test an index with if (seen.get(value)): index zero is falsy and can hide a valid match.
+
+## Try it yourself
+
+Attempt [2,7,11,15] with target 9 and [3,3] with target 6. Re-solve without notes after roughly two and seven days.
+
+## Keep exploring
+
+Read the [technical reference](https://leetcode.com/problems/two-sum/description/) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

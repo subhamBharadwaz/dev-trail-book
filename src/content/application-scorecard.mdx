@@ -1,0 +1,81 @@
+export const meta = {
+  slug: "application-scorecard",
+  category: "interviews",
+  title: "Applications, outreach & the weekly scorecard",
+  description: "Use process evidence to choose the next adjustment.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["interviews", "week-1", "interview-prep"],
+  questions: [
+    {
+      question:
+        "Does hitting the weekly application target guarantee an offer?",
+      answer:
+        "No. It is a controllable process target. Employer decisions and timelines are outside the plan’s control.",
+    },
+    {
+      question: "What if relevant applications receive few replies?",
+      answer:
+        "Review role fit, resume clarity, experience level, and project evidence, and seek a human review rather than waiting until all study is complete.",
+    },
+  ],
+  facts: [
+    "Tailor strong matches and respect employer timelines.",
+    "Follow up intentionally rather than repeatedly spamming.",
+    "Do not pause the entire search for one promising process.",
+  ],
+  source:
+    "https://www.careeronestop.org/JobSearch/PlanYourJobSearch/plan-your-job-search.aspx",
+  code: "const weeklyScorecard = {\n  applications: 0, contacts: 0, followUpsDue: [],\n  replies: 0, screens: 0, technicalRounds: 0,\n  finalRounds: 0, offers: 0,\n  mocks: 0, timedTasks: 0, dsaResolves: 0,\n  recurringGaps: [], nextActions: [],\n};\n// Fill this with actual evidence, not target numbers represented as results.",
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 1,
+  planPages: [6],
+  quizDistractors: [
+    "Yes. The plan promises an offer after a fixed number of applications.",
+    "Yes. Employers must reply once the weekly target is reached.",
+  ],
+};
+
+## The idea
+
+The revised plan starts applications in the first week instead of waiting for the curriculum to finish. It suggests roughly 8–12 relevant applications in the launch week and then 15–20 suitable applications plus 3–5 personalized professional contacts per week, adjusted to actual matches and capacity.
+
+## Why it matters
+
+These are process targets, not promised offers or conversion rates. Track applications, replies, screens, rounds, follow-ups, two mocks, a timed task, and the three recurring learning gaps. Different bottlenecks call for different repairs: weak response rates are not solved only by studying another framework.
+
+## A practical example
+
+```js
+const weeklyScorecard = {
+  applications: 0,
+  contacts: 0,
+  followUpsDue: [],
+  replies: 0,
+  screens: 0,
+  technicalRounds: 0,
+  finalRounds: 0,
+  offers: 0,
+  mocks: 0,
+  timedTasks: 0,
+  dsaResolves: 0,
+  recurringGaps: [],
+  nextActions: [],
+};
+// Fill this with actual evidence, not target numbers represented as results.
+```
+
+## Common mistakes
+
+Do not confuse an application count with hiring progress. Track replies and stages as well as activity.
+
+## Try it yourself
+
+Populate a scorecard using real activity. Choose the next week’s three highest-impact gaps based on the evidence.
+
+## Keep exploring
+
+Read the [technical reference](https://www.careeronestop.org/JobSearch/PlanYourJobSearch/plan-your-job-search.aspx) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 6, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

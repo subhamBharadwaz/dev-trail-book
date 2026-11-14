@@ -1,0 +1,70 @@
+export const meta = {
+  slug: "browser-rendering",
+  category: "web",
+  title: "Browser rendering & layout work",
+  description: "Know what happens between receiving HTML and painting pixels.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["web", "week-1", "interview-prep"],
+  questions: [
+    {
+      question: "Why can a geometry read be expensive?",
+      answer:
+        "If pending style changes invalidate layout, a geometry read may force the browser to calculate it synchronously before returning the value.",
+    },
+    {
+      question: "Is transform always free?",
+      answer:
+        "No. It often avoids layout, but compositing, rasterization, large layers, and other work still have costs. Profile the actual interaction.",
+    },
+  ],
+  facts: [
+    "A fast network response does not guarantee a responsive UI.",
+    "Long main-thread tasks can delay input handling.",
+    "Reserve image dimensions to reduce layout shifts.",
+  ],
+  source:
+    "https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path",
+  code: '// Read geometry together, then apply writes.\nconst widths = cards.map(card => card.getBoundingClientRect().width);\ncards.forEach((card, index) => {\n  card.style.setProperty("--measured-width", `${widths[index]}px`);\n});\n// Avoid alternating a geometry read and write in a large loop.',
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 1,
+  planPages: [3],
+  quizDistractors: [
+    "Geometry reads can never trigger layout work.",
+    "Reading layout always happens on a separate worker thread.",
+  ],
+};
+
+## The idea
+
+The browser parses HTML into the DOM, builds style information, calculates layout, and paints/composites the result. JavaScript and resource loading can affect when those steps happen. Some changes require layout; others can be handled more cheaply, depending on the element and browser.
+
+## Why it matters
+
+Repeatedly reading geometry after writing layout-affecting styles can force synchronous work. Measure actual behavior in DevTools instead of declaring every animation GPU-accelerated. Keep expensive work off critical interactions and reserve space for content that loads later.
+
+## A practical example
+
+```js
+// Read geometry together, then apply writes.
+const widths = cards.map((card) => card.getBoundingClientRect().width);
+cards.forEach((card, index) => {
+  card.style.setProperty("--measured-width", `${widths[index]}px`);
+});
+// Avoid alternating a geometry read and write in a large loop.
+```
+
+## Common mistakes
+
+Do not optimize based on property names alone. Reproduce the slow interaction and inspect the browser trace first.
+
+## Try it yourself
+
+Use the Performance panel to compare an alternating read/write loop with batched reads followed by writes.
+
+## Keep exploring
+
+Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

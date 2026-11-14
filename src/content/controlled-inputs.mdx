@@ -1,0 +1,82 @@
+export const meta = {
+  slug: "controlled-inputs",
+  category: "react",
+  title: "Controlled inputs & form state",
+  description: "Make input ownership explicit and handle empty values.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["react", "week-2", "interview-prep"],
+  questions: [
+    {
+      question: "What makes an input controlled?",
+      answer:
+        "Its displayed value is supplied by application state and updated through the control’s change path.",
+    },
+    {
+      question: "Can client validation protect a mutation by itself?",
+      answer:
+        "No. A caller can bypass the browser. Validate and authorize the request again on the server.",
+    },
+  ],
+  facts: [
+    "Use checked for controlled checkboxes and radios.",
+    "Associate labels with the actual control.",
+    "Do not store a value twice when one owner is sufficient.",
+  ],
+  source: "https://react.dev/reference/react-dom/components/input",
+  code: 'const [name, setName] = useState("");\nreturn <form onSubmit={event => {\n  event.preventDefault();\n  if (!name.trim()) return;\n  console.log(name.trim());\n}}>\n  <label htmlFor="name">Name</label>\n  <input id="name" value={name}\n    onChange={event => setName(event.target.value)} required />\n  <button type="submit">Continue</button>\n</form>;',
+  codeLanguage: "tsx",
+  origin: "study-plan",
+  planWeek: 2,
+  planPages: [3],
+  quizDistractors: [
+    "An input becomes controlled merely because it has an onFocus handler.",
+    "A controlled input keeps its value exclusively inside the DOM.",
+  ],
+};
+
+## The idea
+
+A controlled input receives its current value from React state and reports edits through a change handler. An uncontrolled input keeps its current value in the DOM. Choose deliberately rather than switching ownership during the component lifetime.
+
+## Why it matters
+
+Initialize a controlled text value to an empty string, not undefined. Keep labels, validation messages, pending state, and submission feedback connected. Browser validation improves usability but cannot replace validation at the server boundary.
+
+## A practical example
+
+```tsx
+const [name, setName] = useState("");
+return (
+  <form
+    onSubmit={(event) => {
+      event.preventDefault();
+      if (!name.trim()) return;
+      console.log(name.trim());
+    }}
+  >
+    <label htmlFor="name">Name</label>
+    <input
+      id="name"
+      value={name}
+      onChange={(event) => setName(event.target.value)}
+      required
+    />
+    <button type="submit">Continue</button>
+  </form>
+);
+```
+
+## Common mistakes
+
+Updating a related preview in an Effect is usually unnecessary when it can be derived from the current input state.
+
+## Try it yourself
+
+Add an empty-name error, a pending submission state, and a retryable server error. Test the entire form with a keyboard.
+
+## Keep exploring
+
+Read the [technical reference](https://react.dev/reference/react-dom/components/input) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 2. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

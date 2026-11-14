@@ -1,0 +1,76 @@
+export const meta = {
+  slug: "idempotency",
+  category: "backend",
+  title: "Idempotency & safe retries",
+  description: "Keep a repeated command from creating duplicate work.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["backend", "week-4", "interview-prep"],
+  questions: [
+    {
+      question:
+        "Is disabling a submit button enough to make a mutation idempotent?",
+      answer:
+        "No. It only affects that UI instance. Retries and concurrent requests need server-side guarantees.",
+    },
+    {
+      question:
+        "Does idempotent mean every response must be byte-for-byte identical?",
+      answer:
+        "No. It describes the intended effect of repeating the request, not the exact response body or status every time.",
+    },
+  ],
+  facts: [
+    "A timeout does not prove that the write failed.",
+    "Use durable uniqueness, not only a process-local map.",
+    "Scope idempotency keys to the appropriate identity and operation.",
+  ],
+  source: "https://developer.mozilla.org/en-US/docs/Glossary/Idempotent",
+  code: "// Illustrative service contract, not an in-memory production store.\nasync function createOnce(userId, key, payload) {\n  return db.transaction(async tx => {\n    const previous = await tx.findRequest(userId, key);\n    if (previous) return requireSamePayload(previous, payload);\n    const result = await tx.createEntry(userId, payload);\n    await tx.saveRequest(userId, key, payload, result);\n    return result;\n  });\n}\n// A unique database key handles concurrent attempts; retry that conflict safely.",
+  codeLanguage: "ts",
+  origin: "study-plan",
+  planWeek: 4,
+  planPages: [4],
+  quizDistractors: [
+    "Yes. A disabled button guarantees that the server never receives a duplicate.",
+    "Yes. The browser automatically rolls back a write after a timeout.",
+  ],
+};
+
+## The idea
+
+An idempotent operation has the same intended effect when repeated as when performed once. This does not require identical responses. A create operation may need an application-level idempotency key when callers can retry after timeouts.
+
+## Why it matters
+
+A disabled submit button reduces accidental clicks but does not protect against network retries, multiple clients, or a lost response. Store the key with the request identity and result using a database constraint and appropriate transaction design. A repeated key with a different payload should be rejected, not silently reused.
+
+## A practical example
+
+```ts
+// Illustrative service contract, not an in-memory production store.
+async function createOnce(userId, key, payload) {
+  return db.transaction(async (tx) => {
+    const previous = await tx.findRequest(userId, key);
+    if (previous) return requireSamePayload(previous, payload);
+    const result = await tx.createEntry(userId, payload);
+    await tx.saveRequest(userId, key, payload, result);
+    return result;
+  });
+}
+// A unique database key handles concurrent attempts; retry that conflict safely.
+```
+
+## Common mistakes
+
+The transaction pseudocode still needs a unique constraint and conflict handling to close the concurrent-check race.
+
+## Try it yourself
+
+Simulate a successful write whose response is lost. Retry the same command and verify that only one row exists.
+
+## Keep exploring
+
+Read the [technical reference](https://developer.mozilla.org/en-US/docs/Glossary/Idempotent) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 4, Week 4. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

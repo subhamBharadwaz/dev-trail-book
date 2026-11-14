@@ -1,0 +1,79 @@
+export const meta = {
+  slug: "optimistic-forms",
+  category: "react",
+  title: "Pending forms, optimistic updates & rollback",
+  description: "Make the temporary UI honest about an unfinished mutation.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["react", "week-5", "interview-prep"],
+  questions: [
+    {
+      question: "Is optimistic state the final source of truth?",
+      answer:
+        "No. It is a temporary prediction. Reconcile it with the authoritative server result and handle rejection.",
+    },
+    {
+      question: "Why can snapshot rollback fail with concurrent edits?",
+      answer:
+        "Restoring an old snapshot can undo an unrelated newer success. Serialize the operation or track and reconcile each optimistic change.",
+    },
+  ],
+  facts: [
+    "Keep pending feedback visible and accessible.",
+    "Do not silently lose the user’s input on failure.",
+    "A disabled button does not provide server idempotency.",
+  ],
+  source: "https://react.dev/reference/react/useOptimistic",
+  code: 'async function rename(nextTitle) {\n  const previous = title;\n  setTitle(nextTitle); setPending(true); setError("");\n  try {\n    const saved = await saveTitle(nextTitle);\n    setTitle(saved.title);\n  } catch {\n    setTitle(previous);\n    setError("Title was not saved. Try again.");\n  } finally { setPending(false); }\n}\n// This simple snapshot rollback assumes one mutation at a time.',
+  codeLanguage: "tsx",
+  origin: "study-plan",
+  planWeek: 5,
+  planPages: [4],
+  quizDistractors: [
+    "Yes. Once the UI changes optimistically the server response can be ignored.",
+    "Yes. Optimistic state automatically commits a database transaction.",
+  ],
+};
+
+## The idea
+
+An optimistic update shows the expected result before the server confirms it. It works best for operations with a clear, reversible optimistic representation. The final server response remains authoritative, and failure needs a defined recovery path.
+
+## Why it matters
+
+Distinguish initial, pending, success, and error states. Avoid duplicate submissions and preserve user-entered data when retry is possible. Concurrent optimistic writes need stable identities or operation tracking; restoring one old snapshot can accidentally erase another successful change.
+
+## A practical example
+
+```tsx
+async function rename(nextTitle) {
+  const previous = title;
+  setTitle(nextTitle);
+  setPending(true);
+  setError("");
+  try {
+    const saved = await saveTitle(nextTitle);
+    setTitle(saved.title);
+  } catch {
+    setTitle(previous);
+    setError("Title was not saved. Try again.");
+  } finally {
+    setPending(false);
+  }
+}
+// This simple snapshot rollback assumes one mutation at a time.
+```
+
+## Common mistakes
+
+Optimism is not appropriate for every operation. When the consequence is difficult to undo, confirmation from the server may be the clearer experience.
+
+## Try it yourself
+
+Test success, rejection, timeout, retry, and two rapid edits. Explain why the example requires a one-mutation-at-a-time rule.
+
+## Keep exploring
+
+Read the [technical reference](https://react.dev/reference/react/useOptimistic) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 4, Week 5. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

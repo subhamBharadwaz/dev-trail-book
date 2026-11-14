@@ -1,0 +1,107 @@
+export const meta = {
+  slug: "debounce-throttle",
+  category: "javascript",
+  title: "Debounce & throttle",
+  description: "Choose between waiting for quiet and limiting frequency.",
+  minutes: 6,
+  level: "Discussion recap",
+  tags: ["javascript", "week-1", "interview-prep"],
+  questions: [
+    {
+      question: "Does debouncing guarantee that an older request cannot win?",
+      answer:
+        "No. It reduces how often requests start. Once multiple requests exist, cancellation or a request-identity check is still needed.",
+    },
+    {
+      question: "Why clean up the debounce timer?",
+      answer:
+        "A pending callback may run after its owner is gone. Canceling it prevents unnecessary work and callbacks against stale state.",
+    },
+    {
+      question: "Does this throttle deliver the final event automatically?",
+      answer:
+        "No. It is leading-only; trailing delivery requires a separate timer and explicit semantics.",
+    },
+  ],
+  facts: [
+    "Debounce and throttle solve different timing problems.",
+    "A debounce interval is a product decision, not a universal constant.",
+    "Do not delay local filtering just because network search needs debouncing.",
+  ],
+  source:
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+  code: 'function debounce(fn, delay = 300) {\n let timer;\n const wrapped = (...args) => {\n clearTimeout(timer);\n timer = setTimeout(() => fn(...args), delay);\n };\n wrapped.cancel = () => clearTimeout(timer);\n return wrapped;\n}\nconst search = debounce(query => console.log(query));\nsearch("r"); search("react"); // only react after quiet',
+  codeLanguage: "js",
+  origin: "discussion",
+  planWeek: 1,
+  planPages: [3],
+  quizDistractors: [
+    "Yes. A debounce cancels every previously started network request.",
+    "Yes. Debounce makes responses arrive in request order.",
+  ],
+  discussionSource: {
+    title: "React User Search App",
+    url: "https://chatgpt.com/c/6adee764-1214-83ee-9ac5-ba46b5a443f2",
+  },
+  planRecordedStatus: "covered",
+};
+
+## The idea
+
+Debouncing delays work until calls have stopped for an interval. Throttling limits how often work runs during a continuous stream. A search request often benefits from trailing debounce; a scroll-driven update may need throttling or requestAnimationFrame depending on its purpose.
+
+## Why it matters
+
+A 300 ms debounce reduces request frequency, but it does not resolve out-of-order responses. Request cancellation and stale-result protection solve that separate problem. Clear pending timers when the owning component or subscription is disposed.
+
+## A practical example
+
+```js
+function debounce(fn, delay = 300) {
+  let timer;
+  const wrapped = (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), delay);
+  };
+  wrapped.cancel = () => clearTimeout(timer);
+  return wrapped;
+}
+const search = debounce((query) => console.log(query));
+search("r");
+search("react"); // only react after quiet
+```
+
+## Common mistakes
+
+Recreating the debounced function on every render gives each instance its own timer. Keep ownership stable or implement the timer within an Effect.
+
+## Try it yourself
+
+Type a query rapidly, then pause. Verify one request starts after 300 ms. Next introduce a slow old request to show why debounce alone is insufficient.
+
+## Keep exploring
+
+Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF. The explanation also uses the accessible discussion excerpt.
+
+## Implement a leading-edge throttle with cancellation
+
+```ts
+function throttle<T extends unknown[]>(fn: (...args: T) => void, wait: number) {
+  let last = -Infinity;
+  const run = (...args: T) => {
+    const now = performance.now();
+    if (now - last >= wait) {
+      last = now;
+      fn(...args);
+    }
+  };
+  run.cancel = () => {
+    last = -Infinity;
+  };
+  return run;
+}
+```
+
+This implementation invokes immediately, drops calls inside the window and has no trailing call. State that contract before using it. Debounce waits for quiet; throttle limits the rate while activity continues. A trailing throttle needs stored arguments and timer cleanup. In React keep the wrapper identity stable where required and cancel timers on cleanup. A UI throttle is not a server rate limiter.

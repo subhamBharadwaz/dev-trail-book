@@ -1,0 +1,75 @@
+export const meta = {
+  slug: "stack-patterns",
+  category: "dsa",
+  title: "Stacks, brackets & last-in-first-out reasoning",
+  description: "Keep the most recent unfinished obligation on top.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["dsa", "week-2", "interview-prep"],
+  questions: [
+    {
+      question: "Why is counting opening and closing brackets insufficient?",
+      answer:
+        "Counts do not capture nesting order. A sequence can have equal counts and still close the wrong bracket first.",
+    },
+    {
+      question: "Why check that the stack is empty at the end?",
+      answer:
+        "Unmatched opening brackets leave expected closers on the stack even if every encountered closer matched.",
+    },
+  ],
+  facts: [
+    "A stack preserves order, not just frequency.",
+    "Test a closer before any opener.",
+    "Specify handling for non-bracket characters.",
+  ],
+  source:
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push",
+  code: 'function validBrackets(text) {\n  const closing = { "(": ")", "[": "]", "{": "}" };\n  const stack = [];\n  for (const char of text) {\n    if (Object.hasOwn(closing, char)) stack.push(closing[char]);\n    else if (![ ")", "]", "}" ].includes(char) || stack.pop() !== char) {\n      return false;\n    }\n  }\n  return stack.length === 0;\n}',
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 2,
+  planPages: [3],
+  quizDistractors: [
+    "Counts fully describe nesting order.",
+    "Equal numbers of openers and closers guarantee valid nesting.",
+  ],
+};
+
+## The idea
+
+A stack is useful when the next event must resolve the most recent unmatched event. For bracket validation, each opener adds an expected closer. A closer must match the top expectation. The input is valid only if every character is accepted and the stack is empty at the end.
+
+## Why it matters
+
+State the accepted input alphabet. The example rejects characters other than brackets. It scans once in O(n) time and can use O(n) extra space for nested input. The same last-in-first-out reasoning appears in parsing and iterative depth-first traversal.
+
+## A practical example
+
+```js
+function validBrackets(text) {
+  const closing = { "(": ")", "[": "]", "{": "}" };
+  const stack = [];
+  for (const char of text) {
+    if (Object.hasOwn(closing, char)) stack.push(closing[char]);
+    else if (![")", "]", "}"].includes(char) || stack.pop() !== char) {
+      return false;
+    }
+  }
+  return stack.length === 0;
+}
+```
+
+## Common mistakes
+
+Do not accept a sequence merely because no mismatch was seen yet; unfinished openings must also be rejected.
+
+## Try it yourself
+
+Trace ([)] and ([]). Explain exactly where the invalid sequence violates the invariant.
+
+## Keep exploring
+
+Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 2. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

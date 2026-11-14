@@ -1,0 +1,71 @@
+export const meta = {
+  slug: "debug-build-spec",
+  category: "testing",
+  title: "A timed UI task & a debugging method",
+  description: "Turn a written requirement into observable acceptance checks.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["testing", "week-5", "interview-prep"],
+  questions: [
+    {
+      question: "What should happen before fixing a reported bug?",
+      answer:
+        "Reproduce it and identify the expected versus actual behavior. Then isolate the smallest faulty assumption and verify the correction.",
+    },
+    {
+      question: "What is a useful timed-task finish?",
+      answer:
+        "A coherent working interaction, verified key states, readable code, and a concise explanation of limitations and next steps.",
+    },
+  ],
+  facts: [
+    "A small reproducible case accelerates debugging.",
+    "Preserve unrelated working behavior.",
+    "Explain reasoning and edge cases aloud.",
+  ],
+  source: "https://developer.chrome.com/docs/devtools/javascript",
+  code: 'const acceptance = [\n  "The input has an accessible label",\n  "Filtering is case-insensitive",\n  "No matches has a useful empty state",\n  "A failed request can be retried",\n  "An obsolete response cannot replace newer results",\n];\n// Build and verify one complete interaction before optional features.',
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 5,
+  planPages: [4],
+  quizDistractors: [
+    "Rewrite the whole application before reproducing the issue.",
+    "Change several unrelated assumptions at once and stop when the error disappears.",
+  ],
+};
+
+## The idea
+
+Start a build-from-spec task by restating the user goal, required states, inputs, and constraints. Identify the smallest coherent implementation before adding optional polish. For debugging, reproduce the issue and isolate the first incorrect assumption rather than rewriting the entire feature.
+
+## Why it matters
+
+Use the same task loop for a filterable list, async form, or search box: enumerate happy and failure states, implement a small vertical slice, test it, then improve readability. In an interview, explain trade-offs and what remains unverified.
+
+## A practical example
+
+```js
+const acceptance = [
+  "The input has an accessible label",
+  "Filtering is case-insensitive",
+  "No matches has a useful empty state",
+  "A failed request can be retried",
+  "An obsolete response cannot replace newer results",
+];
+// Build and verify one complete interaction before optional features.
+```
+
+## Common mistakes
+
+Do not spend the whole time on setup or visual polish while the required interaction remains incomplete.
+
+## Try it yourself
+
+Build a responsive user search in 60–90 minutes. Reserve the final ten minutes for failure cases, keyboard checks, and a short handoff.
+
+## Keep exploring
+
+Read the [technical reference](https://developer.chrome.com/docs/devtools/javascript) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 4, Week 5. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

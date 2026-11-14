@@ -1,0 +1,124 @@
+export const meta = {
+  slug: "next-request-trace",
+  category: "nextjs",
+  title: "SSR, CSR, RSC & serialization: trace a request",
+  description:
+    "Explain HTML generation, component execution and hydration as separate mechanisms.",
+  minutes: 12,
+  level: "Interview depth",
+  tags: ["pdf-audit", "micro-topics", "week-3"],
+  questions: [
+    {
+      question: "Are SSR and RSC interchangeable?",
+      answer:
+        "No. SSR concerns HTML generation; RSC concerns where components run and how their result crosses the server/client boundary.",
+    },
+    {
+      question: "Can a Client Component appear in initial server HTML?",
+      answer:
+        "Yes. Client Components can be prerendered for the initial page and hydrated for browser interaction.",
+    },
+    {
+      question:
+        "Can an arbitrary function prop cross a server/client boundary?",
+      answer:
+        "No. Serializable supported values and specific Server Function references follow explicit framework rules.",
+    },
+    {
+      question: "What is the first hydration check?",
+      answer:
+        "Compare the server and initial client output for deterministic data, valid markup and browser-only branches.",
+    },
+  ],
+  facts: [
+    "No. SSR concerns HTML generation; RSC concerns where components run and how their result crosses the server/client boundary.",
+    "Yes. Client Components can be prerendered for the initial page and hydrated for browser interaction.",
+    "No. Serializable supported values and specific Server Function references follow explicit framework rules.",
+  ],
+  source:
+    "https://nextjs.org/docs/app/getting-started/server-and-client-components",
+  code: '// app/notes/page.tsx \u2014 Server Component\nimport { NotesFilter } from "./notes-filter";\nexport default async function Page() {\n  const rows = await readAuthorizedNotes(); // app-owned server data access\n  return <NotesFilter notes={rows.map(row => ({\n    id: row.id, title: row.title, createdAt: row.createdAt.toISOString(),\n  }))} />;\n}\n// NotesFilter lives in a separate file beginning with "use client".\n// readAuthorizedNotes must authenticate and scope the database query.',
+  codeLanguage: "tsx",
+  origin: "study-plan",
+  planWeek: 3,
+  planPages: [3],
+  quizDistractors: [
+    "This can be assumed without checking inputs, ownership, or failures.",
+    "The UI alone guarantees correctness for all callers.",
+  ],
+};
+
+## The idea
+
+Explain HTML generation, component execution and hydration as separate mechanisms.
+
+## Four concepts, four roles
+
+SSR produces initial HTML on the server. CSR produces or updates UI in the browser with JavaScript. A Client Component can participate in server prerendered HTML on an initial load; its name does not mean it always starts as a blank page. Hydration attaches React client behavior to server-rendered markup. RSC describes server-executed components and a payload representing their rendered result and references to client components; that payload is distinct from HTML and from hydration.
+
+## Trace an existing route
+
+1. The request resolves the route and layouts. Authenticate near protected data access.
+2. Server Components read data, possibly suspend, and produce their result. Suspense/loading boundaries can reveal parts independently.
+3. On initial navigation Next.js can send HTML plus the RSC payload and client JavaScript; the browser displays HTML and hydrates interactive boundaries.
+4. On later client navigation, the router can request/use RSC payloads and retained layouts. Exact caching and prefetch behavior depends on the installed version and configuration.
+5. A mutation validates input, authorizes the write, commits data, then refreshes/revalidates the relevant UI according to the actual framework APIs. Handle expected errors before redirect control flow.
+
+## Serialization boundary
+
+Pass values React supports across a Server-to-Client boundary. Plain data objects are easy to reason about. Do not pass a database connection, browser event, arbitrary function closure or class instance. Server Function references have a specific supported mechanism; they are not arbitrary callback serialization. Dates have framework-supported representations in some protocols, but explicit strings can simplify an API contract. Never send a secret just because it is serializable.
+
+## Hydration mismatch drill
+
+Random numbers, current time, browser-only globals and different server/client branches can produce different initial trees. Make the initial render deterministic; move genuinely browser-only synchronization to an appropriate client boundary. Invalid HTML nesting can also change the browser tree. Do not hide every mismatch with suppression.
+
+## Route-state details
+
+A layout persists shared UI across relevant navigations. loading UI expresses a pending route segment. error boundaries handle render failures and offer a recovery path; expected validation errors usually belong in form state. not-found is distinct from forbidden access, and resource-existence disclosure requires a deliberate policy. A boundary cannot catch every event-handler or background-promise error. Cache keys and access scope must prevent one user's response from serving another user.
+
+## A practical example
+
+```tsx
+// app/notes/page.tsx — Server Component
+import { NotesFilter } from "./notes-filter";
+export default async function Page() {
+  const rows = await readAuthorizedNotes(); // app-owned server data access
+  return (
+    <NotesFilter
+      notes={rows.map((row) => ({
+        id: row.id,
+        title: row.title,
+        createdAt: row.createdAt.toISOString(),
+      }))}
+    />
+  );
+}
+// NotesFilter lives in a separate file beginning with "use client".
+// readAuthorizedNotes must authenticate and scope the database query.
+```
+
+## Interview drill
+
+### Are SSR and RSC interchangeable?
+
+No. SSR concerns HTML generation; RSC concerns where components run and how their result crosses the server/client boundary.
+
+### Can a Client Component appear in initial server HTML?
+
+Yes. Client Components can be prerendered for the initial page and hydrated for browser interaction.
+
+### Can an arbitrary function prop cross a server/client boundary?
+
+No. Serializable supported values and specific Server Function references follow explicit framework rules.
+
+### What is the first hydration check?
+
+Compare the server and initial client output for deterministic data, valid markup and browser-only branches.
+
+## Try it yourself
+
+Trace your own route on initial load, client navigation, mutation and refresh. Label HTML, RSC data, client code, data permissions and cache scope separately.
+
+## Keep exploring
+
+[Official reference](https://nextjs.org/docs/app/getting-started/server-and-client-components). Study-plan expansion, page 3.

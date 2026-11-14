@@ -1,0 +1,68 @@
+export const meta = {
+  origin: "study-plan",
+  planWeek: 2,
+  planPages: [3],
+  codeLanguage: "tsx",
+  category: "web",
+  slug: "accessible-ui",
+  title: "Accessible by default",
+  description:
+    "Build controls people can use with a keyboard and a screen reader.",
+  minutes: 7,
+  level: "Must know",
+  tags: ["accessibility", "ui-sdk", "shadcn"],
+  questions: [
+    {
+      question: "Is an icon enough to name a button?",
+      answer:
+        "Usually no. Add visible text or an accessible name such as aria-label, and hide decorative icons from assistive technology.",
+    },
+    {
+      question: "What should happen when a dialog closes?",
+      answer:
+        "Focus should generally return to the control that opened it, unless the workflow requires another logical destination.",
+    },
+  ],
+  facts: [
+    "Tab order should follow the reading order.",
+    "Color alone should not communicate state.",
+    "Test the actual page with a keyboard, not only the isolated component.",
+  ],
+  source: "https://ui-sdk.dev/docs/react/components",
+  code: 'import { Tabs, TabsList, TabsTab, TabsPanel }\n  from "@ui-sdk/react/tabs";\n\nexport function Lesson() {\n  return <Tabs defaultValue="notes">\n    <TabsList aria-label="Lesson sections">\n      <TabsTab value="notes">Notes</TabsTab>\n      <TabsTab value="code">Code</TabsTab>\n    </TabsList>\n    <TabsPanel value="notes">Read the explanation.</TabsPanel>\n    <TabsPanel value="code">Explore the example.</TabsPanel>\n  </Tabs>;\n}',
+};
+
+## The idea
+
+Accessible interfaces give controls meaningful names, expose their state, preserve visible focus, and follow predictable keyboard behavior.
+
+## Why it matters
+
+Use native elements for simple interactions and a tested component library for composite widgets. ui-sdk handles behavior while your styles define the appearance.
+
+## A practical example
+
+```tsx
+import { Tabs, TabsList, TabsTab, TabsPanel } from "@ui-sdk/react/tabs";
+
+export function Lesson() {
+  return (
+    <Tabs defaultValue="notes">
+      <TabsList aria-label="Lesson sections">
+        <TabsTab value="notes">Notes</TabsTab>
+        <TabsTab value="code">Code</TabsTab>
+      </TabsList>
+      <TabsPanel value="notes">Read the explanation.</TabsPanel>
+      <TabsPanel value="code">Explore the example.</TabsPanel>
+    </Tabs>
+  );
+}
+```
+
+## Try it yourself
+
+Adapt this example to a small feature in your own project. Write down what the input is, what changes, and how you would handle a failure.
+
+## Keep exploring
+
+Read the [official documentation](https://ui-sdk.dev/docs/react/components) for the complete behavior and further examples.

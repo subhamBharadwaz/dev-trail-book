@@ -1,0 +1,69 @@
+export const meta = {
+  origin: "study-plan",
+  planWeek: 2,
+  planPages: [3],
+  codeLanguage: "css",
+  category: "styling",
+  slug: "tailwind-tokens",
+  title: "A small system of design tokens",
+  description: "Give color, spacing, and typography a shared language.",
+  minutes: 6,
+  level: "Fundamentals",
+  tags: ["tailwind", "design", "tokens"],
+  questions: [
+    {
+      question: "Should every value be a token?",
+      answer:
+        "No. Start with decisions that repeat or need to change together. A token is useful when its name explains a shared intention.",
+    },
+    {
+      question: "How do I keep a dark theme consistent?",
+      answer:
+        "Override semantic surface, text, border, and accent values together, and check contrast in both themes.",
+    },
+  ],
+  facts: [
+    "Semantic names describe purpose rather than a particular color.",
+    "A keyboard focus indicator should remain visible on every surface.",
+    "Respect reduced-motion preferences for nonessential motion.",
+  ],
+  source: "https://tailwindcss.com/docs/theme",
+  code: '@import "tailwindcss";\n\n@theme {\n  --color-trail-600: #267252;\n  --font-sans: "Geist Variable", sans-serif;\n}\n\n:root {\n  --surface: #ffffff;\n  --text: #202922;\n}\n\n.card {\n  background: var(--surface);\n  color: var(--text);\n}',
+};
+
+## The idea
+
+Design tokens are named decisions: a surface color, text color, spacing step, or corner radius. Shared names make consistent interfaces easier to maintain.
+
+## Why it matters
+
+Use semantic tokens for meaning, such as background and muted text. A theme can then change the values without changing every component.
+
+## A practical example
+
+```css
+@import "tailwindcss";
+
+@theme {
+  --color-trail-600: #267252;
+  --font-sans: "Geist Variable", sans-serif;
+}
+
+:root {
+  --surface: #ffffff;
+  --text: #202922;
+}
+
+.card {
+  background: var(--surface);
+  color: var(--text);
+}
+```
+
+## Try it yourself
+
+Adapt this example to a small feature in your own project. Write down what the input is, what changes, and how you would handle a failure.
+
+## Keep exploring
+
+Read the [official documentation](https://tailwindcss.com/docs/theme) for the complete behavior and further examples.

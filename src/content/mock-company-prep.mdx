@@ -1,0 +1,98 @@
+export const meta = {
+  slug: "mock-company-prep",
+  category: "interviews",
+  title: "Mocks, company-specific prep & repairing misses",
+  description: "Turn interview feedback into the next small drill.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["interviews", "week-8", "interview-prep"],
+  questions: [
+    {
+      question: "What should you do after reading the corrected mock solution?",
+      answer:
+        "Reproduce it independently later, ideally the next day, and explain the reasoning and edge cases without relying on the answer.",
+    },
+    {
+      question: "Should company-specific prep replace all applications?",
+      answer:
+        "No. Prepare for active rounds while keeping a sustainable application and follow-up rhythm.",
+    },
+    {
+      question: "What makes a mock useful after the timer ends?",
+      answer:
+        "Record specific errors, classify the gap, repair it and reproduce the corrected work independently rather than only rereading a solution.",
+    },
+  ],
+  facts: [
+    "Classify misses before choosing a drill.",
+    "Practice under realistic time limits.",
+    "Use actual role requirements to prioritize.",
+  ],
+  source:
+    "https://www.careeronestop.org/JobSearch/Interview/interview-and-negotiate.aspx",
+  code: 'const interviewReview = {\n  format: "debugging + project discussion",\n  evidenceToUse: ["a real async UI feature", "a real ownership story"],\n  gaps: ["one knowledge gap", "one coding gap", "one communication gap"],\n  nextDayProof: "Reproduce the corrected solution without hints",\n  constraints: { minutes: 60, hints: "limited" },\n};',
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 8,
+  planPages: [5],
+  quizDistractors: [
+    "Memorize the correction once and count the gap as permanently fixed.",
+    "Avoid reviewing mistakes until every interview round is finished.",
+  ],
+};
+
+## The idea
+
+Run realistic practice in the expected format: live coding, debugging, a UI task, design, or behavioral discussion. For each company, map the role description to evidence from your projects and three likely gaps. Ask about the interview stages and joining timeline.
+
+## Why it matters
+
+The plan asks for two weekly mock rounds, with one allowed to be a short self-recording. Review mistakes immediately and reproduce corrected solutions independently the next day. During active interviews, prioritize specific misses over broad new topics.
+
+## A practical example
+
+```js
+const interviewReview = {
+  format: "debugging + project discussion",
+  evidenceToUse: ["a real async UI feature", "a real ownership story"],
+  gaps: ["one knowledge gap", "one coding gap", "one communication gap"],
+  nextDayProof: "Reproduce the corrected solution without hints",
+  constraints: { minutes: 60, hints: "limited" },
+};
+```
+
+## Common mistakes
+
+Do not repeatedly rehearse the polished solution while avoiding the step that originally failed.
+
+## Try it yourself
+
+Run one realistic mock with limited hints. Label each miss as knowledge, coding, communication, or time management and assign a repair task.
+
+## Keep exploring
+
+Read the [technical reference](https://www.careeronestop.org/JobSearch/Interview/interview-and-negotiate.aspx) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 5, Week 8. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
+
+## Four ready-to-run mock rounds
+
+### JavaScript and React: 45 minutes
+
+Spend five minutes clarifying a debounced user-search spec, 25 implementing it, ten testing races and failures, and five explaining trade-offs. Questions: Why does an old response overwrite new results? Why does a stale closure read the old query? When is an Effect unnecessary? What survives a row reorder with an index key? A strong answer names the state owner, request identity, cleanup, stable keys and visible status behavior.
+
+### Full-stack debugging: 45 minutes
+
+A note save succeeds in the database but the UI displays a failure. Trace validation, session identity, ownership, mutation, redirect control flow and response handling. Then simulate a double submission and a lost response. Explain authorization at the mutation boundary and a safe retry contract. Show the smallest fix and one regression test; do not rewrite the whole route.
+
+### Frontend design: 30–45 minutes
+
+Design a dashboard, search page or chat interface. Clarify users and scale, sketch component ownership, identify local versus server state, define API contracts and pagination, then discuss cache scope, pending/error/empty states, keyboard behavior and performance measurements. Explain one failure mode and an alternative design. A technology list without a data-flow explanation is incomplete.
+
+### Project and behavioral: 30 minutes
+
+Explain each of two real projects in two minutes. Follow up: What did you personally build? Why this boundary? What broke? How did you validate the fix? Which outcome is measured? What would you change? Then tell one ownership, bug, deadline, failure, learning or client-communication story with honest scope.
+
+### Score and repair
+
+Score requirements, correctness, reasoning, edge cases, accessibility and time management separately as missing, partial or demonstrated. Record exact observations, not an overall feeling. Select three small repairs; reproduce the corrected implementation independently the next day. Keep applications active while preparing.

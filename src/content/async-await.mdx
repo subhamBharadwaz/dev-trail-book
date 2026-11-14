@@ -1,0 +1,66 @@
+export const meta = {
+  origin: "study-plan",
+  planWeek: 1,
+  planPages: [3],
+  planRecordedStatus: "covered",
+  codeLanguage: "js",
+  category: "javascript",
+  slug: "async-await",
+  title: "Promises & async / await",
+  description:
+    "Follow asynchronous work, handle failures, and avoid accidental waterfalls.",
+  minutes: 9,
+  level: "Fundamentals",
+  tags: ["async", "promises"],
+  questions: [
+    {
+      question: "Does fetch reject for a 404?",
+      answer:
+        "No. Check response.ok or response.status. Fetch rejects for failures such as a network error or an aborted request.",
+    },
+    {
+      question: "When should I use Promise.all?",
+      answer:
+        "Use it for independent operations when the combined result requires all of them to succeed. It rejects when an input rejects; it does not cancel other work.",
+    },
+  ],
+  facts: [
+    "Await only pauses the surrounding async function.",
+    "Promise.all preserves input order in its result array.",
+    "An unhandled rejection still needs an intentional error boundary.",
+  ],
+  source:
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function",
+  code: 'async function loadDashboard() {\n  const [profile, projects] = await Promise.all([\n    fetch("/api/profile"),\n    fetch("/api/projects"),\n  ]);\n  if (!profile.ok || !projects.ok) {\n    throw new Error("Dashboard could not be loaded");\n  }\n  return { profile: await profile.json(),\n           projects: await projects.json() };\n}',
+};
+
+## The idea
+
+An async function always returns a promise. Await pauses that function until a promise settles; it does not block the browser thread.
+
+## Why it matters
+
+Start independent work together. Await dependent work in order. Put error handling at a boundary that can explain or recover from a failure.
+
+## A practical example
+
+```js
+async function loadDashboard() {
+  const [profile, projects] = await Promise.all([
+    fetch("/api/profile"),
+    fetch("/api/projects"),
+  ]);
+  if (!profile.ok || !projects.ok) {
+    throw new Error("Dashboard could not be loaded");
+  }
+  return { profile: await profile.json(), projects: await projects.json() };
+}
+```
+
+## Try it yourself
+
+Adapt this example to a small feature in your own project. Write down what the input is, what changes, and how you would handle a failure.
+
+## Keep exploring
+
+Read the [official documentation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) for the complete behavior and further examples.

@@ -1,0 +1,74 @@
+export const meta = {
+  slug: "merge-intervals",
+  category: "dsa",
+  title: "Merge intervals after sorting",
+  description: "State what counts as an overlap before coding.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["dsa", "week-4", "interview-prep"],
+  questions: [
+    {
+      question: "Can overlap be decided without defining endpoint semantics?",
+      answer:
+        "Not reliably. Closed and half-open ranges can treat touching endpoints differently, so specify the contract first.",
+    },
+    {
+      question: "What dominates this implementation’s running time?",
+      answer:
+        "The initial sort: O(n log n). The subsequent merge scan is linear.",
+    },
+  ],
+  facts: [
+    "Nested intervals should not shrink the current end.",
+    "Copy before mutating when preserving input is required.",
+    "Test touching, disjoint, and fully overlapping ranges.",
+  ],
+  source: "https://leetcode.com/problems/merge-intervals/description/",
+  code: "function mergeIntervals(intervals) {\n  const sorted = intervals.map(([a,b]) => [a,b]).sort((a,b) => a[0]-b[0]);\n  const result = [];\n  for (const [start,end] of sorted) {\n    const last = result[result.length-1];\n    if (!last || start > last[1]) result.push([start,end]);\n    else last[1] = Math.max(last[1],end);\n  }\n  return result;\n}\n// Input contract: each closed interval has start <= end.",
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 4,
+  planPages: [4],
+  quizDistractors: [
+    "Yes. All domains treat touching endpoints identically.",
+    "Yes. Interval sorting automatically determines the business meaning of overlap.",
+  ],
+};
+
+## The idea
+
+For closed numeric intervals, sorting by start puts potential overlaps next to the current merged interval. If the next start is at most the current end, extend the current end; otherwise start a new output interval. Touching endpoints are merged under this contract.
+
+## Why it matters
+
+Sorting dominates at O(n log n); the merge scan is O(n). Copy interval values into the output so the algorithm does not unexpectedly mutate the caller’s nested arrays. If the domain uses half-open time ranges, revisit the boundary comparison.
+
+## A practical example
+
+```js
+function mergeIntervals(intervals) {
+  const sorted = intervals.map(([a, b]) => [a, b]).sort((a, b) => a[0] - b[0]);
+  const result = [];
+  for (const [start, end] of sorted) {
+    const last = result[result.length - 1];
+    if (!last || start > last[1]) result.push([start, end]);
+    else last[1] = Math.max(last[1], end);
+  }
+  return result;
+}
+// Input contract: each closed interval has start <= end.
+```
+
+## Common mistakes
+
+Do not update the merged end to the next end unconditionally; a contained interval can otherwise shorten the merged range.
+
+## Try it yourself
+
+Merge [1,3], [2,6], [8,10], and [10,12]. Then explain how the result changes for half-open intervals.
+
+## Keep exploring
+
+Read the [technical reference](https://leetcode.com/problems/merge-intervals/description/) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 4, Week 4. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

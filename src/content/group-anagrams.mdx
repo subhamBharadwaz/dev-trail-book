@@ -1,0 +1,75 @@
+export const meta = {
+  slug: "group-anagrams",
+  category: "dsa",
+  title: "Group Anagrams with canonical keys",
+  description: "Choose a representation that identical groups share.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["dsa", "week-1", "interview-prep"],
+  questions: [
+    {
+      question: "Why do anagrams share a sorted-character key?",
+      answer:
+        "Under the stated character model they contain the same multiset of characters, so sorting produces the same representation.",
+    },
+    {
+      question: "When is a frequency signature useful?",
+      answer:
+        "When the input alphabet is fixed and manageable. Include separators or a structured encoding so different counts cannot collide textually.",
+    },
+  ],
+  facts: [
+    "State whether output order matters.",
+    "Empty strings should form a valid group.",
+    "Unicode normalization may require a different input contract.",
+  ],
+  source:
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+  code: 'function groupAnagrams(words) {\n  const groups = new Map();\n  for (const word of words) {\n    const key = word.split("").sort().join("");\n    if (!groups.has(key)) groups.set(key, []);\n    groups.get(key).push(word);\n  }\n  return [...groups.values()];\n}\nconsole.log(groupAnagrams(["eat", "tea", "tan", "ate"]));',
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 1,
+  planPages: [3],
+  quizDistractors: [
+    "Because every string has the same sorted form.",
+    "Because the original word length is always a unique key.",
+  ],
+  planRecordedStatus: "pending",
+};
+
+## The idea
+
+For lowercase English strings, sorting a word’s characters gives a simple canonical key. Words with the same key belong in the same group. A character-frequency signature can avoid per-word sorting when the alphabet is fixed and the key format is unambiguous.
+
+## Why it matters
+
+Explain the input alphabet before choosing the key. With n words of maximum length k, sorting-based grouping takes roughly O(n k log k) time plus output and key storage. The plan records Group Anagrams as pending; a correct grouping matters more than memorizing one implementation.
+
+## A practical example
+
+```js
+function groupAnagrams(words) {
+  const groups = new Map();
+  for (const word of words) {
+    const key = word.split("").sort().join("");
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(word);
+  }
+  return [...groups.values()];
+}
+console.log(groupAnagrams(["eat", "tea", "tan", "ate"]));
+```
+
+## Common mistakes
+
+Do not assume every Unicode string is interchangeable with lowercase ASCII. Character representation and normalization are contract choices.
+
+## Try it yourself
+
+Test duplicate words, empty strings, and unrelated groups. Compare sorting keys with a 26-count signature for lowercase English.
+
+## Keep exploring
+
+Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

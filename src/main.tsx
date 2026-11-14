@@ -1,7 +1,14 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./App";
-const root = document.getElementById("root");
-if (!root) throw new Error("The app root element is missing.");
-createRoot(root).render(<StrictMode><App /></StrictMode>);
+import App from "./App.tsx";
+import "./lib/agent";
+
+const rootElement = document.getElementById("root");
+if (!rootElement) throw new Error("The app root element is missing.");
+
+createRoot(rootElement).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+);

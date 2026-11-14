@@ -1,0 +1,98 @@
+export const meta = {
+  slug: "this-binding",
+  category: "javascript",
+  title: "this, call sites & arrow functions",
+  description: "Find the receiver by looking at how a function is called.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["javascript", "week-1", "interview-prep"],
+  questions: [
+    {
+      question:
+        "Does an ordinary function keep this from where it was defined?",
+      answer:
+        "No. Its receiver usually comes from how it is called. Arrow functions instead capture lexical this.",
+    },
+    {
+      question: "What does bind return?",
+      answer:
+        "A new function with a bound receiver and optionally leading arguments. It does not immediately call the original function.",
+    },
+    {
+      question: "Why does an arrow ignore call(otherObject)?",
+      answer:
+        "Its this is captured lexically from the enclosing execution context rather than supplied by that call site.",
+    },
+  ],
+  facts: [
+    "call and apply invoke immediately; bind returns a function.",
+    "An arrow function does not have its own this.",
+    "Passing obj.method is different from calling obj.method().",
+  ],
+  source:
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this",
+  code: 'const account = {\n name: "Trailbook",\n describe() { return this.name; },\n};\nconsole.log(account.describe()); // Trailbook\nconst bound = account.describe.bind(account);\nconsole.log(bound()); // Trailbook\n// account.describe.call({ name: "Notes" }) => Notes',
+  codeLanguage: "js",
+  origin: "study-plan",
+  planWeek: 1,
+  planPages: [3],
+  quizDistractors: [
+    "Yes. Every ordinary function captures lexical this.",
+    "Yes. Defining a method inside an object permanently binds it.",
+  ],
+};
+
+## The idea
+
+For an ordinary function, this depends on the call site. obj.method() provides obj as the receiver; extracting method and calling it separately loses that receiver. Arrow functions capture this from their surrounding lexical context rather than receiving a new one.
+
+## Why it matters
+
+Class syntax does not automatically bind every method. When passing methods as callbacks, decide whether to bind once, wrap the call, or use an appropriate arrow function. In strict-mode functions and ES modules, an unbound ordinary call has undefined as this.
+
+## A practical example
+
+```js
+const account = {
+  name: "Trailbook",
+  describe() {
+    return this.name;
+  },
+};
+console.log(account.describe()); // Trailbook
+const bound = account.describe.bind(account);
+console.log(bound()); // Trailbook
+// account.describe.call({ name: "Notes" }) => Notes
+```
+
+## Common mistakes
+
+Do not choose arrows just to make every this problem disappear. An arrow stored as an object property does not automatically capture that object.
+
+## Try it yourself
+
+Extract describe into a variable, call it, then repair the call with bind. Explain the difference without changing the object.
+
+## Keep exploring
+
+Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
+
+## Call-site debugging drill
+
+```ts
+const person = {
+  name: "Ada",
+  say() {
+    return this.name;
+  },
+};
+const detached = person.say;
+const bound = person.say.bind(person);
+console.log(bound()); // Ada
+console.log(detached.call({ name: "Lin" })); // Lin
+console.log(person.say.apply({ name: "Sam" }, [])); // Sam
+```
+
+A regular function receives this according to how it is called. A detached strict-mode call has undefined this; reading this.name then throws. bind creates a function with a fixed receiver; call invokes with individual arguments, apply with an argument list. An arrow captures lexical this and cannot be rebound by call/apply/bind. Constructor new establishes its own receiver for constructible regular functions. A method passed directly as an event callback loses the original property-call receiver.

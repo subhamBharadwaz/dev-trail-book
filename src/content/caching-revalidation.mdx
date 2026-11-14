@@ -1,0 +1,71 @@
+export const meta = {
+  slug: "caching-revalidation",
+  category: "nextjs",
+  title: "Caching, freshness & revalidation",
+  description: "State the policy explicitly and verify your framework version.",
+  minutes: 6,
+  level: "Study plan",
+  tags: ["nextjs", "week-3", "interview-prep"],
+  questions: [
+    {
+      question:
+        "Does a browser cache and a server data cache have the same lifetime?",
+      answer:
+        "No. They are separate layers with different ownership and invalidation behavior. Explain which layer you mean.",
+    },
+    {
+      question: "Should every private result be cached under one shared key?",
+      answer:
+        "No. A cache must respect identity and authorization boundaries. Never reuse one user’s private result for another user.",
+    },
+  ],
+  facts: [
+    "Do not combine conflicting freshness options.",
+    "Invalidation is part of mutation design.",
+    "Test production behavior separately from development HMR reuse.",
+  ],
+  source: "https://nextjs.org/docs/app/api-reference/functions/fetch",
+  code: '// Examples of distinct fetch policies, not one combined request.\nconst live = await fetch(publicUrl, { cache: "no-store" });\nconst reusable = await fetch(publicUrl, { cache: "force-cache" });\nconst periodic = await fetch(publicUrl, {\n  next: { revalidate: 60 },\n});\n// Decide which policy matches the data and target framework setup.',
+  codeLanguage: "ts",
+  origin: "study-plan",
+  planWeek: 3,
+  planPages: [3],
+  quizDistractors: [
+    "Yes. Every cache layer lasts for exactly one browser session.",
+    "A browser cache and the server data cache are the same storage.",
+  ],
+};
+
+## The idea
+
+Caching is a reuse decision: what result may be shared, with whom, and for how long? Request memoization, data reuse across requests, rendered-route reuse, and browser navigation caches have different lifetimes. Do not infer one layer’s behavior from another.
+
+## Why it matters
+
+Next.js caching APIs and defaults depend on version and enabled features, including Cache Components. This note uses explicit fetch options as an educational contrast. Verify the target app’s documentation before applying route configuration or invalidation APIs, especially for personalized data.
+
+## A practical example
+
+```ts
+// Examples of distinct fetch policies, not one combined request.
+const live = await fetch(publicUrl, { cache: "no-store" });
+const reusable = await fetch(publicUrl, { cache: "force-cache" });
+const periodic = await fetch(publicUrl, {
+  next: { revalidate: 60 },
+});
+// Decide which policy matches the data and target framework setup.
+```
+
+## Common mistakes
+
+A successful mutation does not automatically update every cached view. Trace which layer contains the stale result before changing settings.
+
+## Try it yourself
+
+Choose a freshness policy for public topics, a private journal, and a profile avatar. Explain who can safely share each cached result.
+
+## Keep exploring
+
+Read the [technical reference](https://nextjs.org/docs/app/api-reference/functions/fetch) for the full contract and check behavior against your project version.
+
+Study-plan reference: December 2026 job plan, page 3, Week 3. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
