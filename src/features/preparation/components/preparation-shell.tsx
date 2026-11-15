@@ -9,7 +9,7 @@ export function PreparationShell({
   children: ReactNode;
 }) {
   return (
-    <div className="mx-auto max-w-5xl px-5 py-8 sm:px-8 lg:px-12 lg:py-12">
+    <div className="mx-auto max-w-5xl px-5 py-8 sm:px-8 lg:px-10 lg:py-12">
       <p className="text-sm font-medium tracking-wide text-green">
         YOUR DECEMBER PRACTICE
       </p>
@@ -21,7 +21,7 @@ export function PreparationShell({
       </p>
       <nav
         aria-label="Preparation navigation"
-        className="mb-8 mt-6 flex gap-3 text-sm"
+        className="mb-8 mt-6 flex flex-wrap gap-3 text-sm"
       >
         <a
           href="#/today"

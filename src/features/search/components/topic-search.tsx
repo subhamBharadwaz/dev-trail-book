@@ -36,7 +36,7 @@ export function TopicSearch({ onSelect, closeButton }: TopicSearchProps) {
         onSelect();
       }}
     >
-      <div className="flex items-center gap-2 border-b border-line px-[14px] py-[17px] text-muted-ink min-[701px]:gap-[13px] min-[701px]:p-5 [&_input]:min-w-0 [&_input]:flex-1 [&_input]:border-0 [&_input]:bg-transparent [&_input]:text-sm [&_input]:text-ink [&_input]:outline-offset-[5px] min-[701px]:[&_input]:text-sm">
+      <div className="flex items-center gap-2 border-b border-line px-[14px] py-[17px] text-muted-ink min-[701px]:gap-[13px] min-[701px]:p-5 [&_input]:min-w-0 [&_input]:flex-1 [&_input]:border-0 [&_input]:bg-transparent [&_input]:text-base [&_input]:text-ink [&_input]:outline-offset-[5px] min-[701px]:[&_input]:text-base">
         <Search size={20} aria-hidden="true" />
         <CommandInput
           autoFocus
@@ -71,7 +71,7 @@ export function TopicSearch({ onSelect, closeButton }: TopicSearchProps) {
               <CommandItemIcon>
                 <BookOpen size={17} />
               </CommandItemIcon>
-              <div>
+              <div className="min-w-0 break-words">
                 <strong>{topic.title}</strong>
                 <span>{topic.description}</span>
               </div>
@@ -80,7 +80,7 @@ export function TopicSearch({ onSelect, closeButton }: TopicSearchProps) {
           ))}
         </CommandList>
       </div>
-      <div className="flex justify-between gap-3 border-t border-line px-5 py-[13px] text-sm text-muted-ink max-[700px]:text-[8px] [&_span]:whitespace-nowrap">
+      <div className="flex flex-wrap justify-between gap-3 border-t border-line px-5 py-[13px] text-sm text-muted-ink [&_span]:whitespace-nowrap">
         <span>↑ ↓ to navigate · Enter to open</span>
         <span>{query ? "Esc to clear" : "Esc to close"}</span>
       </div>

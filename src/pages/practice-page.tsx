@@ -33,7 +33,7 @@ export function PracticePage({ path }: { path?: LearningPath }) {
     ...categories.map((item) => ({ value: item.id, label: item.name })),
   ];
   return (
-    <div className="mx-auto max-w-4xl px-6 py-10 md:px-12">
+    <div className="mx-auto max-w-4xl px-6 py-10 sm:px-8 lg:px-10">
       <p className="text-sm font-medium uppercase tracking-[.15em] text-green">
         TURN FAMILIAR INTO UNDERSTOOD
       </p>

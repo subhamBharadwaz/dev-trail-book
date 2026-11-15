@@ -53,7 +53,7 @@ export function TopicReader({
         siblings.length
     ];
   return (
-    <div className="mx-auto grid max-w-[830px] grid-cols-[minmax(0,1fr)] gap-[46px] px-[23px] pb-[50px] pt-[27px] min-[701px]:px-10 min-[701px]:py-[35px] min-[1201px]:max-w-[1100px] min-[1201px]:grid-cols-[minmax(0,740px)_155px] min-[1201px]:px-12 min-[1201px]:pb-[70px] min-[1201px]:pt-[39px]">
+    <div className="mx-auto grid max-w-[830px] grid-cols-[minmax(0,1fr)] gap-[46px] px-[23px] pb-[50px] pt-[27px] sm:px-8 min-[701px]:py-[35px] @min-[1120px]:max-w-[1100px] @min-[1120px]:grid-cols-[minmax(0,740px)_155px] lg:px-10 min-[1201px]:pb-[70px] min-[1201px]:pt-[39px]">
       <article className="min-w-0 [&>h1]:mb-[15px] [&>h1]:mt-[18px] [&>h1]:text-balance [&>h1]:text-[33px] [&>h1]:font-medium [&>h1]:leading-[1.17] [&>h1]:tracking-[-1.3px] min-[701px]:[&>h1]:text-[37px]">
         <a
           className="mb-[30px] inline-flex items-center gap-2 text-sm text-muted-ink hover:text-green"
@@ -62,7 +62,7 @@ export function TopicReader({
           <ArrowLeft size={14} />
           Back to {category.name}
         </a>
-        <div className="flex items-center gap-2 text-sm font-medium tracking-[1.1px] text-green">
+        <div className="flex flex-wrap items-center gap-2 text-sm font-medium tracking-[1.1px] text-green">
           <span
             className={`grid size-[22px] shrink-0 place-items-center rounded text-sm font-semibold ${category.color}`}
           >
@@ -208,7 +208,7 @@ export function TopicReader({
           </a>
         )}
       </article>
-      <aside className="sticky top-5 hidden self-start pt-[87px] min-[1201px]:block">
+      <aside className="sticky top-5 hidden self-start pt-[87px] @min-[1120px]:block">
         <span className="text-sm font-medium tracking-[1.1px] text-muted-ink">
           IN THIS NOTE
         </span>

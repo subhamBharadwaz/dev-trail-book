@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Dialog,
   DialogClose,
@@ -11,15 +11,23 @@ import type { AppRoute } from "@/app/routes";
 import { Sidebar } from "./sidebar";
 export function MobileNavigation({ route }: { route: AppRoute }) {
   const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1280px)");
+    const closeOnDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) setOpen(false);
+    };
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => desktop.removeEventListener("change", closeOnDesktop);
+  }, []);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger
-        className="min-[701px]:hidden grid size-11 place-items-center rounded border-0 bg-transparent text-muted-ink hover:bg-surface-hover hover:text-ink"
+        className="xl:hidden grid size-11 place-items-center rounded border-0 bg-transparent text-muted-ink hover:bg-surface-hover hover:text-ink"
         aria-label="Open navigation"
       >
         <Menu size={20} />
       </DialogTrigger>
-      <DialogContent className="fixed inset-y-0 left-0 m-0 flex h-dvh max-h-none w-[280px] max-w-[90vw] flex-col overflow-y-auto border-0 border-r border-line bg-sidebar-bg px-[17px] pt-[37px] text-ink backdrop:bg-[#18241c65] backdrop:backdrop-blur-[3px]">
+      <DialogContent className="fixed inset-y-0 left-0 m-0 flex h-dvh max-h-none w-80 max-w-[calc(100vw-2rem)] flex-col overflow-y-auto overscroll-contain border-0 border-r border-line bg-sidebar-bg px-[17px] pt-16 text-ink backdrop:bg-[#18241c65] backdrop:backdrop-blur-[3px]">
         <DialogTitle className="sr-only">Navigation</DialogTitle>
         <DialogClose
           className="absolute right-2 top-[7px] grid size-11 place-items-center rounded border-0 bg-transparent text-muted-ink hover:bg-surface-hover hover:text-ink"

@@ -157,3 +157,7 @@ Lesson metadata and searchable text are indexed at build time; each MDX body loa
 ### Reading themes
 
 Paper & indigo light mode pairs warm paper surfaces with dark graphite text and indigo accents. Night reading mode uses warm charcoal surfaces, off-white text and muted lavender accents on desktop and mobile. A new visit follows the device’s color preference. The sun/moon control selects and remembers a manual override; the monitor control restores device following. The saved preference is applied before the first paint to avoid a bright flash on a dark device. All palette changes use Tailwind classes; no stylesheets were edited.
+
+### Responsive layout
+
+Phones and tablets below 1280px use a sticky compact header and a scrollable navigation drawer. Desktop screens from 1280px use a permanent 256px sidebar. An open drawer closes when the desktop layout becomes available. Main content is a Tailwind query container: card grids follow the available content width, including after sidebar space is deducted. Lesson contents appear beside the article only when the main area has at least 1120px. Search results and code stay scrollable within their own panels; search inputs retain 16px text on touch devices.

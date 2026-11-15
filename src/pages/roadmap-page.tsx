@@ -33,7 +33,7 @@ export function RoadmapPage() {
     (topic) => topic.planRecordedStatus === "pending",
   );
   return (
-    <div className="mx-auto max-w-5xl px-6 py-10 md:px-12">
+    <div className="mx-auto max-w-5xl px-6 py-10 sm:px-8 lg:px-10">
       <p className="text-sm font-medium uppercase tracking-[.15em] text-green">
         THE PLAN, CONNECTED TO YOUR NOTES
       </p>
@@ -89,7 +89,7 @@ export function RoadmapPage() {
           })}
         </div>
       </section>
-      <div className="my-6 grid gap-4 md:grid-cols-2">
+      <div className="my-6 grid gap-4 @min-[850px]:grid-cols-2">
         <section className="rounded-xl border border-line p-5">
           <h2 className="text-sm font-medium">Carry forward prior study</h2>
           <p className="mt-2 text-sm leading-6 text-muted-ink">
@@ -150,7 +150,7 @@ export function RoadmapPage() {
                   <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-green-soft font-mono text-sm text-green">
                     {week.number === 10 ? "END" : `W${week.number}`}
                   </span>
-                  <span className="flex-1">
+                  <span className="min-w-0 flex-1">
                     <span className="block text-sm font-medium">
                       {week.title}
                     </span>
@@ -185,7 +185,7 @@ export function RoadmapPage() {
                     </li>
                   ))}
                 </ul>
-                <div className="mt-5 grid gap-2 sm:grid-cols-2">
+                <div className="mt-5 grid gap-2 @min-[700px]:grid-cols-2">
                   {list.map((topic) => (
                     <a
                       key={topic.slug}

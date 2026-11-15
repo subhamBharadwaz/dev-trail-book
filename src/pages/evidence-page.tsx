@@ -31,7 +31,7 @@ export function EvidencePage() {
       title="Proof you can come back to."
       description="Keep the attempts, mistakes and small wins that show your progress. Review the gaps, then try again without notes."
     >
-      <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="mb-6 grid grid-cols-2 gap-3 @min-[850px]:grid-cols-4">
         {[
           [
             recent.filter((entry) => entry.kind === "mock").length,

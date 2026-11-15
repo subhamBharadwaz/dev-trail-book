@@ -26,7 +26,7 @@ export function OverviewPage() {
     0,
   );
   return (
-    <div className="mx-auto max-w-[1210px] px-[23px] pt-[31px] min-[701px]:px-[35px] min-[701px]:pt-[38px] min-[1201px]:px-14 min-[1201px]:pt-[49px] min-[1600px]:pt-[65px]">
+    <div className="mx-auto max-w-[1210px] px-[23px] pt-[31px] sm:px-8 min-[701px]:pt-[38px] lg:px-10 min-[1201px]:pt-[49px] min-[1600px]:pt-[65px]">
       <div className="relative overflow-hidden pb-[33px] [&_h1]:my-[17px] [&_h1]:text-[35px] [&_h1]:font-medium [&_h1]:leading-[1.17] [&_h1]:tracking-[-1.8px] min-[701px]:[&_h1]:text-[37px] min-[961px]:[&_h1]:text-[43px] min-[1600px]:[&_h1]:text-[52px] [&_h1>span]:text-green [&>p]:text-sm [&>p]:leading-[1.9] [&>p]:text-muted-ink min-[701px]:[&>p]:text-sm max-[700px]:[&>p]:max-w-[280px] [&>a]:mt-[23px]">
         <div className="flex items-center gap-2 text-sm font-medium tracking-[1.1px] text-green">
           <span className="text-base">✳</span>YOUR DEVELOPER FIELD NOTES
@@ -90,7 +90,7 @@ export function OverviewPage() {
           Always growing
         </span>
       </div>
-      <section className="my-[23px] mb-8 flex flex-wrap items-start gap-3 rounded-lg border border-line bg-green-soft p-4 min-[701px]:my-7 min-[701px]:mb-10 min-[701px]:items-center min-[701px]:p-[18px] min-[961px]:flex-nowrap min-[961px]:gap-4 min-[961px]:p-[23px] [&>div:nth-child(2)]:min-w-[150px] [&>div:nth-child(2)]:flex-1 [&_h2]:my-[7px] [&_h2]:text-[15px] [&_h2]:font-medium [&_h2]:tracking-[-.3px] [&_p]:text-sm [&_p]:leading-[1.8] [&_p]:text-muted-ink [&>a]:ml-[59px] min-[961px]:[&>a]:ml-auto">
+      <section className="my-[23px] mb-8 flex flex-wrap items-start gap-3 rounded-lg border border-line bg-green-soft p-4 min-[701px]:my-7 min-[701px]:mb-10 min-[701px]:items-center min-[701px]:p-[18px] @min-[900px]:flex-nowrap min-[961px]:gap-4 min-[961px]:p-[23px] [&>div:nth-child(2)]:min-w-[150px] [&>div:nth-child(2)]:flex-1 [&_h2]:my-[7px] [&_h2]:text-[15px] [&_h2]:font-medium [&_h2]:tracking-[-.3px] [&_p]:text-sm [&_p]:leading-[1.8] [&_p]:text-muted-ink [&>a]:ml-[59px] @min-[900px]:[&>a]:ml-auto">
         <div className="grid size-[42px] shrink-0 place-items-center rounded-[10px] border border-line bg-page text-green min-[961px]:h-[49px] min-[961px]:w-[47px]">
           <Sprout size={25} />
         </div>
@@ -102,7 +102,7 @@ export function OverviewPage() {
           <p>{continueTopic.description}</p>
         </div>
         <a
-          className="inline-flex min-h-[35px] items-center justify-center gap-3 whitespace-nowrap rounded px-[13px] py-[9px] text-sm font-medium bg-[#2c684e] text-white hover:bg-[#20513b]"
+          className="inline-flex min-h-11 items-center justify-center gap-3 whitespace-nowrap rounded px-[13px] py-[9px] text-sm font-medium bg-green text-page hover:bg-green/90"
           href={`#/topic/${continueTopic.slug}`}
         >
           {readCount ? "Keep exploring" : "Start reading"}
@@ -153,13 +153,13 @@ export function OverviewPage() {
             {categories.length} collections to explore
           </span>
         </div>
-        <div className="grid grid-cols-2 gap-[11px] min-[701px]:gap-[13px] min-[961px]:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 @min-[430px]:grid-cols-2 @min-[860px]:grid-cols-3">
           {categories.map((category) => (
             <CategoryCard key={category.id} category={category} />
           ))}
         </div>
       </section>
-      <div className="mt-[31px] grid gap-5 min-[701px]:mt-[39px] min-[961px]:grid-cols-[1.45fr_1fr] min-[1201px]:gap-7">
+      <div className="mt-[31px] grid gap-5 min-[701px]:mt-[39px] @min-[1050px]:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] min-[1201px]:gap-7">
         <section>
           <div className="mb-5 flex items-center justify-between gap-3 [&_h2]:text-[19px] [&_h2]:font-medium [&_h2]:tracking-[-.5px] [&_span:first-child]:mb-2.5">
             <h2>From the notebook</h2>
@@ -181,7 +181,7 @@ export function OverviewPage() {
             ))}
           </div>
         </section>
-        <aside className="relative hidden self-end overflow-hidden rounded-lg border border-line bg-surface p-[23px] min-[961px]:block [&_h3]:mb-3 [&_h3]:mt-5 [&_h3]:text-[22px] [&_h3]:font-medium [&_h3]:leading-[1.25] [&_h3]:tracking-[-.7px] [&_p]:max-w-[230px] [&_p]:text-sm [&_p]:leading-[1.8] [&_p]:text-muted-ink [&_a]:mt-5 [&_a]:text-sm">
+        <aside className="relative hidden self-end overflow-hidden rounded-lg border border-line bg-surface p-[23px] @min-[1050px]:block [&_h3]:mb-3 [&_h3]:mt-5 [&_h3]:text-[22px] [&_h3]:font-medium [&_h3]:leading-[1.25] [&_h3]:tracking-[-.7px] [&_p]:max-w-[230px] [&_p]:text-sm [&_p]:leading-[1.8] [&_p]:text-muted-ink [&_a]:mt-5 [&_a]:text-sm">
           <div className="flex items-center gap-2 text-sm font-medium tracking-[1.1px] text-green">
             <Lightbulb size={15} />A DETAIL WORTH KEEPING
           </div>

@@ -17,7 +17,7 @@ export function LearningPathsPage({ path }: { path?: LearningPath }) {
   const { read } = useReadingState();
   if (!path)
     return (
-      <div className="mx-auto max-w-6xl px-6 py-10 md:px-12 md:py-12">
+      <div className="mx-auto max-w-6xl px-6 py-10 sm:px-8 lg:px-10 md:py-12">
         <p className="text-sm font-medium uppercase tracking-[.15em] text-green">
           A LITTLE DIRECTION GOES A LONG WAY
         </p>
@@ -28,7 +28,7 @@ export function LearningPathsPage({ path }: { path?: LearningPath }) {
           Follow a sequence of connected concepts. Read at your own pace; your
           progress comes along with you.
         </p>
-        <div className="mt-9 grid gap-5 lg:grid-cols-3">
+        <div className="mt-9 grid gap-5 @min-[700px]:grid-cols-2 @min-[1150px]:grid-cols-3">
           {learningPaths.map((path, index) => (
             <PathCard key={path.id} path={path} read={read} index={index} />
           ))}
@@ -40,7 +40,7 @@ export function LearningPathsPage({ path }: { path?: LearningPath }) {
     );
   const progress = getPathProgress(path, read);
   return (
-    <div className="mx-auto max-w-4xl px-6 py-10 md:px-12">
+    <div className="mx-auto max-w-4xl px-6 py-10 sm:px-8 lg:px-10">
       <a
         href="#/paths"
         className="inline-flex items-center gap-2 text-sm text-muted-ink"

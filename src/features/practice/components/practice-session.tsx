@@ -57,7 +57,7 @@ export function PracticeSession({ cards, mode, scope }: Props) {
           {missed.length > 0 && (
             <Button
               onClick={() => practice.restart(true)}
-              className="h-10 bg-[#2c684e] px-4 text-white hover:bg-[#20513b]"
+              className="h-10 bg-green px-4 text-page hover:bg-green/90"
             >
               Review missed ({missed.length})<ArrowRight />
             </Button>
@@ -179,7 +179,7 @@ export function PracticeSession({ cards, mode, scope }: Props) {
             answered ? (
               <Button
                 onClick={practice.next}
-                className="h-10 bg-[#2c684e] px-5 text-white hover:bg-[#20513b]"
+                className="h-10 bg-green px-5 text-page hover:bg-green/90"
               >
                 {session.index === session.ids.length - 1
                   ? "See results"
@@ -190,7 +190,7 @@ export function PracticeSession({ cards, mode, scope }: Props) {
               <Button
                 onClick={practice.check}
                 disabled={!session.selected}
-                className="h-10 bg-[#2c684e] px-5 text-white hover:bg-[#20513b]"
+                className="h-10 bg-green px-5 text-page hover:bg-green/90"
               >
                 Check answer
               </Button>
@@ -206,7 +206,7 @@ export function PracticeSession({ cards, mode, scope }: Props) {
                 Needs another look
               </Button>
               <Button
-                className="h-10 bg-[#2c684e] px-5 text-white hover:bg-[#20513b]"
+                className="h-10 bg-green px-5 text-page hover:bg-green/90"
                 onClick={() => practice.grade(true)}
               >
                 <Check />
@@ -216,7 +216,7 @@ export function PracticeSession({ cards, mode, scope }: Props) {
           ) : (
             <Button
               onClick={practice.reveal}
-              className="h-10 bg-[#2c684e] px-5 text-white hover:bg-[#20513b]"
+              className="h-10 bg-green px-5 text-page hover:bg-green/90"
             >
               Reveal answer
               <ArrowRight />

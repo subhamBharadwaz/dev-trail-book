@@ -20,7 +20,7 @@ export function SearchDialog() {
       <DialogTrigger
         shortcut="mod+k"
         aria-label="Search knowledge"
-        className="flex min-h-11 min-w-11 justify-center min-[701px]:justify-start items-center gap-2.5 border-0 bg-transparent text-sm text-muted-ink [&_kbd]:ml-[5px] [&_kbd]:rounded [&_kbd]:border [&_kbd]:border-line [&_kbd]:px-[5px] [&_kbd]:py-0.5 [&_kbd]:font-sans [&_kbd]:text-sm min-[961px]:[&_kbd]:ml-[26px] max-[960px]:[&>span]:hidden max-[700px]:[&_kbd]:hidden"
+        className="flex min-h-11 min-w-11 justify-center xl:justify-start items-center gap-2.5 border-0 bg-transparent text-sm text-muted-ink [&_kbd]:ml-[5px] [&_kbd]:rounded [&_kbd]:border [&_kbd]:border-line [&_kbd]:px-[5px] [&_kbd]:py-0.5 [&_kbd]:font-sans [&_kbd]:text-sm xl:[&_kbd]:ml-4 max-xl:[&>span]:hidden max-xl:[&_kbd]:hidden"
       >
         <Search size={15} aria-hidden="true" />
         <span>Search your knowledge…</span>

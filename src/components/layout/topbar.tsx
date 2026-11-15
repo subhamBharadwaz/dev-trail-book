@@ -10,16 +10,14 @@ export function Topbar({ route }: { route: AppRoute }) {
       ? categoryById.get(route.topic.category)?.name
       : route.title;
   return (
-    <header className="sticky top-0 z-15 flex h-[60px] items-center justify-between border-b border-line bg-page px-[18px] min-[701px]:static min-[701px]:h-[67px] min-[701px]:px-[25px] min-[961px]:px-[35px]">
-      <div className="flex min-w-0 items-center gap-[9px] text-sm text-muted-ink min-[701px]:gap-[13px] [&_strong]:font-medium [&_strong]:text-ink max-[700px]:[&>span]:hidden max-[700px]:[&>svg]:hidden">
+    <header className="sticky top-0 z-15 flex min-h-16 items-center justify-between gap-2 border-b border-line bg-page px-3 sm:px-6 lg:px-8">
+      <div className="flex min-w-0 items-center gap-[9px] text-sm text-muted-ink xl:gap-3 [&_strong]:font-medium [&_strong]:text-ink max-xl:[&>span]:hidden max-xl:[&>svg]:hidden">
         <MobileNavigation route={route} />
         <span>Workspace</span>
         <ChevronRight size={13} />
-        <strong className="max-w-[145px] truncate min-[701px]:max-w-none">
-          {title}
-        </strong>
+        <strong className="truncate">{title}</strong>
       </div>
-      <div className="flex shrink-0 items-center gap-1 min-[701px]:gap-[19px]">
+      <div className="flex shrink-0 items-center gap-1 sm:gap-3">
         <SearchDialog />
         <span className="h-[18px] w-px bg-line" />
         <ThemeToggle />

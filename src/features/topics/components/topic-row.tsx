@@ -18,7 +18,7 @@ export function TopicRow({
       >
         {category.symbol}
       </span>
-      <div className="min-w-0 [&_strong]:block [&_strong]:text-sm [&_strong]:font-medium [&_strong]:leading-[1.5] group-hover:[&_strong]:text-green [&>span]:mt-1 [&>span]:flex [&>span]:items-center [&>span]:gap-[7px] [&>span]:text-sm [&>span]:text-muted-ink [&_i]:not-italic">
+      <div className="min-w-0 [&_strong]:block [&_strong]:text-sm [&_strong]:font-medium [&_strong]:leading-[1.5] group-hover:[&_strong]:text-green [&>span]:mt-1 [&>span]:flex [&>span]:flex-wrap [&>span]:items-center [&>span]:gap-[7px] [&>span]:text-sm [&>span]:text-muted-ink [&_i]:not-italic">
         <strong>{topic.title}</strong>
         <span>
           {category.name}
@@ -29,7 +29,7 @@ export function TopicRow({
       {completed ? (
         <Check className="ml-auto text-green" size={17} aria-label="Read" />
       ) : (
-        <span className="ml-auto whitespace-nowrap rounded border border-line bg-surface px-1.5 py-[3px] text-sm text-muted-ink max-[1200px]:hidden">
+        <span className="ml-auto whitespace-nowrap rounded border border-line bg-surface px-1.5 py-[3px] text-sm text-muted-ink @max-[1050px]:hidden">
           {topic.level}
         </span>
       )}

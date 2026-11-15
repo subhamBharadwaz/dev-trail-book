@@ -24,12 +24,12 @@ export function AppLayout({
       >
         Skip to content
       </a>
-      <aside className="fixed inset-y-0 left-0 z-20 hidden w-[248px] flex-col border-r border-line bg-sidebar-bg px-[17px] pt-[29px] min-[701px]:flex max-[1200px]:w-[225px] max-[1200px]:px-[13px] overflow-y-auto">
+      <aside className="fixed inset-y-0 left-0 z-20 hidden w-64 flex-col overflow-y-auto overscroll-contain border-r border-line bg-sidebar-bg px-4 pt-7 xl:flex">
         <Sidebar route={route} />
       </aside>
-      <div className="min-[701px]:ml-[225px] min-[1201px]:ml-[248px]">
+      <div className="min-w-0 xl:ml-64">
         <Topbar route={route} />
-        <main id="main-content" tabIndex={-1}>
+        <main id="main-content" tabIndex={-1} className="@container min-w-0">
           {children}
         </main>
       </div>

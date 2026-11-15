@@ -25,7 +25,7 @@ export function CollectionPage({ route }: { route: CollectionRoute }) {
       : topics;
   const visible = filterTopics(query, collection);
   return (
-    <div className="mx-auto max-w-[1120px] px-[23px] pb-10 pt-7 min-[701px]:px-[35px] min-[1201px]:px-14 [&>h1]:mb-4 [&>h1]:mt-[18px] [&>h1]:text-[31px] [&>h1]:font-medium [&>h1]:tracking-[-1px] min-[701px]:[&>h1]:text-[37px]">
+    <div className="mx-auto max-w-[1120px] px-[23px] pb-10 pt-7 sm:px-8 lg:px-10 [&>h1]:mb-4 [&>h1]:mt-[18px] [&>h1]:text-[31px] [&>h1]:font-medium [&>h1]:tracking-[-1px] min-[701px]:[&>h1]:text-[37px]">
       <a
         className="mb-[30px] inline-flex items-center gap-2 text-sm text-muted-ink hover:text-green"
         href="#/"
@@ -51,7 +51,7 @@ export function CollectionPage({ route }: { route: CollectionRoute }) {
         <span>
           {collection.length} {isSaved ? "saved topics" : "topic notes"}
         </span>
-        <div className="flex items-center gap-2 [&_input]:w-[125px] [&_input]:border-0 [&_input]:bg-transparent [&_input]:text-sm [&_input]:text-ink min-[701px]:[&_input]:w-[180px]">
+        <div className="flex items-center gap-2 [&_input]:w-[125px] [&_input]:border-0 [&_input]:bg-transparent [&_input]:text-base [&_input]:text-ink min-[701px]:[&_input]:w-[180px]">
           <Search size={15} />
           <Input
             aria-label="Filter this collection"

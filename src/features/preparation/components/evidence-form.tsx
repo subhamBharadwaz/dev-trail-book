@@ -72,7 +72,7 @@ export function EvidenceForm({
       <p className="mt-2 text-sm leading-6 text-muted-ink">
         Save an honest attempt, including the parts that needed help.
       </p>
-      <div className="mt-5 grid gap-5 sm:grid-cols-2">
+      <div className="mt-5 grid gap-5 @min-[640px]:grid-cols-2">
         <Select
           value={kind}
           items={[...evidenceKinds]}
@@ -115,7 +115,7 @@ export function EvidenceForm({
             className={inputClass}
           />
         </Field>
-        <Field className="sm:col-span-2">
+        <Field className="@min-[640px]:col-span-2">
           <FieldLabel className="text-sm font-medium">Attempt title</FieldLabel>
           <Input
             value={title}
@@ -126,7 +126,7 @@ export function EvidenceForm({
             className={inputClass}
           />
         </Field>
-        <Field className="sm:col-span-2">
+        <Field className="@min-[640px]:col-span-2">
           <FieldLabel className="text-sm font-medium">
             Evidence and next repair
           </FieldLabel>

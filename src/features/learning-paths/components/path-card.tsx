@@ -14,7 +14,7 @@ export function PathCard({
   return (
     <a
       href={`#/paths/${path.id}`}
-      className="group flex h-full flex-col rounded-xl border border-line bg-page p-6 transition-colors hover:border-green focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green"
+      className="group flex min-w-0 h-full flex-col rounded-xl border border-line bg-page p-6 transition-colors hover:border-green focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green"
     >
       <div className="flex items-center justify-between">
         <span className="flex size-10 items-center justify-center rounded-xl bg-green-soft text-green">
@@ -29,7 +29,7 @@ export function PathCard({
       <p className="mt-3 flex-1 text-sm leading-7 text-muted-ink">
         {path.description}
       </p>
-      <div className="mb-5 mt-6 flex gap-4 text-sm text-muted-ink">
+      <div className="mb-5 mt-6 flex flex-wrap gap-4 text-sm text-muted-ink">
         <span>{progress.total} topics</span>
         <span className="flex items-center gap-1.5">
           <Clock3 size={13} />
@@ -41,7 +41,7 @@ export function PathCard({
         max={progress.total}
         label={`${path.title} progress`}
       />
-      <div className="mt-3 flex items-center justify-between text-sm">
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-sm">
         <span className="text-muted-ink">
           {progress.completed} of {progress.total} read
         </span>
