@@ -153,3 +153,7 @@ Lesson metadata and searchable text are indexed at build time; each MDX body loa
 - DSA reviews are scheduled two and seven calendar days after the attempt. Builds, mocks and recall return the next day. Future reviews cannot be marked complete early.
 - The journal shows the last seven days of activity, overdue reviews, reversible attempt removal and JSON backup export. Data stays in this browser; accounts and device synchronization are not included. If storage is blocked, the current visit keeps data in memory and displays an export reminder.
 - Presentation remains in Tailwind classes. Warm paper and muted teal light colors, slate dark colors, 16px lesson text, 14px supporting text and larger navigation targets improve mobile reading. Existing theme stylesheets are unchanged.
+
+### Reading themes
+
+Paper & indigo light mode pairs warm paper surfaces with dark graphite text and indigo accents. Night reading mode uses warm charcoal surfaces, off-white text and muted lavender accents on desktop and mobile. A new visit follows the device’s color preference. The sun/moon control selects and remembers a manual override; the monitor control restores device following. The saved preference is applied before the first paint to avoid a bright flash on a dark device. All palette changes use Tailwind classes; no stylesheets were edited.
