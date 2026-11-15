@@ -1,4 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type SetStateAction } from "react";
+import {
+  progress,
+  useCloudProgress,
+} from "@/features/account/data/progress-store";
 import type { PracticeCard } from "../data/practice-cards";
 interface Session {
   version: 1;
@@ -18,11 +22,17 @@ function fresh(ids: string[]): Session {
     revealed: false,
   };
 }
-function restore(key: string, cards: PracticeCard[]): Session {
+function restore(
+  key: string,
+  cards: PracticeCard[],
+  cloudValue?: unknown,
+): Session {
   const fallback = fresh(cards.map((card) => card.id));
   try {
     const value = JSON.parse(
-      localStorage.getItem(key) || "null",
+      cloudValue !== undefined
+        ? JSON.stringify(cloudValue)
+        : localStorage.getItem(key) || "null",
     ) as Session | null;
     if (
       !value ||
@@ -62,14 +72,28 @@ function restore(key: string, cards: PracticeCard[]): Session {
 }
 export function usePracticeSession(cards: PracticeCard[], scope: string) {
   const key = `trailbook:practice:v1:${scope}`;
-  const [session, setSession] = useState(() => restore(key, cards));
+  const cloud = useCloudProgress();
+  const recordKey = `practice/session/${scope}`;
+  const [localSession, setLocalSession] = useState(() => restore(key, cards));
+  const session = cloud.userId
+    ? restore(key, cards, progress.values()[recordKey] ?? null)
+    : localSession;
+  const setSession = (change: SetStateAction<Session>) => {
+    if (!cloud.userId) {
+      setLocalSession(change);
+      return;
+    }
+    const next = typeof change === "function" ? change(session) : change;
+    progress.write({ [recordKey]: JSON.parse(JSON.stringify(next)) });
+  };
   useEffect(() => {
+    if (cloud.userId) return;
     try {
-      localStorage.setItem(key, JSON.stringify(session));
+      localStorage.setItem(key, JSON.stringify(localSession));
     } catch {
       /* Practice remains usable without browser storage. */
     }
-  }, [key, session]);
+  }, [key, localSession, cloud.userId]);
   const current = cards.find((card) => card.id === session.ids[session.index]);
   const answered = !!current && Object.hasOwn(session.results, current.id);
   const correct = Object.values(session.results).filter(Boolean).length;

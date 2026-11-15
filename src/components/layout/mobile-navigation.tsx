@@ -22,7 +22,7 @@ export function MobileNavigation({ route }: { route: AppRoute }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger
-        className="xl:hidden grid size-11 place-items-center rounded border-0 bg-transparent text-muted-ink hover:bg-surface-hover hover:text-ink"
+        className="xl:hidden grid size-11 shrink-0 place-items-center rounded border-0 bg-transparent text-muted-ink hover:bg-surface-hover hover:text-ink"
         aria-label="Open navigation"
       >
         <Menu size={20} />

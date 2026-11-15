@@ -14,6 +14,11 @@ const PracticePage = lazy(() =>
     default: module.PracticePage,
   })),
 );
+const AccountPage = lazy(() =>
+  import("@/pages/account-page").then((module) => ({
+    default: module.AccountPage,
+  })),
+);
 const TodayPage = lazy(() =>
   import("@/pages/today-page").then((module) => ({
     default: module.TodayPage,
@@ -36,6 +41,12 @@ const RoadmapPage = lazy(() =>
 );
 export function AppRoutes({ route }: { route: AppRoute }) {
   switch (route.kind) {
+    case "account":
+      return (
+        <Suspense fallback={loading}>
+          <AccountPage />
+        </Suspense>
+      );
     case "today":
       return (
         <Suspense fallback={loading}>

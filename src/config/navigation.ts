@@ -1,4 +1,5 @@
 import {
+  UserRound,
   CalendarCheck,
   NotebookPen,
   Map,
@@ -21,4 +22,5 @@ export const workspaceNavigation = [
   { href: "/saved", name: "Saved topics", Icon: Bookmark },
   { href: "/questions", name: "Questions & answers", Icon: CircleHelp },
   { href: "/facts", name: "Must-know facts", Icon: Lightbulb },
+  { href: "/account", name: "Account & sync", Icon: UserRound },
 ];

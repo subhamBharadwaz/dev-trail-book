@@ -13,7 +13,9 @@ import {
   routineOptions,
 } from "@/features/preparation/data/preparation";
 import { usePreparation } from "@/features/preparation/hooks/use-preparation";
+import { useCloudProgress } from "@/features/account/data/progress-store";
 export function TodayPage() {
+  const cloud = useCloudProgress();
   const { state, update, storageError } = usePreparation();
   const today = dateKey();
   const day = state.days[today] || { routine: "full" as const, completed: [] };
@@ -171,7 +173,9 @@ export function TodayPage() {
       <p className="mt-5 text-sm leading-6 text-muted-ink" role="status">
         {storageError
           ? "Browser storage is unavailable. Your changes last for this visit; export your evidence before leaving."
-          : "Your checklist is saved for this date in this browser. A completed task records activity; interview readiness comes from independent practice."}
+          : cloud.userId
+            ? "Your checklist syncs to your signed-in account. A completed task records activity; independent practice builds readiness."
+            : "Your checklist is saved for this date in this browser. Sign in to sync it across devices."}
       </p>
     </PreparationShell>
   );

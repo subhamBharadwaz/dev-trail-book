@@ -4,6 +4,7 @@ import { categoryById } from "@/features/topics/data/content";
 import { SearchDialog } from "@/features/search/components/search-dialog";
 import { MobileNavigation } from "./mobile-navigation";
 import { ThemeToggle } from "./theme-toggle";
+import { SyncIndicator } from "@/features/account/components/sync-indicator";
 export function Topbar({ route }: { route: AppRoute }) {
   const title =
     route.kind === "topic"
@@ -19,6 +20,7 @@ export function Topbar({ route }: { route: AppRoute }) {
       </div>
       <div className="flex shrink-0 items-center gap-1 sm:gap-3">
         <SearchDialog />
+        <SyncIndicator />
         <span className="h-[18px] w-px bg-line" />
         <ThemeToggle />
       </div>

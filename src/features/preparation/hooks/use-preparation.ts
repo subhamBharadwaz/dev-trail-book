@@ -1,3 +1,11 @@
+import {
+  progress,
+  type ProgressSnapshot,
+} from "@/features/account/data/progress-store";
+import {
+  preparationChanges,
+  recordsPreparation,
+} from "@/features/account/data/preparation-records";
 import { useSyncExternalStore } from "react";
 import {
   emptyPreparation,
@@ -9,7 +17,20 @@ const changed = "trailbook:preparation-changed";
 let memory: Preparation | null = null;
 let cachedRaw: string | null | undefined;
 let snapshot = { state: emptyPreparation, storageError: false };
+let cloudRef: ProgressSnapshot | undefined;
+let cloudCache = { state: emptyPreparation, storageError: false };
 function getSnapshot() {
+  const cloud = progress.getSnapshot();
+  if (cloud.userId) {
+    if (cloudRef !== cloud) {
+      cloudRef = cloud;
+      cloudCache = {
+        state: recordsPreparation(progress.values()),
+        storageError: cloud.storageError,
+      };
+    }
+    return cloudCache;
+  }
   if (memory) return snapshot;
   try {
     const raw = localStorage.getItem(key);
@@ -23,6 +44,7 @@ function getSnapshot() {
   return snapshot;
 }
 function subscribe(notify: () => void) {
+  const stopCloud = progress.subscribe(notify);
   const refresh = (event: Event) => {
     if (
       event instanceof StorageEvent &&
@@ -39,12 +61,18 @@ function subscribe(notify: () => void) {
   window.addEventListener("storage", refresh);
   window.addEventListener(changed, refresh);
   return () => {
+    stopCloud();
     window.removeEventListener("storage", refresh);
     window.removeEventListener(changed, refresh);
   };
 }
 function update(change: (current: Preparation) => Preparation) {
-  const state = change(getSnapshot().state);
+  const before = getSnapshot().state;
+  const state = change(before);
+  if (progress.getSnapshot().userId) {
+    progress.write(preparationChanges(before, state));
+    return;
+  }
   const raw = JSON.stringify(state);
   try {
     localStorage.setItem(key, raw);

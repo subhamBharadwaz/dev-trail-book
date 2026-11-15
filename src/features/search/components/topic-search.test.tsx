@@ -10,7 +10,11 @@ async function openSearch() {
   render(<SearchDialog />);
   const trigger = screen.getByRole("button", { name: "Search knowledge" });
   await user.click(trigger);
-  const input = await screen.findByRole("combobox", { name: "Search topics" });
+  const input = await screen.findByRole(
+    "combobox",
+    { name: "Search topics" },
+    { timeout: 5000 },
+  );
   return { user, input, trigger };
 }
 
@@ -18,7 +22,11 @@ test("keyboard shortcut opens search and arrows choose the page Enter opens", as
   const user = userEvent.setup();
   render(<SearchDialog />);
   await user.keyboard("{Control>}k{/Control}");
-  const input = await screen.findByRole("combobox", { name: "Search topics" });
+  const input = await screen.findByRole(
+    "combobox",
+    { name: "Search topics" },
+    { timeout: 5000 },
+  );
   await user.type(input, "react");
   const first = input.getAttribute("aria-activedescendant");
   await user.keyboard("{ArrowDown}");

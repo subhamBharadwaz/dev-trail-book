@@ -161,3 +161,21 @@ Paper & indigo light mode pairs warm paper surfaces with dark graphite text and 
 ### Responsive layout
 
 Phones and tablets below 1280px use a sticky compact header and a scrollable navigation drawer. Desktop screens from 1280px use a permanent 256px sidebar. An open drawer closes when the desktop layout becomes available. Main content is a Tailwind query container: card grids follow the available content width, including after sidebar space is deducted. Lesson contents appear beside the article only when the main area has at least 1120px. Search results and code stay scrollable within their own panels; search inputs retain 16px text on touch devices.
+
+## Accounts and cross-device sync
+
+The Vite frontend remains deployable to Cloudflare Pages. Supabase provides email-link sign-in and the shared PostgreSQL backend; no separate frontend server or Next.js migration is required.
+
+1. Create a Supabase project and apply `supabase/migrations/20261115000100_progress_sync.sql` in its SQL editor or using your migration pipeline.
+2. Copy `.env.example` to `.env.local` and supply the project URL and **publishable** key. Never put database passwords, secret keys or service-role keys in a `VITE_` variable.
+3. Under Supabase Authentication → URL Configuration, set the production site URL and allow the exact frontend origins with a trailing slash. For local development include `http://127.0.0.1:4173/`, `http://localhost:4173/` and your Vite development origins. Email links return to `/`; the app consumes the auth fragment and opens the account page.
+4. Run `bun run check`, then build with those variables available. Vite embeds these public connection values at build time. Add them to your CI build environment if building through GitHub Actions or Cloudflare’s Git integration. Direct upload deploys the already configured `dist` folder.
+5. Open `#/account` and request a sign-in link. Open the link on the browser where you want to sign in. Supabase’s default mail service has recipient and sending limits; configure your own SMTP provider before opening sign-in to the public.
+
+Signed-in reading flags, bookmarks, evidence, daily checklist tasks, practice sessions and practice preferences are stored as separate versioned records. The server derives ownership from the authenticated user; it never accepts a client-supplied owner. Row-level security allows reads of only that user’s records. Direct client writes are denied; the write function uses an expected revision to prevent silent overwrites. Deletions are tombstones so disconnected devices cannot resurrect old records automatically.
+
+Changes are cached and queued under each account on the device. Sync runs after edits, on sign-in, when returning to the app, when reconnecting, and every 60 seconds while visible. Conflicting edits to the same record are shown on `#/account` for an explicit local/cloud choice. Different topics, journal entries and daily tasks merge independently. A practice session is one record per scope; simultaneous changes to that same session require a choice. Offline work can be used after the site has loaded; this is not a service-worker/PWA offline installation.
+
+Guest records remain in their existing browser keys and are not uploaded automatically. The account page offers an explicit, reviewed import that adds only missing keys after an initial cloud sync. Signing out returns to guest records; another account gets a separate cache. Theme remains device-specific. Local caches use browser storage and should not be treated as encrypted storage on a shared device. Export and complete cloud sync before clearing browser data.
+
+`supabase/verify-progress-security.sql` checks isolation, anonymous denial, direct-write denial, and revision conflicts in a transaction that rolls back its test users and records. Local tests use blank cloud configuration and mocks, so they never send authentication emails or touch your live database.

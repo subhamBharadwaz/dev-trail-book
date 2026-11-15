@@ -11,7 +11,9 @@ import {
   type Evidence,
 } from "@/features/preparation/data/preparation";
 import { usePreparation } from "@/features/preparation/hooks/use-preparation";
+import { useCloudProgress } from "@/features/account/data/progress-store";
 export function EvidencePage() {
+  const cloud = useCloudProgress();
   const { state, update, storageError } = usePreparation();
   const [filter, setFilter] = useState<"all" | "due">("all");
   const [removed, setRemoved] = useState<Evidence | null>(null);
@@ -97,7 +99,9 @@ export function EvidencePage() {
         <p className="mt-3 text-sm leading-6 text-muted-ink" role="status">
           {storageError
             ? "Storage is unavailable. Export your evidence before leaving this page."
-            : "Saved only in this browser. Export a backup before clearing browser data or switching devices."}
+            : cloud.userId
+              ? "Saved to your signed-in account when connected. Check Account & sync for pending changes."
+              : "Saved only in this browser. Sign in to sync across devices, or export a backup."}
         </p>
         <div className="my-5 flex flex-wrap gap-2">
           {(["all", "due"] as const).map((value) => (
