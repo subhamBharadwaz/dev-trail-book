@@ -145,3 +145,11 @@ Add `quizDistractors` to an MDX topic to include its first Q&A question in quizz
 Run `bun run check` for strict TypeScript, lint, tests and a production build. Component and page presentation uses Tailwind utilities, with semantic theme colors such as `bg-page`, `text-ink`, `border-line` and `text-green`. The only stylesheet is `src/index.css`, which holds Tailwind/shadcn imports and theme tokens. The legacy app/search stylesheets have been removed. Shiki supplies runtime syntax-token colors; layout and interactions use Tailwind.
 
 Lesson metadata and searchable text are indexed at build time; each MDX body loads on demand when its note opens. Keep the exported metadata block at the beginning of a lesson. Route failures display recovery options while keeping the site navigation available.
+
+## Daily preparation and evidence
+
+- `#/today` provides the PDF’s six-hour routine, two-hour fallback and 20-minute minimum. Checklists and the selected routine are saved per local calendar date.
+- `#/evidence` records DSA, timed builds, mocks, spoken recall and applications. Record independence and hints honestly; reading a note does not create evidence.
+- DSA reviews are scheduled two and seven calendar days after the attempt. Builds, mocks and recall return the next day. Future reviews cannot be marked complete early.
+- The journal shows the last seven days of activity, overdue reviews, reversible attempt removal and JSON backup export. Data stays in this browser; accounts and device synchronization are not included. If storage is blocked, the current visit keeps data in memory and displays an export reminder.
+- Presentation remains in Tailwind classes. Warm paper and muted teal light colors, slate dark colors, 16px lesson text, 14px supporting text and larger navigation targets improve mobile reading. Existing theme stylesheets are unchanged.

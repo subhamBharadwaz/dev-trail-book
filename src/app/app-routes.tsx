@@ -14,6 +14,16 @@ const PracticePage = lazy(() =>
     default: module.PracticePage,
   })),
 );
+const TodayPage = lazy(() =>
+  import("@/pages/today-page").then((module) => ({
+    default: module.TodayPage,
+  })),
+);
+const EvidencePage = lazy(() =>
+  import("@/pages/evidence-page").then((module) => ({
+    default: module.EvidencePage,
+  })),
+);
 const loading = (
   <div role="status" className="p-10 text-sm text-muted-ink">
     Getting your trail ready…
@@ -26,6 +36,18 @@ const RoadmapPage = lazy(() =>
 );
 export function AppRoutes({ route }: { route: AppRoute }) {
   switch (route.kind) {
+    case "today":
+      return (
+        <Suspense fallback={loading}>
+          <TodayPage />
+        </Suspense>
+      );
+    case "evidence":
+      return (
+        <Suspense fallback={loading}>
+          <EvidencePage />
+        </Suspense>
+      );
     case "roadmap":
       return (
         <Suspense fallback={loading}>

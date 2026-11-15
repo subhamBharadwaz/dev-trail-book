@@ -18,7 +18,7 @@ export function LearningPathsPage({ path }: { path?: LearningPath }) {
   if (!path)
     return (
       <div className="mx-auto max-w-6xl px-6 py-10 md:px-12 md:py-12">
-        <p className="text-[10px] font-medium uppercase tracking-[.15em] text-green">
+        <p className="text-sm font-medium uppercase tracking-[.15em] text-green">
           A LITTLE DIRECTION GOES A LONG WAY
         </p>
         <h1 className="mt-4 text-4xl font-medium tracking-tight">
@@ -33,7 +33,7 @@ export function LearningPathsPage({ path }: { path?: LearningPath }) {
             <PathCard key={path.id} path={path} read={read} index={index} />
           ))}
         </div>
-        <p className="mt-8 text-xs leading-6 text-muted-ink">
+        <p className="mt-8 text-sm leading-6 text-muted-ink">
           Progress uses your “Mark as read” choices. It stays on this browser.
         </p>
       </div>
@@ -43,7 +43,7 @@ export function LearningPathsPage({ path }: { path?: LearningPath }) {
     <div className="mx-auto max-w-4xl px-6 py-10 md:px-12">
       <a
         href="#/paths"
-        className="inline-flex items-center gap-2 text-xs text-muted-ink"
+        className="inline-flex items-center gap-2 text-sm text-muted-ink"
       >
         <ArrowLeft size={14} />
         All learning paths
@@ -51,7 +51,7 @@ export function LearningPathsPage({ path }: { path?: LearningPath }) {
       <div className="mt-9 flex size-12 items-center justify-center rounded-xl bg-green-soft text-green">
         <GraduationCap size={25} />
       </div>
-      <p className="mt-6 text-[10px] uppercase tracking-[.15em] text-green">
+      <p className="mt-6 text-sm uppercase tracking-[.15em] text-green">
         {path.level}
       </p>
       <h1 className="mt-3 text-4xl font-medium leading-tight tracking-tight">
@@ -61,7 +61,7 @@ export function LearningPathsPage({ path }: { path?: LearningPath }) {
         {path.description}
       </p>
       <div className="mt-7 rounded-xl border border-line bg-surface p-5">
-        <div className="mb-3 flex items-center justify-between gap-4 text-xs">
+        <div className="mb-3 flex items-center justify-between gap-4 text-sm">
           <span>
             {progress.completed} of {progress.total} topics read
           </span>
@@ -75,13 +75,13 @@ export function LearningPathsPage({ path }: { path?: LearningPath }) {
           label="Learning path progress"
         />
         <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
-          <span className="flex items-center gap-2 text-xs text-muted-ink">
+          <span className="flex items-center gap-2 text-sm text-muted-ink">
             <Clock3 size={14} />
             {progress.minutes} minutes of reading
           </span>
           <a
             href={`#/topic/${(progress.next || progress.topics[0]).slug}`}
-            className="inline-flex items-center gap-3 rounded-lg bg-[#2c684e] px-4 py-2.5 text-xs font-medium text-white hover:bg-[#20513b]"
+            className="inline-flex items-center gap-3 rounded-lg bg-[#2c684e] px-4 py-2.5 text-sm font-medium text-white hover:bg-[#20513b]"
           >
             {progress.percent === 100
               ? "Revisit first topic"
@@ -105,17 +105,17 @@ export function LearningPathsPage({ path }: { path?: LearningPath }) {
                 {read.includes(topic.slug) ? (
                   <Check size={16} aria-label="Read" />
                 ) : (
-                  <span className="text-xs">{index + 1}</span>
+                  <span className="text-sm">{index + 1}</span>
                 )}
               </span>
               <div className="min-w-0 flex-1">
                 <h2 className="text-sm font-medium group-hover:text-green">
                   {topic.title}
                 </h2>
-                <p className="mt-1.5 text-xs leading-6 text-muted-ink">
+                <p className="mt-1.5 text-sm leading-6 text-muted-ink">
                   {topic.description}
                 </p>
-                <span className="mt-2 block text-[10px] text-muted-ink">
+                <span className="mt-2 block text-sm text-muted-ink">
                   {topic.minutes} min read
                 </span>
               </div>
@@ -129,13 +129,13 @@ export function LearningPathsPage({ path }: { path?: LearningPath }) {
           <h2 className="text-sm font-medium">
             Put your understanding to the test.
           </h2>
-          <p className="mt-2 text-xs leading-6 text-muted-ink">
+          <p className="mt-2 text-sm leading-6 text-muted-ink">
             Practice questions from this path, at any point in your reading.
           </p>
         </div>
         <a
           href={`#/practice/path/${path.id}`}
-          className="inline-flex items-center gap-2 text-xs font-medium text-green"
+          className="inline-flex items-center gap-2 text-sm font-medium text-green"
         >
           Practice this path
           <ArrowRight size={14} />

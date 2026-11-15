@@ -37,7 +37,7 @@ export function PracticeSession({ cards, mode, scope }: Props) {
     return (
       <section className="rounded-2xl border border-line bg-surface px-6 py-12 text-center">
         <Trophy size={35} className="mx-auto text-green" />
-        <p className="mt-5 text-[10px] uppercase tracking-[.15em] text-green">
+        <p className="mt-5 text-sm uppercase tracking-[.15em] text-green">
           SESSION COMPLETE
         </p>
         <h2
@@ -73,7 +73,7 @@ export function PracticeSession({ cards, mode, scope }: Props) {
         </div>
         <a
           href="#/paths"
-          className="mt-7 inline-flex text-xs font-medium text-green"
+          className="mt-7 inline-flex text-sm font-medium text-green"
         >
           Back to learning paths
         </a>
@@ -82,7 +82,7 @@ export function PracticeSession({ cards, mode, scope }: Props) {
   return (
     <section className="overflow-hidden rounded-2xl border border-line bg-page">
       <div className="border-b border-line bg-surface px-6 py-5">
-        <div className="mb-3 flex items-center justify-between gap-3 text-xs text-muted-ink">
+        <div className="mb-3 flex items-center justify-between gap-3 text-sm text-muted-ink">
           <span>
             {mode === "quiz" ? "QUESTION" : "FLASHCARD"} {session.index + 1} /{" "}
             {session.ids.length}
@@ -100,7 +100,7 @@ export function PracticeSession({ cards, mode, scope }: Props) {
       <div className="p-6 sm:p-8">
         <a
           href={`#/topic/${current.topicSlug}`}
-          className="text-[10px] font-medium uppercase tracking-wider text-green"
+          className="text-sm font-medium uppercase tracking-wider text-green"
         >
           {current.topicTitle}
         </a>
@@ -137,7 +137,7 @@ export function PracticeSession({ cards, mode, scope }: Props) {
                   </RadioIndicator>
                 </Radio>
                 <span>
-                  <span className="mr-2 font-mono text-xs text-muted-ink">
+                  <span className="mr-2 font-mono text-sm text-muted-ink">
                     {String.fromCharCode(65 + index)}.
                   </span>
                   {option.text}
@@ -167,7 +167,7 @@ export function PracticeSession({ cards, mode, scope }: Props) {
             </p>
             <a
               href={`#/topic/${current.topicSlug}`}
-              className="mt-4 inline-flex items-center gap-2 text-xs font-medium text-green"
+              className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-green"
             >
               Revisit the full explanation
               <ArrowRight size={13} />
@@ -224,7 +224,7 @@ export function PracticeSession({ cards, mode, scope }: Props) {
           )}
         </div>
       </div>
-      <div className="flex items-center justify-between gap-4 border-t border-line px-6 py-4 text-[10px] leading-5 text-muted-ink">
+      <div className="flex items-center justify-between gap-4 border-t border-line px-6 py-4 text-sm leading-5 text-muted-ink">
         <span>Progress is saved on this browser.</span>
         <span>
           {mode === "quiz"

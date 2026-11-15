@@ -17,7 +17,7 @@ import { Questions } from "./topic-questions";
 import { Facts } from "./topic-facts";
 import { categories, topics, type Topic } from "../data/content";
 const tabClassName =
-  "flex items-center gap-1.5 whitespace-nowrap border-b-2 border-transparent bg-transparent py-[13px] text-xs text-muted-ink aria-selected:border-green aria-selected:font-medium aria-selected:text-green";
+  "flex items-center gap-1.5 whitespace-nowrap border-b-2 border-transparent bg-transparent py-[13px] text-sm text-muted-ink aria-selected:border-green aria-selected:font-medium aria-selected:text-green";
 
 const components = {
   pre: CodeBlock,
@@ -56,15 +56,15 @@ export function TopicReader({
     <div className="mx-auto grid max-w-[830px] grid-cols-[minmax(0,1fr)] gap-[46px] px-[23px] pb-[50px] pt-[27px] min-[701px]:px-10 min-[701px]:py-[35px] min-[1201px]:max-w-[1100px] min-[1201px]:grid-cols-[minmax(0,740px)_155px] min-[1201px]:px-12 min-[1201px]:pb-[70px] min-[1201px]:pt-[39px]">
       <article className="min-w-0 [&>h1]:mb-[15px] [&>h1]:mt-[18px] [&>h1]:text-balance [&>h1]:text-[33px] [&>h1]:font-medium [&>h1]:leading-[1.17] [&>h1]:tracking-[-1.3px] min-[701px]:[&>h1]:text-[37px]">
         <a
-          className="mb-[30px] inline-flex items-center gap-2 text-xs text-muted-ink hover:text-green"
+          className="mb-[30px] inline-flex items-center gap-2 text-sm text-muted-ink hover:text-green"
           href={`#/category/${category.id}`}
         >
           <ArrowLeft size={14} />
           Back to {category.name}
         </a>
-        <div className="flex items-center gap-2 text-[10px] font-medium tracking-[1.1px] text-green">
+        <div className="flex items-center gap-2 text-sm font-medium tracking-[1.1px] text-green">
           <span
-            className={`grid size-[22px] shrink-0 place-items-center rounded text-[10px] font-semibold ${category.color}`}
+            className={`grid size-[22px] shrink-0 place-items-center rounded text-sm font-semibold ${category.color}`}
           >
             {category.symbol}
           </span>
@@ -76,7 +76,7 @@ export function TopicReader({
         <p className="text-[15px] leading-[1.8] text-muted-ink">
           {topic.description}
         </p>
-        <div className="mb-[30px] mt-[22px] flex items-center gap-2.5 text-[10px] text-muted-ink min-[701px]:gap-[17px] min-[701px]:text-xs [&>span]:flex [&>span]:items-center [&>span]:gap-[5px]">
+        <div className="mb-[30px] mt-[22px] flex flex-wrap items-center gap-2.5 text-sm text-muted-ink min-[701px]:gap-[17px] min-[701px]:text-sm [&>span]:flex [&>span]:whitespace-nowrap [&>span]:items-center [&>span]:gap-[5px]">
           <span>
             <Clock3 size={14} />
             {topic.minutes} min read
@@ -89,7 +89,7 @@ export function TopicReader({
                 : "Project foundation"}
           </span>
           <Toggle
-            className="ml-auto flex items-center gap-[7px] rounded border border-line bg-page px-2.5 py-[7px] text-[11px] text-muted-ink min-[701px]:text-xs data-pressed:border-green data-pressed:bg-green-soft data-pressed:text-green"
+            className="ml-auto flex min-h-11 items-center gap-[7px] whitespace-nowrap rounded border border-line bg-page px-2.5 py-[7px] text-sm text-muted-ink min-[701px]:text-sm data-pressed:border-green data-pressed:bg-green-soft data-pressed:text-green"
             aria-label="Save this topic"
             pressed={saved}
             onPressedChange={toggleSaved}
@@ -126,7 +126,7 @@ export function TopicReader({
                 <topic.Content components={components} />
               </Suspense>
             </Prose>
-            <div className="my-[26px] flex items-start gap-3 rounded-md border border-line bg-green-soft p-[18px] text-xs leading-[1.8] text-green [&_strong]:text-[11px] [&_strong]:font-medium [&_p]:mt-[3px] [&_p]:text-[13px] [&_p]:text-ink [&>svg]:mt-0.5">
+            <div className="my-[26px] flex items-start gap-3 rounded-md border border-line bg-green-soft p-[18px] text-sm leading-[1.8] text-green [&_strong]:text-sm [&_strong]:font-medium [&_p]:mt-[3px] [&_p]:text-sm [&_p]:text-ink [&>svg]:mt-0.5">
               <Lightbulb size={19} />
               <div>
                 <strong>The takeaway</strong>
@@ -146,7 +146,7 @@ export function TopicReader({
               code={topic.code}
               language={topic.codeLanguage || "tsx"}
             />
-            <div className="my-[26px] flex items-start gap-3 rounded-md border border-line bg-green-soft p-[18px] text-xs leading-[1.8] text-green [&_strong]:text-[11px] [&_strong]:font-medium [&_p]:mt-[3px] [&_p]:text-[13px] [&_p]:text-ink [&>svg]:mt-0.5">
+            <div className="my-[26px] flex items-start gap-3 rounded-md border border-line bg-green-soft p-[18px] text-sm leading-[1.8] text-green [&_strong]:text-sm [&_strong]:font-medium [&_p]:mt-[3px] [&_p]:text-sm [&_p]:text-ink [&>svg]:mt-0.5">
               <Lightbulb size={19} />
               <p>
                 These snippets are reading examples. Try them in your own
@@ -172,7 +172,7 @@ export function TopicReader({
             <Facts topic={topic} />
           </TabsPanel>
         </Tabs>
-        <div className="mt-[35px] flex flex-wrap items-start justify-between gap-[15px] border-y border-line py-[25px] min-[701px]:items-center [&_strong]:text-xs [&_strong]:font-medium [&_p]:mt-[7px] [&_p]:text-xs [&_p]:leading-[1.7] [&_p]:text-muted-ink">
+        <div className="mt-[35px] flex flex-wrap items-start justify-between gap-[15px] border-y border-line py-[25px] min-[701px]:items-center [&_strong]:text-sm [&_strong]:font-medium [&_p]:mt-[7px] [&_p]:text-sm [&_p]:leading-[1.7] [&_p]:text-muted-ink">
           <div>
             <strong>
               {completed
@@ -186,7 +186,7 @@ export function TopicReader({
             </p>
           </div>
           <Toggle
-            className="flex items-center gap-[7px] whitespace-nowrap rounded border border-line bg-page px-[11px] py-[9px] text-xs text-ink data-pressed:border-green data-pressed:bg-green-soft data-pressed:text-green"
+            className="flex items-center gap-[7px] whitespace-nowrap rounded border border-line bg-page px-[11px] py-[9px] text-sm text-ink data-pressed:border-green data-pressed:bg-green-soft data-pressed:text-green"
             aria-label="Mark as read"
             pressed={completed}
             onPressedChange={toggleCompleted}
@@ -197,7 +197,7 @@ export function TopicReader({
         </div>
         {next.slug !== topic.slug && (
           <a
-            className="flex items-center justify-between py-[25px] text-green [&_span]:mb-2 [&_span]:block [&_span]:text-[8px] [&_span]:tracking-[1px] [&_span]:text-muted-ink [&_strong]:text-[13px] [&_strong]:font-medium"
+            className="flex items-center justify-between py-[25px] text-green [&_span]:mb-2 [&_span]:block [&_span]:text-[8px] [&_span]:tracking-[1px] [&_span]:text-muted-ink [&_strong]:text-sm [&_strong]:font-medium"
             href={`#/topic/${next.slug}`}
           >
             <div>
@@ -209,7 +209,7 @@ export function TopicReader({
         )}
       </article>
       <aside className="sticky top-5 hidden self-start pt-[87px] min-[1201px]:block">
-        <span className="text-[10px] font-medium tracking-[1.1px] text-muted-ink">
+        <span className="text-sm font-medium tracking-[1.1px] text-muted-ink">
           IN THIS NOTE
         </span>
         {[
@@ -221,7 +221,7 @@ export function TopicReader({
         ].map((text) => (
           <a
             key={text}
-            className="my-[13px] block text-[11px] leading-relaxed text-muted-ink hover:text-green"
+            className="my-[13px] block text-sm leading-relaxed text-muted-ink hover:text-green"
             href={`#/topic/${topic.slug}`}
             onClick={(event) => {
               event.preventDefault();
@@ -239,7 +239,7 @@ export function TopicReader({
           </a>
         ))}
         <div className="my-[26px] h-px bg-line" />
-        <span className="text-[10px] font-medium tracking-[1.1px] text-muted-ink">
+        <span className="text-sm font-medium tracking-[1.1px] text-muted-ink">
           FILE UNDER
         </span>
         <div className="flex flex-wrap gap-1.5 [&>span]:rounded [&>span]:border [&>span]:border-line [&>span]:px-1.5 [&>span]:py-1 [&>span]:text-[8px] [&>span]:text-muted-ink">
@@ -248,7 +248,7 @@ export function TopicReader({
           ))}
         </div>
         <a
-          className="mt-[29px] flex items-center gap-1.5 text-[9px] text-green"
+          className="mt-[29px] flex items-center gap-1.5 text-sm text-green"
           href={topic.source}
           target="_blank"
           rel="noreferrer"

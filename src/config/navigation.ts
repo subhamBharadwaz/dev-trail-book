@@ -1,4 +1,6 @@
 import {
+  CalendarCheck,
+  NotebookPen,
   Map,
   Route,
   GraduationCap,
@@ -10,6 +12,8 @@ import {
 } from "lucide-react";
 export const workspaceNavigation = [
   { href: "/", name: "Overview", Icon: Compass },
+  { href: "/today", name: "Today’s practice", Icon: CalendarCheck },
+  { href: "/evidence", name: "Evidence journal", Icon: NotebookPen },
   { href: "/roadmap", name: "Study roadmap", Icon: Map },
   { href: "/paths", name: "Learning paths", Icon: Route },
   { href: "/practice", name: "Practice", Icon: GraduationCap },

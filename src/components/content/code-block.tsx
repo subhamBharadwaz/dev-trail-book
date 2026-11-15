@@ -65,10 +65,10 @@ export function CodeBlock({
       className="my-6 overflow-hidden rounded-xl border border-[#30363d] bg-[#0d1117] text-[#c9d1d9] shadow-sm"
     >
       <div className="flex items-center justify-between gap-3 border-b border-[#30363d] bg-[#161b22] px-4 py-2.5">
-        <div className="flex items-center gap-2 text-[11px] text-[#aeb9c6]">
+        <div className="flex items-center gap-2 text-sm text-[#aeb9c6]">
           <Terminal size={14} aria-hidden="true" />
           <span>{language}</span>
-          <span className="hidden border-l border-[#30363d] pl-2 text-[10px] text-[#aeb9c6] sm:inline">
+          <span className="hidden border-l border-[#30363d] pl-2 text-sm text-[#aeb9c6] sm:inline">
             GitHub Dark
           </span>
         </div>
@@ -77,14 +77,14 @@ export function CodeBlock({
           size="xs"
           aria-label={`Copy ${language} example`}
           onClick={copy}
-          className="gap-1.5 text-[11px] text-[#c9d1d9] hover:bg-[#30363d] hover:text-white focus-visible:outline-[#79c0ff]"
+          className="gap-1.5 text-sm text-[#c9d1d9] hover:bg-[#30363d] hover:text-white focus-visible:outline-[#79c0ff]"
         >
           {status === "Copied" ? <Check size={12} /> : <Copy size={12} />}
           <span>{status || "Copy"}</span>
         </Button>
       </div>
       <pre
-        className="m-0 overflow-x-auto py-5 pr-5 font-mono text-[11px] leading-[1.9] sm:text-xs"
+        className="m-0 overflow-x-auto py-5 pr-5 font-mono text-sm leading-[1.9] sm:text-[15px]"
         tabIndex={0}
         aria-label={`${language} code example`}
       >

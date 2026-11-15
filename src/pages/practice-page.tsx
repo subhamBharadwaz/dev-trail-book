@@ -34,7 +34,7 @@ export function PracticePage({ path }: { path?: LearningPath }) {
   ];
   return (
     <div className="mx-auto max-w-4xl px-6 py-10 md:px-12">
-      <p className="text-[10px] font-medium uppercase tracking-[.15em] text-green">
+      <p className="text-sm font-medium uppercase tracking-[.15em] text-green">
         TURN FAMILIAR INTO UNDERSTOOD
       </p>
       <h1 className="mt-4 text-4xl font-medium tracking-tight">
@@ -47,7 +47,7 @@ export function PracticePage({ path }: { path?: LearningPath }) {
       <div className="my-8 flex flex-wrap items-center justify-between gap-4 border-y border-line py-4">
         {path ? (
           <div>
-            <p className="text-xs text-muted-ink">Practicing this path</p>
+            <p className="text-sm text-muted-ink">Practicing this path</p>
             <a
               href={`#/paths/${path.id}`}
               className="mt-1.5 block text-sm font-medium text-green"
@@ -58,7 +58,7 @@ export function PracticePage({ path }: { path?: LearningPath }) {
         ) : (
           <Select items={options} value={category} onValueChange={setCategory}>
             <SelectLabel className="sr-only">Practice collection</SelectLabel>
-            <SelectTrigger className="inline-flex min-w-48 items-center justify-between gap-8 rounded-lg border border-line bg-page px-3 py-2.5 text-xs text-ink">
+            <SelectTrigger className="inline-flex min-w-48 items-center justify-between gap-8 rounded-lg border border-line bg-page px-3 py-2.5 text-sm text-ink">
               <SelectValue />
               <ChevronDown size={14} />
             </SelectTrigger>
@@ -67,7 +67,7 @@ export function PracticePage({ path }: { path?: LearningPath }) {
                 <SelectItem
                   key={option.value}
                   value={option.value}
-                  className="cursor-pointer rounded-md px-3 py-2.5 text-xs outline-none data-highlighted:bg-green-soft data-highlighted:text-green"
+                  className="cursor-pointer rounded-md px-3 py-2.5 text-sm outline-none data-highlighted:bg-green-soft data-highlighted:text-green"
                 >
                   {option.label}
                 </SelectItem>
@@ -75,7 +75,7 @@ export function PracticePage({ path }: { path?: LearningPath }) {
             </SelectContent>
           </Select>
         )}
-        <span className="text-xs text-muted-ink">
+        <span className="text-sm text-muted-ink">
           {cards.length} flashcards · {quizzes.length} quiz questions
         </span>
       </div>
@@ -92,14 +92,14 @@ export function PracticePage({ path }: { path?: LearningPath }) {
         >
           <TabsTab
             value="flashcards"
-            className="flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs text-muted-ink aria-selected:bg-page aria-selected:text-green aria-selected:shadow-sm"
+            className="flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm text-muted-ink aria-selected:bg-page aria-selected:text-green aria-selected:shadow-sm"
           >
             <Layers3 size={15} aria-hidden="true" />
             Flashcards
           </TabsTab>
           <TabsTab
             value="quiz"
-            className="flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs text-muted-ink aria-selected:bg-page aria-selected:text-green aria-selected:shadow-sm"
+            className="flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm text-muted-ink aria-selected:bg-page aria-selected:text-green aria-selected:shadow-sm"
           >
             <ListChecks size={15} aria-hidden="true" />
             Quick quiz
@@ -123,7 +123,7 @@ export function PracticePage({ path }: { path?: LearningPath }) {
         </TabsPanel>
       </Tabs>
       {path && (
-        <a href="#/practice" className="mt-7 inline-flex text-xs text-green">
+        <a href="#/practice" className="mt-7 inline-flex text-sm text-green">
           Explore practice across all collections
         </a>
       )}

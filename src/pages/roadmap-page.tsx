@@ -34,7 +34,7 @@ export function RoadmapPage() {
   );
   return (
     <div className="mx-auto max-w-5xl px-6 py-10 md:px-12">
-      <p className="text-[10px] font-medium uppercase tracking-[.15em] text-green">
+      <p className="text-sm font-medium uppercase tracking-[.15em] text-green">
         THE PLAN, CONNECTED TO YOUR NOTES
       </p>
       <h1 className="mt-4 text-4xl font-medium tracking-tight">
@@ -45,7 +45,7 @@ export function RoadmapPage() {
         examples, and practice. The dates below are the original schedule; they
         do not mark anything complete automatically.
       </p>
-      <div className="mt-7 flex flex-wrap gap-5 border-y border-line py-4 text-xs text-muted-ink">
+      <div className="mt-7 flex flex-wrap gap-5 border-y border-line py-4 text-sm text-muted-ink">
         <span>{topics.length} topic notes</span>
         <span>{studyWeeks.length} stages</span>
         <span>
@@ -68,7 +68,7 @@ export function RoadmapPage() {
             From the discussions we could retrieve
           </h2>
         </div>
-        <p className="mt-3 text-xs leading-6 text-muted-ink">
+        <p className="mt-3 text-sm leading-6 text-muted-ink">
           These recaps use the available closure, user-search, and
           interview-prep excerpts. Older unseen chat turns are not presented as
           recovered transcripts. Other lessons expand the PDF syllabus or the
@@ -81,7 +81,7 @@ export function RoadmapPage() {
               <a
                 key={slug}
                 href={`#/topic/${slug}`}
-                className="rounded-lg border border-line bg-page px-3 py-2 text-xs text-green hover:border-green"
+                className="rounded-lg border border-line bg-page px-3 py-2 text-sm text-green hover:border-green"
               >
                 {topic.title}
               </a>
@@ -92,14 +92,14 @@ export function RoadmapPage() {
       <div className="my-6 grid gap-4 md:grid-cols-2">
         <section className="rounded-xl border border-line p-5">
           <h2 className="text-sm font-medium">Carry forward prior study</h2>
-          <p className="mt-2 text-xs leading-6 text-muted-ink">
+          <p className="mt-2 text-sm leading-6 text-muted-ink">
             PDF page 1 records these as covered. Start with recall and review
             gaps; do not restart automatically.
           </p>
           <div className="mt-3 flex flex-wrap gap-x-3 gap-y-2">
             {covered.map((topic) => (
               <a
-                className="text-xs text-green underline-offset-2 hover:underline"
+                className="text-sm text-green underline-offset-2 hover:underline"
                 href={`#/topic/${topic.slug}`}
                 key={topic.slug}
               >
@@ -110,7 +110,7 @@ export function RoadmapPage() {
         </section>
         <section className="rounded-xl border border-line p-5">
           <h2 className="text-sm font-medium">The recorded resume point</h2>
-          <p className="mt-2 text-xs leading-6 text-muted-ink">
+          <p className="mt-2 text-sm leading-6 text-muted-ink">
             Week 1, Day 4 topics: this, prototypes/classes, and stale closures,
             after a brief recall check. The plan records the following DSA work
             as pending.
@@ -118,7 +118,7 @@ export function RoadmapPage() {
           <div className="mt-3 flex flex-wrap gap-x-3 gap-y-2">
             {pending.map((topic) => (
               <a
-                className="text-xs text-green hover:underline"
+                className="text-sm text-green hover:underline"
                 href={`#/topic/${topic.slug}`}
                 key={topic.slug}
               >
@@ -147,14 +147,14 @@ export function RoadmapPage() {
             >
               <AccordionHeader>
                 <AccordionTrigger className="group flex w-full items-center gap-4 bg-page px-5 py-5 text-left">
-                  <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-green-soft font-mono text-xs text-green">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-green-soft font-mono text-sm text-green">
                     {week.number === 10 ? "END" : `W${week.number}`}
                   </span>
                   <span className="flex-1">
                     <span className="block text-sm font-medium">
                       {week.title}
                     </span>
-                    <span className="mt-1 block text-[10px] font-normal text-muted-ink">
+                    <span className="mt-1 block text-sm font-normal text-muted-ink">
                       {week.dates} · PDF page {week.page} · {done}/{list.length}{" "}
                       read
                     </span>
@@ -178,7 +178,7 @@ export function RoadmapPage() {
                   {week.tasks.map((task) => (
                     <li
                       key={task}
-                      className="flex gap-2 text-xs leading-6 text-muted-ink"
+                      className="flex gap-2 text-sm leading-6 text-muted-ink"
                     >
                       <span className="text-green">·</span>
                       {task}
@@ -190,7 +190,7 @@ export function RoadmapPage() {
                     <a
                       key={topic.slug}
                       href={`#/topic/${topic.slug}`}
-                      className="flex items-center gap-2 rounded-lg border border-line px-3 py-3 text-xs hover:border-green"
+                      className="flex items-center gap-2 rounded-lg border border-line px-3 py-3 text-sm hover:border-green"
                     >
                       {read.includes(topic.slug) ? (
                         <Check size={13} className="shrink-0 text-green" />
@@ -204,7 +204,7 @@ export function RoadmapPage() {
                     </a>
                   ))}
                 </div>
-                <div className="mt-5 rounded-lg bg-green-soft p-4 text-xs leading-6">
+                <div className="mt-5 rounded-lg bg-green-soft p-4 text-sm leading-6">
                   <strong className="font-medium text-green">
                     Evidence gate
                   </strong>
@@ -213,14 +213,14 @@ export function RoadmapPage() {
                 <div className="mt-5 flex flex-wrap gap-5">
                   <a
                     href={`#/paths/${week.id}`}
-                    className="inline-flex items-center gap-2 text-xs font-medium text-green"
+                    className="inline-flex items-center gap-2 text-sm font-medium text-green"
                   >
                     Follow this stage
                     <ArrowRight size={13} />
                   </a>
                   <a
                     href={`#/practice/path/${week.id}`}
-                    className="text-xs font-medium text-green"
+                    className="text-sm font-medium text-green"
                   >
                     Practice these topics →
                   </a>
@@ -235,7 +235,7 @@ export function RoadmapPage() {
           <Map size={16} />
           Keep the plan sustainable
         </h2>
-        <p className="mt-3 text-xs leading-7 text-muted-ink">
+        <p className="mt-3 text-sm leading-7 text-muted-ink">
           Use the{" "}
           <a
             href="#/topic/daily-learning-loop"

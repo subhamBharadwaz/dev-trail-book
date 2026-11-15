@@ -5,7 +5,7 @@ export function ThemeToggle() {
   const { dark, setDark } = useTheme();
   return (
     <Toggle
-      className="grid size-[30px] place-items-center rounded border-0 bg-transparent text-muted-ink hover:bg-surface-hover hover:text-ink"
+      className="grid size-11 place-items-center rounded border-0 bg-transparent text-muted-ink hover:bg-surface-hover hover:text-ink"
       aria-label="Dark theme"
       pressed={dark}
       onPressedChange={setDark}

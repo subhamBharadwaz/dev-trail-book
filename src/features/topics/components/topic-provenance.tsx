@@ -2,7 +2,7 @@ import type { Topic } from "../data/content";
 export function TopicProvenance({ topic }: { topic: Topic }) {
   if (!topic.planWeek && !topic.discussionSource) return null;
   return (
-    <div className="mb-7 rounded-lg border border-line bg-surface px-4 py-3 text-xs leading-6 text-muted-ink">
+    <div className="mb-7 rounded-lg border border-line bg-surface px-4 py-3 text-sm leading-6 text-muted-ink">
       {topic.discussionSource && (
         <p>
           Discussion reference:{" "}

@@ -20,16 +20,16 @@ export function PathCard({
         <span className="flex size-10 items-center justify-center rounded-xl bg-green-soft text-green">
           <Route size={20} />
         </span>
-        <span className="font-mono text-xs text-muted-ink">0{index + 1}</span>
+        <span className="font-mono text-sm text-muted-ink">0{index + 1}</span>
       </div>
-      <p className="mt-6 text-[10px] font-medium uppercase tracking-[.13em] text-green">
+      <p className="mt-6 text-sm font-medium uppercase tracking-[.13em] text-green">
         {path.level}
       </p>
       <h2 className="mt-3 text-xl font-medium tracking-tight">{path.title}</h2>
       <p className="mt-3 flex-1 text-sm leading-7 text-muted-ink">
         {path.description}
       </p>
-      <div className="mb-5 mt-6 flex gap-4 text-xs text-muted-ink">
+      <div className="mb-5 mt-6 flex gap-4 text-sm text-muted-ink">
         <span>{progress.total} topics</span>
         <span className="flex items-center gap-1.5">
           <Clock3 size={13} />
@@ -41,7 +41,7 @@ export function PathCard({
         max={progress.total}
         label={`${path.title} progress`}
       />
-      <div className="mt-3 flex items-center justify-between text-xs">
+      <div className="mt-3 flex items-center justify-between text-sm">
         <span className="text-muted-ink">
           {progress.completed} of {progress.total} read
         </span>

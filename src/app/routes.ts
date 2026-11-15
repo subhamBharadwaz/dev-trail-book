@@ -18,6 +18,7 @@ export interface CollectionRoute {
   category?: Category;
 }
 export type AppRoute =
+  | { kind: "today" | "evidence"; path: string; title: string }
   | { kind: "roadmap"; path: string; title: string }
   | { kind: "overview"; path: string; title: string }
   | { kind: "topic"; path: string; title: string; topic: Topic }
@@ -42,6 +43,10 @@ const collectionTitles = {
   facts: "Must-know facts",
 };
 export function resolveRoute(path: string): AppRoute {
+  if (path === "/today")
+    return { kind: "today", path, title: "Today’s practice" };
+  if (path === "/evidence")
+    return { kind: "evidence", path, title: "Evidence journal" };
   if (path === "/roadmap")
     return { kind: "roadmap", path, title: "Study roadmap" };
   if (path === "/") return { kind: "overview", path, title: "Overview" };
