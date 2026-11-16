@@ -1,0 +1,59 @@
+{
+  "expo": {
+    "name": "Dev Trailbook",
+    "slug": "dev-trailbook",
+    "version": "1.0.0",
+    "scheme": "devtrailbook",
+    "userInterfaceStyle": "automatic",
+    "icon": "./assets/icon.png",
+    "android": {
+      "package": "com.devtrailbook.app",
+      "predictiveBackGestureEnabled": true,
+      "softwareKeyboardLayoutMode": "resize",
+      "adaptiveIcon": {
+        "backgroundColor": "#F7F5EF",
+        "foregroundImage": "./assets/adaptive.png",
+        "monochromeImage": "./assets/adaptive.png"
+      }
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.devtrailbook.app"
+    },
+    "web": {
+      "output": "single"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#F7F5EF",
+          "image": "./assets/adaptive.png",
+          "imageWidth": 80,
+          "dark": {
+            "backgroundColor": "#242321"
+          }
+        }
+      ],
+      "expo-sqlite",
+      "expo-notifications"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "97e5d560-7f64-4962-be56-be80f2633843"
+      }
+    },
+    "owner": "webhashiras-team"
+  }
+}
