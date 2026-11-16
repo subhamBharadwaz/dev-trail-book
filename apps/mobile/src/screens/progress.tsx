@@ -25,12 +25,22 @@ export default function Progress() {
   ).length;
   return (
     <Screen>
+      <Action
+        secondary
+        label="Practice a timed mock interview"
+        onPress={() => router.push("/interviews")}
+      />
       <View style={{ gap: space.md }}>
         <Text variant="display">Proof you’re growing.</Text>
         <Text muted>
           Understanding takes practice. Here’s the work behind yours.
         </Text>
       </View>
+      <Action
+        secondary
+        label="View weekly readiness"
+        onPress={() => router.push("/readiness")}
+      />
       <View
         style={{
           padding: space.xl,
@@ -55,6 +65,11 @@ export default function Progress() {
           {prep.entries.length} practice logs · {due.length} reviews due
         </Text>
       </View>
+      <Action
+        secondary
+        label="Open mistake notebook"
+        onPress={() => router.push("/mistakes")}
+      />
       <Action
         label="Record your practice"
         onPress={() => router.push("/evidence")}

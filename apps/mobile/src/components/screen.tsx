@@ -1,3 +1,4 @@
+import { UpdateNotice } from "./update-notice";
 import { ScrollView, View, type ViewProps } from "react-native";
 import { useTheme, space } from "@/theme";
 export function Screen({ children, ...props }: ViewProps) {
@@ -23,6 +24,7 @@ export function Screen({ children, ...props }: ViewProps) {
           props.style,
         ]}
       >
+        <UpdateNotice />
         {children}
       </View>
     </ScrollView>

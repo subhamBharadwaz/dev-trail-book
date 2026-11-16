@@ -18,7 +18,18 @@ export interface CollectionRoute {
   category?: Category;
 }
 export type AppRoute =
-  | { kind: "today" | "evidence" | "account"; path: string; title: string }
+  | {
+      kind:
+        | "today"
+        | "evidence"
+        | "account"
+        | "mistakes"
+        | "interviews"
+        | "readiness"
+        | "backup";
+      path: string;
+      title: string;
+    }
   | { kind: "roadmap"; path: string; title: string }
   | { kind: "overview"; path: string; title: string }
   | { kind: "topic"; path: string; title: string; topic: Topic }
@@ -43,6 +54,14 @@ const collectionTitles = {
   facts: "Must-know facts",
 };
 export function resolveRoute(path: string): AppRoute {
+  if (path === "/backup")
+    return { kind: "backup", path, title: "Export & restore" };
+  if (path === "/readiness")
+    return { kind: "readiness", path, title: "Weekly readiness" };
+  if (path === "/interviews")
+    return { kind: "interviews", path, title: "Mock interviews" };
+  if (path === "/mistakes")
+    return { kind: "mistakes", path, title: "Mistake notebook" };
   if (path === "/account")
     return { kind: "account", path, title: "Account & sync" };
   if (path === "/today")

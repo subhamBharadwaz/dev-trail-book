@@ -8,7 +8,12 @@
     "./preparation-records": "./src/preparation-records.ts",
     "./study-plan": "./src/study-plan.ts",
     "./practice": "./src/practice.ts",
-    "./practice-session": "./src/practice-session.ts"
+    "./practice-session": "./src/practice-session.ts",
+    "./mistakes": "./src/mistakes.ts",
+    "./interviews": "./src/interviews.ts",
+    "./readiness": "./src/readiness.ts",
+    "./backup": "./src/backup.ts",
+    "./study-nudges": "./src/study-nudges.ts"
   },
   "dependencies": {
     "@trailbook/sync": "workspace:*",

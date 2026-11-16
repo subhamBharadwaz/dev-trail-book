@@ -29,6 +29,26 @@ const EvidencePage = lazy(() =>
     default: module.EvidencePage,
   })),
 );
+const MistakesPage = lazy(() =>
+  import("@/pages/mistakes-page").then((module) => ({
+    default: module.MistakesPage,
+  })),
+);
+const InterviewsPage = lazy(() =>
+  import("@/pages/interviews-page").then((module) => ({
+    default: module.InterviewsPage,
+  })),
+);
+const ReadinessPage = lazy(() =>
+  import("@/pages/readiness-page").then((module) => ({
+    default: module.ReadinessPage,
+  })),
+);
+const BackupPage = lazy(() =>
+  import("@/pages/backup-page").then((module) => ({
+    default: module.BackupPage,
+  })),
+);
 const loading = (
   <div role="status" className="p-10 text-sm text-muted-ink">
     Getting your trail ready…
@@ -41,6 +61,30 @@ const RoadmapPage = lazy(() =>
 );
 export function AppRoutes({ route }: { route: AppRoute }) {
   switch (route.kind) {
+    case "backup":
+      return (
+        <Suspense fallback={loading}>
+          <BackupPage />
+        </Suspense>
+      );
+    case "readiness":
+      return (
+        <Suspense fallback={loading}>
+          <ReadinessPage />
+        </Suspense>
+      );
+    case "interviews":
+      return (
+        <Suspense fallback={loading}>
+          <InterviewsPage />
+        </Suspense>
+      );
+    case "mistakes":
+      return (
+        <Suspense fallback={loading}>
+          <MistakesPage />
+        </Suspense>
+      );
     case "account":
       return (
         <Suspense fallback={loading}>

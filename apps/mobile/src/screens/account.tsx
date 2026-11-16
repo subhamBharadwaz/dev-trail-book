@@ -1,7 +1,9 @@
 import { recordTitle, recordSummary } from "@/lib/record-summary";
 import { useState } from "react";
 import { Alert, View } from "react-native";
-import { Host, Picker } from "@expo/ui";
+import { router } from "expo-router";
+import { UpdateSettings } from "@/features/updates/settings";
+import { ReminderSettings } from "@/features/reminders/settings";
 import * as Linking from "expo-linking";
 import { Screen } from "@/components/screen";
 import { Text } from "@/components/text";
@@ -12,19 +14,16 @@ import { SectionHeading } from "@/components/section-heading";
 import { Icon } from "@/components/icon";
 import { client, useAccount } from "@/lib/account-provider";
 import { progress, useProgress } from "@/lib/progress";
-import { reminderTime, setReminder } from "@/lib/reminders";
 import { storage } from "@/lib/storage";
 import { space, radius, useTheme } from "@/theme";
 export default function Account() {
-  const { colors, mode, preference, setPreference } = useTheme();
+  const { colors, preference, setPreference } = useTheme();
   const { session, ready, error: accountError, retry } = useAccount();
   const snapshot = useProgress();
   const [email, setEmail] = useState("");
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const [hour, setHour] = useState(() => reminderTime());
-  const [selectedHour, selectHour] = useState(hour ?? 19);
   const [reviewImport, setReviewImport] = useState(false);
   const conflicts = Object.entries(snapshot.conflicts);
   const canImport =
@@ -91,25 +90,6 @@ export default function Account() {
       setBusy(false);
     }
   }
-  async function updateReminder(value: number | null) {
-    setBusy(true);
-    setError("");
-    try {
-      await setReminder(value);
-      setHour(value);
-      setMessage(
-        value === null
-          ? "Study reminder turned off."
-          : "Your daily study reminder is set.",
-      );
-    } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Could not change the reminder.",
-      );
-    } finally {
-      setBusy(false);
-    }
-  }
   return (
     <Screen>
       <View style={{ gap: space.md }}>
@@ -118,6 +98,11 @@ export default function Account() {
           A quieter reading space. Your learning, wherever you pick it up.
         </Text>
       </View>
+      <Action
+        secondary
+        label="Export & restore study data"
+        onPress={() => router.push("/backup")}
+      />
       <View
         style={{
           backgroundColor: colors.surface,
@@ -278,6 +263,7 @@ export default function Account() {
           ))}
         </View>
       )}
+
       <View style={{ gap: space.md }}>
         <SectionHeading
           title="Reading atmosphere"
@@ -294,52 +280,8 @@ export default function Account() {
           ]}
         />
       </View>
-      <View style={{ gap: space.lg }}>
-        <SectionHeading
-          title="A gentle nudge"
-          detail={
-            hour !== null
-              ? `Daily reminder at ${String(hour).padStart(2, "0")}:00, in your device’s local time.`
-              : "Reminders are off. Turn one on only if it helps your routine."
-          }
-        />
-        <Host
-          colorScheme={mode}
-          seedColor={colors.accent}
-          matchContents={{ vertical: true }}
-          style={{ width: "100%" }}
-        >
-          <Picker
-            accessibilityLabel="Daily reminder time"
-            selectedValue={selectedHour}
-            onValueChange={selectHour}
-          >
-            {Array.from({ length: 24 }, (_, hour) => (
-              <Picker.Item
-                key={hour}
-                value={hour}
-                label={`${String(hour).padStart(2, "0")}:00`}
-              />
-            ))}
-          </Picker>
-        </Host>
-        <Action
-          secondary
-          disabled={busy}
-          label={
-            hour === null ? "Enable daily reminder" : "Update reminder time"
-          }
-          onPress={() => void updateReminder(selectedHour)}
-        />
-        {hour !== null && (
-          <Action
-            secondary
-            disabled={busy}
-            label="Turn off reminder"
-            onPress={() => void updateReminder(null)}
-          />
-        )}
-      </View>
+      <UpdateSettings />
+      <ReminderSettings />
       <Text variant="small" muted>
         All lessons are stored in the app for offline reading. Your theme and
         reminders belong to this device.

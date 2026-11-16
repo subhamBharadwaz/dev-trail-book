@@ -1,3 +1,4 @@
+import { mistakesFromRecords } from "@trailbook/learning/mistakes";
 import { View } from "react-native";
 import { Checkbox, Host } from "@expo/ui";
 import { router } from "expo-router";
@@ -21,6 +22,9 @@ export default function Today() {
   const { values, phase } = useProgress();
   const { session } = useAccount();
   const date = useToday();
+  const mistakesDue = mistakesFromRecords(values).filter(
+    (m) => m.status === "open" && m.due <= date,
+  ).length;
   const prep = recordsPreparation(values);
   const routine = prep.days[date]?.routine ?? "short";
   const tasks = dailyTasks(routine);
@@ -35,6 +39,16 @@ export default function Today() {
     ) ?? topics.find((topic) => values[`reading/read/${topic.slug}`] !== true);
   return (
     <Screen>
+      <Action
+        secondary
+        label="Practice a timed mock interview"
+        onPress={() => router.push("/interviews")}
+      />
+      <Action
+        secondary
+        label={`Mistake notebook · ${mistakesDue} to retry`}
+        onPress={() => router.push("/mistakes")}
+      />
       <View style={{ gap: space.md }}>
         <Text variant="label" muted>
           {new Date(`${date}T12:00:00`)
@@ -50,6 +64,11 @@ export default function Today() {
           Make room for one thing you’ll understand better today.
         </Text>
       </View>
+      <Action
+        secondary
+        label="View weekly readiness"
+        onPress={() => router.push("/readiness")}
+      />
       <View
         style={{
           padding: space.xl,

@@ -13,6 +13,16 @@ import { guestRecords } from "@/features/account/data/local-import";
 function recordLabel(key: string, value: unknown) {
   const parts = key.split("/");
   const name = (text: string) => text.replace(/[-:]/g, " ");
+  if (
+    parts[1] === "mistake" &&
+    value &&
+    typeof value === "object" &&
+    "question" in value &&
+    typeof value.question === "string"
+  )
+    return `Mistake: ${value.question}`;
+  if (parts[1]?.startsWith("interview"))
+    return `Mock interview: ${parts.slice(2).join(" / ") || "Current session"}`;
   if (parts[0] === "reading")
     return `${parts[1] === "read" ? "Reading progress" : "Saved topic"}: ${name(parts.slice(2).join("/"))}`;
   if (
@@ -323,6 +333,12 @@ export function AccountPage() {
           {error || accountError}
         </p>
       )}
+      <a
+        href="#/backup"
+        className="mt-6 inline-flex min-h-11 items-center font-medium text-green"
+      >
+        Export & restore your study data →
+      </a>
       <p role="status" className="mt-5 text-base leading-7 text-green">
         {message}
       </p>

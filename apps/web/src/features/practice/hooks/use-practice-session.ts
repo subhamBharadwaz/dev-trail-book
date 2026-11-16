@@ -1,4 +1,5 @@
 import { useEffect, useState, type SetStateAction } from "react";
+import { savePracticeMistake } from "@/features/mistakes/use-mistakes";
 import {
   progress,
   useCloudProgress,
@@ -60,6 +61,13 @@ export function usePracticeSession(cards: PracticeCard[], scope: string) {
     reveal: () => setSession((state) => ({ ...state, revealed: true })),
     check: () => {
       if (!current || !session.selected || answered) return;
+      if (session.selected !== current.correctId)
+        savePracticeMistake(
+          current,
+          "quiz",
+          current.options.find((option) => option.id === session.selected)
+            ?.text ?? "",
+        );
       setSession((state) => ({
         ...state,
         revealed: true,
@@ -70,7 +78,8 @@ export function usePracticeSession(cards: PracticeCard[], scope: string) {
       }));
     },
     grade: (known: boolean) => {
-      if (!current || !session.revealed) return;
+      if (!current || !session.revealed || answered) return;
+      if (!known) savePracticeMistake(current, "flashcard", "Could not recall");
       setSession((state) => ({
         ...state,
         index: state.index + 1,
