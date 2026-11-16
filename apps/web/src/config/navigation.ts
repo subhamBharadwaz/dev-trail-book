@@ -1,4 +1,6 @@
 import {
+  ChartNoAxesCombined,
+  Timer,
   UserRound,
   CalendarCheck,
   NotebookPen,
@@ -13,11 +15,14 @@ import {
 } from "lucide-react";
 export const workspaceNavigation = [
   { href: "/", name: "Overview", Icon: Compass },
+  { href: "/readiness", name: "Weekly readiness", Icon: ChartNoAxesCombined },
   { href: "/today", name: "Today’s practice", Icon: CalendarCheck },
   { href: "/evidence", name: "Evidence journal", Icon: NotebookPen },
   { href: "/roadmap", name: "Study roadmap", Icon: Map },
   { href: "/paths", name: "Learning paths", Icon: Route },
   { href: "/practice", name: "Practice", Icon: GraduationCap },
+  { href: "/interviews", name: "Mock interviews", Icon: Timer },
+  { href: "/mistakes", name: "Mistake notebook", Icon: NotebookPen },
   { href: "/topics", name: "All topics", Icon: FolderOpen },
   { href: "/saved", name: "Saved topics", Icon: Bookmark },
   { href: "/questions", name: "Questions & answers", Icon: CircleHelp },

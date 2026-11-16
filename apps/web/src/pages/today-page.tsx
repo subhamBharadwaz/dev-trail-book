@@ -8,16 +8,21 @@ import { ProgressMeter } from "@/components/ui/progress-meter";
 import { PreparationShell } from "@/features/preparation/components/preparation-shell";
 import {
   dailyTasks,
-  dateKey,
   dueReviews,
   routineOptions,
 } from "@/features/preparation/data/preparation";
 import { usePreparation } from "@/features/preparation/hooks/use-preparation";
 import { useCloudProgress } from "@/features/account/data/progress-store";
+import { useMistakes } from "@/features/mistakes/use-mistakes";
+import { useNotebookDay } from "@/features/mistakes/use-notebook-day";
 export function TodayPage() {
   const cloud = useCloudProgress();
   const { state, update, storageError } = usePreparation();
-  const today = dateKey();
+  const today = useNotebookDay();
+  const { mistakes } = useMistakes();
+  const mistakesDue = mistakes.filter(
+    (m) => m.status === "open" && m.due <= today,
+  ).length;
   const day = state.days[today] || { routine: "full" as const, completed: [] };
   const tasks = dailyTasks(day.routine);
   const completed = tasks.filter((task) =>
@@ -29,6 +34,24 @@ export function TodayPage() {
       title="One good day of practice."
       description="Start with what you can do today. Choose your available time, make a real attempt, and leave a small piece of evidence."
     >
+      <a
+        href="#/readiness"
+        className="inline-flex min-h-11 items-center text-base font-medium text-green"
+      >
+        See your weekly readiness →
+      </a>
+      <a
+        href="#/mistakes"
+        className="flex min-h-14 items-center justify-between gap-4 rounded-xl border border-line bg-surface p-5 text-base font-medium text-green"
+      >
+        Mistake notebook <span>{mistakesDue} to retry →</span>
+      </a>
+      <a
+        href="#/interviews"
+        className="inline-flex min-h-11 items-center text-base font-medium text-green"
+      >
+        Practice a timed mock interview →
+      </a>
       <section
         className="rounded-2xl border border-line bg-surface p-5 sm:p-7"
         aria-label="Daily routine"

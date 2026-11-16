@@ -1,3 +1,5 @@
+import { router } from "expo-router";
+import { captureMistake } from "@trailbook/learning/mistakes";
 import { View, Pressable } from "react-native";
 import { Host, Picker } from "@expo/ui";
 import { topics, categories } from "@trailbook/content/native";
@@ -33,8 +35,21 @@ export default function Practice() {
   const current = cards.find((card) => card.id === session.ids[session.index]);
   const answered = !!current && Object.hasOwn(session.results, current.id);
   const missed = session.ids.filter((id) => session.results[id] === false);
-  const write = (next: Session) =>
-    progress.write({ [key]: JSON.parse(JSON.stringify(next)) });
+  const write = (next: Session, missedSource?: "quiz" | "flashcard") =>
+    progress.write({
+      [key]: JSON.parse(JSON.stringify(next)),
+      ...(missedSource && current
+        ? captureMistake(
+            values,
+            current,
+            missedSource,
+            missedSource === "quiz"
+              ? (current.options.find((o) => o.id === session.selected)?.text ??
+                  "")
+              : "Could not recall",
+          )
+        : {}),
+    });
   const next = () =>
     write({
       ...session,
@@ -44,10 +59,20 @@ export default function Practice() {
     });
   return (
     <Screen>
+      <Action
+        secondary
+        label="Practice a timed mock interview"
+        onPress={() => router.push("/interviews")}
+      />
       <View style={{ gap: space.md }}>
         <Text variant="display">Make it stick.</Text>
         <Text muted>Recall first. Check the gap. Come back stronger.</Text>
       </View>
+      <Action
+        secondary
+        label="Open mistake notebook"
+        onPress={() => router.push("/mistakes")}
+      />
       <Choice
         value={mode}
         label="Practice mode"
@@ -182,13 +207,16 @@ export default function Practice() {
                   secondary
                   label="Needs another look"
                   onPress={() =>
-                    write({
-                      ...session,
-                      index: session.index + 1,
-                      selected: null,
-                      revealed: false,
-                      results: { ...session.results, [current.id]: false },
-                    })
+                    write(
+                      {
+                        ...session,
+                        index: session.index + 1,
+                        selected: null,
+                        revealed: false,
+                        results: { ...session.results, [current.id]: false },
+                      },
+                      "flashcard",
+                    )
                   }
                 />
               </>
@@ -205,14 +233,17 @@ export default function Practice() {
               label="Check answer"
               disabled={!session.selected}
               onPress={() =>
-                write({
-                  ...session,
-                  revealed: true,
-                  results: {
-                    ...session.results,
-                    [current.id]: session.selected === current.correctId,
+                write(
+                  {
+                    ...session,
+                    revealed: true,
+                    results: {
+                      ...session.results,
+                      [current.id]: session.selected === current.correctId,
+                    },
                   },
-                })
+                  session.selected === current.correctId ? undefined : "quiz",
+                )
               }
             />
           )}

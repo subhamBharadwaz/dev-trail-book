@@ -79,6 +79,18 @@ export function PracticePage({ path }: { path?: LearningPath }) {
           {cards.length} flashcards · {quizzes.length} quiz questions
         </span>
       </div>
+      <a
+        href="#/mistakes"
+        className="mb-6 inline-flex min-h-11 items-center text-base font-medium text-green"
+      >
+        Open mistake notebook →
+      </a>
+      <a
+        href="#/interviews"
+        className="mb-6 ml-5 inline-flex min-h-11 items-center text-base font-medium text-green"
+      >
+        Try a timed mock interview →
+      </a>
       <Tabs
         value={mode}
         onValueChange={(value) => {

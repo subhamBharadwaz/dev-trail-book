@@ -1,7 +1,10 @@
+import { AppUpdatesProvider } from "@/lib/app-updates";
 import type { ErrorBoundaryProps } from "expo-router";
 import { Screen } from "@/components/screen";
 import { Text } from "@/components/text";
 import { Action } from "@/components/action";
+import { startStudyNotifications } from "@/lib/reminders";
+import { StudyHeader } from "@/components/study-header";
 import { useEffect } from "react";
 import { Stack } from "expo-router/stack";
 import {
@@ -13,10 +16,11 @@ import { StatusBar } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
 import { ThemeProvider, useTheme } from "@/theme";
 import { AccountProvider } from "@/lib/account-provider";
-export const unstable_settings = { initialRouteName: "(tabs)" };
+export const unstable_settings = { anchor: "(tabs)" };
 void SplashScreen.preventAutoHideAsync();
 function Navigation() {
   const { mode, colors } = useTheme();
+  useEffect(() => startStudyNotifications(), []);
   const base = mode === "dark" ? DarkTheme : DefaultTheme;
   useEffect(() => {
     void SplashScreen.hideAsync();
@@ -39,6 +43,7 @@ function Navigation() {
       <Stack
         screenOptions={{
           headerShadowVisible: false,
+          headerTitle: ({ children }) => <StudyHeader title={children} />,
           headerTintColor: colors.text,
           headerStyle: { backgroundColor: colors.background },
           contentStyle: { backgroundColor: colors.background },
@@ -53,6 +58,16 @@ function Navigation() {
           name="roadmap"
           options={{ title: "Preparation roadmap" }}
         />
+        <Stack.Screen
+          name="readiness"
+          options={{ title: "Weekly readiness" }}
+        />
+        <Stack.Screen
+          name="interviews"
+          options={{ title: "Mock interviews" }}
+        />
+        <Stack.Screen name="mistakes" options={{ title: "Mistake notebook" }} />
+        <Stack.Screen name="backup" options={{ title: "Export & restore" }} />
         <Stack.Screen name="account" options={{ title: "Your space" }} />
         <Stack.Screen
           name="evidence"
@@ -71,7 +86,9 @@ export default function RootLayout() {
   return (
     <ThemeProvider>
       <AccountProvider>
-        <Navigation />
+        <AppUpdatesProvider>
+          <Navigation />
+        </AppUpdatesProvider>
       </AccountProvider>
     </ThemeProvider>
   );

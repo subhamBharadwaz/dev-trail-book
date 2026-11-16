@@ -1,8 +1,9 @@
+import { guestNotebook } from "@/features/mistakes/use-mistakes";
 import { parsePreparation } from "@/features/preparation/data/preparation";
 import { preparationRecords } from "./preparation-records";
 import type { Json } from "./progress-store";
 export function guestRecords(): Record<string, Json> {
-  const records: Record<string, Json> = {};
+  const records: Record<string, Json> = { ...guestNotebook.values() };
   try {
     for (const type of ["saved", "read"]) {
       const list = JSON.parse(

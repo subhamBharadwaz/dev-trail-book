@@ -2,6 +2,8 @@ import { categories, topicBySlug } from "@trailbook/content/native";
 import type { Json } from "@trailbook/sync";
 export function recordTitle(key: string) {
   const parts = key.split("/");
+  if (parts[1]?.startsWith("interview")) return "Mock interview record";
+  if (parts[1] === "mistake") return "Mistake notebook entry";
   if (parts[0] === "reading")
     return `${parts[1] === "read" ? "Lesson completion" : "Bookmark"} · ${topicBySlug.get(parts[2])?.title ?? "Lesson"}`;
   if (parts[0] === "prep" && parts[1] === "day")
@@ -29,6 +31,14 @@ export function recordSummary(key: string, value: Json | undefined): string {
     );
   if (typeof value !== "object" || Array.isArray(value))
     return "Saved progress";
+  if (typeof value.duration === "number" && typeof value.state === "string")
+    return `${value.duration}-minute mock · ${value.state}`;
+  if (typeof value.text === "string")
+    return `Answer: ${value.text.slice(0, 200)}`;
+  if (typeof value.strengths === "string")
+    return `Debrief: ${value.strengths.slice(0, 100)} · Next: ${String(value.nextStep).slice(0, 100)}`;
+  if (typeof value.question === "string")
+    return `${value.question} · ${value.status} · retry ${value.due}`;
   if (typeof value.title === "string")
     return [
       value.title,

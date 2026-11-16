@@ -19,7 +19,8 @@
     "check": "bun run content && bun run typecheck && bun run lint && bun run test && bun run build",
     "content": "bun run --cwd packages/content generate",
     "format": "prettier --write \"apps/**/*.{ts,tsx,json}\" \"packages/**/*.{ts,json}\" \"scripts/*.ts\" package.json turbo.json README.md docs/mobile-app.md",
-    "preview": "bun run --cwd apps/web preview"
+    "preview": "bun run --cwd apps/web preview",
+    "update:android": "bun run --cwd apps/mobile update:android"
   },
   "devDependencies": {
     "turbo": "^2.0.0",
