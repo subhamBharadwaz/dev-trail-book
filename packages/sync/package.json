@@ -1,0 +1,16 @@
+{
+  "name": "@trailbook/sync",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./engine": "./src/engine.ts"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.119.0"
+  },
+  "scripts": {
+    "test": "bun test"
+  }
+}

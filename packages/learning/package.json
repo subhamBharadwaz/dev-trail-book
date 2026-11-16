@@ -1,0 +1,20 @@
+{
+  "name": "@trailbook/learning",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./preparation": "./src/preparation.ts",
+    "./preparation-records": "./src/preparation-records.ts",
+    "./study-plan": "./src/study-plan.ts",
+    "./practice": "./src/practice.ts",
+    "./practice-session": "./src/practice-session.ts"
+  },
+  "dependencies": {
+    "@trailbook/sync": "workspace:*",
+    "@trailbook/content": "workspace:*"
+  },
+  "scripts": {
+    "test": "bun test"
+  }
+}

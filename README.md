@@ -1,6 +1,6 @@
 # Dev Trailbook
 
-A personal developer knowledge base built on the existing Vite, React, TypeScript, Tailwind CSS, and shadcn setup. UI SDK powers the topic tabs, Q&A accordions, search dialog, theme, and reading controls.
+A developer interview-preparation workspace: the existing Vite/React website and an Android-first Expo SDK 58 app, managed with Bun workspaces and Turborepo. Both apps share their lesson source, question banks, preparation rules, and conflict-aware Supabase sync engine.
 
 ## Run locally
 
@@ -20,17 +20,17 @@ bun run preview
 ## What is included
 
 - Responsive sidebar and category collections.
-- Ten starter MDX notes, with code examples, questions, facts, and documentation links.
+- 74 shared MDX lessons, 177 flashcards, and 74 quizzes with code examples, must-know facts, and references.
 - Full-text search (Ctrl+K / Cmd+K), including prose, metadata, code, and answers.
 - Saved topics, read status, and theme persisted in browser local storage.
 - Keyboard-accessible tabs, dialogs, and accordions.
 - UI SDK agent bridge and WebMCP registration when supported by the browser.
 
-The starter notes illustrate the content structure. They do not import earlier conversations or private memories. Reading progress and bookmarks are local to each browser; there is no account or backend yet. Code blocks are copyable reading examples, not an execution environment.
+Content includes the confirmed study-plan coverage and the discussions previously supplied to this project. Guest progress stays on each device; signing in enables cross-device Supabase sync, with an explicit reviewed import for guest progress. Code examples are readable and copyable, not an execution environment.
 
 ## Add a topic
 
-Create a `.mdx` file under `src/content/`. Copy an existing file and update its exported `meta` object:
+Create a `.mdx` file under `packages/content/lessons/`. Copy an existing file and update its exported `meta` object:
 
 ```mdx
 export const meta = {
@@ -68,11 +68,11 @@ Add a small exercise.
 Link to the official documentation.
 ```
 
-The file is discovered automatically. The Vite plugin generates searchable text from the MDX source at build time. No search index or manual navigation entry needs updating. Category IDs live in `src/features/topics/data/content.ts`. Use the headings above to match the article contents navigation.
+The file is discovered automatically. The Vite plugin generates searchable text from the MDX source at build time. No search index or manual navigation entry needs updating. Run `bun run content` after editing lessons to regenerate the mobile bundle. Category IDs live in `packages/content/src/categories.ts`. Use the headings above to match the article contents navigation.
 
 Only compile trusted repository-owned MDX: it can contain JavaScript and React components.
 
-## Deploy to Vercel
+## Deploy the website
 
 Import this project into Vercel and choose the Vite preset:
 
@@ -80,28 +80,20 @@ Import this project into Vercel and choose the Vite preset:
 - Build: `bun run build`
 - Output: `dist`
 
-The MVP uses hash routes, so static hosting works without a route rewrite. It has not been deployed by this task.
+The MVP uses hash routes, so static hosting works without a route rewrite. The existing Cloudflare Pages project can keep its repository-root build and `dist` output. `bun run build` builds only the website and copies its output to root `dist/`; mobile bundles are built separately.
 
 ## Project structure
 
 ```text
-src/
-  app/                     Route resolution and shared reading state
-  components/
-    content/               Reusable code-block renderer
-    layout/                App shell, sidebar, topbar, mobile navigation, theme
-    ui/                    Shared styled primitives
-  config/                  Navigation configuration
-  content/                 MDX notes and metadata
-  features/
-    search/components/     UI SDK Command search and its dialog
-    topics/
-      components/          Reader, cards, questions, and facts
-      data/                Content discovery, types, and lookup indexes
-  hooks/                   Routing, theme, storage, and reading-state hooks
-  pages/                   Overview, collection, topic, and not-found pages
-  index.css                Tailwind imports and shared theme tokens only
-  test/                    Test environment and cross-page integration checks
+apps/
+  web/                 Existing Vite, React, Tailwind, shadcn, and UI SDK website
+  mobile/              Expo Router Android-first app, native Expo UI controls
+packages/
+  content/             Canonical MDX lessons, category metadata, generated native syntax trees
+  learning/            Preparation, review dates, question banks, and session validation
+  sync/                Platform-independent progress store and CAS sync engine
+scripts/               Cloudflare-compatible root output preparation
+supabase/              Database migrations and security verification
 ```
 
 `App.tsx` only composes the provider, layout, and route view. Route resolution is a typed, pure function; hash changes are subscribed to with `useSyncExternalStore`. Collection filters belong to the collection page and reset on navigation. Saved topics and reading progress live in the shared reading provider.
@@ -110,7 +102,7 @@ Keep reusable primitives in `components/`, domain behavior in `features/`, and p
 
 Search uses UI SDK `CommandInput`, `CommandList`, `CommandItem`, and `CommandEmpty` inside `Dialog`. UI SDK owns focus, highlight, keyboard behavior, result announcements, and the shortcut. Full-text matching uses the same content filter as collection pages. The command UI is loaded on demand when its dialog opens.
 
-The agent bridge remains in `src/lib/agent.ts`. Tests next to a feature cover its behavior; `src/test/app.test.tsx` verifies integration across the app.
+The agent bridge remains in `apps/web/src/lib/agent.ts`. Tests next to a feature cover its behavior; `apps/web/src/test/app.test.tsx` verifies integration across the app.
 
 Run `bun run format` to format the source.
 
@@ -142,7 +134,7 @@ Add `quizDistractors` to an MDX topic to include its first Q&A question in quizz
 
 ## Code quality and styling
 
-Run `bun run check` for strict TypeScript, lint, tests and a production build. Component and page presentation uses Tailwind utilities, with semantic theme colors such as `bg-page`, `text-ink`, `border-line` and `text-green`. The only stylesheet is `src/index.css`, which holds Tailwind/shadcn imports and theme tokens. The legacy app/search stylesheets have been removed. Shiki supplies runtime syntax-token colors; layout and interactions use Tailwind.
+Run `bun run check` for strict TypeScript, lint, tests and a production build. Component and page presentation uses Tailwind utilities, with semantic theme colors such as `bg-page`, `text-ink`, `border-line` and `text-green`. The only stylesheet is `apps/web/src/index.css`, which holds Tailwind/shadcn imports and theme tokens. The legacy app/search stylesheets have been removed. Shiki supplies runtime syntax-token colors; layout and interactions use Tailwind.
 
 Lesson metadata and searchable text are indexed at build time; each MDX body loads on demand when its note opens. Keep the exported metadata block at the beginning of a lesson. Route failures display recovery options while keeping the site navigation available.
 
@@ -179,3 +171,15 @@ Changes are cached and queued under each account on the device. Sync runs after 
 Guest records remain in their existing browser keys and are not uploaded automatically. The account page offers an explicit, reviewed import that adds only missing keys after an initial cloud sync. Signing out returns to guest records; another account gets a separate cache. Theme remains device-specific. Local caches use browser storage and should not be treated as encrypted storage on a shared device. Export and complete cloud sync before clearing browser data.
 
 `supabase/verify-progress-security.sql` checks isolation, anonymous denial, direct-write denial, and revision conflicts in a transaction that rolls back its test users and records. Local tests use blank cloud configuration and mocks, so they never send authentication emails or touch your live database.
+
+## Android app
+
+See [the mobile guide](docs/mobile-app.md) for architecture, account redirects, build commands, and the real-device acceptance checklist.
+
+```sh
+bun run dev:mobile        # Expo development server, scan with a development build
+bun run android          # Launch a connected Android device / emulator
+bun run build:android    # Verify and export the Android Hermes bundle (not an APK)
+```
+
+The Android app is in `apps/mobile/src`. Route files only compose screens. Reusable native components live in `components/`, complete screens in `screens/`, device adapters in `lib/`, and all visual tokens in `theme/`. The app uses native styles in TypeScript; no mobile CSS files are required. The website retains its Tailwind styling.

@@ -1,0 +1,23 @@
+{
+  "name": "@trailbook/content",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./types": "./src/types.ts",
+    "./categories": "./src/categories.ts",
+    "./native": "./src/native.ts"
+  },
+  "dependencies": {},
+  "scripts": {
+    "generate": "bun scripts/generate.ts",
+    "build": "bun scripts/generate.ts",
+    "test": "bun test"
+  },
+  "devDependencies": {
+    "unified": "^11.0.5",
+    "remark-parse": "^11.0.0",
+    "remark-gfm": "^4.0.1",
+    "shiki": "^4.6.0"
+  }
+}
