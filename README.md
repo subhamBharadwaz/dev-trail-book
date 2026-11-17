@@ -10,16 +10,16 @@ I built Dev Trailbook for my own study after a career gap: a place to revisit to
 
 ## What you can do
 
-| Area                | Included                                                                                                  |
-| ------------------- | --------------------------------------------------------------------------------------------------------- |
-| Learn               | 74 MDX lessons across 14 categories, learning paths, code examples, important facts, and full-text search |
-| Recall              | 177 flashcards and 74 quizzes, with resumable practice sessions                                           |
-| Correct mistakes    | A notebook for missed answers, reflections, and spaced retries                                            |
-| Rehearse interviews | Timed mock sessions, written answers, self-assessment, and debriefs                                       |
-| Build consistency   | Daily routines, practice evidence, due reviews, and weekly readiness signals                              |
-| Keep your work      | Local progress, optional account sync, and portable JSON export and restore                               |
-| Study comfortably   | Responsive phone, tablet, and desktop layouts; Paper & Indigo light and night themes                      |
-| Use Android         | Bundled lessons, optional India-time reminders, a firm or quiet header, and compatible in-app updates     |
+| Area                | Included                                                                                                                   |
+| ------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Learn               | 74 MDX lessons across 14 categories, learning paths, code examples, important facts, and full-text search                  |
+| Recall              | 177 flashcards and 74 quizzes, with resumable practice sessions                                                            |
+| Correct mistakes    | A notebook for missed answers, reflections, and spaced retries                                                             |
+| Rehearse interviews | Timed mock sessions, written answers, self-assessment, and debriefs                                                        |
+| Build consistency   | Daily routines, practice evidence, due reviews, and weekly readiness signals                                               |
+| Keep your work      | Local progress, optional account sync, and portable JSON export and restore                                                |
+| Study comfortably   | Responsive phone, tablet, and desktop layouts; Paper & Indigo light and night themes                                       |
+| Use Android         | Bundled lessons, optional India-time reminders, a firm or quiet header, APK release notices, and compatible in-app updates |
 
 Reading and guest practice do not require an account. Guest data stays on that device. Signing in connects supported study records across the website and Android app. Read status and self-assessment are study signals, not a certification or a promise of employment.
 
@@ -148,6 +148,8 @@ For Cloudflare Pages, use the repository root:
 | Node / Bun             | 24 / 1.4.4                                       |
 
 Set the public Supabase variables in the build environment if account sync is enabled. The configured Git integration deploys changes pushed to `main`. Hash-based routes work on static hosting without server-side route rewrites. The Android app is built separately.
+
+The standalone Android app also checks GitHub Releases for newer APKs. A notice opens release notes and a direct download button in Your space; your browser downloads the file and Android asks you to approve installation. See the [release guide](docs/backups-updates-reminders.md#standalone-apk-release-notices) for publishing future signed builds.
 
 ## Your data
 

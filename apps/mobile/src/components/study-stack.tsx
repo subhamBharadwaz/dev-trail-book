@@ -1,3 +1,4 @@
+import { useApkUpdates } from "@/lib/apk-updates";
 import { useAppUpdates } from "@/lib/app-updates";
 import { StudyHeader } from "./study-header";
 import { Stack } from "expo-router/stack";
@@ -6,7 +7,9 @@ import { IconAction } from "./action";
 import { useTheme } from "@/theme";
 export function StudyStack({ title }: { title: string }) {
   const { colors } = useTheme();
-  const { pending } = useAppUpdates();
+  const { pending: otaPending } = useAppUpdates();
+  const { available } = useApkUpdates();
+  const pending = otaPending || available;
   return (
     <Stack
       screenOptions={{
