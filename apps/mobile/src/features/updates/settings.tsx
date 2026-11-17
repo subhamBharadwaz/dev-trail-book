@@ -1,3 +1,4 @@
+import { ApkUpdateSettings } from "./apk-settings";
 import { Alert, View } from "react-native";
 import { Text } from "@/components/text";
 import { Action } from "@/components/action";
@@ -7,7 +8,8 @@ export function UpdateSettings() {
   const update = useAppUpdates();
   return (
     <View style={{ gap: space.lg }}>
-      <Text variant="title">Keep the app current.</Text>
+      <ApkUpdateSettings />
+      <Text variant="title">Lesson and app updates</Text>
       <Text muted>
         Compatible lesson, design, and logic updates download inside the app.
         Native-library and permission changes still need a new APK.

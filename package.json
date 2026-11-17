@@ -15,12 +15,13 @@
     "build:android": "bun run --cwd apps/mobile export:android",
     "typecheck": "turbo run typecheck",
     "lint": "turbo run lint",
-    "test": "turbo run test",
+    "test": "turbo run test && bun test apps/mobile/tests",
     "check": "bun run content && bun run typecheck && bun run lint && bun run test && bun run build",
     "content": "bun run --cwd packages/content generate",
     "format": "prettier --write \"apps/**/*.{ts,tsx,json}\" \"packages/**/*.{ts,json}\" \"scripts/*.ts\" package.json turbo.json README.md docs/mobile-app.md",
     "preview": "bun run --cwd apps/web preview",
-    "update:android": "bun run --cwd apps/mobile update:android"
+    "update:android": "bun run --cwd apps/mobile update:android",
+    "release:android": "bun scripts/release-android.ts"
   },
   "devDependencies": {
     "turbo": "^2.0.0",

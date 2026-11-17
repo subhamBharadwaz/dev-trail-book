@@ -1,3 +1,4 @@
+import { ApkUpdatesProvider } from "@/lib/apk-updates";
 import { AppUpdatesProvider } from "@/lib/app-updates";
 import type { ErrorBoundaryProps } from "expo-router";
 import { Screen } from "@/components/screen";
@@ -86,9 +87,11 @@ export default function RootLayout() {
   return (
     <ThemeProvider>
       <AccountProvider>
-        <AppUpdatesProvider>
-          <Navigation />
-        </AppUpdatesProvider>
+        <ApkUpdatesProvider>
+          <AppUpdatesProvider>
+            <Navigation />
+          </AppUpdatesProvider>
+        </ApkUpdatesProvider>
       </AccountProvider>
     </ThemeProvider>
   );

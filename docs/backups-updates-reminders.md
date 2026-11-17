@@ -38,3 +38,25 @@ Your space → No more “later” → Enable India-time study alerts. Android a
 The next 14 days (up to 56 alerts) are scheduled on the device, including while the app is closed or offline. Opening the app renews the rolling schedule, throttled to six hours. If the app is never opened for 14 days, the finite schedule runs out. Android battery saving, reboot behavior, force-stop, and permission settings affect delivery; actual Android delivery timing still needs a device check. No push token, Firebase setup, Supabase cron job, paid service, or remote tracking is needed.
 
 Foreground notifications are suppressed. Tapping an alert opens Today. Repeated schedules preserve existing identifiers and remove obsolete owned alerts; disabling only cancels this app's study alerts. The old single daily reminder is removed on startup to avoid duplicate notifications. Motivational lines are firm, task-focused, and rotated. The app's native navigation header has separate short lines, enabled by default and switchable to a quiet title in Your space. The Vite website does not show these motivational headers or schedule notifications.
+
+## Standalone APK release notices
+
+The Android app also checks public GitHub Releases on launch and when returning to the foreground, at most once per six hours. Your space → Android APK releases provides a manual retry, the installed native build number, release notes, and a Download latest APK button. A newer release shows a dismissible in-app notice; choosing Later hides that build’s notice, while its download remains in Your space. A subsequent newer build gets its own notice. Checks do not run on the website or in the development client, and do not send study records or credentials to GitHub.
+
+The download button opens the exact standalone APK asset in your browser. Open the downloaded file and approve Android’s installation prompt. Keep the existing app installed to preserve its local data. There is no silent installation and no background push notification for app releases: checks happen while the app is running. Cached release information remains available if a refresh fails; manual checks report network or rate-limit errors without blocking study.
+
+Native build numbers come from the installed ExpoApplication module already bundled through expo-notifications, rather than mutable OTA configuration. No new native module is needed for this checker. The existing update-enabled 1.1.0 standalone app can receive it as a compatible Expo update; older APKs without expo-updates still need the initial standalone upgrade.
+
+### Publish a future APK release
+
+1. Build the `preview` profile in EAS. Its remote Android version code increments automatically; retain the same package ID and signing key.
+2. Write release notes in a local Markdown file.
+3. From the repository root, run:
+
+```sh
+bun run release:android --build EAS_BUILD_ID --notes /path/to/release-notes.md --publish
+```
+
+Omit `--publish` to prepare a draft for review. This requires your existing Expo and GitHub CLI logins, not a paid service. The script rejects development profiles, other projects, and unfinished builds. It downloads the existing signed APK through EAS, checks the archive, creates a draft GitHub Release, uploads its APK and SHA-256 checksum, then publishes when requested. It does not build a new APK. Published assets should not be replaced: create a new build/release instead.
+
+Only stable releases in `subhamBharadwaz/dev-trail-book` matching `android-vVERSION-BUILD` with the matching uploaded `dev-trailbook-vVERSION-BUILD.apk` asset are eligible. The app checks the newest 20 GitHub releases and selects the highest eligible native build number. Source-only releases, drafts, prereleases, development APK names, and foreign download URLs are ignored. GitHub hosting provides transport; Android verifies the installed package’s signing identity during upgrade.
