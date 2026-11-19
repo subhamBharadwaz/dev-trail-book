@@ -1,0 +1,2112 @@
+{
+  "accessible-ui": {
+    "prerequisites": [
+      "semantic-responsive"
+    ],
+    "recall": "Without looking: Is an icon enough to name a button?",
+    "exercise": {
+      "task": "Build the named lesson tabs shown in the example and verify selection using only the keyboard.",
+      "hint": "Check focus and selected state rather than adding click handlers to plain text.",
+      "edgeCases": "Try an icon-only control with no accessible name; explain why appearance alone is insufficient.",
+      "solutionNotes": [
+        "Usually no. Add visible text or an accessible name such as aria-label, and hide decorative icons from assistive technology.",
+        "Tab order should follow the reading order."
+      ],
+      "successCriteria": [
+        "Check focus and selected state rather than adding click handlers to plain text.",
+        "Try an icon-only control with no accessible name; explain why appearance alone is insufficient."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "browser-rendering"
+  },
+  "actions-route-handlers": {
+    "prerequisites": [
+      "http-basics",
+      "authenticated-mutations"
+    ],
+    "recall": "Without looking: Does using a Server Action remove the need for authorization?",
+    "exercise": {
+      "task": "Trace the example operation through an Action and describe the equivalent HTTP handler contract.",
+      "hint": "Keep validation and ownership in the shared server operation.",
+      "edgeCases": "Try an unauthenticated caller and an authenticated caller who does not own the record.",
+      "solutionNotes": [
+        "No. Treat the action as a callable mutation boundary. Authenticate and authorize the specific operation on the server.",
+        "Validate request bodies at runtime."
+      ],
+      "successCriteria": [
+        "Keep validation and ownership in the shared server operation.",
+        "Try an unauthenticated caller and an authenticated caller who does not own the record."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Framework-sensitive: verify caching, routing and Action behavior against your installed Next.js version."
+    },
+    "next": "redirect-errors"
+  },
+  "ai-cost-boundaries": {
+    "prerequisites": [
+      "http-basics",
+      "structured-output"
+    ],
+    "recall": "Without looking: Is time to first output the same as total generation time?",
+    "exercise": {
+      "task": "Reconstruct the example request budget and identify where usage, latency and private data are bounded.",
+      "hint": "Separate illustrative estimates from actual provider usage and current prices.",
+      "edgeCases": "Try a very large context and a request cancelled before completion.",
+      "solutionNotes": [
+        "No. First-output latency measures how soon useful progress appears; total duration measures when the complete operation finishes.",
+        "A larger context can add cost and latency."
+      ],
+      "successCriteria": [
+        "Separate illustrative estimates from actual provider usage and current prices.",
+        "Try a very large context and a request cancelled before completion."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Provider-sensitive: verify supported schemas, limits and pricing against the provider you use."
+    },
+    "next": "ai-streaming"
+  },
+  "ai-streaming": {
+    "prerequisites": [
+      "async-await",
+      "structured-output"
+    ],
+    "recall": "Without looking: Does a network chunk always equal one complete model message?",
+    "exercise": {
+      "task": "Recreate the stream lifecycle in the example, including stop, retry and failed completion.",
+      "hint": "Partial text is display state; commit a result only when completion and validation succeed.",
+      "edgeCases": "Cancel midway, then start a retry; an old request must not overwrite the new result.",
+      "solutionNotes": [
+        "No. Transport chunk boundaries are independent of application framing. Decode text safely and parse the endpoint’s actual protocol.",
+        "A 200 status does not guarantee that a stream finishes."
+      ],
+      "successCriteria": [
+        "Partial text is display state; commit a result only when completion and validation succeed.",
+        "Cancel midway, then start a retry; an old request must not overwrite the new result."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Provider-sensitive: verify supported schemas, limits and pricing against the provider you use."
+    },
+    "next": "retrieval-evaluation"
+  },
+  "api-validation-errors": {
+    "prerequisites": [
+      "http-basics",
+      "typed-props-api"
+    ],
+    "recall": "Without looking: Does fetch reject on a 404 response?",
+    "exercise": {
+      "task": "Reproduce the example input validation and map invalid input to the documented response.",
+      "hint": "Keep malformed input distinct from a server failure.",
+      "edgeCases": "Test missing fields, wrong types and a response with no body.",
+      "solutionNotes": [
+        "No. Check response.ok or status; fetch normally rejects for transport failures or aborts, not HTTP error statuses.",
+        "No. Check response.ok or status; fetch normally rejects for transport failures or aborts, not HTTP error statuses."
+      ],
+      "successCriteria": [
+        "Keep malformed input distinct from a server failure.",
+        "Test missing fields, wrong types and a response with no body."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "authenticated-mutations"
+  },
+  "application-scorecard": {
+    "prerequisites": [
+      "daily-learning-loop"
+    ],
+    "recall": "Without looking: Does hitting the weekly application target guarantee an offer?",
+    "exercise": {
+      "task": "Recreate a weekly scorecard using the example and explain the next process adjustment.",
+      "hint": "Use counts you can verify rather than treating applications as a job guarantee.",
+      "edgeCases": "Compare a week with no replies against a week with interviews but no offers.",
+      "solutionNotes": [
+        "No. It is a controllable process target. Employer decisions and timelines are outside the plan’s control.",
+        "Tailor strong matches and respect employer timelines."
+      ],
+      "successCriteria": [
+        "Use counts you can verify rather than treating applications as a job guarantee.",
+        "Compare a week with no replies against a week with interviews but no offers."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "frontend-system-design"
+  },
+  "async-await": {
+    "prerequisites": [
+      "event-loop"
+    ],
+    "recall": "Without looking: Does fetch reject for a 404?",
+    "exercise": {
+      "task": "Trace the awaited requests in the example and implement the same success and failure behavior.",
+      "hint": "await pauses this async function; independent work can start before awaiting either result.",
+      "edgeCases": "Test one rejected request and an HTTP response whose status indicates failure.",
+      "solutionNotes": [
+        "No. Check response.ok or response.status. Fetch rejects for failures such as a network error or an aborted request.",
+        "Await only pauses the surrounding async function."
+      ],
+      "successCriteria": [
+        "await pauses this async function; independent work can start before awaiting either result.",
+        "Test one rejected request and an HTTP response whose status indicates failure."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "debounce-throttle"
+  },
+  "auth-sessions-oauth": {
+    "prerequisites": [
+      "http-basics"
+    ],
+    "recall": "Without looking: Does authentication automatically authorize every record?",
+    "exercise": {
+      "task": "Trace the example session from sign-in to a protected record lookup.",
+      "hint": "Separate proving identity from authorizing access to one resource.",
+      "edgeCases": "Test an expired session and a valid session requesting somebody else's record.",
+      "solutionNotes": [
+        "No. After identifying a user, check their permission for the requested operation and resource.",
+        "Use secure cookie attributes appropriate to the deployment."
+      ],
+      "successCriteria": [
+        "Separate proving identity from authorizing access to one resource.",
+        "Test an expired session and a valid session requesting somebody else's record."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "security-boundary-drills"
+  },
+  "authenticated-mutations": {
+    "prerequisites": [
+      "auth-sessions-oauth",
+      "typed-props-api"
+    ],
+    "recall": "Without looking: Where should ownership be enforced for an update?",
+    "exercise": {
+      "task": "Recreate the example mutation in the order validate, authenticate, authorize and write.",
+      "hint": "Derive ownership from the real server session rather than a client-supplied owner ID.",
+      "edgeCases": "Test forged ownership input and a write that fails after validation.",
+      "solutionNotes": [
+        "At the server mutation/data boundary, ideally in the constrained write itself or a transactionally sound authorization flow.",
+        "Validate lengths and formats as well as types."
+      ],
+      "successCriteria": [
+        "Derive ownership from the real server session rather than a client-supplied owner ID.",
+        "Test forged ownership input and a write that fails after validation."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "idempotency"
+  },
+  "behavior-testing": {
+    "prerequisites": [
+      "thinking-in-react",
+      "async-await"
+    ],
+    "recall": "Without looking: Should a test wait a fixed 500 ms for every async update?",
+    "exercise": {
+      "task": "Recreate the behavioral test and explain which user-visible failure makes it fail.",
+      "hint": "Find controls by their public names and await the resulting UI.",
+      "edgeCases": "Test the failure path and ensure the test fails if the requested behavior is removed.",
+      "solutionNotes": [
+        "Prefer waiting for the specific expected element or condition. Fixed delays are often slow, flaky, and unrelated to the behavior under test.",
+        "An accessible query also checks part of the UI contract."
+      ],
+      "successCriteria": [
+        "Find controls by their public names and await the resulting UI.",
+        "Test the failure path and ensure the test fails if the requested behavior is removed."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "debug-build-spec"
+  },
+  "binary-search": {
+    "prerequisites": [
+      "dsa-method-complexity"
+    ],
+    "recall": "Without looking: Does lower bound always return an exact target match?",
+    "exercise": {
+      "task": "Implement the lesson's half-open binary search and explain every boundary update.",
+      "hint": "Maintain the candidate interval [left, right); exclude mid after comparison.",
+      "edgeCases": "Test an empty array, one value, a missing target and targets at both ends.",
+      "solutionNotes": [
+        "No. It returns the first position whose value is at least the target, or the array length. Check the value if an exact match is required.",
+        "Choose inclusive or half-open bounds and stay consistent."
+      ],
+      "successCriteria": [
+        "Maintain the candidate interval [left, right); exclude mid after comparison.",
+        "Test an empty array, one value, a missing target and targets at both ends."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "dsa-40-problem-bank"
+  },
+  "browser-rendering": {
+    "prerequisites": [
+      "semantic-responsive"
+    ],
+    "recall": "Without looking: Why can a geometry read be expensive?",
+    "exercise": {
+      "task": "Trace the example from style work through layout and paint.",
+      "hint": "Connect each changed property to the work the browser may need to perform.",
+      "edgeCases": "Compare a geometry change with a transform; do not assume every frame needs layout.",
+      "solutionNotes": [
+        "If pending style changes invalidate layout, a geometry read may force the browser to calculate it synchronously before returning the value.",
+        "A fast network response does not guarantee a responsive UI."
+      ],
+      "successCriteria": [
+        "Connect each changed property to the work the browser may need to perform.",
+        "Compare a geometry change with a transform; do not assume every frame needs layout."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "http-basics"
+  },
+  "caching-revalidation": {
+    "prerequisites": [
+      "next-request-trace"
+    ],
+    "recall": "Without looking: Does a browser cache and a server data cache have the same lifetime?",
+    "exercise": {
+      "task": "Explain each cache scope in the example and write an explicit freshness policy.",
+      "hint": "Reuse scope and invalidation rules are separate decisions.",
+      "edgeCases": "Test a mutation followed by a read, and two users requesting private data.",
+      "solutionNotes": [
+        "No. They are separate layers with different ownership and invalidation behavior. Explain which layer you mean.",
+        "Do not combine conflicting freshness options."
+      ],
+      "successCriteria": [
+        "Reuse scope and invalidation rules are separate decisions.",
+        "Test a mutation followed by a read, and two users requesting private data."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Framework-sensitive: verify caching, routing and Action behavior against your installed Next.js version."
+    },
+    "next": "next-route-states"
+  },
+  "closures": {
+    "prerequisites": [
+      "scope-hoisting"
+    ],
+    "recall": "Without looking: Does a closure copy a variable?",
+    "exercise": {
+      "task": "Recreate the closure example and predict what each function reads after the outer call returns.",
+      "hint": "A function retains access to its lexical environment, not a frozen copy of every value.",
+      "edgeCases": "Create two independent instances and check whether their captured state is shared.",
+      "solutionNotes": [
+        "No. It retains access to the lexical binding. Later changes to that binding can be observed by the closure.",
+        "Scope is determined by where a function is defined, not where it is called."
+      ],
+      "successCriteria": [
+        "A function retains access to its lexical environment, not a frozen copy of every value.",
+        "Create two independent instances and check whether their captured state is shared."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "event-loop"
+  },
+  "controlled-inputs": {
+    "prerequisites": [
+      "thinking-in-react"
+    ],
+    "recall": "Without looking: What makes an input controlled?",
+    "exercise": {
+      "task": "Recreate the controlled form example with a single clear owner for its value.",
+      "hint": "Update state from the change event; derive display data rather than duplicating it.",
+      "edgeCases": "Test an empty value and switching between defined and undefined values.",
+      "solutionNotes": [
+        "Its displayed value is supplied by application state and updated through the control’s change path.",
+        "Use checked for controlled checkboxes and radios."
+      ],
+      "successCriteria": [
+        "Update state from the change event; derive display data rather than duplicating it.",
+        "Test an empty value and switching between defined and undefined values."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "React concepts; confirm version-specific APIs against your installed React version."
+    },
+    "next": "effects"
+  },
+  "daily-learning-loop": {
+    "prerequisites": [],
+    "recall": "Without looking: Should a missed day be repaid by doubling the next day’s workload?",
+    "exercise": {
+      "task": "Build one full study day and one fallback day using the example routine.",
+      "hint": "Protect recall and one meaningful implementation even when time is limited.",
+      "edgeCases": "Plan a day with only twenty minutes and decide what to defer.",
+      "solutionNotes": [
+        "The plan says to resume the normal routine. Use a smaller fallback when needed and avoid a punishment cycle that makes the schedule less sustainable.",
+        "A rest/review day is part of the plan."
+      ],
+      "successCriteria": [
+        "Protect recall and one meaningful implementation even when time is limited.",
+        "Plan a day with only twenty minutes and decide what to defer."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "application-scorecard"
+  },
+  "debounce-throttle": {
+    "prerequisites": [
+      "closures",
+      "event-loop"
+    ],
+    "recall": "Without looking: Does debouncing guarantee that an older request cannot win?",
+    "exercise": {
+      "task": "Recreate the debounce and throttle examples and explain their different timing contracts.",
+      "hint": "Decide which call is kept and when pending timers must be cancelled.",
+      "edgeCases": "Send a burst of calls, then stop or unmount before a timer fires.",
+      "solutionNotes": [
+        "No. It reduces how often requests start. Once multiple requests exist, cancellation or a request-identity check is still needed.",
+        "Debounce and throttle solve different timing problems."
+      ],
+      "successCriteria": [
+        "Decide which call is kept and when pending timers must be cancelled.",
+        "Send a burst of calls, then stop or unmount before a timer fires."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "promise-chains"
+  },
+  "debug-build-spec": {
+    "prerequisites": [
+      "thinking-in-react",
+      "behavior-testing"
+    ],
+    "recall": "Without looking: What should happen before fixing a reported bug?",
+    "exercise": {
+      "task": "Recreate the example timed-task plan and isolate one failing UI behavior.",
+      "hint": "Write an acceptance condition and a minimal reproduction before changing code.",
+      "edgeCases": "Use an ambiguous requirement and a failure that appears only after a second interaction.",
+      "solutionNotes": [
+        "Reproduce it and identify the expected versus actual behavior. Then isolate the smallest faulty assumption and verify the correction.",
+        "A small reproducible case accelerates debugging."
+      ],
+      "successCriteria": [
+        "Write an acceptance condition and a minimal reproduction before changing code.",
+        "Use an ambiguous requirement and a failure that appears only after a second interaction."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "performance-profiling"
+  },
+  "december-buffer": {
+    "prerequisites": [
+      "mock-company-prep"
+    ],
+    "recall": "Without looking: What does the deadline rule promise?",
+    "exercise": {
+      "task": "Turn the example final buffer into a prioritized follow-up plan.",
+      "hint": "Repair repeated misses before adding unrelated study topics.",
+      "edgeCases": "Handle two interviews on the same day without sacrificing sleep or follow-up notes.",
+      "solutionNotes": [
+        "It sets a target for the plan, not a guaranteed offer. Continue active processes and adjust the approach using evidence if timelines extend.",
+        "Confirm joining timelines early when start dates matter."
+      ],
+      "successCriteria": [
+        "Repair repeated misses before adding unrelated study topics.",
+        "Handle two interviews on the same day without sacrificing sleep or follow-up notes."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "pdf-coverage-checklist"
+  },
+  "discriminated-unions": {
+    "prerequisites": [
+      "typed-props-api"
+    ],
+    "recall": "Without looking: Does TypeScript validate API responses?",
+    "exercise": {
+      "task": "Recreate LoadState and a renderer that handles each status without contradictory flags.",
+      "hint": "Narrow on the shared status field before reading variant-specific data.",
+      "edgeCases": "Add an empty state and locate every consumer that needs another branch.",
+      "solutionNotes": [
+        "No. Types are erased at runtime. Validate untrusted data at the boundary using runtime checks or a schema validator.",
+        "A type assertion does not perform runtime validation."
+      ],
+      "successCriteria": [
+        "Narrow on the shared status field before reading variant-specific data.",
+        "Add an empty state and locate every consumer that needs another branch."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "TypeScript concepts; compiler options and inference should be checked with your project compiler."
+    },
+    "next": "ts-generics-constraints"
+  },
+  "dsa-40-problem-bank": {
+    "prerequisites": [
+      "dsa-method-complexity"
+    ],
+    "recall": "Without looking: When is a problem understood?",
+    "exercise": {
+      "task": "Pick one problem from the bank and complete the lesson's first solve and re-solve record.",
+      "hint": "Record the invariant, failed approach and next recall date.",
+      "edgeCases": "Re-solve without notes and explain a case where the remembered approach fails.",
+      "solutionNotes": [
+        "You can independently explain the invariant, implement a correct solution, analyze complexity and handle edge cases on a later re-solve.",
+        "You can independently explain the invariant, implement a correct solution, analyze complexity and handle edge cases on a later re-solve."
+      ],
+      "successCriteria": [
+        "Record the invariant, failed approach and next recall date.",
+        "Re-solve without notes and explain a case where the remembered approach fails."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "hashmap-practice"
+  },
+  "dsa-method-complexity": {
+    "prerequisites": [],
+    "recall": "Without looking: Does solving many problems once prove retention?",
+    "exercise": {
+      "task": "Use the worked example to explain a brute-force baseline, invariant and improved bound.",
+      "hint": "Count the operation that grows with input rather than guessing from syntax.",
+      "edgeCases": "Test input doubling and include any sorting and extra storage in your bound.",
+      "solutionNotes": [
+        "No. Independent re-solves and explanations after a delay provide better evidence that the pattern is understood.",
+        "State assumptions about collection operations."
+      ],
+      "successCriteria": [
+        "Count the operation that grows with input rather than guessing from syntax.",
+        "Test input doubling and include any sorting and extra storage in your bound."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "binary-search"
+  },
+  "effects": {
+    "prerequisites": [
+      "thinking-in-react"
+    ],
+    "recall": "Without looking: Why does an Effect run twice in development?",
+    "exercise": {
+      "task": "Recreate the example using derived render data instead of unnecessary synchronization.",
+      "hint": "An Effect is for an external system, not for every value computed from props.",
+      "edgeCases": "Change the inputs twice and check that no duplicated state becomes stale.",
+      "solutionNotes": [
+        "Strict Mode performs an extra setup and cleanup cycle in development to reveal missing cleanup and other synchronization bugs.",
+        "Cleanup runs before a changed Effect sets up again, and on unmount."
+      ],
+      "successCriteria": [
+        "An Effect is for an external system, not for every value computed from props.",
+        "Change the inputs twice and check that no duplicated state becomes stale."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "React concepts; confirm version-specific APIs against your installed React version."
+    },
+    "next": "optimistic-forms"
+  },
+  "event-loop": {
+    "prerequisites": [
+      "scope-hoisting"
+    ],
+    "recall": "Without looking: Does a zero-delay timer run immediately?",
+    "exercise": {
+      "task": "Predict the logging order in the example before running it.",
+      "hint": "The stack finishes before queued microtasks; timers do not interrupt active JavaScript.",
+      "edgeCases": "Add a microtask inside another microtask and explain why the timer still waits.",
+      "solutionNotes": [
+        "No. Its callback runs in a later task after the current execution and relevant microtasks. The delay is a scheduling threshold, not a deadline.",
+        "Promises do not create a separate JavaScript thread."
+      ],
+      "successCriteria": [
+        "The stack finishes before queued microtasks; timers do not interrupt active JavaScript.",
+        "Add a microtask inside another microtask and explain why the timer still waits."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "async-await"
+  },
+  "frontend-system-design": {
+    "prerequisites": [
+      "http-basics",
+      "thinking-in-react"
+    ],
+    "recall": "Without looking: What comes before choosing libraries in a design interview?",
+    "exercise": {
+      "task": "Reproduce the example frontend design answer with data flow, boundaries and failure states.",
+      "hint": "Start from concrete requirements and constraints before naming tools.",
+      "edgeCases": "Add slow networks, repeated requests and a user without access to a requested record.",
+      "solutionNotes": [
+        "Clarify the user task, requirements, constraints, and expected scale. Then justify the component and data architecture against them.",
+        "State ownership matters more than a long library list."
+      ],
+      "successCriteria": [
+        "Start from concrete requirements and constraints before naming tools.",
+        "Add slow networks, repeated requests and a user without access to a requested record."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "mock-company-prep"
+  },
+  "group-anagrams": {
+    "prerequisites": [
+      "hashmap-practice"
+    ],
+    "recall": "Without looking: Why do anagrams share a sorted-character key?",
+    "exercise": {
+      "task": "Implement grouping with a canonical key and explain why equivalent words share a bucket.",
+      "hint": "Normalize every item in the same way before using its key.",
+      "edgeCases": "Test empty strings, repeated words and characters outside the assumed alphabet.",
+      "solutionNotes": [
+        "Under the stated character model they contain the same multiset of characters, so sorting produces the same representation.",
+        "State whether output order matters."
+      ],
+      "successCriteria": [
+        "Normalize every item in the same way before using its key.",
+        "Test empty strings, repeated words and characters outside the assumed alphabet."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "heap-basics"
+  },
+  "hashmap-practice": {
+    "prerequisites": [
+      "dsa-method-complexity"
+    ],
+    "recall": "Without looking: When is a Set sufficient instead of a count map?",
+    "exercise": {
+      "task": "Recreate the duplicate and frequency examples using Set and Map.",
+      "hint": "Existence and counts are different requirements; choose the collection accordingly.",
+      "edgeCases": "Test repeated values, zero counts and an empty input.",
+      "solutionNotes": [
+        "When the algorithm only needs membership or uniqueness. Use counts when multiplicity changes the answer.",
+        "Choose a structure according to the information required."
+      ],
+      "successCriteria": [
+        "Existence and counts are different requirements; choose the collection accordingly.",
+        "Test repeated values, zero counts and an empty input."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "group-anagrams"
+  },
+  "heap-basics": {
+    "prerequisites": [
+      "dsa-method-complexity"
+    ],
+    "recall": "Without looking: Is a heap array globally sorted?",
+    "exercise": {
+      "task": "Recreate the example heap operation and state the parent-child invariant.",
+      "hint": "A heap orders parents against children, not every sibling pair.",
+      "edgeCases": "Insert equal values and remove from an empty or single-element heap.",
+      "solutionNotes": [
+        "No. Its parent-child invariant guarantees the root priority, not a complete ordering of all array elements.",
+        "Define min-heap versus max-heap."
+      ],
+      "successCriteria": [
+        "A heap orders parents against children, not every sibling pair.",
+        "Insert equal values and remove from an empty or single-element heap."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "merge-intervals"
+  },
+  "http-basics": {
+    "prerequisites": [],
+    "recall": "Without looking: What does a 204 response mean?",
+    "exercise": {
+      "task": "Recreate the example response handling with an explicit empty-body branch.",
+      "hint": "Check status and body expectations before calling response.json().",
+      "edgeCases": "Compare a 204 response, a 404 response and a failed network connection.",
+      "solutionNotes": [
+        "The request succeeded and there is no response content. Do not try to parse an empty response body as JSON.",
+        "GET is defined as a safe method and should not request a state change."
+      ],
+      "successCriteria": [
+        "Check status and body expectations before calling response.json().",
+        "Compare a 204 response, a 404 response and a failed network connection."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": null
+  },
+  "hydration-rsc": {
+    "prerequisites": [
+      "rsc-boundaries"
+    ],
+    "recall": "Without looking: Is hydration the same thing as receiving HTML?",
+    "exercise": {
+      "task": "Trace the example HTML, RSC payload and client JavaScript to their separate roles.",
+      "hint": "The initial display and attaching client interaction are different stages.",
+      "edgeCases": "Consider an HTML page before JavaScript loads and a non-serializable client prop.",
+      "solutionNotes": [
+        "No. HTML can display content before interactive browser behavior is connected. Hydration associates the client tree and handlers with compatible markup.",
+        "Stable initial output makes hydration predictable."
+      ],
+      "successCriteria": [
+        "The initial display and attaching client interaction are different stages.",
+        "Consider an HTML page before JavaScript loads and a non-serializable client prop."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Framework-sensitive: verify caching, routing and Action behavior against your installed Next.js version."
+    },
+    "next": "next-request-trace"
+  },
+  "idempotency": {
+    "prerequisites": [
+      "http-basics",
+      "authenticated-mutations"
+    ],
+    "recall": "Without looking: Is disabling a submit button enough to make a mutation idempotent?",
+    "exercise": {
+      "task": "Recreate the retry example using the same operation key and payload.",
+      "hint": "The server needs durable, atomic key-and-result handling, not only a disabled button.",
+      "edgeCases": "Drop the first response after the write commits, then retry the same key with a changed payload.",
+      "solutionNotes": [
+        "No. It only affects that UI instance. Retries and concurrent requests need server-side guarantees.",
+        "A timeout does not prove that the write failed."
+      ],
+      "successCriteria": [
+        "The server needs durable, atomic key-and-result handling, not only a disabled button.",
+        "Drop the first response after the write commits, then retry the same key with a changed payload."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "rest-pagination"
+  },
+  "layout-form-details": {
+    "prerequisites": [
+      "semantic-responsive"
+    ],
+    "recall": "Without looking: Why does a long code line break a flex layout?",
+    "exercise": {
+      "task": "Recreate the box-model example and compute content and outer widths.",
+      "hint": "Add padding, borders and margins separately; identify which are included by box-sizing.",
+      "edgeCases": "Compare content-box and border-box with the same declared width.",
+      "solutionNotes": [
+        "The flex item may retain its intrinsic minimum width; allow the correct item to shrink and put horizontal overflow on the code region.",
+        "The flex item may retain its intrinsic minimum width; allow the correct item to shrink and put horizontal overflow on the code region."
+      ],
+      "successCriteria": [
+        "Add padding, borders and margins separately; identify which are included by box-sizing.",
+        "Compare content-box and border-box with the same declared width."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "tailwind-tokens"
+  },
+  "merge-intervals": {
+    "prerequisites": [
+      "dsa-method-complexity"
+    ],
+    "recall": "Without looking: Can overlap be decided without defining endpoint semantics?",
+    "exercise": {
+      "task": "Implement the example interval merge after sorting by start.",
+      "hint": "Compare the next start to the end of the last merged interval.",
+      "edgeCases": "Test nested intervals, touching endpoints, an empty input and unsorted input.",
+      "solutionNotes": [
+        "Not reliably. Closed and half-open ranges can treat touching endpoints differently, so specify the contract first.",
+        "Nested intervals should not shrink the current end."
+      ],
+      "successCriteria": [
+        "Compare the next start to the end of the last merged interval.",
+        "Test nested intervals, touching endpoints, an empty input and unsorted input."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "sliding-window"
+  },
+  "mock-company-prep": {
+    "prerequisites": [
+      "daily-learning-loop"
+    ],
+    "recall": "Without looking: What should you do after reading the corrected mock solution?",
+    "exercise": {
+      "task": "Reproduce the example mock session and turn each miss into one repair action.",
+      "hint": "Write specific evidence for the miss instead of a general score alone.",
+      "edgeCases": "Repeat the same question later without reviewing the solution first.",
+      "solutionNotes": [
+        "Reproduce it independently later, ideally the next day, and explain the reasoning and edge cases without relying on the answer.",
+        "Classify misses before choosing a drill."
+      ],
+      "successCriteria": [
+        "Write specific evidence for the miss instead of a general score alone.",
+        "Repeat the same question later without reviewing the solution first."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "december-buffer"
+  },
+  "next-request-trace": {
+    "prerequisites": [
+      "http-basics",
+      "rsc-boundaries"
+    ],
+    "recall": "Without looking: Are SSR and RSC interchangeable?",
+    "exercise": {
+      "task": "Trace the example route from request to serialized props and client interaction.",
+      "hint": "Mark which code runs on the server and which must reach the browser.",
+      "edgeCases": "Try to pass a database connection through a client boundary and explain the failure.",
+      "solutionNotes": [
+        "No. SSR concerns HTML generation; RSC concerns where components run and how their result crosses the server/client boundary.",
+        "No. SSR concerns HTML generation; RSC concerns where components run and how their result crosses the server/client boundary."
+      ],
+      "successCriteria": [
+        "Mark which code runs on the server and which must reach the browser.",
+        "Try to pass a database connection through a client boundary and explain the failure."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Framework-sensitive: verify caching, routing and Action behavior against your installed Next.js version."
+    },
+    "next": "caching-revalidation"
+  },
+  "next-route-states": {
+    "prerequisites": [
+      "rsc-boundaries"
+    ],
+    "recall": "Without looking: Is an empty successful collection the same as a failed request?",
+    "exercise": {
+      "task": "Recreate the example route-state map for loading, error and missing data.",
+      "hint": "Expected absence and an unexpected failure need different UI contracts.",
+      "edgeCases": "Test an empty collection, a missing record and a request that throws.",
+      "solutionNotes": [
+        "No. Distinguish empty data, loading, expected form errors, missing resources, and unexpected failures.",
+        "Use loading UI at a useful boundary."
+      ],
+      "successCriteria": [
+        "Expected absence and an unexpected failure need different UI contracts.",
+        "Test an empty collection, a missing record and a request that throws."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Framework-sensitive: verify caching, routing and Action behavior against your installed Next.js version."
+    },
+    "next": "server-data-fetching"
+  },
+  "optimistic-forms": {
+    "prerequisites": [
+      "controlled-inputs",
+      "async-await"
+    ],
+    "recall": "Without looking: Is optimistic state the final source of truth?",
+    "exercise": {
+      "task": "Recreate the example optimistic update with pending and rollback behavior.",
+      "hint": "Keep the optimistic result provisional until the authoritative mutation succeeds.",
+      "edgeCases": "Submit twice and reject the earlier operation after a later one completes.",
+      "solutionNotes": [
+        "No. It is a temporary prediction. Reconcile it with the authoritative server result and handle rejection.",
+        "Keep pending feedback visible and accessible."
+      ],
+      "successCriteria": [
+        "Keep the optimistic result provisional until the authoritative mutation succeeds.",
+        "Submit twice and reject the earlier operation after a later one completes."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "React concepts; confirm version-specific APIs against your installed React version."
+    },
+    "next": "reducers-context-refs"
+  },
+  "pdf-coverage-checklist": {
+    "prerequisites": [
+      "daily-learning-loop"
+    ],
+    "recall": "Without looking: Does reading every note make you interview-ready?",
+    "exercise": {
+      "task": "Use the example checklist to separate topic coverage from demonstrated readiness.",
+      "hint": "A listed or read topic is evidence of exposure, not proof of recall.",
+      "edgeCases": "Mark a topic read but fail its exercise; record the gap honestly.",
+      "solutionNotes": [
+        "No. Demonstrate independent explanations, timed implementation, debugging, project ownership and repeated problem solving.",
+        "No. Demonstrate independent explanations, timed implementation, debugging, project ownership and repeated problem solving."
+      ],
+      "successCriteria": [
+        "A listed or read topic is evidence of exposure, not proof of recall.",
+        "Mark a topic read but fail its exercise; record the gap honestly."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "project-stories"
+  },
+  "performance-investigation": {
+    "prerequisites": [
+      "performance-profiling"
+    ],
+    "recall": "Without looking: How do you identify a request waterfall?",
+    "exercise": {
+      "task": "Reproduce the worked request comparison and choose the measurement that tests your hypothesis.",
+      "hint": "Confirm requests are independent before starting them together.",
+      "edgeCases": "Compare sequential and parallel reads when one request rejects.",
+      "solutionNotes": [
+        "Inspect request start and completion timing to find requests that wait on earlier work without a true data dependency.",
+        "Inspect request start and completion timing to find requests that wait on earlier work without a true data dependency."
+      ],
+      "successCriteria": [
+        "Confirm requests are independent before starting them together.",
+        "Compare sequential and parallel reads when one request rejects."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": null
+  },
+  "performance-profiling": {
+    "prerequisites": [
+      "browser-rendering"
+    ],
+    "recall": "Without looking: Should every calculation be memoized before profiling?",
+    "exercise": {
+      "task": "Use the example investigation to choose Network, React, browser or bundle tooling.",
+      "hint": "Measure the suspected bottleneck before making a code change.",
+      "edgeCases": "Distinguish a slow server response from a long browser main-thread task.",
+      "solutionNotes": [
+        "No. Memoization has cost and complexity. First establish that repeated calculation is a meaningful bottleneck and that its inputs allow reuse.",
+        "A smaller bundle is not the only performance goal."
+      ],
+      "successCriteria": [
+        "Measure the suspected bottleneck before making a code change.",
+        "Distinguish a slow server response from a long browser main-thread task."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "performance-investigation"
+  },
+  "project-stories": {
+    "prerequisites": [
+      "mock-company-prep"
+    ],
+    "recall": "Without looking: What should you do if a project outcome was not measured?",
+    "exercise": {
+      "task": "Prepare the example project story around one concrete decision and its evidence.",
+      "hint": "Explain your role, tradeoff and observed outcome without inventing numbers.",
+      "edgeCases": "Answer a follow-up about what failed and what you would change now.",
+      "solutionNotes": [
+        "State the observed outcome honestly and distinguish it from an estimate. Do not invent a metric to make the story sound stronger.",
+        "Use existing projects and freelance work."
+      ],
+      "successCriteria": [
+        "Explain your role, tradeoff and observed outcome without inventing numbers.",
+        "Answer a follow-up about what failed and what you would change now."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": null
+  },
+  "promise-chains": {
+    "prerequisites": [
+      "event-loop"
+    ],
+    "recall": "Without looking: Does Promise.all cancel the other operations when one rejects?",
+    "exercise": {
+      "task": "Trace the example then/catch chain and reproduce its final resolved or rejected state.",
+      "hint": "Returning a value can recover from rejection; throwing propagates failure.",
+      "edgeCases": "Compare returning a rejected promise, throwing and forgetting to return async work.",
+      "solutionNotes": [
+        "No. Its combined result rejects, but the remaining work is not automatically canceled. Use an explicit cancellation mechanism when the operation supports it.",
+        "A promise settles only once."
+      ],
+      "successCriteria": [
+        "Returning a value can recover from rejection; throwing propagates failure.",
+        "Compare returning a rejected promise, throwing and forgetting to return async work."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "this-binding"
+  },
+  "prototypes-classes": {
+    "prerequisites": [
+      "this-binding"
+    ],
+    "recall": "Without looking: Are ordinary class methods copied into every instance?",
+    "exercise": {
+      "task": "Recreate the example instances and identify their own versus inherited members.",
+      "hint": "Follow the prototype chain when an own property is absent.",
+      "edgeCases": "Shadow a prototype method on one instance and check another instance.",
+      "solutionNotes": [
+        "No. They are normally defined on the class prototype and shared by instances.",
+        "Instances can share methods while keeping separate state."
+      ],
+      "successCriteria": [
+        "Follow the prototype chain when an own property is absent.",
+        "Shadow a prototype method on one instance and check another instance."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": null
+  },
+  "react-render-debugging": {
+    "prerequisites": [
+      "rendering-keys",
+      "effects"
+    ],
+    "recall": "Without looking: Does every React render update the DOM?",
+    "exercise": {
+      "task": "Recreate the example bug and isolate identity, state ownership or synchronization as its cause.",
+      "hint": "Reduce to a small reproduction and observe which state survives a render.",
+      "edgeCases": "Reorder items and trigger overlapping form submissions.",
+      "solutionNotes": [
+        "No. React calculates output and commits only necessary host changes.",
+        "No. React calculates output and commits only necessary host changes."
+      ],
+      "successCriteria": [
+        "Reduce to a small reproduction and observe which state survives a render.",
+        "Reorder items and trigger overlapping form submissions."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "React concepts; confirm version-specific APIs against your installed React version."
+    },
+    "next": "stale-closures"
+  },
+  "read-only-tools": {
+    "prerequisites": [
+      "typed-props-api",
+      "auth-sessions-oauth"
+    ],
+    "recall": "Without looking: Does a read-only tool need authorization?",
+    "exercise": {
+      "task": "Recreate the tool contract and validate both arguments and its bounded result.",
+      "hint": "A read-only tool still requires a permitted user and a constrained query.",
+      "edgeCases": "Test unauthorized records, oversized input and hostile instructions in returned text.",
+      "solutionNotes": [
+        "Yes. Reading can disclose protected information. Enforce which data the current caller may access.",
+        "Read-only is not equivalent to public."
+      ],
+      "successCriteria": [
+        "A read-only tool still requires a permitted user and a constrained query.",
+        "Test unauthorized records, oversized input and hostile instructions in returned text."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Provider-sensitive: verify supported schemas, limits and pricing against the provider you use."
+    },
+    "next": "structured-output"
+  },
+  "redirect-errors": {
+    "prerequisites": [
+      "actions-route-handlers"
+    ],
+    "recall": "Without looking: Why can redirect inside a try block produce a false save error?",
+    "exercise": {
+      "task": "Reproduce the success path with redirect outside the mutation error handler.",
+      "hint": "Keep framework navigation control flow out of a catch intended for database errors.",
+      "edgeCases": "Test a failed mutation and a successful mutation that should navigate once.",
+      "solutionNotes": [
+        "redirect throws a special framework signal. A catch can mistake it for a mutation failure even though the save succeeded.",
+        "Return from the failure branch before the redirect."
+      ],
+      "successCriteria": [
+        "Keep framework navigation control flow out of a catch intended for database errors.",
+        "Test a failed mutation and a successful mutation that should navigate once."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Framework-sensitive: verify caching, routing and Action behavior against your installed Next.js version."
+    },
+    "next": "rsc-boundaries"
+  },
+  "reducers-context-refs": {
+    "prerequisites": [
+      "thinking-in-react"
+    ],
+    "recall": "Without looking: Does changing ref.current trigger a render?",
+    "exercise": {
+      "task": "Recreate the example state transition and distinguish reducer state from a mutable ref.",
+      "hint": "Render-relevant changes belong in state; refs do not trigger renders.",
+      "edgeCases": "Dispatch an unknown action and change a ref without updating state.",
+      "solutionNotes": [
+        "No. Use state when the UI must render a changed value. Refs are appropriate for mutable information not used as the rendered snapshot.",
+        "Reducers return new state without mutating previous state."
+      ],
+      "successCriteria": [
+        "Render-relevant changes belong in state; refs do not trigger renders.",
+        "Dispatch an unknown action and change a ref without updating state."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "React concepts; confirm version-specific APIs against your installed React version."
+    },
+    "next": "rendering-keys"
+  },
+  "rendering-keys": {
+    "prerequisites": [
+      "thinking-in-react"
+    ],
+    "recall": "Without looking: Does a re-render always replace the DOM?",
+    "exercise": {
+      "task": "Recreate the example list and preserve the right item state after reordering.",
+      "hint": "Keys describe stable sibling identity, not the current array position.",
+      "edgeCases": "Insert at the beginning and delete the middle item while one row is edited.",
+      "solutionNotes": [
+        "No. React computes a new UI description and commits the required changes. A component rendering again does not mean its entire DOM is recreated.",
+        "Keys are unique among siblings, not globally."
+      ],
+      "successCriteria": [
+        "Keys describe stable sibling identity, not the current array position.",
+        "Insert at the beginning and delete the middle item while one row is edited."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "React concepts; confirm version-specific APIs against your installed React version."
+    },
+    "next": "react-render-debugging"
+  },
+  "rest-pagination": {
+    "prerequisites": [
+      "http-basics",
+      "typed-props-api"
+    ],
+    "recall": "Without looking: Why should the server bound page size?",
+    "exercise": {
+      "task": "Reproduce the example page request and define a stable cursor order.",
+      "hint": "Use a unique tie-breaker and validate the requested page size.",
+      "edgeCases": "Insert a new row between page requests and compare cursor with offset behavior.",
+      "solutionNotes": [
+        "An unbounded caller-controlled limit can create excessive query, memory, and response work. Validate a practical maximum before querying.",
+        "GET should not request a business-state mutation."
+      ],
+      "successCriteria": [
+        "Use a unique tie-breaker and validate the requested page size.",
+        "Insert a new row between page requests and compare cursor with offset behavior."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": null
+  },
+  "retrieval-evaluation": {
+    "prerequisites": [
+      "structured-output"
+    ],
+    "recall": "Without looking: What should happen when retrieved documents do not support the requested fact?",
+    "exercise": {
+      "task": "Recreate the lesson's small evaluation table and inspect failures by case.",
+      "hint": "Keep expected evidence separate from the answer produced by the system.",
+      "edgeCases": "Include a no-answer question and a document containing misleading instructions.",
+      "solutionNotes": [
+        "Say that the available sources do not establish it, ask for the missing evidence when useful, and avoid manufacturing a supporting citation.",
+        "Retrieval quality and answer faithfulness are separate checks."
+      ],
+      "successCriteria": [
+        "Keep expected evidence separate from the answer produced by the system.",
+        "Include a no-answer question and a document containing misleading instructions."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Provider-sensitive: verify supported schemas, limits and pricing against the provider you use."
+    },
+    "next": null
+  },
+  "rsc-boundaries": {
+    "prerequisites": [
+      "thinking-in-react"
+    ],
+    "recall": "Without looking: Does use client mean the component can never render initial HTML on the server?",
+    "exercise": {
+      "task": "Recreate the example server-to-client view model without exposing private fields.",
+      "hint": "Only serializable, intentionally public props should cross the boundary.",
+      "edgeCases": "Try passing a secret and a non-serializable resource; explain both problems.",
+      "solutionNotes": [
+        "No. Client Components can participate in the initial server-rendered HTML. The boundary determines browser-side component behavior and what code is shipped.",
+        "Server Components and SSR describe different aspects of rendering."
+      ],
+      "successCriteria": [
+        "Only serializable, intentionally public props should cross the boundary.",
+        "Try passing a secret and a non-serializable resource; explain both problems."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Framework-sensitive: verify caching, routing and Action behavior against your installed Next.js version."
+    },
+    "next": "hydration-rsc"
+  },
+  "scope-hoisting": {
+    "prerequisites": [],
+    "recall": "Without looking: Can you read a let binding before initialization?",
+    "exercise": {
+      "task": "Trace the example declarations and identify scope and initialization time.",
+      "hint": "A binding can exist before its initializer while still being inaccessible in the temporal dead zone.",
+      "edgeCases": "Compare a block-scoped let, a var and a function declaration before initialization.",
+      "solutionNotes": [
+        "No. Reading it while it is in the temporal dead zone throws a ReferenceError.",
+        "var is scoped to a function or the surrounding script/module."
+      ],
+      "successCriteria": [
+        "A binding can exist before its initializer while still being inaccessible in the temporal dead zone.",
+        "Compare a block-scoped let, a var and a function declaration before initialization."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "closures"
+  },
+  "search-abort-races": {
+    "prerequisites": [
+      "debounce-throttle",
+      "async-await"
+    ],
+    "recall": "Without looking: Should an aborted search show a failure message?",
+    "exercise": {
+      "task": "Recreate the example search and prevent a stale response from replacing the latest result.",
+      "hint": "Cancellation reduces wasted work; request identity protects the final state.",
+      "edgeCases": "Resolve a slow older query after a newer query has already finished.",
+      "solutionNotes": [
+        "Not when it was canceled because a newer query replaced it or the component unmounted. Treat expected cancellation separately from a real failure.",
+        "Check response.ok before parsing successful application data."
+      ],
+      "successCriteria": [
+        "Cancellation reduces wasted work; request identity protects the final state.",
+        "Resolve a slow older query after a newer query has already finished."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "React concepts; confirm version-specific APIs against your installed React version."
+    },
+    "next": "thinking-in-react"
+  },
+  "security-boundary-drills": {
+    "prerequisites": [
+      "http-basics",
+      "auth-sessions-oauth"
+    ],
+    "recall": "Without looking: Does CORS authorize a caller?",
+    "exercise": {
+      "task": "Map the example threats to the exact server or browser boundary they cross.",
+      "hint": "Choose a control for each threat rather than claiming one header fixes everything.",
+      "edgeCases": "Try an authenticated attacker, a forged request and an untrusted HTML string.",
+      "solutionNotes": [
+        "No. Authorization must be enforced on the server for every protected operation.",
+        "No. Authorization must be enforced on the server for every protected operation."
+      ],
+      "successCriteria": [
+        "Choose a control for each threat rather than claiming one header fixes everything.",
+        "Try an authenticated attacker, a forged request and an untrusted HTML string."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "web-security"
+  },
+  "semantic-responsive": {
+    "prerequisites": [],
+    "recall": "Without looking: Should a clickable div replace a button?",
+    "exercise": {
+      "task": "Recreate the example semantic layout with a narrow-screen fallback.",
+      "hint": "Use document structure first, then choose layout rules that accommodate content.",
+      "edgeCases": "Test a long heading, keyboard navigation and a viewport narrower than a card.",
+      "solutionNotes": [
+        "Usually no. A native button supplies keyboard and semantic behavior. A styled div requires you to recreate that contract correctly.",
+        "Test keyboard focus and text zoom."
+      ],
+      "successCriteria": [
+        "Use document structure first, then choose layout rules that accommodate content.",
+        "Test a long heading, keyboard navigation and a viewport narrower than a card."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "layout-form-details"
+  },
+  "server-data-fetching": {
+    "prerequisites": [
+      "rsc-boundaries",
+      "http-basics"
+    ],
+    "recall": "Without looking: Where would you start an initial private journal fetch in the App Router?",
+    "exercise": {
+      "task": "Recreate the example initial fetch at its server boundary and pass a small view model onward.",
+      "hint": "Keep server credentials and ownership filters near the protected read.",
+      "edgeCases": "Test empty data, no session and a slow independent section.",
+      "solutionNotes": [
+        "Usually in the Server Component route or its server data layer, with authentication and per-user authorization. Pass the required view model into interactive children.",
+        "Never send a server credential as a client prop."
+      ],
+      "successCriteria": [
+        "Keep server credentials and ownership filters near the protected read.",
+        "Test empty data, no session and a slow independent section."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Framework-sensitive: verify caching, routing and Action behavior against your installed Next.js version."
+    },
+    "next": "streaming-suspense"
+  },
+  "sliding-window": {
+    "prerequisites": [
+      "hashmap-practice"
+    ],
+    "recall": "Without looking: Why use Math.max when moving the left boundary?",
+    "exercise": {
+      "task": "Implement the example longest-unique-substring window and state its invariant.",
+      "hint": "Move the left boundary past the previous duplicate without moving it backward.",
+      "edgeCases": "Test an empty string, all duplicates and a repeated character outside the active window.",
+      "solutionNotes": [
+        "A repeated character may occur before the current window. Its old index must not move the left boundary backward and reintroduce invalid characters.",
+        "Window and subsequence are different contracts."
+      ],
+      "successCriteria": [
+        "Move the left boundary past the previous duplicate without moving it backward.",
+        "Test an empty string, all duplicates and a repeated character outside the active window."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "stack-patterns"
+  },
+  "sql-indexes-transactions": {
+    "prerequisites": [
+      "sql-joins"
+    ],
+    "recall": "Without looking: Is adding an index always a performance improvement?",
+    "exercise": {
+      "task": "Explain the example index, transaction and batched query as three different mechanisms.",
+      "hint": "An index helps reads, a transaction groups writes, batching reduces round trips.",
+      "edgeCases": "Compare a rolled-back write and a query whose filter does not fit the index.",
+      "solutionNotes": [
+        "No. Its usefulness depends on the query and data distribution, and it increases storage and write-maintenance work. Measure the actual plan and latency.",
+        "Transaction isolation does not mean every possible race is eliminated."
+      ],
+      "successCriteria": [
+        "An index helps reads, a transaction groups writes, batching reduces round trips.",
+        "Compare a rolled-back write and a query whose filter does not fit the index."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "sql-query-debugging"
+  },
+  "sql-joins": {
+    "prerequisites": [
+      "http-basics"
+    ],
+    "recall": "Without looking: Does a LEFT JOIN drop a parent with no matching child?",
+    "exercise": {
+      "task": "Reproduce the example join and explain each resulting row and its cardinality.",
+      "hint": "Follow the foreign key and count matched rows before adding aggregation.",
+      "edgeCases": "Include an unmatched parent and a parent with multiple child rows.",
+      "solutionNotes": [
+        "No. It preserves that parent and supplies nulls for the unmatched right-side columns, unless a later filter removes it.",
+        "COUNT(*) and COUNT(child.id) can differ after an outer join."
+      ],
+      "successCriteria": [
+        "Follow the foreign key and count matched rows before adding aggregation.",
+        "Include an unmatched parent and a parent with multiple child rows."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "sql-indexes-transactions"
+  },
+  "sql-query-debugging": {
+    "prerequisites": [
+      "sql-joins",
+      "sql-indexes-transactions"
+    ],
+    "recall": "Without looking: Why can LEFT JOIN plus WHERE child.active = true drop empty parents?",
+    "exercise": {
+      "task": "Trace the example query issue and choose a plan check, batching change or atomic write.",
+      "hint": "An output bug, query cost and concurrent-write race require different evidence.",
+      "edgeCases": "Test a parent with no children and two clients updating the same record.",
+      "solutionNotes": [
+        "The WHERE condition excludes NULL-extended child rows; place the child restriction in ON if empty parents must remain.",
+        "The WHERE condition excludes NULL-extended child rows; place the child restriction in ON if empty parents must remain."
+      ],
+      "successCriteria": [
+        "An output bug, query cost and concurrent-write race require different evidence.",
+        "Test a parent with no children and two clients updating the same record."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": null
+  },
+  "stack-patterns": {
+    "prerequisites": [
+      "dsa-method-complexity"
+    ],
+    "recall": "Without looking: Why is counting opening and closing brackets insufficient?",
+    "exercise": {
+      "task": "Implement the example bracket matcher using a stack of unfinished openings.",
+      "hint": "A closing bracket must match the most recent unmatched opening.",
+      "edgeCases": "Test an early closing bracket, a mismatched pair and leftover openings.",
+      "solutionNotes": [
+        "Counts do not capture nesting order. A sequence can have equal counts and still close the wrong bracket first.",
+        "A stack preserves order, not just frequency."
+      ],
+      "successCriteria": [
+        "A closing bracket must match the most recent unmatched opening.",
+        "Test an early closing bracket, a mismatched pair and leftover openings."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "tree-bfs-dfs"
+  },
+  "stale-closures": {
+    "prerequisites": [
+      "closures",
+      "thinking-in-react"
+    ],
+    "recall": "Without looking: Why can a callback read an old state value?",
+    "exercise": {
+      "task": "Recreate the delayed callback and explain which render snapshot it reads.",
+      "hint": "Use a functional update when the next state depends on the latest previous state.",
+      "edgeCases": "Queue two updates before a delayed callback completes.",
+      "solutionNotes": [
+        "It closes over the bindings from a particular render. A later render creates new bindings; it does not rewrite the old closure.",
+        "A state setter schedules another render."
+      ],
+      "successCriteria": [
+        "Use a functional update when the next state depends on the latest previous state.",
+        "Queue two updates before a delayed callback completes."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "React concepts; confirm version-specific APIs against your installed React version."
+    },
+    "next": null
+  },
+  "streaming-suspense": {
+    "prerequisites": [
+      "server-data-fetching"
+    ],
+    "recall": "Without looking: Does Suspense make the database query itself faster?",
+    "exercise": {
+      "task": "Recreate the example loading boundary around an independently slow section.",
+      "hint": "Suspense reveals boundaries; it does not automatically make dependent reads independent.",
+      "edgeCases": "Fail one section while another has already rendered useful data.",
+      "solutionNotes": [
+        "No. It controls pending UI and when independently ready content can be revealed. The underlying query still needs its own performance work.",
+        "Streaming is distinct from client polling."
+      ],
+      "successCriteria": [
+        "Suspense reveals boundaries; it does not automatically make dependent reads independent.",
+        "Fail one section while another has already rendered useful data."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Framework-sensitive: verify caching, routing and Action behavior against your installed Next.js version."
+    },
+    "next": null
+  },
+  "structured-output": {
+    "prerequisites": [
+      "typed-props-api"
+    ],
+    "recall": "Without looking: Does valid JSON guarantee the application’s expected schema?",
+    "exercise": {
+      "task": "Reproduce the example output schema and handle invalid generated data explicitly.",
+      "hint": "A promised format still needs a checked runtime boundary.",
+      "edgeCases": "Try valid JSON with an invalid shape and valid shape with incorrect facts.",
+      "solutionNotes": [
+        "No. JSON syntax and application shape are separate checks. Validate required fields, value types, and business constraints.",
+        "Validate model and tool results like other external input."
+      ],
+      "successCriteria": [
+        "A promised format still needs a checked runtime boundary.",
+        "Try valid JSON with an invalid shape and valid shape with incorrect facts."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Provider-sensitive: verify supported schemas, limits and pricing against the provider you use."
+    },
+    "next": "ai-cost-boundaries"
+  },
+  "tailwind-tokens": {
+    "prerequisites": [
+      "semantic-responsive"
+    ],
+    "recall": "Without looking: Should every value be a token?",
+    "exercise": {
+      "task": "Recreate the example semantic tokens and use them for one consistent component.",
+      "hint": "Name the role of a value rather than encoding one particular color into every component.",
+      "edgeCases": "Switch light and dark palettes and inspect text and focus contrast.",
+      "solutionNotes": [
+        "No. Start with decisions that repeat or need to change together. A token is useful when its name explains a shared intention.",
+        "Semantic names describe purpose rather than a particular color."
+      ],
+      "successCriteria": [
+        "Name the role of a value rather than encoding one particular color into every component.",
+        "Switch light and dark palettes and inspect text and focus contrast."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": null
+  },
+  "thinking-in-react": {
+    "prerequisites": [],
+    "recall": "Without looking: Should filtered data be state?",
+    "exercise": {
+      "task": "Recreate the example component split and identify the smallest useful state.",
+      "hint": "Derive filtered or formatted values from source data and user input.",
+      "edgeCases": "Change the source data while a filter is active and check the derived result.",
+      "solutionNotes": [
+        "Usually no. Calculate it during render from the original list and the current filter. Storing both introduces synchronization work.",
+        "Props are read-only inputs."
+      ],
+      "successCriteria": [
+        "Derive filtered or formatted values from source data and user input.",
+        "Change the source data while a filter is active and check the derived result."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "React concepts; confirm version-specific APIs against your installed React version."
+    },
+    "next": "controlled-inputs"
+  },
+  "this-binding": {
+    "prerequisites": [
+      "scope-hoisting"
+    ],
+    "recall": "Without looking: Does an ordinary function keep this from where it was defined?",
+    "exercise": {
+      "task": "Trace the example method calls and predict the receiver at each call site.",
+      "hint": "Ordinary functions derive this from the call; arrows capture lexical this.",
+      "edgeCases": "Detach a method and compare calling it directly with call or bind.",
+      "solutionNotes": [
+        "No. Its receiver usually comes from how it is called. Arrow functions instead capture lexical this.",
+        "call and apply invoke immediately; bind returns a function."
+      ],
+      "successCriteria": [
+        "Ordinary functions derive this from the call; arrows capture lexical this.",
+        "Detach a method and compare calling it directly with call or bind."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "prototypes-classes"
+  },
+  "tree-bfs-dfs": {
+    "prerequisites": [
+      "stack-patterns"
+    ],
+    "recall": "Without looking: Which traversal naturally visits a tree level by level?",
+    "exercise": {
+      "task": "Implement the example breadth-first and depth-first traversals and predict their order.",
+      "hint": "Use a queue for breadth and a stack or recursion for depth.",
+      "edgeCases": "Test an empty tree, one node and a deeply skewed tree.",
+      "solutionNotes": [
+        "Breadth-first search, using a queue. Nodes discovered earlier at the current frontier are processed before their deeper descendants.",
+        "A general graph may require visited-state tracking."
+      ],
+      "successCriteria": [
+        "Use a queue for breadth and a stack or recursion for depth.",
+        "Test an empty tree, one node and a deeply skewed tree."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "two-pointers"
+  },
+  "ts-ai-api-boundaries": {
+    "prerequisites": [
+      "zod-runtime-contracts"
+    ],
+    "recall": "Without looking: Does structured output guarantee truth?",
+    "exercise": {
+      "task": "Recreate decode and return a distinct result for malformed JSON and invalid schema.",
+      "hint": "Parse syntax into unknown before running the schema; do not execute model-supplied instructions.",
+      "edgeCases": "Test negative minutes, an extra command property and a plausible but false suggestion.",
+      "solutionNotes": [
+        "No. A conforming object can still contain fabricated or inappropriate content.",
+        "Shape validation is only one layer of trust."
+      ],
+      "successCriteria": [
+        "Parse syntax into unknown before running the schema; do not execute model-supplied instructions.",
+        "Test negative minutes, an extra command property and a plausible but false suggestion."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Zod 4 APIs; check your installed package major before adapting this example."
+    },
+    "next": null
+  },
+  "ts-conditional-infer": {
+    "prerequisites": [
+      "ts-generics-constraints"
+    ],
+    "recall": "Without looking: What does infer do?",
+    "exercise": {
+      "task": "Recreate ElementOf and compare distributing with whole-union conditionals.",
+      "hint": "A naked type parameter distributes; a tuple-wrapped parameter does not.",
+      "edgeCases": "Predict the results for never, string-or-number and a readonly array.",
+      "solutionNotes": [
+        "It captures part of a matched type pattern inside the true branch of a conditional type.",
+        "Distribution requires a naked type parameter."
+      ],
+      "successCriteria": [
+        "A naked type parameter distributes; a tuple-wrapped parameter does not.",
+        "Predict the results for never, string-or-number and a readonly array."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "TypeScript concepts; compiler options and inference should be checked with your project compiler."
+    },
+    "next": "ts-literals-satisfies"
+  },
+  "ts-generics-constraints": {
+    "prerequisites": [
+      "typed-props-api"
+    ],
+    "recall": "Without looking: How is T different from any?",
+    "exercise": {
+      "task": "Recreate get with an object/key relationship and infer the returned property type.",
+      "hint": "Constrain K to keyof T and return T[K], not any.",
+      "edgeCases": "Select numeric and string fields, then attempt a nonexistent key.",
+      "solutionNotes": [
+        "T preserves a relationship checked by the compiler; any disables checking for operations that involve it.",
+        "Generics are erased at runtime."
+      ],
+      "successCriteria": [
+        "Constrain K to keyof T and return T[K], not any.",
+        "Select numeric and string fields, then attempt a nonexistent key."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "TypeScript concepts; compiler options and inference should be checked with your project compiler."
+    },
+    "next": "ts-mapped-utility-types"
+  },
+  "ts-literals-satisfies": {
+    "prerequisites": [
+      "ts-mapped-utility-types"
+    ],
+    "recall": "Without looking: Is satisfies a runtime check?",
+    "exercise": {
+      "task": "Recreate the checked route map and derive its key and event-name types.",
+      "hint": "Use satisfies to check a contract and as const to preserve literal information.",
+      "edgeCases": "Give private a string value and attempt an event for an unknown route.",
+      "solutionNotes": [
+        "No. It checks assignability during compilation and is erased.",
+        "typeof derives a type from a value in a type position."
+      ],
+      "successCriteria": [
+        "Use satisfies to check a contract and as const to preserve literal information.",
+        "Give private a string value and attempt an event for an unknown route."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "TypeScript concepts; compiler options and inference should be checked with your project compiler."
+    },
+    "next": "ts-narrowing-never"
+  },
+  "ts-mapped-utility-types": {
+    "prerequisites": [
+      "ts-generics-constraints"
+    ],
+    "recall": "Without looking: Is Partial recursive?",
+    "exercise": {
+      "task": "Recreate RenameNote and its remapped event callbacks without duplicating field types.",
+      "hint": "Pick an allowlist and map keys to callbacks that receive T[K].",
+      "edgeCases": "Add a private field and check that the public allowlist remains unchanged.",
+      "solutionNotes": [
+        "No. It only makes properties at the current object level optional.",
+        "Utility types do not sanitize objects."
+      ],
+      "successCriteria": [
+        "Pick an allowlist and map keys to callbacks that receive T[K].",
+        "Add a private field and check that the public allowlist remains unchanged."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "TypeScript concepts; compiler options and inference should be checked with your project compiler."
+    },
+    "next": "ts-conditional-infer"
+  },
+  "ts-narrowing-never": {
+    "prerequisites": [
+      "discriminated-unions"
+    ],
+    "recall": "Without looking: Why can never enforce exhaustiveness?",
+    "exercise": {
+      "task": "Recreate the exhaustive state renderer and demonstrate an unhandled variant error.",
+      "hint": "Pass the remaining state to a function accepting never.",
+      "edgeCases": "Add a failed state and inspect the branch that needs an update.",
+      "solutionNotes": [
+        "After every union member is handled, no possibilities remain. An unhandled member cannot be passed to a never parameter.",
+        "unknown requires narrowing; any bypasses it."
+      ],
+      "successCriteria": [
+        "Pass the remaining state to a function accepting never.",
+        "Add a failed state and inspect the branch that needs an update."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "TypeScript concepts; compiler options and inference should be checked with your project compiler."
+    },
+    "next": "ts-strictness-modules"
+  },
+  "ts-react-contracts": {
+    "prerequisites": [
+      "ts-generics-constraints",
+      "controlled-inputs"
+    ],
+    "recall": "Without looking: Why use a prop union?",
+    "exercise": {
+      "task": "Recreate List so its item type flows into both getKey and renderItem.",
+      "hint": "Share one T across the items and callbacks; keep valid prop modes explicit.",
+      "edgeCases": "Supply a callback for the wrong item type and an input with conflicting modes.",
+      "solutionNotes": [
+        "It models valid combinations and rejects contradictory modes instead of relying on several unrelated optional flags.",
+        "ReactNode describes renderable content."
+      ],
+      "successCriteria": [
+        "Share one T across the items and callbacks; keep valid prop modes explicit.",
+        "Supply a callback for the wrong item type and an input with conflicting modes."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "TypeScript concepts; compiler options and inference should be checked with your project compiler."
+    },
+    "next": "zod-runtime-contracts"
+  },
+  "ts-strictness-modules": {
+    "prerequisites": [
+      "typed-props-api"
+    ],
+    "recall": "Without looking: Does strict enable noUncheckedIndexedAccess?",
+    "exercise": {
+      "task": "Recreate the safe array read under noUncheckedIndexedAccess.",
+      "hint": "Narrow undefined before using the indexed value.",
+      "edgeCases": "Read from an empty array and compare an absent optional field with explicit undefined.",
+      "solutionNotes": [
+        "No. It is a separate option; exactOptionalPropertyTypes is separate too.",
+        "Compiler settings must match the execution environment."
+      ],
+      "successCriteria": [
+        "Narrow undefined before using the indexed value.",
+        "Read from an empty array and compare an absent optional field with explicit undefined."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "TypeScript concepts; compiler options and inference should be checked with your project compiler."
+    },
+    "next": "ts-react-contracts"
+  },
+  "two-pointers": {
+    "prerequisites": [
+      "dsa-method-complexity"
+    ],
+    "recall": "Without looking: Why does moving the left pointer help when the sorted pair sum is too small?",
+    "exercise": {
+      "task": "Recreate the sorted pair or palindrome example and justify each pointer move.",
+      "hint": "The move must eliminate candidates using a stated invariant.",
+      "edgeCases": "Test no solution, duplicates and the empty input under the example's character policy.",
+      "solutionNotes": [
+        "With ascending input, increasing the left value can increase the sum. Pairs using that smaller left value with any smaller right value cannot reach the target.",
+        "Explain why each move safely discards candidates."
+      ],
+      "successCriteria": [
+        "The move must eliminate candidates using a stated invariant.",
+        "Test no solution, duplicates and the empty input under the example's character policy."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": "two-sum-hashmap"
+  },
+  "two-sum-hashmap": {
+    "prerequisites": [
+      "hashmap-practice"
+    ],
+    "recall": "Without looking: Why check the complement before inserting the current index?",
+    "exercise": {
+      "task": "Implement the example complement lookup without reusing the same element.",
+      "hint": "Look for a stored complement before inserting the current value.",
+      "edgeCases": "Test [3, 3] with target 6 and a target that requires using one index twice.",
+      "solutionNotes": [
+        "The map should contain only earlier elements, so a match uses two different indices rather than reusing the current element.",
+        "Map.has works even when a stored index is zero."
+      ],
+      "successCriteria": [
+        "Look for a stored complement before inserting the current value.",
+        "Test [3, 3] with target 6 and a target that requires using one index twice."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": null
+  },
+  "typed-props-api": {
+    "prerequisites": [
+      "http-basics"
+    ],
+    "recall": "Without looking: Does response.json() validate an interface?",
+    "exercise": {
+      "task": "Recreate the unknown-to-User validation and reject a malformed array element.",
+      "hint": "Check every field that later code relies on, not only Array.isArray.",
+      "edgeCases": "Put a user with a numeric name into an otherwise valid array.",
+      "solutionNotes": [
+        "No. JSON parsing establishes JSON syntax. You still need runtime checks or a schema to establish the application’s expected shape.",
+        "Type assertions do not transform or validate data."
+      ],
+      "successCriteria": [
+        "Check every field that later code relies on, not only Array.isArray.",
+        "Put a user with a numeric name into an otherwise valid array."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "TypeScript concepts; compiler options and inference should be checked with your project compiler."
+    },
+    "next": "discriminated-unions"
+  },
+  "vercel-deploy": {
+    "prerequisites": [
+      "vite-mdx"
+    ],
+    "recall": "Without looking: Are VITE_ variables secret?",
+    "exercise": {
+      "task": "Recreate the example build-output explanation and distinguish public config from secrets.",
+      "hint": "Trace source, build command and emitted assets before changing hosting settings.",
+      "edgeCases": "Use a missing output directory and a VITE-prefixed private key as failure cases.",
+      "solutionNotes": [
+        "No. Variables exposed through the VITE_ prefix are included in client code. Keep private credentials in server-side code.",
+        "Commit the lockfile for reproducible dependency resolution."
+      ],
+      "successCriteria": [
+        "Trace source, build command and emitted assets before changing hosting settings.",
+        "Use a missing output directory and a VITE-prefixed private key as failure cases."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Build-tool and hosting configuration depend on the versions and platform in your project."
+    },
+    "next": null
+  },
+  "vite-mdx": {
+    "prerequisites": [
+      "semantic-responsive"
+    ],
+    "recall": "Without looking: Why MDX instead of plain Markdown?",
+    "exercise": {
+      "task": "Recreate the example MDX build setup and add one metadata-backed lesson.",
+      "hint": "Compile trusted repository content and run MDX before the React transform.",
+      "edgeCases": "Try a missing metadata export and generic angle brackets outside a code span.",
+      "solutionNotes": [
+        "Use MDX when your notes benefit from components, such as a live example. Plain Markdown is sufficient when all content is static prose.",
+        "MDX supports both Markdown syntax and JSX."
+      ],
+      "successCriteria": [
+        "Compile trusted repository content and run MDX before the React transform.",
+        "Try a missing metadata export and generic angle brackets outside a code span."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Build-tool and hosting configuration depend on the versions and platform in your project."
+    },
+    "next": "vercel-deploy"
+  },
+  "web-security": {
+    "prerequisites": [
+      "http-basics",
+      "auth-sessions-oauth"
+    ],
+    "recall": "Without looking: Does CORS replace server authorization?",
+    "exercise": {
+      "task": "Recreate the example parameterized query and explain the other security boundaries separately.",
+      "hint": "Bind user data as values and perform ownership checks on the server.",
+      "edgeCases": "Try SQL-looking input and a valid session without permission to the requested record.",
+      "solutionNotes": [
+        "No. CORS governs certain browser cross-origin access. Non-browser callers still need authentication, authorization, and input validation.",
+        "A signed token is not an XSS defense."
+      ],
+      "successCriteria": [
+        "Bind user data as values and perform ownership checks on the server.",
+        "Try SQL-looking input and a valid session without permission to the requested record."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+    },
+    "next": null
+  },
+  "zod-runtime-contracts": {
+    "prerequisites": [
+      "typed-props-api"
+    ],
+    "recall": "Without looking: What is z.infer?",
+    "exercise": {
+      "task": "Recreate NoteInput and return the parsed, normalized value after safeParse.",
+      "hint": "Define bounds and strict keys; branch on success before reading data.",
+      "edgeCases": "Try a whitespace title, nine tags, a number as title and an unexpected ownerId.",
+      "solutionNotes": [
+        "It extracts the schema’s output type. It does not execute validation.",
+        "Use parsed data after success."
+      ],
+      "successCriteria": [
+        "Define bounds and strict keys; branch on success before reading data.",
+        "Try a whitespace title, nine tags, a number as title and an unexpected ownerId."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Zod 4 APIs; check your installed package major before adapting this example."
+    },
+    "next": "zod-transforms-refinements"
+  },
+  "zod-transforms-refinements": {
+    "prerequisites": [
+      "zod-runtime-contracts"
+    ],
+    "recall": "Without looking: Is z.infer the raw input type?",
+    "exercise": {
+      "task": "Recreate Minutes and Passwords with distinct input and output types.",
+      "hint": "Validate the wire format, transform it, then check the resulting number.",
+      "edgeCases": "Test an empty string, 0, 181 and mismatched passwords.",
+      "solutionNotes": [
+        "It is the output type. Use z.input when transforms make the accepted input different.",
+        "Transforms change output values."
+      ],
+      "successCriteria": [
+        "Validate the wire format, transform it, then check the resulting number.",
+        "Test an empty string, 0, 181 and mismatched passwords."
+      ]
+    },
+    "review": {
+      "revisedOn": "2026-11-19",
+      "reviewedOn": null,
+      "versionNote": "Zod 4 APIs; check your installed package major before adapting this example."
+    },
+    "next": "ts-ai-api-boundaries"
+  }
+}

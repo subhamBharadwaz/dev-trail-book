@@ -1,0 +1,84 @@
+export const meta = {
+  "slug": "ts-react-contracts",
+  "category": "typescript",
+  "title": "Advanced React contracts & reusable generic components",
+  "description": "Express component relationships without impossible prop combinations.",
+  "minutes": 12,
+  "level": "Advanced practice",
+  "tags": [
+    "typescript",
+    "advanced",
+    "type-system"
+  ],
+  "questions": [
+    {
+      "question": "Why use a prop union?",
+      "answer": "It models valid combinations and rejects contradictory modes instead of relying on several unrelated optional flags."
+    },
+    {
+      "question": "Does a typed ID guarantee stable keys?",
+      "answer": "No. The selected key must still be unique among siblings and stable across renders."
+    },
+    {
+      "question": "When should a component be generic?",
+      "answer": "When callers need a preserved relationship, such as items and the render callback’s parameter."
+    }
+  ],
+  "facts": [
+    "ReactNode describes renderable content.",
+    "Prefer concrete contracts unless reuse requires a type relationship.",
+    "Types do not verify focus behavior or accessible names."
+  ],
+  "source": "https://react.dev/learn/typescript",
+  "code": "import type { ReactNode } from \"react\";\ntype InputMode =\n  | { value: string; onChange: (value: string) => void; defaultValue?: never }\n  | { defaultValue?: string; value?: never; onChange?: never };\n\ntype ListProps<T> = {\n  items: readonly T[];\n  getKey: (item: T) => string;\n  renderItem: (item: T) => ReactNode;\n};\nfunction List<T>({ items, getKey, renderItem }: ListProps<T>) {\n  return <ul>{items.map(item =>\n    <li key={getKey(item)}>{renderItem(item)}</li>\n  )}</ul>;\n}",
+  "codeLanguage": "tsx",
+  "origin": "discussion",
+  "quizDistractors": [
+    "A type assertion validates the runtime value automatically.",
+    "Compile-time types replace server validation and permission checks."
+  ]
+};
+
+## The idea
+
+Component contracts should express valid UI configurations. A discriminated union can require an onChange callback for a controlled input and forbid a conflicting defaultValue. Generics can preserve the relationship between list items and render callbacks.
+
+## Why it matters
+
+Derive native props with ComponentPropsWithoutRef when wrapping a real element. Use Omit to resolve deliberate prop conflicts and preserve accessibility-related props. Avoid broad assertions around generic callbacks. Stable keys remain a runtime identity concern even with well-typed item objects.
+
+## A practical example
+
+```tsx
+import type { ReactNode } from "react";
+type InputMode =
+  | { value: string; onChange: (value: string) => void; defaultValue?: never }
+  | { defaultValue?: string; value?: never; onChange?: never };
+
+type ListProps<T> = {
+  items: readonly T[];
+  getKey: (item: T) => string;
+  renderItem: (item: T) => ReactNode;
+};
+function List<T>({ items, getKey, renderItem }: ListProps<T>) {
+  return <ul>{items.map(item =>
+    <li key={getKey(item)}>{renderItem(item)}</li>
+  )}</ul>;
+}
+```
+
+## Common mistakes
+
+Optional callbacks combined with an always-present value can leave a controlled input unable to update. Do not make every component polymorphic just because the type system can express it. Preserve native semantics and forward relevant props.
+
+## Try it yourself
+
+Use List with notes and with users; verify renderItem infers the correct item. Add a compile-time negative example that supplies both value and defaultValue to InputMode.
+
+## Interview checkpoint
+
+Explain the example aloud, predict its inferred types, and describe one runtime failure that compilation cannot prevent. Then implement the exercise without using any or an unchecked assertion to bypass the problem.
+
+## Keep exploring
+
+Read the [official reference](https://react.dev/learn/typescript). Continue through the [Advanced TypeScript & runtime contracts](#/paths/advanced-typescript) learning path.

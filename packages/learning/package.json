@@ -13,7 +13,8 @@
     "./interviews": "./src/interviews.ts",
     "./readiness": "./src/readiness.ts",
     "./backup": "./src/backup.ts",
-    "./study-nudges": "./src/study-nudges.ts"
+    "./study-nudges": "./src/study-nudges.ts",
+    "./confidence": "./src/confidence.ts"
   },
   "dependencies": {
     "@trailbook/sync": "workspace:*",

@@ -4,8 +4,10 @@ import { buildPractice } from "./practice";
 import { fresh, restoreSession } from "./practice-session";
 test("web and mobile practice sessions use the same question IDs and reject incompatible saved data", () => {
   const { flashcards, quizCards } = buildPractice(topics);
-  expect(flashcards.length).toBe(177);
-  expect(quizCards.length).toBe(74);
+  expect(flashcards.length).toBe(
+    topics.reduce((sum, topic) => sum + topic.questions.length, 0),
+  );
+  expect(quizCards.length).toBe(topics.length);
   for (const card of quizCards) {
     expect(
       card.options.some(

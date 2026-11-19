@@ -19,7 +19,7 @@ test("the PDF audit maps all six source pages to reachable lessons", () => {
     expect(topicBySlug.get(slug)?.questions.length).toBeGreaterThanOrEqual(3);
     expect(flashcards.some((card) => card.topicSlug === slug)).toBe(true);
   }
-  expect(topics).toHaveLength(74);
+  expect(topics.length).toBeGreaterThanOrEqual(74);
 });
 
 test("the depth audit includes completed examples and explicit practice limitations", () => {

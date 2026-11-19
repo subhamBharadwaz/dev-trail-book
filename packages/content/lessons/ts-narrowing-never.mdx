@@ -1,0 +1,83 @@
+export const meta = {
+  "slug": "ts-narrowing-never",
+  "category": "typescript",
+  "title": "Advanced narrowing, exhaustiveness & branded IDs",
+  "description": "Make invalid branches and mixed identifiers harder to use.",
+  "minutes": 12,
+  "level": "Advanced practice",
+  "tags": [
+    "typescript",
+    "advanced",
+    "type-system"
+  ],
+  "questions": [
+    {
+      "question": "Why can never enforce exhaustiveness?",
+      "answer": "After every union member is handled, no possibilities remain. An unhandled member cannot be passed to a never parameter."
+    },
+    {
+      "question": "Can a type guard lie?",
+      "answer": "Yes. TypeScript trusts an explicit predicate signature; its implementation needs runtime tests."
+    },
+    {
+      "question": "Is a brand a security boundary?",
+      "answer": "No. It prevents accidental mixing in typed code but does not authenticate a caller or authorize an operation."
+    }
+  ],
+  "facts": [
+    "unknown requires narrowing; any bypasses it.",
+    "never is the empty set of values.",
+    "Assertions do not establish runtime facts."
+  ],
+  "source": "https://www.typescriptlang.org/docs/handbook/2/narrowing.html",
+  "code": "type Result<T> = { ok: true; data: T } | { ok: false; error: string };\nfunction assertNever(value: never): never {\n  throw new Error(\"Unhandled variant\");\n}\ntype State = { status: \"idle\" } | { status: \"ready\"; count: number };\nfunction label(state: State): string {\n  switch (state.status) {\n    case \"idle\": return \"Ready to start\";\n    case \"ready\": return `${state.count} notes`;\n    default: return assertNever(state);\n  }\n}\ndeclare const userIdBrand: unique symbol;\ntype UserId = string & { readonly [userIdBrand]: true };",
+  "codeLanguage": "ts",
+  "origin": "discussion",
+  "quizDistractors": [
+    "A type assertion validates the runtime value automatically.",
+    "Compile-time types replace server validation and permission checks."
+  ]
+};
+
+## The idea
+
+Control-flow analysis narrows types after checks. A discriminant makes alternatives explicit; never can enforce exhaustive handling. User-defined predicates and assertion functions are promises to the compiler, so their implementations must actually establish their claims.
+
+## Why it matters
+
+Prefer runtime schemas for complex external objects. Optional properties are not always a reliable discriminant; use a shared required literal. Branded types distinguish structurally identical values such as UserId and NoteId, but a brand is not authorization or validation. Establish the brand only inside a checked constructor or parser.
+
+## A practical example
+
+```ts
+type Result<T> = { ok: true; data: T } | { ok: false; error: string };
+function assertNever(value: never): never {
+  throw new Error("Unhandled variant");
+}
+type State = { status: "idle" } | { status: "ready"; count: number };
+function label(state: State): string {
+  switch (state.status) {
+    case "idle": return "Ready to start";
+    case "ready": return `${state.count} notes`;
+    default: return assertNever(state);
+  }
+}
+declare const userIdBrand: unique symbol;
+type UserId = string & { readonly [userIdBrand]: true };
+```
+
+## Common mistakes
+
+A predicate returning true unconditionally can make unsafe code compile. A branded string cast from untrusted JSON remains untrusted. Keep ownership checks on the server even when IDs have distinct types.
+
+## Try it yourself
+
+Add a failed state and let exhaustiveness identify the missing case. Write a parser that checks an ID format before constructing a branded value; test invalid and empty inputs.
+
+## Interview checkpoint
+
+Explain the example aloud, predict its inferred types, and describe one runtime failure that compilation cannot prevent. Then implement the exercise without using any or an unchecked assertion to bypass the problem.
+
+## Keep exploring
+
+Read the [official reference](https://www.typescriptlang.org/docs/handbook/2/narrowing.html). Continue through the [Advanced TypeScript & runtime contracts](#/paths/advanced-typescript) learning path.

@@ -39,3 +39,20 @@ test("practice cards have stable IDs and quizzes have one correct answer and uni
     ).toBe(card.answer);
   }
 });
+
+test("advanced TypeScript path includes runtime contracts, type transformations and practice", () => {
+  const path = learningPaths.find((path) => path.id === "advanced-typescript")!;
+  expect(path.slugs).toHaveLength(12);
+  for (const slug of path.slugs.slice(2)) {
+    const topic = topicBySlug.get(slug)!;
+    expect(topic.category).toBe("typescript");
+    expect(topic.questions.length).toBeGreaterThanOrEqual(3);
+    expect(topic.facts.length).toBeGreaterThanOrEqual(3);
+    expect(topic.code.length).toBeGreaterThan(100);
+    expect(flashcards.some((card) => card.topicSlug === slug)).toBe(true);
+    expect(quizCards.some((card) => card.topicSlug === slug)).toBe(true);
+  }
+  expect(path.slugs).toContain("zod-runtime-contracts");
+  expect(path.slugs).toContain("ts-conditional-infer");
+  expect(path.slugs).toContain("ts-ai-api-boundaries");
+});

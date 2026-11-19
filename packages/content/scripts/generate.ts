@@ -3,6 +3,7 @@ import { runInNewContext } from "node:vm";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
+import { studyGuides } from "../src/study-guides";
 const source = new URL("../lessons/", import.meta.url);
 const parser = unified().use(remarkParse).use(remarkGfm);
 import { createHighlighter } from "shiki";
@@ -60,8 +61,15 @@ const topics = await Promise.all(
       await highlight(body);
       return {
         ...meta,
+        study: studyGuides[meta.slug],
         body,
-        searchText: (JSON.stringify(meta) + " " + markdown).toLowerCase(),
+        searchText: (
+          JSON.stringify(meta) +
+          " " +
+          JSON.stringify(studyGuides[meta.slug]) +
+          " " +
+          markdown
+        ).toLowerCase(),
       };
     }),
 );

@@ -1,0 +1,80 @@
+export const meta = {
+  "slug": "ts-strictness-modules",
+  "category": "typescript",
+  "title": "Strict TypeScript, nullability & module boundaries",
+  "description": "Use compiler settings to expose real edge cases.",
+  "minutes": 12,
+  "level": "Advanced practice",
+  "tags": [
+    "typescript",
+    "advanced",
+    "type-system"
+  ],
+  "questions": [
+    {
+      "question": "Does strict enable noUncheckedIndexedAccess?",
+      "answer": "No. It is a separate option; exactOptionalPropertyTypes is separate too."
+    },
+    {
+      "question": "Does ! check that a value exists?",
+      "answer": "No. It removes null or undefined from the compiler’s view without checking runtime data."
+    },
+    {
+      "question": "Why use import type?",
+      "answer": "It communicates a type-only dependency and supports module configurations that require explicit type imports."
+    }
+  ],
+  "facts": [
+    "Compiler settings must match the execution environment.",
+    "An optional property can be absent.",
+    "Typechecking does not replace runtime tests."
+  ],
+  "source": "https://www.typescriptlang.org/tsconfig/",
+  "code": "type Preferences = { theme?: \"light\" | \"dark\" };\nconst values: string[] = [];\nconst first = values[0]; // string | undefined with noUncheckedIndexedAccess\nif (first !== undefined) console.log(first.toUpperCase());\n\n// tsconfig.json options for a gradual safety pass:\n// \"strict\": true,\n// \"noUncheckedIndexedAccess\": true,\n// \"exactOptionalPropertyTypes\": true\n// With exactOptionalPropertyTypes, { theme: undefined } is rejected\n// unless undefined is explicitly included in the property's type.",
+  "codeLanguage": "ts",
+  "origin": "discussion",
+  "quizDistractors": [
+    "A type assertion validates the runtime value automatically.",
+    "Compile-time types replace server validation and permission checks."
+  ]
+};
+
+## The idea
+
+Strict checking makes assumptions visible before runtime. strictNullChecks distinguishes null and undefined from present values. noUncheckedIndexedAccess adds undefined to unchecked indexed reads; exactOptionalPropertyTypes distinguishes an absent optional property from explicitly assigning undefined when it is not part of the declared value type.
+
+## Why it matters
+
+The strict umbrella does not enable every safety option. Introduce extra flags gradually and fix causes rather than adding non-null assertions. Use import type for type-only dependencies and choose module settings that match the bundler or runtime. In a monorepo, consumers need a deliberate package export contract; a path alias alone does not configure every runtime.
+
+## A practical example
+
+```ts
+type Preferences = { theme?: "light" | "dark" };
+const values: string[] = [];
+const first = values[0]; // string | undefined with noUncheckedIndexedAccess
+if (first !== undefined) console.log(first.toUpperCase());
+
+// tsconfig.json options for a gradual safety pass:
+// "strict": true,
+// "noUncheckedIndexedAccess": true,
+// "exactOptionalPropertyTypes": true
+// With exactOptionalPropertyTypes, { theme: undefined } is rejected
+// unless undefined is explicitly included in the property's type.
+```
+
+## Common mistakes
+
+Non-null ! assertions are erased and can hide a missing array element. Do not copy Node module resolution settings into a Vite app blindly. Run the actual app and package typechecks, not an empty solution config.
+
+## Try it yourself
+
+Enable noUncheckedIndexedAccess in a small exercise project and repair a dictionary lookup, an array read and an optional property. Explain when a missing key is expected rather than exceptional.
+
+## Interview checkpoint
+
+Explain the example aloud, predict its inferred types, and describe one runtime failure that compilation cannot prevent. Then implement the exercise without using any or an unchecked assertion to bypass the problem.
+
+## Keep exploring
+
+Read the [official reference](https://www.typescriptlang.org/tsconfig/). Continue through the [Advanced TypeScript & runtime contracts](#/paths/advanced-typescript) learning path.

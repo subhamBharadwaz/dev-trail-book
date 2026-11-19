@@ -10,7 +10,7 @@ export function AppLayout({
   children: ReactNode;
 }) {
   useEffect(() => {
-    document.title = `${route.kind === "overview" ? "Your developer field notes" : route.title} · Dev Trailbook`;
+    document.title = `${route.kind === "overview" ? "Your study desk" : route.title} · Dev Trailbook`;
   }, [route.kind, route.title]);
   return (
     <div className="min-h-screen">

@@ -6,7 +6,8 @@
   "exports": {
     "./types": "./src/types.ts",
     "./categories": "./src/categories.ts",
-    "./native": "./src/native.ts"
+    "./native": "./src/native.ts",
+    "./study-guides": "./src/study-guides.ts"
   },
   "dependencies": {},
   "scripts": {

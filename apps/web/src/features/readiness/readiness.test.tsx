@@ -83,7 +83,7 @@ test("legacy guest journal and reading data are included alongside new feature r
   expect(
     screen.getByRole("heading", { name: "Legacy coding attempt" }),
   ).toBeTruthy();
-  expect(screen.getByText(/1 of 74 lessons marked read/)).toBeTruthy();
+  expect(screen.getByText(/1 of 84 lessons marked read/)).toBeTruthy();
   expect(
     screen.getByText(/1 independent coding\/build attempts logged/),
   ).toBeTruthy();

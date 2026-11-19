@@ -1,0 +1,78 @@
+export const meta = {
+  "slug": "ts-mapped-utility-types",
+  "category": "typescript",
+  "title": "Mapped types, utility types & key remapping",
+  "description": "Derive focused contracts from existing types.",
+  "minutes": 12,
+  "level": "Advanced practice",
+  "tags": [
+    "typescript",
+    "advanced",
+    "type-system"
+  ],
+  "questions": [
+    {
+      "question": "Is Partial recursive?",
+      "answer": "No. It only makes properties at the current object level optional."
+    },
+    {
+      "question": "Does Readonly freeze values?",
+      "answer": "No. It is a compile-time restriction through that reference; Object.freeze is a separate runtime operation."
+    },
+    {
+      "question": "When is Pick safer than Omit?",
+      "answer": "For public DTOs, an allowlist avoids automatically exposing newly added source fields."
+    }
+  ],
+  "facts": [
+    "Utility types do not sanitize objects.",
+    "Mapped modifiers include -? and -readonly.",
+    "Record<K,V> describes keys and values, not runtime key existence checks."
+  ],
+  "source": "https://www.typescriptlang.org/docs/handbook/2/mapped-types.html",
+  "code": "type Note = { id: string; title: string; ownerId: string };\ntype RenameNote = Pick<Note, \"title\">;\ntype NotePatch = Partial<RenameNote>;\ntype Labels<T> = {\n  [K in keyof T as K extends string ? `on${Capitalize<K>}` : never]:\n    (value: T[K]) => void;\n};\ntype NoteEvents = Labels<RenameNote>;\nconst handlers: NoteEvents = { onTitle: value => console.log(value) };",
+  "codeLanguage": "ts",
+  "origin": "discussion",
+  "quizDistractors": [
+    "A type assertion validates the runtime value automatically.",
+    "Compile-time types replace server validation and permission checks."
+  ]
+};
+
+## The idea
+
+Mapped types iterate over a key union. Utility types such as Pick, Omit, Partial, Required, Readonly and Record express common transformations without duplicating every field.
+
+## Why it matters
+
+Pick selects an explicit allowlist; Omit removes named keys but includes future added keys. Partial makes properties optional, not recursively partial or runtime validated. Readonly prevents assignment through that type; it neither freezes the object nor makes nested objects immutable. Key remapping uses an as clause and can combine template literal types with property names.
+
+## A practical example
+
+```ts
+type Note = { id: string; title: string; ownerId: string };
+type RenameNote = Pick<Note, "title">;
+type NotePatch = Partial<RenameNote>;
+type Labels<T> = {
+  [K in keyof T as K extends string ? `on${Capitalize<K>}` : never]:
+    (value: T[K]) => void;
+};
+type NoteEvents = Labels<RenameNote>;
+const handlers: NoteEvents = { onTitle: value => console.log(value) };
+```
+
+## Common mistakes
+
+Do not use Omit&lt;User, "password"&gt; as your only public-data policy: a future secret field could leak. Build and validate a deliberate DTO allowlist. Avoid deep recursive utility types without a concrete requirement.
+
+## Try it yourself
+
+Derive a public user DTO with Pick. Add a private token to the source type and confirm the DTO does not change. Then write a mapped type that makes every field readonly.
+
+## Interview checkpoint
+
+Explain the example aloud, predict its inferred types, and describe one runtime failure that compilation cannot prevent. Then implement the exercise without using any or an unchecked assertion to bypass the problem.
+
+## Keep exploring
+
+Read the [official reference](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html). Continue through the [Advanced TypeScript & runtime contracts](#/paths/advanced-typescript) learning path.

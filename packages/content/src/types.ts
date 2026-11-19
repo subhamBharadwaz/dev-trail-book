@@ -1,4 +1,23 @@
+export interface StudyGuide {
+  prerequisites: string[];
+  next: string | null;
+  recall: string;
+  exercise: {
+    task: string;
+    hint: string;
+    edgeCases: string;
+    solutionNotes: string[];
+    successCriteria: string[];
+  };
+  review: {
+    revisedOn: string;
+    reviewedOn: string | null;
+    versionNote: string;
+  };
+}
+
 export interface TopicMeta {
+  study?: StudyGuide;
   category: string;
   slug: string;
   title: string;

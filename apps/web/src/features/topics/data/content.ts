@@ -1,3 +1,4 @@
+import { studyGuides } from "@trailbook/content/study-guides";
 import { lazy, type ComponentType } from "react";
 
 import type { TopicMeta } from "@trailbook/content/types";
@@ -18,9 +19,12 @@ const lessons = import.meta.glob<{ default: Topic["Content"] }>(
 export const topics: Topic[] = Object.entries(metadata).map(
   ([path, module]) => ({
     ...module.meta,
+    study: studyGuides[module.meta.slug],
     Content: lazy(lessons[path]),
     searchText: (
       JSON.stringify(module.meta) +
+      " " +
+      JSON.stringify(studyGuides[module.meta.slug]) +
       " " +
       module.searchText
     ).toLowerCase(),

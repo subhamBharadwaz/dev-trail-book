@@ -1,0 +1,79 @@
+export const meta = {
+  "slug": "ts-conditional-infer",
+  "category": "typescript",
+  "title": "Conditional types, infer & distribution",
+  "description": "Read type-level branches without turning code into a puzzle.",
+  "minutes": 12,
+  "level": "Advanced practice",
+  "tags": [
+    "typescript",
+    "advanced",
+    "type-system"
+  ],
+  "questions": [
+    {
+      "question": "What does infer do?",
+      "answer": "It captures part of a matched type pattern inside the true branch of a conditional type."
+    },
+    {
+      "question": "Why use [T] extends [U]?",
+      "answer": "Tuple wrapping prevents distribution, testing the entire T against U."
+    },
+    {
+      "question": "Does Awaited execute a promise?",
+      "answer": "No. It models the type produced by awaiting; runtime execution remains separate."
+    }
+  ],
+  "facts": [
+    "Distribution requires a naked type parameter.",
+    "infer belongs in a conditional type extends clause.",
+    "Prefer readable built-in utilities over unnecessary type puzzles."
+  ],
+  "source": "https://www.typescriptlang.org/docs/handbook/2/conditional-types.html",
+  "code": "type ElementOf<T> = T extends readonly (infer U)[] ? U : never;\ntype Item = ElementOf<string[]>; // string\n\ntype IsString<T> = T extends string ? \"yes\" : \"no\";\ntype Distributed = IsString<string | number>; // \"yes\" | \"no\"\ntype Whole<T> = [T] extends [string] ? \"yes\" : \"no\";\ntype Together = Whole<string | number>; // \"no\"\n\ntype Load = () => Promise<{ id: string }>;\ntype Loaded = Awaited<ReturnType<Load>>; // { id: string }",
+  "codeLanguage": "ts",
+  "origin": "discussion",
+  "quizDistractors": [
+    "A type assertion validates the runtime value automatically.",
+    "Compile-time types replace server validation and permission checks."
+  ]
+};
+
+## The idea
+
+A conditional type selects a type based on assignability. infer introduces a type variable within the matched pattern, useful for extracting function results, array elements and other nested relationships.
+
+## Why it matters
+
+A conditional over a naked type parameter distributes over unions. Wrap each side in a tuple to test the union as a whole. never represents no possibilities and disappears from unions. Prefer built-in ReturnType, Parameters and Awaited when they already describe your intent; recursive custom types can slow the editor and obscure errors.
+
+## A practical example
+
+```ts
+type ElementOf<T> = T extends readonly (infer U)[] ? U : never;
+type Item = ElementOf<string[]>; // string
+
+type IsString<T> = T extends string ? "yes" : "no";
+type Distributed = IsString<string | number>; // "yes" | "no"
+type Whole<T> = [T] extends [string] ? "yes" : "no";
+type Together = Whole<string | number>; // "no"
+
+type Load = () => Promise<{ id: string }>;
+type Loaded = Awaited<ReturnType<Load>>; // { id: string }
+```
+
+## Common mistakes
+
+infer does not inspect runtime values. A complicated type that passes compilation can still sit over an unvalidated payload. Avoid clever conditional types where a simple named union is clearer.
+
+## Try it yourself
+
+Write a type extracting the error variant from a result union using Extract. Predict IsString&lt;never&gt; before checking the compiler: it is never because there are no union members to distribute over.
+
+## Interview checkpoint
+
+Explain the example aloud, predict its inferred types, and describe one runtime failure that compilation cannot prevent. Then implement the exercise without using any or an unchecked assertion to bypass the problem.
+
+## Keep exploring
+
+Read the [official reference](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html). Continue through the [Advanced TypeScript & runtime contracts](#/paths/advanced-typescript) learning path.
