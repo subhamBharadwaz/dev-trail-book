@@ -1,3 +1,4 @@
+import { parseConfidence } from "./confidence";
 import type { Json } from "@trailbook/sync";
 import { parseMistake } from "./mistakes";
 import { parseInterview } from "./interviews";
@@ -45,6 +46,7 @@ export function validStudyRecord(key: string, value: unknown): value is Json {
     JSON.stringify(value).length > 60000
   )
     return false;
+  const confidence = /^reading\/confidence\/[a-z0-9-]+$/.test(key);
   const reading = /^reading\/(read|saved)\/[a-z0-9-]+$/.test(key);
   const entry = new RegExp(`^prep/entry/${id}$`).test(key);
   const day =
@@ -57,6 +59,7 @@ export function validStudyRecord(key: string, value: unknown): value is Json {
   );
   if (
     !reading &&
+    !confidence &&
     !entry &&
     !day &&
     !practice &&
@@ -66,6 +69,7 @@ export function validStudyRecord(key: string, value: unknown): value is Json {
     return false;
   if (day && !validDate(day[1])) return false;
   if (value === null) return true;
+  if (confidence) return parseConfidence(value) !== null;
   if (reading) return typeof value === "boolean";
   if (entry)
     return recordsPreparation({ [key]: value }).entries.some(

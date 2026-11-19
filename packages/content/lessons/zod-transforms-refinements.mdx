@@ -1,0 +1,82 @@
+export const meta = {
+  "slug": "zod-transforms-refinements",
+  "category": "typescript",
+  "title": "Zod transforms, refinements & schema composition",
+  "description": "Separate raw input, normalized output and business rules.",
+  "minutes": 12,
+  "level": "Advanced practice",
+  "tags": [
+    "typescript",
+    "advanced",
+    "zod"
+  ],
+  "questions": [
+    {
+      "question": "Is z.infer the raw input type?",
+      "answer": "It is the output type. Use z.input when transforms make the accepted input different."
+    },
+    {
+      "question": "When is safeParseAsync required?",
+      "answer": "When any refinement or transform in the schema performs asynchronous work."
+    },
+    {
+      "question": "Does default fix malformed input?",
+      "answer": "No. A default is for undefined input; arbitrary invalid values should still be rejected unless a different policy is explicitly implemented."
+    }
+  ],
+  "facts": [
+    "Transforms change output values.",
+    "optional and nullable are different contracts.",
+    "Database constraints enforce rules under concurrent writes."
+  ],
+  "source": "https://zod.dev/api",
+  "code": "import * as z from \"zod\";\nconst Minutes = z.string().regex(/^\\d+$/)\n  .transform(Number).pipe(z.number().int().min(1).max(180));\ntype MinutesInput = z.input<typeof Minutes>; // string\ntype MinutesOutput = z.output<typeof Minutes>; // number\n\nconst Passwords = z.object({\n  password: z.string().min(12),\n  confirm: z.string(),\n}).refine(value => value.password === value.confirm, {\n  message: \"Passwords must match\", path: [\"confirm\"],\n});\nconst result = Minutes.safeParse(\"45\"); // output is 45, not \"45\"",
+  "codeLanguage": "ts",
+  "origin": "discussion",
+  "quizDistractors": [
+    "A type assertion validates the runtime value automatically.",
+    "Compile-time types replace server validation and permission checks."
+  ]
+};
+
+## The idea
+
+Input and output types can differ when a schema transforms a value. z.input describes what the schema accepts at the type level; z.output and z.infer describe the parsed result. Refinements add checks; transforms normalize or convert data.
+
+## Why it matters
+
+Compose focused schemas with pick, omit and extend where appropriate, but make public and writable fields deliberate. optional accepts undefined; nullable accepts null; nullish accepts both. Defaults address undefined input, not every invalid value. Async refinements or transforms require parseAsync or safeParseAsync. Keep database uniqueness and authorization checks separate from local shape validation.
+
+## A practical example
+
+```ts
+import * as z from "zod";
+const Minutes = z.string().regex(/^\d+$/)
+  .transform(Number).pipe(z.number().int().min(1).max(180));
+type MinutesInput = z.input<typeof Minutes>; // string
+type MinutesOutput = z.output<typeof Minutes>; // number
+
+const Passwords = z.object({
+  password: z.string().min(12),
+  confirm: z.string(),
+}).refine(value => value.password === value.confirm, {
+  message: "Passwords must match", path: ["confirm"],
+});
+const result = Minutes.safeParse("45"); // output is 45, not "45"
+```
+
+## Common mistakes
+
+Blind Number coercion accepts surprising inputs such as an empty string becoming zero. z.coerce.boolean() follows JavaScript truthiness, so the string "false" is truthy. Define the accepted wire format explicitly. A refinement cannot guarantee a future database write will remain unique under concurrency.
+
+## Try it yourself
+
+Build an optional duration field that treats a blank form value as absent but rejects 0, decimals and values above 180. Write down its raw input and parsed output types.
+
+## Interview checkpoint
+
+Explain the example aloud, predict its inferred types, and describe one runtime failure that compilation cannot prevent. Then implement the exercise without using any or an unchecked assertion to bypass the problem.
+
+## Keep exploring
+
+Read the [official reference](https://zod.dev/api). Continue through the [Advanced TypeScript & runtime contracts](#/paths/advanced-typescript) learning path.

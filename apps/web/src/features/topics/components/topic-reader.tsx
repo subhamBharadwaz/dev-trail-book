@@ -1,6 +1,10 @@
+import { TopicStudyContext } from "./topic-study-context";
+import { TopicWorkshop } from "./topic-workshop";
+import { TopicConfidence } from "./topic-confidence";
+import { topicBySlug } from "../data/content";
 import { Prose } from "@/components/content/prose";
 import { TopicProvenance } from "./topic-provenance";
-import { Suspense, useState, type ReactNode } from "react";
+import { lazy, Suspense, useState, type ReactNode } from "react";
 import { Tabs, TabsList, TabsPanel, TabsTab } from "@ui-sdk/react/tabs";
 import { Toggle } from "@ui-sdk/react/toggle";
 import {
@@ -15,7 +19,13 @@ import {
 import { CodeBlock } from "@/components/content/code-block";
 import { Questions } from "./topic-questions";
 import { Facts } from "./topic-facts";
-import { categories, topics, type Topic } from "../data/content";
+import { categories, type Topic } from "../data/content";
+const TopicVisual = lazy(() =>
+  import("@/features/explainers/topic-visual").then((module) => ({
+    default: module.TopicVisual,
+  })),
+);
+
 const tabClassName =
   "flex items-center gap-1.5 whitespace-nowrap border-b-2 border-transparent bg-transparent py-[13px] text-sm text-muted-ink aria-selected:border-green aria-selected:font-medium aria-selected:text-green";
 
@@ -46,12 +56,9 @@ export function TopicReader({
 }) {
   const [section, setSection] = useState<string | null>("notes");
   const category = categories.find((item) => item.id === topic.category)!;
-  const siblings = topics.filter((item) => item.category === topic.category);
-  const next =
-    siblings[
-      (siblings.findIndex((item) => item.slug === topic.slug) + 1) %
-        siblings.length
-    ];
+  const next = topic.study?.next
+    ? topicBySlug.get(topic.study.next)
+    : undefined;
   return (
     <div className="mx-auto grid max-w-[830px] grid-cols-[minmax(0,1fr)] gap-[46px] px-[23px] pb-[50px] pt-[27px] sm:px-8 min-[701px]:py-[35px] @min-[1120px]:max-w-[1100px] @min-[1120px]:grid-cols-[minmax(0,740px)_155px] lg:px-10 min-[1201px]:pb-[70px] min-[1201px]:pt-[39px]">
       <article className="min-w-0 [&>h1]:mb-[15px] [&>h1]:mt-[18px] [&>h1]:text-balance [&>h1]:text-[33px] [&>h1]:font-medium [&>h1]:leading-[1.17] [&>h1]:tracking-[-1.3px] min-[701px]:[&>h1]:text-[37px]">
@@ -99,6 +106,7 @@ export function TopicReader({
           </Toggle>
         </div>
         <TopicProvenance topic={topic} />
+        <TopicStudyContext topic={topic} />
         <Tabs key={topic.slug} value={section} onValueChange={setSection}>
           <TabsList
             aria-label="Topic sections"
@@ -121,11 +129,15 @@ export function TopicReader({
             </TabsTab>
           </TabsList>
           <TabsPanel value="notes">
+            <Suspense fallback={<p role="status">Loading the visual guide…</p>}>
+              <TopicVisual key={topic.slug} slug={topic.slug} />
+            </Suspense>
             <Prose>
               <Suspense fallback={<p role="status">Loading this note…</p>}>
                 <topic.Content components={components} />
               </Suspense>
             </Prose>
+            <TopicWorkshop key={topic.slug} topic={topic} />
             <div className="my-[26px] flex items-start gap-3 rounded-md border border-line bg-green-soft p-[18px] text-sm leading-[1.8] text-green [&_strong]:text-sm [&_strong]:font-medium [&_p]:mt-[3px] [&_p]:text-sm [&_p]:text-ink [&>svg]:mt-0.5">
               <Lightbulb size={19} />
               <div>
@@ -172,6 +184,7 @@ export function TopicReader({
             <Facts topic={topic} />
           </TabsPanel>
         </Tabs>
+        <TopicConfidence slug={topic.slug} />
         <div className="mt-[35px] flex flex-wrap items-start justify-between gap-[15px] border-y border-line py-[25px] min-[701px]:items-center [&_strong]:text-sm [&_strong]:font-medium [&_p]:mt-[7px] [&_p]:text-sm [&_p]:leading-[1.7] [&_p]:text-muted-ink">
           <div>
             <strong>
@@ -182,7 +195,7 @@ export function TopicReader({
             <p>
               {completed
                 ? "You marked this topic as read."
-                : "Mark it as read when you feel comfortable explaining it."}
+                : "Mark it as read after reading. Use the separate confidence rating to track what you can explain or implement."}
             </p>
           </div>
           <Toggle
@@ -195,13 +208,17 @@ export function TopicReader({
             {completed ? "Read" : "Mark as read"}
           </Toggle>
         </div>
-        {next.slug !== topic.slug && (
+        {next && next.slug !== topic.slug && (
           <a
-            className="flex items-center justify-between py-[25px] text-green [&_span]:mb-2 [&_span]:block [&_span]:text-[8px] [&_span]:tracking-[1px] [&_span]:text-muted-ink [&_strong]:text-sm [&_strong]:font-medium"
+            className="flex items-center justify-between py-[25px] text-green [&_span]:mb-2 [&_span]:block [&_span]:text-sm [&_span]:tracking-[1px] [&_span]:text-muted-ink [&_strong]:text-sm [&_strong]:font-medium"
             href={`#/topic/${next.slug}`}
           >
             <div>
-              <span>UP NEXT IN {category.name.toUpperCase()}</span>
+              <span>
+                {topic.study?.next
+                  ? "SUGGESTED NEXT LESSON"
+                  : `UP NEXT IN ${category.name.toUpperCase()}`}
+              </span>
               <strong>{next.title}</strong>
             </div>
             <ArrowRight size={18} />
@@ -217,6 +234,8 @@ export function TopicReader({
           "Why it matters",
           "A practical example",
           "Try it yourself",
+          "Make it stick",
+          "Confidence",
           "Keep exploring",
         ].map((text) => (
           <a

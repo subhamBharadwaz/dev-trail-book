@@ -31,12 +31,12 @@ export function Sidebar({
         </span>
         <span>
           dev<span className="font-normal">trailbook</span>
-          <small>A little wiser, every day.</small>
+          <small>Learn. Build. Explain.</small>
         </span>
       </a>
       <div className="mx-[11px] mb-[27px] mt-7 flex items-center gap-[7px] text-xs tracking-[1px] text-muted-ink">
         <span className="inline-block size-[5px] shrink-0 rounded-full bg-[#47835c]" />
-        PERSONAL FIELD NOTES
+        YOUR STUDY SPACE
       </div>
       <nav aria-label="Main navigation">
         <span className="mx-3 mb-3 block text-sm font-medium tracking-wider text-muted-ink">

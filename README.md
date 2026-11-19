@@ -12,8 +12,10 @@ I built Dev Trailbook for my own study after a career gap: a place to revisit to
 
 | Area                | Included                                                                                                                   |
 | ------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| Learn               | 74 MDX lessons across 14 categories, learning paths, code examples, important facts, and full-text search                  |
-| Recall              | 177 flashcards and 74 quizzes, with resumable practice sessions                                                            |
+| Learn               | 84 MDX lessons across 14 categories, learning paths, code examples, important facts, and full-text search                  |
+| Visualize           | 29 interactive walkthroughs and 55 diagrams with worked examples, available inside lesson overviews                        |
+| Practice deeply     | Prerequisites, recall prompts, reconstruction exercises, hints, reference solutions, and independent confidence ratings    |
+| Recall              | 207 flashcards and 84 quizzes, with resumable practice sessions                                                            |
 | Correct mistakes    | A notebook for missed answers, reflections, and spaced retries                                                             |
 | Rehearse interviews | Timed mock sessions, written answers, self-assessment, and debriefs                                                        |
 | Build consistency   | Daily routines, practice evidence, due reviews, and weekly readiness signals                                               |
@@ -172,3 +174,5 @@ Only compile trusted MDX: it can include executable JavaScript and React compone
 - [Weekly readiness](docs/weekly-readiness.md)
 - [Backups, updates, and reminders](docs/backups-updates-reminders.md)
 - [Android setup and device checks](docs/mobile-app.md)
+
+Visual-guide coverage and authoring: [Lesson visual guides](docs/visual-guides.md).

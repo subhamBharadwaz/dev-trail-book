@@ -1,0 +1,82 @@
+export const meta = {
+  "slug": "zod-runtime-contracts",
+  "category": "typescript",
+  "title": "Zod: schemas, safeParse & inferred contracts",
+  "description": "Turn unknown input into validated application data.",
+  "minutes": 12,
+  "level": "Advanced practice",
+  "tags": [
+    "typescript",
+    "advanced",
+    "zod"
+  ],
+  "questions": [
+    {
+      "question": "What is z.infer?",
+      "answer": "It extracts the schema’s output type. It does not execute validation."
+    },
+    {
+      "question": "parse or safeParse?",
+      "answer": "parse returns validated data or throws. safeParse returns a success/data or failure/error union for explicit branching."
+    },
+    {
+      "question": "Does client-side Zod validation secure an API?",
+      "answer": "No. A caller can bypass the UI; the server still validates, authenticates and checks authorization."
+    }
+  ],
+  "facts": [
+    "Use parsed data after success.",
+    "JSON parsing and schema validation are separate boundaries.",
+    "Validation is not authorization."
+  ],
+  "source": "https://zod.dev/basics",
+  "code": "import * as z from \"zod\";\nconst NoteInput = z.strictObject({\n  title: z.string().trim().min(1).max(200),\n  tags: z.array(z.string().min(1).max(40)).max(8),\n});\ntype NoteInput = z.infer<typeof NoteInput>;\nfunction validateNote(raw: unknown) {\n  const result = NoteInput.safeParse(raw);\n  if (!result.success) {\n    return { ok: false as const, issues: result.error.issues };\n  }\n  return { ok: true as const, data: result.data };\n}",
+  "codeLanguage": "ts",
+  "origin": "discussion",
+  "quizDistractors": [
+    "A type assertion validates the runtime value automatically.",
+    "Compile-time types replace server validation and permission checks."
+  ]
+};
+
+## The idea
+
+A Zod schema is executable validation. TypeScript checks your code; Zod checks values when code runs. Define a schema once and infer its output type instead of maintaining a separate interface that can drift.
+
+## Why it matters
+
+Use safeParse when invalid input is an expected outcome; it returns a discriminated success result. parse throws on failure. Handle JSON syntax errors separately from schema errors. Bound strings and arrays, validate the whole structure you use, and validate again on the server even when the client already checked the form. These examples use Zod 4 APIs.
+
+## A practical example
+
+```ts
+import * as z from "zod";
+const NoteInput = z.strictObject({
+  title: z.string().trim().min(1).max(200),
+  tags: z.array(z.string().min(1).max(40)).max(8),
+});
+type NoteInput = z.infer<typeof NoteInput>;
+function validateNote(raw: unknown) {
+  const result = NoteInput.safeParse(raw);
+  if (!result.success) {
+    return { ok: false as const, issues: result.error.issues };
+  }
+  return { ok: true as const, data: result.data };
+}
+```
+
+## Common mistakes
+
+Do not use raw after parsing: transformations such as trim are reflected in result.data. Default z.object strips unknown keys; strictObject rejects them. Neither policy grants access to a resource. Avoid logging complete sensitive payloads in validation errors.
+
+## Try it yourself
+
+Try whitespace-only titles, nine tags, an extra ownerId and a number instead of a title. Explain the issue path for each failure and show only safe field messages in the UI.
+
+## Interview checkpoint
+
+Explain the example aloud, predict its inferred types, and describe one runtime failure that compilation cannot prevent. Then implement the exercise without using any or an unchecked assertion to bypass the problem.
+
+## Keep exploring
+
+Read the [official reference](https://zod.dev/basics). Continue through the [Advanced TypeScript & runtime contracts](#/paths/advanced-typescript) learning path.

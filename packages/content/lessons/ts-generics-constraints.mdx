@@ -1,0 +1,80 @@
+export const meta = {
+  "slug": "ts-generics-constraints",
+  "category": "typescript",
+  "title": "Generics, constraints & inference",
+  "description": "Preserve relationships between inputs and outputs without casts.",
+  "minutes": 12,
+  "level": "Advanced practice",
+  "tags": [
+    "typescript",
+    "advanced",
+    "type-system"
+  ],
+  "questions": [
+    {
+      "question": "How is T different from any?",
+      "answer": "T preserves a relationship checked by the compiler; any disables checking for operations that involve it."
+    },
+    {
+      "question": "Does extends mean inheritance here?",
+      "answer": "In a generic constraint it describes assignability requirements; no runtime subclass is created."
+    },
+    {
+      "question": "Why is fetch<T> unsafe without parsing?",
+      "answer": "The caller chooses T without evidence about the received bytes. A runtime parser must establish the expected contract."
+    }
+  ],
+  "facts": [
+    "Generics are erased at runtime.",
+    "keyof T is a union of property keys; T[K] selects their value types.",
+    "Prefer the smallest constraint that expresses the relationship."
+  ],
+  "source": "https://www.typescriptlang.org/docs/handbook/2/generics.html",
+  "code": "function get<T, K extends keyof T>(object: T, key: K): T[K] {\n  return object[key];\n}\nconst note = { title: \"Unions\", completed: false };\nconst title = get(note, \"title\"); // string\nconst done = get(note, \"completed\"); // boolean\n// get(note, \"missing\"); // compile error\n\nfunction parseWith<T>(raw: unknown, parse: (value: unknown) => T): T {\n  return parse(raw);\n}",
+  "codeLanguage": "ts",
+  "origin": "discussion",
+  "quizDistractors": [
+    "A type assertion validates the runtime value automatically.",
+    "Compile-time types replace server validation and permission checks."
+  ]
+};
+
+## The idea
+
+A generic parameter describes a relationship across values. Unlike any, T preserves the caller’s specific type. A constraint limits which inputs are accepted without replacing the inferred type with that constraint.
+
+## Why it matters
+
+Use K extends keyof T to connect a key to its object and return T[K]. Let inference work at call sites. A type parameter used only once often adds complexity without a useful relationship. A generic fetch&lt;T&gt; that simply casts JSON to T provides no runtime proof; accept a parser at the boundary instead.
+
+## A practical example
+
+```ts
+function get<T, K extends keyof T>(object: T, key: K): T[K] {
+  return object[key];
+}
+const note = { title: "Unions", completed: false };
+const title = get(note, "title"); // string
+const done = get(note, "completed"); // boolean
+// get(note, "missing"); // compile error
+
+function parseWith<T>(raw: unknown, parse: (value: unknown) => T): T {
+  return parse(raw);
+}
+```
+
+## Common mistakes
+
+Do not assert an arbitrary object to T. Constraints grant access only to the constrained members. Avoid specifying generic arguments when inference already expresses the intended relationship.
+
+## Try it yourself
+
+Build pluck&lt;T, K extends keyof T&gt;(items: T[], key: K): T[K][]. Check inferred results for numeric and string properties. Explain why a nonexistent key fails.
+
+## Interview checkpoint
+
+Explain the example aloud, predict its inferred types, and describe one runtime failure that compilation cannot prevent. Then implement the exercise without using any or an unchecked assertion to bypass the problem.
+
+## Keep exploring
+
+Read the [official reference](https://www.typescriptlang.org/docs/handbook/2/generics.html). Continue through the [Advanced TypeScript & runtime contracts](#/paths/advanced-typescript) learning path.

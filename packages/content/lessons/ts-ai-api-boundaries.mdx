@@ -1,0 +1,87 @@
+export const meta = {
+  "slug": "ts-ai-api-boundaries",
+  "category": "typescript",
+  "title": "Type-safe API & AI boundaries with Zod",
+  "description": "Validate model output before it becomes an application action.",
+  "minutes": 12,
+  "level": "Advanced practice",
+  "tags": [
+    "typescript",
+    "advanced",
+    "zod"
+  ],
+  "questions": [
+    {
+      "question": "Does structured output guarantee truth?",
+      "answer": "No. A conforming object can still contain fabricated or inappropriate content."
+    },
+    {
+      "question": "Can a schema authorize a tool call?",
+      "answer": "No. The server must check the actual user, allowed tool, ownership and permitted operation independently."
+    },
+    {
+      "question": "Should partial streamed JSON be trusted?",
+      "answer": "No. Treat partial output as unfinished display data and validate the completed result before committing it."
+    }
+  ],
+  "facts": [
+    "Shape validation is only one layer of trust.",
+    "Keep API credentials on the server.",
+    "Validate tool arguments and results; enforce authorization separately."
+  ],
+  "source": "https://zod.dev/json-schema",
+  "code": "import * as z from \"zod\";\nconst Suggestion = z.strictObject({\n  topic: z.string().min(1).max(120),\n  minutes: z.number().int().min(5).max(90),\n});\ntype Suggestion = z.infer<typeof Suggestion>;\ntype DecodeResult =\n  | { ok: true; data: Suggestion }\n  | { ok: false; reason: \"json\" | \"schema\" };\nfunction decode(text: string): DecodeResult {\n  let raw: unknown;\n  try { raw = JSON.parse(text); }\n  catch { return { ok: false, reason: \"json\" }; }\n  const parsed = Suggestion.safeParse(raw);\n  return parsed.success\n    ? { ok: true, data: parsed.data }\n    : { ok: false, reason: \"schema\" };\n}",
+  "codeLanguage": "ts",
+  "origin": "discussion",
+  "quizDistractors": [
+    "A type assertion validates the runtime value automatically.",
+    "Compile-time types replace server validation and permission checks."
+  ]
+};
+
+## The idea
+
+External API data and model output remain unknown until checked. A schema can prove a shape and local constraints, but cannot prove factual accuracy, source grounding, ownership or permission. Keep those checks explicit.
+
+## Why it matters
+
+Use a result union to distinguish transport failures, invalid JSON, schema failures and successful data. For streaming responses, partial chunks are not a finished valid document. Bound request and output sizes, support cancellation, and validate the completed value. If a provider accepts JSON Schema, verify its supported subset; a TypeScript type or arbitrary Zod transform cannot automatically become a provider-enforced contract.
+
+## A practical example
+
+```ts
+import * as z from "zod";
+const Suggestion = z.strictObject({
+  topic: z.string().min(1).max(120),
+  minutes: z.number().int().min(5).max(90),
+});
+type Suggestion = z.infer<typeof Suggestion>;
+type DecodeResult =
+  | { ok: true; data: Suggestion }
+  | { ok: false; reason: "json" | "schema" };
+function decode(text: string): DecodeResult {
+  let raw: unknown;
+  try { raw = JSON.parse(text); }
+  catch { return { ok: false, reason: "json" }; }
+  const parsed = Suggestion.safeParse(raw);
+  return parsed.success
+    ? { ok: true, data: parsed.data }
+    : { ok: false, reason: "schema" };
+}
+```
+
+## Common mistakes
+
+Never execute a model-supplied command merely because it matches a schema. Authorize each tool on the server using the real session. A valid topic string can still contain invented facts or hostile instructions. Do not render generated HTML unsafely or put private API keys into client bundles.
+
+## Try it yourself
+
+Test malformed JSON, missing fields, negative minutes, an extra command property and a valid but factually incorrect suggestion. Explain which failures the schema catches and which need product or server policy.
+
+## Interview checkpoint
+
+Explain the example aloud, predict its inferred types, and describe one runtime failure that compilation cannot prevent. Then implement the exercise without using any or an unchecked assertion to bypass the problem.
+
+## Keep exploring
+
+Read the [official reference](https://zod.dev/json-schema). Continue through the [Advanced TypeScript & runtime contracts](#/paths/advanced-typescript) learning path.

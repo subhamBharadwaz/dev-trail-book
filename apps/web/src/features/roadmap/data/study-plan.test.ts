@@ -39,7 +39,7 @@ test("every lesson is reachable by category and available in flashcards and quiz
       quizCards.some((card) => card.topicSlug === topic.slug),
       `Missing quiz for ${topic.slug}`,
     ).toBe(true);
-    if (topic.origin === "study-plan" || topic.origin === "discussion") {
+    if (topic.origin === "study-plan" || topic.planWeek !== undefined) {
       expect(topic.planWeek).toBeGreaterThanOrEqual(1);
       expect(topic.planWeek).toBeLessThanOrEqual(9);
       expect(topic.planPages?.every((page) => page >= 1 && page <= 6)).toBe(

@@ -1,0 +1,79 @@
+export const meta = {
+  "slug": "ts-literals-satisfies",
+  "category": "typescript",
+  "title": "Literal inference, as const & satisfies",
+  "description": "Check configuration while preserving useful inferred types.",
+  "minutes": 12,
+  "level": "Advanced practice",
+  "tags": [
+    "typescript",
+    "advanced",
+    "type-system"
+  ],
+  "questions": [
+    {
+      "question": "Is satisfies a runtime check?",
+      "answer": "No. It checks assignability during compilation and is erased."
+    },
+    {
+      "question": "Does as const deeply freeze data?",
+      "answer": "No. It affects inferred types; runtime freezing and aliased mutable objects are separate concerns."
+    },
+    {
+      "question": "When are template literal types useful?",
+      "answer": "For finite naming conventions such as event names and keys derived from known unions."
+    }
+  ],
+  "facts": [
+    "typeof derives a type from a value in a type position.",
+    "as const and satisfies solve different problems.",
+    "Large template-literal unions can become expensive."
+  ],
+  "source": "https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html",
+  "code": "type Route = { path: string; private: boolean };\nconst routes = {\n  notes: { path: \"/notes\", private: true },\n  login: { path: \"/login\", private: false },\n} as const satisfies Record<string, Route>;\n\ntype RouteName = keyof typeof routes; // \"notes\" | \"login\"\ntype Event = `${RouteName}:opened`;\nconst event: Event = \"notes:opened\";\nconst path = routes.notes.path; // \"/notes\"",
+  "codeLanguage": "ts",
+  "origin": "discussion",
+  "quizDistractors": [
+    "A type assertion validates the runtime value automatically.",
+    "Compile-time types replace server validation and permission checks."
+  ]
+};
+
+## The idea
+
+Type annotations check a value but can broaden its apparent type. satisfies checks assignability while retaining the expression’s useful inferred type. as const prevents literal widening and gives object properties and array positions readonly types.
+
+## Why it matters
+
+Use satisfies for route maps, variant dictionaries and configuration objects. It is not a cast or a runtime validator. as const is also compile-time only: aliases can still refer to mutable runtime objects. Template literal types combine string unions, making useful event and route contracts without runtime string validation.
+
+## A practical example
+
+```ts
+type Route = { path: string; private: boolean };
+const routes = {
+  notes: { path: "/notes", private: true },
+  login: { path: "/login", private: false },
+} as const satisfies Record<string, Route>;
+
+type RouteName = keyof typeof routes; // "notes" | "login"
+type Event = `${RouteName}:opened`;
+const event: Event = "notes:opened";
+const path = routes.notes.path; // "/notes"
+```
+
+## Common mistakes
+
+Do not replace validation of dynamic configuration with satisfies. An assertion can hide an invalid object; satisfies reports a mismatch. Excess-property checking is strongest on fresh literals and is not exact-object validation.
+
+## Try it yourself
+
+Add a route with private: "yes" and inspect the error. Compare the type of path using an explicit Record annotation, satisfies alone and as const satisfies.
+
+## Interview checkpoint
+
+Explain the example aloud, predict its inferred types, and describe one runtime failure that compilation cannot prevent. Then implement the exercise without using any or an unchecked assertion to bypass the problem.
+
+## Keep exploring
+
+Read the [official reference](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html). Continue through the [Advanced TypeScript & runtime contracts](#/paths/advanced-typescript) learning path.
