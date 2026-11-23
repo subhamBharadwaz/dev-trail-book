@@ -1,6 +1,5 @@
 import type { Topic } from "../data/content";
 import { topicBySlug } from "../data/content";
-import { StudyDisclosure } from "./study-disclosure";
 export function TopicStudyContext({ topic }: { topic: Topic }) {
   const guide = topic.study;
   if (!guide) return null;
@@ -34,45 +33,6 @@ export function TopicStudyContext({ topic }: { topic: Topic }) {
           Prerequisites are suggestions, not locked steps.
         </p>
       </div>
-      <StudyDisclosure title="Content review & version notes">
-        <dl className="space-y-2">
-          <div>
-            <dt className="font-medium text-ink">Study guidance revised</dt>
-            <dd>
-              <time dateTime={guide.review.revisedOn}>
-                {guide.review.revisedOn}
-              </time>
-            </dd>
-          </div>
-          <div>
-            <dt className="font-medium text-ink">Technical review</dt>
-            <dd>
-              {guide.review.reviewedOn ? (
-                <>
-                  Reviewed{" "}
-                  <time dateTime={guide.review.reviewedOn}>
-                    {guide.review.reviewedOn}
-                  </time>
-                </>
-              ) : (
-                "Pending. The revision date does not certify that every example was executed or checked against the latest release."
-              )}
-            </dd>
-          </div>
-          <div>
-            <dt className="font-medium text-ink">Version scope</dt>
-            <dd>{guide.review.versionNote}</dd>
-          </div>
-        </dl>
-        <a
-          className="mt-3 inline-block text-green underline underline-offset-4"
-          href={topic.source}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Check the lesson reference
-        </a>
-      </StudyDisclosure>
     </section>
   );
 }

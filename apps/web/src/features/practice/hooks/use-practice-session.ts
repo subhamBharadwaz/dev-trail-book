@@ -1,3 +1,4 @@
+import { recordPracticeReview } from "@/features/reviews/use-reviews";
 import { useEffect, useState, type SetStateAction } from "react";
 import { savePracticeMistake } from "@/features/mistakes/use-mistakes";
 import {
@@ -61,6 +62,14 @@ export function usePracticeSession(cards: PracticeCard[], scope: string) {
     reveal: () => setSession((state) => ({ ...state, revealed: true })),
     check: () => {
       if (!current || !session.selected || answered) return;
+      if (
+        !recordPracticeReview(
+          current,
+          session.selected === current.correctId,
+          cloud.userId,
+        )
+      )
+        return;
       if (session.selected !== current.correctId)
         savePracticeMistake(
           current,
@@ -79,6 +88,7 @@ export function usePracticeSession(cards: PracticeCard[], scope: string) {
     },
     grade: (known: boolean) => {
       if (!current || !session.revealed || answered) return;
+      if (!recordPracticeReview(current, known, cloud.userId)) return;
       if (!known) savePracticeMistake(current, "flashcard", "Could not recall");
       setSession((state) => ({
         ...state,

@@ -35,7 +35,7 @@ function Trailbook({ initialPath }: { initialPath: string }) {
   const { loading } = useAccount();
   const hydrated = useHydrated();
   const personal =
-    /^(today|evidence|account|mistakes|interviews|readiness|backup|practice)$/.test(
+    /^(today|evidence|account|mistakes|interviews|readiness|backup|practice|review)$/.test(
       route.kind,
     ) ||
     (route.kind === "collection" && route.collection === "saved");

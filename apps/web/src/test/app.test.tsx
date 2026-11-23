@@ -1,4 +1,4 @@
-import { act, render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expect, test } from "vitest";
 import { createAgent } from "@ui-sdk/react/agent";
@@ -63,8 +63,16 @@ test("an agent can discover named controls and filter a collection", async () =>
   expect(
     screen.getByLabelText<HTMLInputElement>("Filter this collection").value,
   ).toBe("closure");
-  expect(screen.getByRole("link", { name: /Closures, without/ })).toBeTruthy();
-  expect(screen.queryByRole("link", { name: /Promises & async/ })).toBeNull();
+  expect(
+    within(screen.getByRole("main")).getByRole("link", {
+      name: /Closures, without/,
+    }),
+  ).toBeTruthy();
+  expect(
+    within(screen.getByRole("main")).queryByRole("link", {
+      name: /Promises & async/,
+    }),
+  ).toBeNull();
 });
 
 test("topic tabs, answers, bookmarks, and progress are wired and persistent", async () => {
@@ -188,7 +196,11 @@ test("collection navigation resets filters and preserves saved reading state", a
   ).toBe("");
   await user.click(screen.getByRole("link", { name: /Saved topics/ }));
   await screen.findByRole("heading", { name: "Saved topics" });
-  expect(screen.getByRole("link", { name: /Closures, without/ })).toBeTruthy();
+  expect(
+    within(screen.getByRole("main")).getByRole("link", {
+      name: /Closures, without/,
+    }),
+  ).toBeTruthy();
 });
 
 test("mobile navigation reuses the sidebar and closes after choosing a page", async () => {

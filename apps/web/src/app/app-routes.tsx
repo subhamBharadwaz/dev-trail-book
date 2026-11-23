@@ -5,6 +5,11 @@ import { CollectionPage } from "@/pages/collection-page";
 import { TopicPage } from "@/pages/topic-page";
 import { NotFoundPage } from "@/pages/not-found-page";
 import type { AppRoute } from "./routes";
+const ReviewPage = lazy(() =>
+  import("@/pages/review-page").then((module) => ({
+    default: module.ReviewPage,
+  })),
+);
 const LearningPathsPage = lazy(() =>
   import("@/pages/learning-paths-page").then((module) => ({
     default: module.LearningPathsPage,
@@ -62,6 +67,12 @@ const RoadmapPage = lazy(() =>
 );
 export function AppRoutes({ route }: { route: AppRoute }) {
   switch (route.kind) {
+    case "review":
+      return (
+        <Suspense fallback={loading}>
+          <ReviewPage />
+        </Suspense>
+      );
     case "public-page":
       return <PublicPage page={route.page} />;
     case "backup":

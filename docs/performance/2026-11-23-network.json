@@ -1,0 +1,117 @@
+{
+  "checkedAt": "2026-11-23T06:25:08Z",
+  "method": "Five independent compressed HTTPS requests per URL from this machine; new connection each sample. This measures network response, not browser rendering or mobile Core Web Vitals.",
+  "pages": [
+    {
+      "url": "https://dev-trailbook.pages.dev/",
+      "medianTtfbMs": 247.4,
+      "medianTotalMs": 249.7,
+      "samples": [
+        {
+          "status": 200,
+          "ttfbMs": 362.1,
+          "totalMs": 362.4,
+          "downloadBytes": 12883
+        },
+        {
+          "status": 200,
+          "ttfbMs": 216.1,
+          "totalMs": 216.5,
+          "downloadBytes": 12883
+        },
+        {
+          "status": 200,
+          "ttfbMs": 270.7,
+          "totalMs": 274.3,
+          "downloadBytes": 12883
+        },
+        {
+          "status": 200,
+          "ttfbMs": 247.4,
+          "totalMs": 249.7,
+          "downloadBytes": 12883
+        },
+        {
+          "status": 200,
+          "ttfbMs": 241.1,
+          "totalMs": 243.5,
+          "downloadBytes": 12883
+        }
+      ]
+    },
+    {
+      "url": "https://dev-trailbook.pages.dev/topic/event-loop/",
+      "medianTtfbMs": 228.0,
+      "medianTotalMs": 231.6,
+      "samples": [
+        {
+          "status": 200,
+          "ttfbMs": 228.3,
+          "totalMs": 231.6,
+          "downloadBytes": 13737
+        },
+        {
+          "status": 200,
+          "ttfbMs": 275.5,
+          "totalMs": 277.7,
+          "downloadBytes": 13737
+        },
+        {
+          "status": 200,
+          "ttfbMs": 189.7,
+          "totalMs": 193.7,
+          "downloadBytes": 13737
+        },
+        {
+          "status": 200,
+          "ttfbMs": 211.2,
+          "totalMs": 213.5,
+          "downloadBytes": 13737
+        },
+        {
+          "status": 200,
+          "ttfbMs": 228.0,
+          "totalMs": 231.7,
+          "downloadBytes": 13737
+        }
+      ]
+    },
+    {
+      "url": "https://dev-trailbook.pages.dev/start-here/",
+      "medianTtfbMs": 236.8,
+      "medianTotalMs": 238.7,
+      "samples": [
+        {
+          "status": 200,
+          "ttfbMs": 222.4,
+          "totalMs": 223.7,
+          "downloadBytes": 9892
+        },
+        {
+          "status": 200,
+          "ttfbMs": 236.8,
+          "totalMs": 238.7,
+          "downloadBytes": 9892
+        },
+        {
+          "status": 200,
+          "ttfbMs": 246.6,
+          "totalMs": 249.2,
+          "downloadBytes": 9892
+        },
+        {
+          "status": 200,
+          "ttfbMs": 221.8,
+          "totalMs": 225.0,
+          "downloadBytes": 9892
+        },
+        {
+          "status": 200,
+          "ttfbMs": 244.0,
+          "totalMs": 246.4,
+          "downloadBytes": 9892
+        }
+      ]
+    }
+  ]
+}

@@ -65,6 +65,7 @@ export function restoreBackup(
         `trailbook:practice:preferences:${key.slice("practice/preferences/".length)}`
       ] = value === null ? null : JSON.stringify(value);
     if (
+      key.startsWith("practice/review/") ||
       key.startsWith("practice/mistake/") ||
       key.startsWith("practice/interview")
     )

@@ -26,6 +26,7 @@ for (const topic of topics) {
     throw new Error(`Missing worked code: ${topic.slug}`);
 }
 for (const route of [
+  "review",
   "account",
   "today",
   "evidence",
@@ -59,7 +60,7 @@ for (const topic of topics)
   if (!sitemap.includes(`/topic/${topic.slug}/`))
     throw new Error(`Missing lesson in sitemap: ${topic.slug}`);
 if (
-  /https:\/\/dev-trailbook.pages.dev\/(account|today|evidence|mistakes|interviews|readiness|backup|saved|practice)(\/|<)/.test(
+  /https:\/\/dev-trailbook.pages.dev\/(review|account|today|evidence|mistakes|interviews|readiness|backup|saved|practice)(\/|<)/.test(
     sitemap,
   )
 )

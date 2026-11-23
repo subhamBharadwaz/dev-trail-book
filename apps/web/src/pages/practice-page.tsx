@@ -1,3 +1,4 @@
+import { ReviewSummary } from "@/features/reviews/review-summary";
 import { usePracticePreferences } from "@/features/practice/hooks/use-practice-preferences";
 import { Tabs, TabsList, TabsPanel, TabsTab } from "@ui-sdk/react/tabs";
 import {
@@ -79,6 +80,7 @@ export function PracticePage({ path }: { path?: LearningPath }) {
           {cards.length} flashcards · {quizzes.length} quiz questions
         </span>
       </div>
+      <ReviewSummary />
       <a
         href="/mistakes"
         className="mb-6 inline-flex min-h-11 items-center text-base font-medium text-green"

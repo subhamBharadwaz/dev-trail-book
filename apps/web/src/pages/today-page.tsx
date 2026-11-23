@@ -1,3 +1,4 @@
+import { ReviewSummary } from "@/features/reviews/review-summary";
 import { Check, ArrowUpRight, CalendarDays } from "lucide-react";
 import { Checkbox, CheckboxIndicator } from "@ui-sdk/react/checkbox";
 import {
@@ -40,6 +41,7 @@ export function TodayPage() {
       >
         See your weekly readiness →
       </a>
+      <ReviewSummary />
       <a
         href="/mistakes"
         className="flex min-h-14 items-center justify-between gap-4 rounded-xl border border-line bg-surface p-5 text-base font-medium text-green"
