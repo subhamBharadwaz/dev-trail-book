@@ -1,3 +1,4 @@
+import { searchTopicBySlug } from "@/features/search/data/search-index";
 import { expect, test } from "vitest";
 import audit from "../../../../../../docs/pdf-coverage-audit.json";
 import { topics, topicBySlug } from "@/features/topics/data/content";
@@ -23,22 +24,22 @@ test("the PDF audit maps all six source pages to reachable lessons", () => {
 });
 
 test("the depth audit includes completed examples and explicit practice limitations", () => {
-  expect(topicBySlug.get("hashmap-practice")?.searchText).toContain(
+  expect(searchTopicBySlug.get("hashmap-practice")?.searchText).toContain(
     "function validanagram",
   );
-  expect(topicBySlug.get("two-pointers")?.searchText).toContain(
+  expect(searchTopicBySlug.get("two-pointers")?.searchText).toContain(
     "function isasciipalindrome",
   );
-  expect(topicBySlug.get("tree-bfs-dfs")?.searchText).toContain(
+  expect(searchTopicBySlug.get("tree-bfs-dfs")?.searchText).toContain(
     "function preorder",
   );
   expect(
     topicBySlug.get("retrieval-evaluation")?.code.match(/question:/g),
   ).toHaveLength(10);
-  expect(topicBySlug.get("dsa-40-problem-bank")?.searchText).toContain(
+  expect(searchTopicBySlug.get("dsa-40-problem-bank")?.searchText).toContain(
     "full solutions for every listed problem are not included",
   );
-  expect(topicBySlug.get("ai-streaming")?.searchText).toContain(
+  expect(searchTopicBySlug.get("ai-streaming")?.searchText).toContain(
     "function createstreamcontroller",
   );
 });

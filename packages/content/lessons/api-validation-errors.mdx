@@ -6,7 +6,7 @@ export const meta = {
     "Define successful responses and failures before writing the UI.",
   minutes: 12,
   level: "Interview depth",
-  tags: ["pdf-audit", "micro-topics", "week-4"],
+  tags: ["practice", "micro-topics", "practice"],
   questions: [
     {
       question: "Does fetch reject on a 404 response?",
@@ -37,9 +37,7 @@ export const meta = {
   source: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status",
   code: 'type Failure = { error: { code: string; message: string; fields?: Record<string, string> } };\nfunction parsePage(raw: string | null): number {\n  if (raw === null) return 20;\n  if (!/^\\d+$/.test(raw)) throw new Error("Invalid limit");\n  const limit = Number(raw);\n  if (!Number.isSafeInteger(limit) || limit < 1 || limit > 100)\n    throw new Error("Limit must be between 1 and 100");\n  return limit;\n}\nasync function readJson(response: Response): Promise<unknown> {\n  if (response.status === 204) return undefined;\n  const body: unknown = await response.json();\n  if (!response.ok) throw new Error(`Request failed (${response.status})`);\n  return body;\n}',
   codeLanguage: "ts",
-  origin: "study-plan",
-  planWeek: 4,
-  planPages: [4],
+  origin: "foundation",
   quizDistractors: [
     "This can be assumed without checking inputs, ownership, or failures.",
     "The UI alone guarantees correctness for all callers.",
@@ -110,4 +108,4 @@ Design create/list/update contracts for notes. Write examples for malformed JSON
 
 ## Keep exploring
 
-[Official reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status). Study-plan expansion, page 4.
+[Official reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status).

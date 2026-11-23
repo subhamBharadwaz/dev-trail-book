@@ -32,7 +32,7 @@ export const meta = {
   "source": "https://zod.dev/json-schema",
   "code": "import * as z from \"zod\";\nconst Suggestion = z.strictObject({\n  topic: z.string().min(1).max(120),\n  minutes: z.number().int().min(5).max(90),\n});\ntype Suggestion = z.infer<typeof Suggestion>;\ntype DecodeResult =\n  | { ok: true; data: Suggestion }\n  | { ok: false; reason: \"json\" | \"schema\" };\nfunction decode(text: string): DecodeResult {\n  let raw: unknown;\n  try { raw = JSON.parse(text); }\n  catch { return { ok: false, reason: \"json\" }; }\n  const parsed = Suggestion.safeParse(raw);\n  return parsed.success\n    ? { ok: true, data: parsed.data }\n    : { ok: false, reason: \"schema\" };\n}",
   "codeLanguage": "ts",
-  "origin": "discussion",
+  "origin": "foundation",
   "quizDistractors": [
     "A type assertion validates the runtime value automatically.",
     "Compile-time types replace server validation and permission checks."
@@ -84,4 +84,4 @@ Explain the example aloud, predict its inferred types, and describe one runtime 
 
 ## Keep exploring
 
-Read the [official reference](https://zod.dev/json-schema). Continue through the [Advanced TypeScript & runtime contracts](#/paths/advanced-typescript) learning path.
+Read the [official reference](https://zod.dev/json-schema). Continue through the [Advanced TypeScript & runtime contracts](/paths/advanced-typescript) learning path.

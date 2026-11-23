@@ -8,6 +8,7 @@ import {
   topics,
   categories,
 } from "../features/topics/data/content";
+import { searchTopics } from "../features/search/data/search-index";
 const agent = createAgent();
 
 test("every note has complete metadata, searchable content, and a valid collection", () => {
@@ -23,7 +24,9 @@ test("every note has complete metadata, searchable content, and a valid collecti
     expect(topic.source.startsWith("https://")).toBe(true);
   }
   expect(
-    filterTopics("lexical binding").some((topic) => topic.slug === "closures"),
+    filterTopics("lexical binding", searchTopics).some(
+      (topic) => topic.slug === "closures",
+    ),
   ).toBe(true);
   expect(filterTopics("no-match-1292")).toHaveLength(0);
 });

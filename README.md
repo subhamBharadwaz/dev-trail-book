@@ -1,12 +1,10 @@
 # Dev Trailbook
 
-**A personal workspace for rebuilding developer fundamentals and preparing for interviews.**
+**A frontend-first learning platform, from foundations to advanced application development.**
 
-I built Dev Trailbook for my own study after a career gap: a place to revisit topics, practice explaining them, learn from mistakes, and build a consistent routine again. It is a personal project shared publicly, and anyone is welcome to use the website for their own preparation.
+Dev Trailbook connects explanations, worked examples, interactive visuals and deliberate practice. Start with HTML, CSS and JavaScript, develop TypeScript and React skills, then explore rendering, testing and shipping real interfaces. Backend, AI, algorithms and interview preparation are optional extensions.
 
-[Open the website](https://dev-trailbook.pages.dev/) · [Android builds](https://expo.dev/accounts/webhashiras-team/projects/dev-trailbook/builds) · [Mobile guide](docs/mobile-app.md)
-
-![Dev Trailbook overview in the Paper & Indigo theme](docs/images/web-overview.png)
+Learn at your own pace. Prerequisites guide your next step without locking lessons, and reading progress stays separate from confidence and practice. The curriculum is growing; new topics are added as standalone lessons and connected learning paths. No external document or fixed calendar is required.
 
 ## What you can do
 
@@ -66,7 +64,7 @@ flowchart TB
 
 ```text
 apps/
-  web/                 Vite, React, Tailwind, shadcn, and UI SDK
+  web/                 Astro, React, Tailwind, shadcn, and UI SDK
   mobile/              Expo Router app and native device adapters
 packages/
   content/             MDX lessons, categories, and generated native content
@@ -176,3 +174,13 @@ Only compile trusted MDX: it can include executable JavaScript and React compone
 - [Android setup and device checks](docs/mobile-app.md)
 
 Visual-guide coverage and authoring: [Lesson visual guides](docs/visual-guides.md).
+
+## Public-page rendering and SEO
+
+The web build uses Astro 7 with the official React integration. Public lessons, categories and learning paths have real URLs and pre-rendered HTML, including worked code, questions and facts. The same React layout is pre-rendered and then hydrated, so loading does not replace a different fallback design. A persisted workspace preserves account state and navigation chrome between routes. Full-text search loads only when opened, lesson links preload on hover or focus, and public reading does not wait for sign-in restoration. The workspace remains one React island; individual tools are not yet separate Astro islands.
+
+`bun run dev` starts Astro. `bun run build` creates the static website and copies it to root `dist/` for Cloudflare Pages. Keep the Pages build command `bun run build` and output directory `dist`. No paid server or runtime adapter is needed for this static build.
+
+Canonical URLs, Open Graph/X cards and the approved OG image are emitted in HTML. The generated sitemap includes public learning pages and excludes account and personal study routes, which carry `noindex`. Old `#/topic/...` links redirect in the browser to real paths; authentication token fragments are not treated as navigation. The production origin remains `https://dev-trailbook.pages.dev`; update the Astro site setting and social image origin if the domain changes.
+
+The build verifies readable lesson HTML, canonical metadata, sitemap coverage, noindex workspace pages and social assets. Existing React tests still use the Vite test harness. Astro template checking currently reports an upstream incompatibility with the installed TypeScript 7.0 compiler; the production Astro compiler and TypeScript app checks run separately. Do not report `astro check` as passing until this compatibility limitation is resolved.

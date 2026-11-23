@@ -4,8 +4,8 @@ export const meta = {
   title: "SQL joins & relationship cardinality",
   description: "Predict how many rows a relationship produces.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["databases", "week-4", "interview-prep"],
+  level: "Core concept",
+  tags: ["databases", "practice", "practice"],
   questions: [
     {
       question: "Does a LEFT JOIN drop a parent with no matching child?",
@@ -26,9 +26,7 @@ export const meta = {
   source: "https://www.postgresql.org/docs/current/tutorial-join.html",
   code: "SELECT e.id, e.title, COUNT(t.id) AS tag_count\nFROM entries e\nLEFT JOIN entry_tags et ON et.entry_id = e.id\nLEFT JOIN tags t ON t.id = et.tag_id\nWHERE e.owner_id = $1\nGROUP BY e.id, e.title\nORDER BY e.id;\n-- COUNT(t.id) counts matched tags, not the preserved null row.",
   codeLanguage: "sql",
-  origin: "study-plan",
-  planWeek: 4,
-  planPages: [4],
+  origin: "foundation",
   quizDistractors: [
     "Yes. LEFT JOIN always removes unmatched left-side rows.",
     "Yes. LEFT JOIN behaves exactly like INNER JOIN for unmatched parents.",
@@ -67,5 +65,3 @@ Create one entry with two tags and one entry with none. Predict the joined rows 
 ## Keep exploring
 
 Read the [technical reference](https://www.postgresql.org/docs/current/tutorial-join.html) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 4, Week 4. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

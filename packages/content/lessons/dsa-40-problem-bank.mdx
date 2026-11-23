@@ -3,10 +3,10 @@ export const meta = {
   category: "dsa",
   title: "40-problem DSA practice bank & re-solve method",
   description:
-    "Turn the PDF\u2019s 35\u201350-problem range into a bounded practice list.",
+    "Turn the curriculum\u2019s 35\u201350-problem range into a bounded practice list.",
   minutes: 12,
   level: "Interview depth",
-  tags: ["pdf-audit", "micro-topics", "week-1"],
+  tags: ["practice", "micro-topics", "practice"],
   questions: [
     {
       question: "When is a problem understood?",
@@ -19,7 +19,7 @@ export const meta = {
         "No. Applications start in week one; use role requirements and actual interview feedback to prioritize practice.",
     },
     {
-      question: "Which unnamed exercises fill the PDF slots?",
+      question: "Which exercises build collection and pointer skills?",
       answer:
         "Contains Duplicate and Valid Anagram are explicit HashMap equivalents; sorted pair search and ASCII Valid Palindrome are explicit Two Pointers equivalents.",
     },
@@ -32,9 +32,7 @@ export const meta = {
   source: "https://leetcode.com/problemset/",
   code: "type Attempt = {\n  problem: string; attemptedAt: string; independent: boolean;\n  timeComplexity: string; spaceComplexity: string;\n  edgeCases: string[]; recurringError?: string;\n  reviewAfterDays: [2, 7];\n};",
   codeLanguage: "ts",
-  origin: "study-plan",
-  planWeek: 1,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "This can be assumed without checking inputs, ownership, or failures.",
     "The UI alone guarantees correctness for all callers.",
@@ -43,11 +41,11 @@ export const meta = {
 
 ## The idea
 
-Turn the PDF’s 35–50-problem range into a bounded practice list.
+
 
 ## How to use this bank
 
-The PDF suggests roughly 35–50 well-understood unique problems plus re-solves. This is a curated set of 40, not a claim that 40 solutions are already mastered. The PDF names only Two Sum and Group Anagrams; all other titles below are suggested equivalents or practice choices. Use existing notes for pattern explanations and worked examples, attempt each problem independently, then use the original statement/editorial to check your reasoning. Full solutions for every listed problem are not included here.
+ This is a curated set of 40, not a claim that 40 solutions are already mastered. Use existing notes for pattern explanations and worked examples, attempt each problem independently, then use the original statement/editorial to check your reasoning. Full solutions for every listed problem are not included here.
 
 For each attempt record: clarified contract, brute force, invariant, improved approach, time/space complexity, empty/duplicate/boundary cases, actual working code, hints used and two-day/seven-day re-solve dates. Do not count a copied answer as an independent solve.
 
@@ -137,7 +135,7 @@ You can independently explain the invariant, implement a correct solution, analy
 
 No. Applications start in week one; use role requirements and actual interview feedback to prioritize practice.
 
-### Which unnamed exercises fill the PDF slots?
+
 
 Contains Duplicate and Valid Anagram are explicit HashMap equivalents; sorted pair search and ASCII Valid Palindrome are explicit Two Pointers equivalents.
 
@@ -147,4 +145,4 @@ Pick four weak patterns, solve one from each, and schedule two spaced re-solves.
 
 ## Keep exploring
 
-[Official reference](https://leetcode.com/problemset/). Study-plan expansion, page 3.
+[Official reference](https://leetcode.com/problemset/).

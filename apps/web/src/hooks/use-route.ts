@@ -3,12 +3,22 @@ import { resolveRoute } from "@/app/routes";
 function subscribe(onChange: () => void) {
   const change = () => {
     onChange();
-    window.scrollTo({ top: 0, behavior: "instant" });
   };
   window.addEventListener("hashchange", change);
-  return () => window.removeEventListener("hashchange", change);
+  window.addEventListener("popstate", change);
+  document.addEventListener("astro:page-load", change);
+  return () => {
+    window.removeEventListener("hashchange", change);
+    window.removeEventListener("popstate", change);
+    document.removeEventListener("astro:page-load", change);
+  };
 }
-const getSnapshot = () => window.location.hash.slice(1) || "/";
-export function useRoute() {
-  return resolveRoute(useSyncExternalStore(subscribe, getSnapshot, () => "/"));
+const getSnapshot = () =>
+  window.location.hash.startsWith("#/")
+    ? window.location.hash.slice(1)
+    : window.location.pathname.replace(/\/$/, "") || "/";
+export function useRoute(initialPath = "/") {
+  return resolveRoute(
+    useSyncExternalStore(subscribe, getSnapshot, () => initialPath),
+  );
 }

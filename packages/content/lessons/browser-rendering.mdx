@@ -4,8 +4,8 @@ export const meta = {
   title: "Browser rendering & layout work",
   description: "Know what happens between receiving HTML and painting pixels.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["web", "week-1", "interview-prep"],
+  level: "Core concept",
+  tags: ["web", "practice", "practice"],
   questions: [
     {
       question: "Why can a geometry read be expensive?",
@@ -27,9 +27,7 @@ export const meta = {
     "https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path",
   code: '// Read geometry together, then apply writes.\nconst widths = cards.map(card => card.getBoundingClientRect().width);\ncards.forEach((card, index) => {\n  card.style.setProperty("--measured-width", `${widths[index]}px`);\n});\n// Avoid alternating a geometry read and write in a large loop.',
   codeLanguage: "js",
-  origin: "study-plan",
-  planWeek: 1,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "Geometry reads can never trigger layout work.",
     "Reading layout always happens on a separate worker thread.",
@@ -66,5 +64,3 @@ Use the Performance panel to compare an alternating read/write loop with batched
 ## Keep exploring
 
 Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Critical_rendering_path) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

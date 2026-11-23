@@ -1,3 +1,4 @@
+import { useHydrated } from "./use-hydrated";
 import { useEffect, useState, useSyncExternalStore } from "react";
 export type ThemePreference = "light" | "dark" | "system";
 const themeKey = "trailbook:theme";
@@ -20,9 +21,17 @@ function deviceIsDark() {
 }
 export function useTheme() {
   const [preference, setPreference] = useState(storedPreference);
-  const systemDark = useSyncExternalStore(subscribeToDevice, deviceIsDark);
-  const dark = preference === "dark" || (preference === "system" && systemDark);
+  const systemDark = useSyncExternalStore(
+    subscribeToDevice,
+    deviceIsDark,
+    () => false,
+  );
+  const hydrated = useHydrated();
+  const dark =
+    hydrated &&
+    (preference === "dark" || (preference === "system" && systemDark));
   useEffect(() => {
+    setPreference(storedPreference());
     const sync = (event: StorageEvent) => {
       if (event.key === themeKey || event.key === null)
         setPreference(storedPreference());
@@ -33,8 +42,22 @@ export function useTheme() {
     };
   }, []);
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", dark);
-  }, [dark]);
+    if (!hydrated) return;
+    const applyTheme = () =>
+      document.documentElement.classList.toggle("dark", dark);
+    const preparePage = (event: Event) => {
+      const nextDocument = (event as Event & { newDocument: Document })
+        .newDocument;
+      nextDocument.documentElement.classList.toggle("dark", dark);
+    };
+    applyTheme();
+    document.addEventListener("astro:before-swap", preparePage);
+    document.addEventListener("astro:after-swap", applyTheme);
+    return () => {
+      document.removeEventListener("astro:before-swap", preparePage);
+      document.removeEventListener("astro:after-swap", applyTheme);
+    };
+  }, [dark, hydrated]);
   const choosePreference = (value: ThemePreference) => {
     setPreference(value);
     try {

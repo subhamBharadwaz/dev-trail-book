@@ -4,8 +4,8 @@ export const meta = {
   title: "Server Actions vs Route Handlers",
   description: "Choose an interface for the caller you actually have.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["nextjs", "week-3", "interview-prep"],
+  level: "Core concept",
+  tags: ["nextjs", "practice", "practice"],
   questions: [
     {
       question: "Does using a Server Action remove the need for authorization?",
@@ -26,9 +26,7 @@ export const meta = {
   source: "https://nextjs.org/docs/app/getting-started/mutating-data",
   code: '// app/api/entries/route.ts — illustrative server helpers\nexport async function POST(request: Request) {\n  const user = await requireUser();\n  const input = await request.json().catch(() => null);\n  const parsed = entrySchema.safeParse(input);\n  if (!parsed.success) {\n    return Response.json({ error: "Invalid entry" }, { status: 400 });\n  }\n  const entry = await createEntryForUser(user.id, parsed.data);\n  return Response.json({ id: entry.id }, { status: 201 });\n}',
   codeLanguage: "ts",
-  origin: "study-plan",
-  planWeek: 3,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "Yes. A hidden Action can never be called without the matching button.",
     "Yes. React automatically enforces your business permissions.",
@@ -70,5 +68,3 @@ Model one create-entry operation as a form Action and as an HTTP handler. Keep o
 ## Keep exploring
 
 Read the [technical reference](https://nextjs.org/docs/app/getting-started/mutating-data) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 3, Week 3. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

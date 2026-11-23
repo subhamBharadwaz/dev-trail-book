@@ -49,19 +49,10 @@ test("every lesson is reachable by category and available in flashcards and quiz
   }
 });
 
-test("discussion provenance and recorded progress remain distinct from assumed completion", () => {
-  expect(topicBySlug.get("redirect-errors")).toMatchObject({
-    origin: "discussion",
-    discussionSource: { title: "Full Stack Interview prep" },
-  });
-  expect(topicBySlug.get("search-abort-races")).toMatchObject({
-    origin: "discussion",
-    discussionSource: { title: "React User Search App" },
-  });
-  expect(topicBySlug.get("promise-chains")?.planRecordedStatus).toBe("covered");
-  expect(topicBySlug.get("two-sum-hashmap")?.planRecordedStatus).toBe(
-    "pending",
-  );
-  expect(topicBySlug.get("heap-basics")?.optional).toBe(true);
-  expect(topicBySlug.get("retrieval-evaluation")?.optional).toBe(true);
+test("public lessons do not assume historical completion or external documents", () => {
+  for (const topic of topics) {
+    expect(topic.planRecordedStatus).toBeUndefined();
+    expect(topic.planWeek).toBeUndefined();
+    expect(topic.title).not.toMatch(/PDF|December/i);
+  }
 });

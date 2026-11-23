@@ -4,8 +4,8 @@ export const meta = {
   title: "Stacks, brackets & last-in-first-out reasoning",
   description: "Keep the most recent unfinished obligation on top.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["dsa", "week-2", "interview-prep"],
+  level: "Core concept",
+  tags: ["dsa", "practice", "practice"],
   questions: [
     {
       question: "Why is counting opening and closing brackets insufficient?",
@@ -27,9 +27,7 @@ export const meta = {
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push",
   code: 'function validBrackets(text) {\n  const closing = { "(": ")", "[": "]", "{": "}" };\n  const stack = [];\n  for (const char of text) {\n    if (Object.hasOwn(closing, char)) stack.push(closing[char]);\n    else if (![ ")", "]", "}" ].includes(char) || stack.pop() !== char) {\n      return false;\n    }\n  }\n  return stack.length === 0;\n}',
   codeLanguage: "js",
-  origin: "study-plan",
-  planWeek: 2,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "Counts fully describe nesting order.",
     "Equal numbers of openers and closers guarantee valid nesting.",
@@ -71,5 +69,3 @@ Trace ([)] and ([]). Explain exactly where the invalid sequence violates the inv
 ## Keep exploring
 
 Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 3, Week 2. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

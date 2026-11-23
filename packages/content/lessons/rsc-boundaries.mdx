@@ -4,8 +4,8 @@ export const meta = {
   title: "Server & Client Component boundaries",
   description: "Choose a boundary based on data access and interaction.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["nextjs", "week-3", "interview-prep"],
+  level: "Core concept",
+  tags: ["nextjs", "practice", "practice"],
   questions: [
     {
       question:
@@ -28,9 +28,7 @@ export const meta = {
     "https://nextjs.org/docs/app/getting-started/server-and-client-components",
   code: '// app/journal/page.tsx — Server Component\nimport { getEntriesForCurrentUser } from "@/data/entries";\nimport { EntryFilter } from "./entry-filter";\nexport default async function JournalPage() {\n  const entries = await getEntriesForCurrentUser();\n  return <EntryFilter entries={entries.map(entry => ({\n    id: entry.id, title: entry.title,\n  }))} />;\n}\n// entry-filter.tsx begins with \'use client\' and owns filter state.',
   codeLanguage: "ts",
-  origin: "study-plan",
-  planWeek: 3,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "Yes. use client disables all server-generated initial HTML.",
     "Yes. Client Components run only in a web worker.",
@@ -71,5 +69,3 @@ Draw the journal page boundary. List exactly what data crosses into the interact
 ## Keep exploring
 
 Read the [technical reference](https://nextjs.org/docs/app/getting-started/server-and-client-components) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 3, Week 3. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

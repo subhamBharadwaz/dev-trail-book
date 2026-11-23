@@ -42,7 +42,7 @@ export function LearningPathsPage({ path }: { path?: LearningPath }) {
   return (
     <div className="mx-auto max-w-4xl px-6 py-10 sm:px-8 lg:px-10">
       <a
-        href="#/paths"
+        href="/paths"
         className="inline-flex items-center gap-2 text-sm text-muted-ink"
       >
         <ArrowLeft size={14} />
@@ -80,8 +80,8 @@ export function LearningPathsPage({ path }: { path?: LearningPath }) {
             {progress.minutes} minutes of reading
           </span>
           <a
-            href={`#/topic/${(progress.next || progress.topics[0]).slug}`}
-            className="inline-flex items-center gap-3 rounded-lg bg-[#2c684e] px-4 py-2.5 text-sm font-medium text-white hover:bg-[#20513b]"
+            href={`/topic/${(progress.next || progress.topics[0]).slug}`}
+            className="inline-flex items-center gap-3 rounded-lg border border-[var(--edge)] bg-[var(--button-fill)] px-4 py-2.5 text-sm font-medium text-[var(--button-ink)] shadow-[2px_2px_0_var(--edge)] hover:brightness-95"
           >
             {progress.percent === 100
               ? "Revisit first topic"
@@ -96,7 +96,7 @@ export function LearningPathsPage({ path }: { path?: LearningPath }) {
         {progress.topics.map((topic, index) => (
           <li key={topic.slug}>
             <a
-              href={`#/topic/${topic.slug}`}
+              href={`/topic/${topic.slug}`}
               className="group flex items-center gap-4 rounded-lg py-6 focus-visible:outline-2 focus-visible:outline-green"
             >
               <span
@@ -134,7 +134,7 @@ export function LearningPathsPage({ path }: { path?: LearningPath }) {
           </p>
         </div>
         <a
-          href={`#/practice/path/${path.id}`}
+          href={`/practice/path/${path.id}`}
           className="inline-flex items-center gap-2 text-sm font-medium text-green"
         >
           Practice this path

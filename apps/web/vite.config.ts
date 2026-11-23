@@ -13,6 +13,9 @@ export default defineConfig({
       name: "mdx-search-text",
       enforce: "pre",
       transform(code, id) {
+        if (id.endsWith(".mdx?search")) {
+          return "export const searchText = " + JSON.stringify(code) + ";";
+        }
         if (id.endsWith(".mdx?metadata")) {
           const metadata = code.match(/^export const meta = [\s\S]*?\n};/);
           if (!metadata)
@@ -20,7 +23,7 @@ export default defineConfig({
           return (
             metadata[0] +
             "\nexport const searchText = " +
-            JSON.stringify(code.slice(metadata[0].length)) +
+            JSON.stringify("") +
             ";"
           );
         }

@@ -39,7 +39,7 @@ test("review status makes no false technical verification claim and prerequisite
   render(<TopicStudyContext topic={topic} />);
   expect(
     screen.getByRole("link", { name: /Typed props/ }).getAttribute("href"),
-  ).toBe("#/topic/typed-props-api");
+  ).toBe("/topic/typed-props-api");
   const agent = createAgent();
   await act(async () => {
     const result = await agent.act({

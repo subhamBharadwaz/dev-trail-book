@@ -32,7 +32,7 @@ export const meta = {
   "source": "https://react.dev/learn/typescript",
   "code": "import type { ReactNode } from \"react\";\ntype InputMode =\n  | { value: string; onChange: (value: string) => void; defaultValue?: never }\n  | { defaultValue?: string; value?: never; onChange?: never };\n\ntype ListProps<T> = {\n  items: readonly T[];\n  getKey: (item: T) => string;\n  renderItem: (item: T) => ReactNode;\n};\nfunction List<T>({ items, getKey, renderItem }: ListProps<T>) {\n  return <ul>{items.map(item =>\n    <li key={getKey(item)}>{renderItem(item)}</li>\n  )}</ul>;\n}",
   "codeLanguage": "tsx",
-  "origin": "discussion",
+  "origin": "foundation",
   "quizDistractors": [
     "A type assertion validates the runtime value automatically.",
     "Compile-time types replace server validation and permission checks."
@@ -81,4 +81,4 @@ Explain the example aloud, predict its inferred types, and describe one runtime 
 
 ## Keep exploring
 
-Read the [official reference](https://react.dev/learn/typescript). Continue through the [Advanced TypeScript & runtime contracts](#/paths/advanced-typescript) learning path.
+Read the [official reference](https://react.dev/learn/typescript). Continue through the [Advanced TypeScript & runtime contracts](/paths/advanced-typescript) learning path.

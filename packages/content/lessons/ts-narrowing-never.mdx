@@ -32,7 +32,7 @@ export const meta = {
   "source": "https://www.typescriptlang.org/docs/handbook/2/narrowing.html",
   "code": "type Result<T> = { ok: true; data: T } | { ok: false; error: string };\nfunction assertNever(value: never): never {\n  throw new Error(\"Unhandled variant\");\n}\ntype State = { status: \"idle\" } | { status: \"ready\"; count: number };\nfunction label(state: State): string {\n  switch (state.status) {\n    case \"idle\": return \"Ready to start\";\n    case \"ready\": return `${state.count} notes`;\n    default: return assertNever(state);\n  }\n}\ndeclare const userIdBrand: unique symbol;\ntype UserId = string & { readonly [userIdBrand]: true };",
   "codeLanguage": "ts",
-  "origin": "discussion",
+  "origin": "foundation",
   "quizDistractors": [
     "A type assertion validates the runtime value automatically.",
     "Compile-time types replace server validation and permission checks."
@@ -80,4 +80,4 @@ Explain the example aloud, predict its inferred types, and describe one runtime 
 
 ## Keep exploring
 
-Read the [official reference](https://www.typescriptlang.org/docs/handbook/2/narrowing.html). Continue through the [Advanced TypeScript & runtime contracts](#/paths/advanced-typescript) learning path.
+Read the [official reference](https://www.typescriptlang.org/docs/handbook/2/narrowing.html). Continue through the [Advanced TypeScript & runtime contracts](/paths/advanced-typescript) learning path.

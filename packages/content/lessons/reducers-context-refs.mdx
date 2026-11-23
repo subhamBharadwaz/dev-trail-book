@@ -4,8 +4,8 @@ export const meta = {
   title: "Reducers, context & refs",
   description: "Choose a state tool according to ownership and lifetime.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["react", "week-2", "interview-prep"],
+  level: "Core concept",
+  tags: ["react", "practice", "practice"],
   questions: [
     {
       question: "Does changing ref.current trigger a render?",
@@ -26,9 +26,7 @@ export const meta = {
   source: "https://react.dev/learn/scaling-up-with-reducer-and-context",
   code: 'function reducer(state, action) {\n  switch (action.type) {\n    case "saved":\n      return { ...state, saved: [...state.saved, action.id] };\n    case "cleared":\n      return { ...state, saved: [] };\n    default: return state;\n  }\n}\nconst [state, dispatch] = useReducer(reducer, { saved: [] });\n// dispatch({ type: "saved", id: "closures" });',
   codeLanguage: "tsx",
-  origin: "study-plan",
-  planWeek: 2,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "Yes. Assigning any value to a ref schedules a render.",
     "A ref and useState always have identical rendering behavior.",
@@ -71,5 +69,3 @@ Model save, unsave, and mark-read actions. Keep the search input local while sha
 ## Keep exploring
 
 Read the [technical reference](https://react.dev/learn/scaling-up-with-reducer-and-context) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 3, Week 2. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

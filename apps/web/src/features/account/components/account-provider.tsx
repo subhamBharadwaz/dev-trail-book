@@ -1,3 +1,4 @@
+import { isAuthReturn, shouldOpenAccount } from "../data/auth-redirect";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import type { User } from "@supabase/supabase-js";
 import { cloudConfigured, getSupabase } from "../data/supabase";
@@ -12,6 +13,7 @@ export function AccountProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!cloudConfigured) return;
     let disposed = false;
+    let authReturn = isAuthReturn(window.location.hash);
     let unsubscribe: (() => void) | undefined;
     getSupabase()
       .then(async (client) => {
@@ -32,11 +34,12 @@ export function AccountProvider({ children }: { children: ReactNode }) {
           setTimeout(() => {
             apply(session?.user ?? null);
             if (
-              event === "SIGNED_IN" &&
               !disposed &&
-              !window.location.hash.startsWith("#/")
-            )
-              window.location.hash = "/account";
+              shouldOpenAccount(event, authReturn, window.location.pathname)
+            ) {
+              authReturn = false;
+              window.location.replace("/account");
+            }
           }, 0);
         });
         unsubscribe = () => listener.data.subscription.unsubscribe();
@@ -87,16 +90,7 @@ export function AccountProvider({ children }: { children: ReactNode }) {
         signOut,
       }}
     >
-      {loading ? (
-        <div
-          className="grid min-h-dvh place-items-center bg-page p-6 text-base text-ink"
-          role="status"
-        >
-          Restoring your account…
-        </div>
-      ) : (
-        children
-      )}
+      {children}
     </AccountContext>
   );
 }

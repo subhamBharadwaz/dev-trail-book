@@ -4,8 +4,8 @@ export const meta = {
   title: "Controlled inputs & form state",
   description: "Make input ownership explicit and handle empty values.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["react", "week-2", "interview-prep"],
+  level: "Core concept",
+  tags: ["react", "practice", "practice"],
   questions: [
     {
       question: "What makes an input controlled?",
@@ -26,9 +26,7 @@ export const meta = {
   source: "https://react.dev/reference/react-dom/components/input",
   code: 'const [name, setName] = useState("");\nreturn <form onSubmit={event => {\n  event.preventDefault();\n  if (!name.trim()) return;\n  console.log(name.trim());\n}}>\n  <label htmlFor="name">Name</label>\n  <input id="name" value={name}\n    onChange={event => setName(event.target.value)} required />\n  <button type="submit">Continue</button>\n</form>;',
   codeLanguage: "tsx",
-  origin: "study-plan",
-  planWeek: 2,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "An input becomes controlled merely because it has an onFocus handler.",
     "A controlled input keeps its value exclusively inside the DOM.",
@@ -78,5 +76,3 @@ Add an empty-name error, a pending submission state, and a retryable server erro
 ## Keep exploring
 
 Read the [technical reference](https://react.dev/reference/react-dom/components/input) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 3, Week 2. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

@@ -1,3 +1,4 @@
+import { useAccount } from "@/features/account/hooks/use-account";
 import { Radio, RadioGroup, RadioIndicator } from "@ui-sdk/react/radio";
 import { Field, FieldLabel, FieldDescription } from "@ui-sdk/react/field";
 import { Button } from "@ui-sdk/react/button";
@@ -28,6 +29,7 @@ const options: { value: ConfidenceLevel; label: string; detail: string }[] = [
   },
 ];
 export function TopicConfidence({ slug }: { slug: string }) {
+  const { loading } = useAccount();
   const { values, storageError } = useStudyRecords();
   const confidence = parseConfidence(values[`reading/confidence/${slug}`]);
   return (
@@ -45,6 +47,7 @@ export function TopicConfidence({ slug }: { slug: string }) {
           recall and the exercise; it is not a verified skill score.
         </FieldDescription>
         <RadioGroup
+          disabled={loading}
           value={confidence?.level ?? null}
           onValueChange={(value) => {
             if (options.some((option) => option.value === value))
@@ -83,6 +86,7 @@ export function TopicConfidence({ slug }: { slug: string }) {
         {confidence && (
           <Button
             className="min-h-11 rounded px-2 text-green underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-green"
+            disabled={loading}
             onClick={() => studyStore().write(confidenceRecord(slug, null))}
           >
             Clear confidence rating

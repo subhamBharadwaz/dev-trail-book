@@ -5,8 +5,8 @@ export const meta = {
   description:
     "Reveal independent sections without waiting for the slowest read.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["nextjs", "week-3", "interview-prep"],
+  level: "Core concept",
+  tags: ["nextjs", "practice", "practice"],
   questions: [
     {
       question: "Does Suspense make the database query itself faster?",
@@ -27,14 +27,11 @@ export const meta = {
   source: "https://nextjs.org/docs/app/getting-started/fetching-data",
   code: 'import { Suspense } from "react";\nexport default function Dashboard() {\n  return <main>\n    <h1>Your journal</h1>\n    <Suspense fallback={<p>Loading activity…</p>}>\n      <RecentActivity />\n    </Suspense>\n  </main>;\n}\nasync function RecentActivity() {\n  const entries = await getRecentEntriesForCurrentUser();\n  return <ul>{entries.map(entry => <li key={entry.id}>{entry.title}</li>)}</ul>;\n}',
   codeLanguage: "tsx",
-  origin: "study-plan",
-  planWeek: 3,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "Yes. Adding Suspense reduces every database query duration.",
     "Yes. Suspense runs SQL in a separate browser thread.",
   ],
-  planRecordedStatus: "covered",
 };
 
 ## The idea
@@ -82,5 +79,3 @@ Introduce an artificial slow activity read. Confirm that the heading arrives bef
 ## Keep exploring
 
 Read the [technical reference](https://nextjs.org/docs/app/getting-started/fetching-data) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 3, Week 3. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

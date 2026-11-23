@@ -32,7 +32,7 @@ export const meta = {
   "source": "https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html",
   "code": "type Route = { path: string; private: boolean };\nconst routes = {\n  notes: { path: \"/notes\", private: true },\n  login: { path: \"/login\", private: false },\n} as const satisfies Record<string, Route>;\n\ntype RouteName = keyof typeof routes; // \"notes\" | \"login\"\ntype Event = `${RouteName}:opened`;\nconst event: Event = \"notes:opened\";\nconst path = routes.notes.path; // \"/notes\"",
   "codeLanguage": "ts",
-  "origin": "discussion",
+  "origin": "foundation",
   "quizDistractors": [
     "A type assertion validates the runtime value automatically.",
     "Compile-time types replace server validation and permission checks."
@@ -76,4 +76,4 @@ Explain the example aloud, predict its inferred types, and describe one runtime 
 
 ## Keep exploring
 
-Read the [official reference](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html). Continue through the [Advanced TypeScript & runtime contracts](#/paths/advanced-typescript) learning path.
+Read the [official reference](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html). Continue through the [Advanced TypeScript & runtime contracts](/paths/advanced-typescript) learning path.

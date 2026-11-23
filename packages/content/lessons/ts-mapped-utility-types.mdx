@@ -32,7 +32,7 @@ export const meta = {
   "source": "https://www.typescriptlang.org/docs/handbook/2/mapped-types.html",
   "code": "type Note = { id: string; title: string; ownerId: string };\ntype RenameNote = Pick<Note, \"title\">;\ntype NotePatch = Partial<RenameNote>;\ntype Labels<T> = {\n  [K in keyof T as K extends string ? `on${Capitalize<K>}` : never]:\n    (value: T[K]) => void;\n};\ntype NoteEvents = Labels<RenameNote>;\nconst handlers: NoteEvents = { onTitle: value => console.log(value) };",
   "codeLanguage": "ts",
-  "origin": "discussion",
+  "origin": "foundation",
   "quizDistractors": [
     "A type assertion validates the runtime value automatically.",
     "Compile-time types replace server validation and permission checks."
@@ -75,4 +75,4 @@ Explain the example aloud, predict its inferred types, and describe one runtime 
 
 ## Keep exploring
 
-Read the [official reference](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html). Continue through the [Advanced TypeScript & runtime contracts](#/paths/advanced-typescript) learning path.
+Read the [official reference](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html). Continue through the [Advanced TypeScript & runtime contracts](/paths/advanced-typescript) learning path.

@@ -4,8 +4,8 @@ export const meta = {
   title: "Heaps & priority queues — optional extension",
   description: "Add this after the core patterns are reliable.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["dsa", "week-5", "interview-prep"],
+  level: "Core concept",
+  tags: ["dsa", "practice", "practice"],
   questions: [
     {
       question: "Is a heap array globally sorted?",
@@ -26,9 +26,7 @@ export const meta = {
   source: "https://docs.python.org/3/library/heapq.html",
   code: "function pushMinHeap(heap, value) {\n  heap.push(value);\n  let i = heap.length - 1;\n  while (i > 0) {\n    const parent = Math.floor((i - 1) / 2);\n    if (heap[parent] <= heap[i]) break;\n    [heap[parent], heap[i]] = [heap[i], heap[parent]];\n    i = parent;\n  }\n}\n// Insertion: O(log n); minimum lookup at heap[0]: O(1).",
   codeLanguage: "js",
-  origin: "study-plan",
-  planWeek: 5,
-  planPages: [4],
+  origin: "foundation",
   quizDistractors: [
     "Yes. Reading the heap array from left to right always yields sorted output.",
     "Yes. A heap has exactly the same ordering invariant as a binary search tree.",
@@ -42,7 +40,7 @@ A binary min-heap maintains a partial order: each parent is no greater than its 
 
 ## Why it matters
 
-The PDF makes introductory heaps conditional on reliable core patterns and role relevance. Use them for repeated minimum/maximum access or bounded top-k problems when the trade-off is justified. This example implements insertion only; a complete priority queue also needs removal and downward repair.
+ Use them for repeated minimum/maximum access or bounded top-k problems when the trade-off is justified. This example implements insertion only; a complete priority queue also needs removal and downward repair.
 
 ## A practical example
 
@@ -71,5 +69,3 @@ Insert 7, 2, 9, and 1. Verify the parent-child invariant after every insertion b
 ## Keep exploring
 
 Read the [technical reference](https://docs.python.org/3/library/heapq.html) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 4, Week 5. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

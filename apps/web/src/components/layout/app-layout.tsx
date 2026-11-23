@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import type { AppRoute } from "@/app/routes";
 import { Sidebar } from "./sidebar";
 import { Topbar } from "./topbar";
@@ -9,9 +9,6 @@ export function AppLayout({
   route: AppRoute;
   children: ReactNode;
 }) {
-  useEffect(() => {
-    document.title = `${route.kind === "overview" ? "Your study desk" : route.title} · Dev Trailbook`;
-  }, [route.kind, route.title]);
   return (
     <div className="min-h-screen">
       <a

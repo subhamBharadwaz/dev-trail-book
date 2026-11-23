@@ -72,7 +72,7 @@ export function PracticeSession({ cards, mode, scope }: Props) {
           </Button>
         </div>
         <a
-          href="#/paths"
+          href="/paths"
           className="mt-7 inline-flex text-sm font-medium text-green"
         >
           Back to learning paths
@@ -99,7 +99,7 @@ export function PracticeSession({ cards, mode, scope }: Props) {
       </div>
       <div className="p-6 sm:p-8">
         <a
-          href={`#/topic/${current.topicSlug}`}
+          href={`/topic/${current.topicSlug}`}
           className="text-sm font-medium uppercase tracking-wider text-green"
         >
           {current.topicTitle}
@@ -166,7 +166,7 @@ export function PracticeSession({ cards, mode, scope }: Props) {
               {current.answer}
             </p>
             <a
-              href={`#/topic/${current.topicSlug}`}
+              href={`/topic/${current.topicSlug}`}
               className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-green"
             >
               Revisit the full explanation

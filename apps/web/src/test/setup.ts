@@ -32,6 +32,21 @@ document.head.append(
 afterEach(() => {
   cleanup();
   localStorage.clear();
-  location.hash = "";
+  history.replaceState(null, "", "/");
   document.documentElement.classList.remove("dark");
+});
+
+// jsdom cannot perform document navigation; simulate its location change for real-path anchor tests.
+document.addEventListener("click", (event) => {
+  const anchor = (event.target as Element | null)?.closest("a");
+  const href = anchor?.getAttribute("href");
+  if (
+    href?.startsWith("/") &&
+    !href.startsWith("//") &&
+    !event.defaultPrevented
+  ) {
+    event.preventDefault();
+    history.pushState(null, "", href);
+    window.dispatchEvent(new PopStateEvent("popstate"));
+  }
 });

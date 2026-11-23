@@ -1,9 +1,10 @@
+import { useHydrated } from "@/hooks/use-hydrated";
+import { useAccount } from "@/features/account/hooks/use-account";
 import { TopicStudyContext } from "./topic-study-context";
 import { TopicWorkshop } from "./topic-workshop";
 import { TopicConfidence } from "./topic-confidence";
 import { topicBySlug } from "../data/content";
 import { Prose } from "@/components/content/prose";
-import { TopicProvenance } from "./topic-provenance";
 import { lazy, Suspense, useState, type ReactNode } from "react";
 import { Tabs, TabsList, TabsPanel, TabsTab } from "@ui-sdk/react/tabs";
 import { Toggle } from "@ui-sdk/react/toggle";
@@ -54,6 +55,8 @@ export function TopicReader({
   toggleSaved: () => void;
   toggleCompleted: () => void;
 }) {
+  const hydrated = useHydrated();
+  const { loading: accountLoading } = useAccount();
   const [section, setSection] = useState<string | null>("notes");
   const category = categories.find((item) => item.id === topic.category)!;
   const next = topic.study?.next
@@ -64,7 +67,7 @@ export function TopicReader({
       <article className="min-w-0 [&>h1]:mb-[15px] [&>h1]:mt-[18px] [&>h1]:text-balance [&>h1]:text-[33px] [&>h1]:font-medium [&>h1]:leading-[1.17] [&>h1]:tracking-[-1.3px] min-[701px]:[&>h1]:text-[37px]">
         <a
           className="mb-[30px] inline-flex items-center gap-2 text-sm text-muted-ink hover:text-green"
-          href={`#/category/${category.id}`}
+          href={`/category/${category.id}`}
         >
           <ArrowLeft size={14} />
           Back to {category.name}
@@ -88,24 +91,18 @@ export function TopicReader({
             <Clock3 size={14} />
             {topic.minutes} min read
           </span>
-          <span>
-            {topic.origin === "discussion"
-              ? "Discussion recap"
-              : topic.origin === "study-plan"
-                ? "Study-plan lesson"
-                : "Project foundation"}
-          </span>
+          <span>Self-paced lesson</span>
           <Toggle
             className="ml-auto flex min-h-11 items-center gap-[7px] whitespace-nowrap rounded border border-line bg-page px-2.5 py-[7px] text-sm text-muted-ink min-[701px]:text-sm data-pressed:border-green data-pressed:bg-green-soft data-pressed:text-green"
             aria-label="Save this topic"
             pressed={saved}
+            disabled={accountLoading}
             onPressedChange={toggleSaved}
           >
             <Bookmark size={15} aria-hidden="true" />
             Save topic
           </Toggle>
         </div>
-        <TopicProvenance topic={topic} />
         <TopicStudyContext topic={topic} />
         <Tabs key={topic.slug} value={section} onValueChange={setSection}>
           <TabsList
@@ -130,7 +127,7 @@ export function TopicReader({
           </TabsList>
           <TabsPanel value="notes">
             <Suspense fallback={<p role="status">Loading the visual guide…</p>}>
-              <TopicVisual key={topic.slug} slug={topic.slug} />
+              {hydrated && <TopicVisual key={topic.slug} slug={topic.slug} />}
             </Suspense>
             <Prose>
               <Suspense fallback={<p role="status">Loading this note…</p>}>
@@ -202,6 +199,7 @@ export function TopicReader({
             className="flex items-center gap-[7px] whitespace-nowrap rounded border border-line bg-page px-[11px] py-[9px] text-sm text-ink data-pressed:border-green data-pressed:bg-green-soft data-pressed:text-green"
             aria-label="Mark as read"
             pressed={completed}
+            disabled={accountLoading}
             onPressedChange={toggleCompleted}
           >
             <Check size={15} aria-hidden="true" />
@@ -211,7 +209,7 @@ export function TopicReader({
         {next && next.slug !== topic.slug && (
           <a
             className="flex items-center justify-between py-[25px] text-green [&_span]:mb-2 [&_span]:block [&_span]:text-sm [&_span]:tracking-[1px] [&_span]:text-muted-ink [&_strong]:text-sm [&_strong]:font-medium"
-            href={`#/topic/${next.slug}`}
+            href={`/topic/${next.slug}`}
           >
             <div>
               <span>
@@ -241,7 +239,7 @@ export function TopicReader({
           <a
             key={text}
             className="my-[13px] block text-sm leading-relaxed text-muted-ink hover:text-green"
-            href={`#/topic/${topic.slug}`}
+            href={`/topic/${topic.slug}`}
             onClick={(event) => {
               event.preventDefault();
               setSection("notes");

@@ -21,7 +21,7 @@ export function SyncIndicator() {
   const Icon = !user ? UserRound : issue ? CloudOff : Cloud;
   return (
     <a
-      href="#/account"
+      href="/account"
       aria-label={label}
       title={label}
       className={`${user ? "grid" : "hidden sm:grid"} size-11 shrink-0 place-items-center rounded-lg hover:bg-surface-hover ${issue ? "text-amber-700 dark:text-amber-300" : "text-green"}`}

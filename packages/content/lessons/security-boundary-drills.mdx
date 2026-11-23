@@ -6,7 +6,7 @@ export const meta = {
     "Explain each attack through the boundary it crosses and the control that blocks it.",
   minutes: 12,
   level: "Interview depth",
-  tags: ["pdf-audit", "micro-topics", "week-4"],
+  tags: ["practice", "micro-topics", "practice"],
   questions: [
     {
       question: "Does CORS authorize a caller?",
@@ -38,9 +38,7 @@ export const meta = {
     "https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html",
   code: '// PostgreSQL: parameters bind values, never concatenate user input.\nconst query = {\n  text: "UPDATE notes SET title = $1 WHERE id = $2 AND owner_id = $3 RETURNING id",\n  values: [validatedTitle, noteId, authenticatedUserId],\n};\n// Pass this query to the server-side database client.\n// Dynamic column names need an explicit allowlist, not value placeholders.',
   codeLanguage: "ts",
-  origin: "study-plan",
-  planWeek: 4,
-  planPages: [4],
+  origin: "foundation",
   quizDistractors: [
     "This can be assumed without checking inputs, ownership, or failures.",
     "The UI alone guarantees correctness for all callers.",
@@ -109,4 +107,4 @@ Threat-model one existing mutation. Demonstrate forbidden cross-user access, inv
 
 ## Keep exploring
 
-[Official reference](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html). Study-plan expansion, page 4.
+[Official reference](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html).

@@ -4,8 +4,8 @@ export const meta = {
   title: "Pending forms, optimistic updates & rollback",
   description: "Make the temporary UI honest about an unfinished mutation.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["react", "week-5", "interview-prep"],
+  level: "Core concept",
+  tags: ["react", "practice", "practice"],
   questions: [
     {
       question: "Is optimistic state the final source of truth?",
@@ -26,9 +26,7 @@ export const meta = {
   source: "https://react.dev/reference/react/useOptimistic",
   code: 'async function rename(nextTitle) {\n  const previous = title;\n  setTitle(nextTitle); setPending(true); setError("");\n  try {\n    const saved = await saveTitle(nextTitle);\n    setTitle(saved.title);\n  } catch {\n    setTitle(previous);\n    setError("Title was not saved. Try again.");\n  } finally { setPending(false); }\n}\n// This simple snapshot rollback assumes one mutation at a time.',
   codeLanguage: "tsx",
-  origin: "study-plan",
-  planWeek: 5,
-  planPages: [4],
+  origin: "foundation",
   quizDistractors: [
     "Yes. Once the UI changes optimistically the server response can be ignored.",
     "Yes. Optimistic state automatically commits a database transaction.",
@@ -75,5 +73,3 @@ Test success, rejection, timeout, retry, and two rapid edits. Explain why the ex
 ## Keep exploring
 
 Read the [technical reference](https://react.dev/reference/react/useOptimistic) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 4, Week 5. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

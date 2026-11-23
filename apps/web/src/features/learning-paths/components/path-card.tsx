@@ -13,7 +13,7 @@ export function PathCard({
   const progress = getPathProgress(path, read);
   return (
     <a
-      href={`#/paths/${path.id}`}
+      href={`/paths/${path.id}`}
       className="group flex min-w-0 h-full flex-col rounded-xl border border-line bg-page p-6 transition-colors hover:border-green focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green"
     >
       <div className="flex items-center justify-between">

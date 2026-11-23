@@ -3,10 +3,10 @@ export const meta = {
   category: "dsa",
   title: "HashMap practice: duplicates & frequencies",
   description:
-    "Fill the plan’s two unnamed HashMap slots with explicit exercises.",
+    "Practice duplicate detection and frequency counting with explicit exercises.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["dsa", "week-1", "interview-prep"],
+  level: "Core concept",
+  tags: ["dsa", "practice", "practice"],
   questions: [
     {
       question: "When is a Set sufficient instead of a count map?",
@@ -33,19 +33,16 @@ export const meta = {
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
   code: "function containsDuplicate(nums) {\n const seen = new Set();\n for (const value of nums) {\n if (seen.has(value)) return true;\n seen.add(value);\n }\n return false;\n}\nfunction frequencies(text) {\n const counts = new Map();\n for (const char of text) counts.set(char, (counts.get(char) ?? 0) + 1);\n return counts;\n}\n// Compare character counts to finish Valid Anagram.",
   codeLanguage: "js",
-  origin: "study-plan",
-  planWeek: 1,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "A Set is always enough when exact occurrence counts matter.",
     "A Set automatically stores the frequency of each member.",
   ],
-  planRecordedStatus: "pending",
 };
 
 ## The idea
 
-The PDF names HashMap #3–4 without specifying problems. Use your existing list if you have it; this site offers Contains Duplicate and Valid Anagram as clearly labelled equivalents. One uses a set for membership; the other uses a map for counts.
+ Use your existing list if you have it; this site offers Contains Duplicate and Valid Anagram as clearly labelled equivalents. One uses a set for membership; the other uses a map for counts.
 
 ## Why it matters
 
@@ -82,7 +79,6 @@ Finish Valid Anagram and test repeated characters. Explain why a Set alone canno
 
 Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set) for the full contract and check behavior against your project version.
 
-Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
 
 ## Complete the second HashMap exercise
 
@@ -102,4 +98,4 @@ function validAnagram(a: string, b: string): boolean {
 }
 ```
 
-This compares Unicode code points, not grapheme clusters; normalization and case folding require an explicit product rule. Time O(n + m), auxiliary space O(k). Check empty strings, duplicate counts, unequal lengths and emoji. Together with the existing Contains Duplicate example, this fills the two unnamed HashMap slots with labelled equivalents.
+This compares Unicode code points, not grapheme clusters; normalization and case folding require an explicit product rule. Time O(n + m), auxiliary space O(k). Check empty strings, duplicate counts, unequal lengths and emoji. Compare this frequency-counting approach with the Contains Duplicate example.

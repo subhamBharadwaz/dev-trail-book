@@ -4,8 +4,8 @@ export const meta = {
   title: "Debounce & throttle",
   description: "Choose between waiting for quiet and limiting frequency.",
   minutes: 6,
-  level: "Discussion recap",
-  tags: ["javascript", "week-1", "interview-prep"],
+  level: "Core concept",
+  tags: ["javascript", "practice", "practice"],
   questions: [
     {
       question: "Does debouncing guarantee that an older request cannot win?",
@@ -32,18 +32,11 @@ export const meta = {
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
   code: 'function debounce(fn, delay = 300) {\n let timer;\n const wrapped = (...args) => {\n clearTimeout(timer);\n timer = setTimeout(() => fn(...args), delay);\n };\n wrapped.cancel = () => clearTimeout(timer);\n return wrapped;\n}\nconst search = debounce(query => console.log(query));\nsearch("r"); search("react"); // only react after quiet',
   codeLanguage: "js",
-  origin: "discussion",
-  planWeek: 1,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "Yes. A debounce cancels every previously started network request.",
     "Yes. Debounce makes responses arrive in request order.",
   ],
-  discussionSource: {
-    title: "React User Search App",
-    url: "https://chatgpt.com/c/6adee764-1214-83ee-9ac5-ba46b5a443f2",
-  },
-  planRecordedStatus: "covered",
 };
 
 ## The idea
@@ -83,7 +76,6 @@ Type a query rapidly, then pause. Verify one request starts after 300 ms. Next i
 
 Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function) for the full contract and check behavior against your project version.
 
-Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF. The explanation also uses the accessible discussion excerpt.
 
 ## Implement a leading-edge throttle with cancellation
 

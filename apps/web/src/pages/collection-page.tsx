@@ -28,7 +28,7 @@ export function CollectionPage({ route }: { route: CollectionRoute }) {
     <div className="mx-auto max-w-[1120px] px-[23px] pb-10 pt-7 sm:px-8 lg:px-10 [&>h1]:mb-4 [&>h1]:mt-[18px] [&>h1]:text-[31px] [&>h1]:font-medium [&>h1]:tracking-[-1px] min-[701px]:[&>h1]:text-[37px]">
       <a
         className="mb-[30px] inline-flex items-center gap-2 text-sm text-muted-ink hover:text-green"
-        href="#/"
+        href="/"
       >
         <ArrowDown size={13} className="rotate-90" />
         Back to overview
@@ -67,7 +67,7 @@ export function CollectionPage({ route }: { route: CollectionRoute }) {
             {visible.map((item) => (
               <section key={item.slug}>
                 <a
-                  href={`#/topic/${item.slug}`}
+                  href={`/topic/${item.slug}`}
                   className="mb-[17px] flex items-center gap-[11px] [&_h2]:text-base [&_h2]:font-medium [&_h2]:tracking-[-.3px] [&>svg]:ml-auto [&>svg]:text-green"
                 >
                   <span className="grid size-[19px] shrink-0 place-items-center rounded text-sm font-semibold tracking-[-.5px]">
@@ -107,7 +107,7 @@ export function CollectionPage({ route }: { route: CollectionRoute }) {
               : "Open a topic and choose “Save topic” to keep it here."}
           </p>
           <a
-            href="#/topics"
+            href="/topics"
             className="inline-flex items-center gap-2 text-sm font-medium text-green"
           >
             Browse all topics
@@ -118,7 +118,7 @@ export function CollectionPage({ route }: { route: CollectionRoute }) {
       <div className="mt-[35px] flex items-center gap-2.5 border-t border-line py-[17px] text-sm leading-[1.7] text-muted-ink">
         <Code2 size={16} />
         <span>
-          Notes combine discussion recaps and the study-plan syllabus. Add MDX
+          Explore explanations, examples and practice from foundations to advanced topics. Add MDX
           files to keep the collection growing.
         </span>
       </div>

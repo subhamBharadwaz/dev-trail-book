@@ -4,8 +4,8 @@ export const meta = {
   title: "Trees: breadth-first & depth-first traversal",
   description: "Choose a queue or stack according to the exploration order.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["dsa", "week-4", "interview-prep"],
+  level: "Core concept",
+  tags: ["dsa", "practice", "practice"],
   questions: [
     {
       question: "Which traversal naturally visits a tree level by level?",
@@ -31,9 +31,7 @@ export const meta = {
   source: "https://cp-algorithms.com/graph/breadth-first-search.html",
   code: "function breadthFirst(root) {\n if (!root) return [];\n const queue = [root], values = [];\n for (let head = 0; head < queue.length; head++) {\n const node = queue[head];\n values.push(node.value);\n if (node.left) queue.push(node.left);\n if (node.right) queue.push(node.right);\n }\n return values;\n}\n// An index avoids repeatedly shifting all queue elements.",
   codeLanguage: "js",
-  origin: "study-plan",
-  planWeek: 4,
-  planPages: [4],
+  origin: "foundation",
   quizDistractors: [
     "Depth-first search always visits every shallower node first.",
     "A recursive call automatically gives breadth-first ordering.",
@@ -78,7 +76,6 @@ Implement iterative preorder DFS and compare its output with BFS on the same asy
 
 Read the [technical reference](https://cp-algorithms.com/graph/breadth-first-search.html) for the full contract and check behavior against your project version.
 
-Study-plan reference: December 2026 job plan, page 4, Week 4. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
 
 ## Complete DFS and compare traversal memory
 

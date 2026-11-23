@@ -32,7 +32,7 @@ export const meta = {
   "source": "https://www.typescriptlang.org/docs/handbook/2/conditional-types.html",
   "code": "type ElementOf<T> = T extends readonly (infer U)[] ? U : never;\ntype Item = ElementOf<string[]>; // string\n\ntype IsString<T> = T extends string ? \"yes\" : \"no\";\ntype Distributed = IsString<string | number>; // \"yes\" | \"no\"\ntype Whole<T> = [T] extends [string] ? \"yes\" : \"no\";\ntype Together = Whole<string | number>; // \"no\"\n\ntype Load = () => Promise<{ id: string }>;\ntype Loaded = Awaited<ReturnType<Load>>; // { id: string }",
   "codeLanguage": "ts",
-  "origin": "discussion",
+  "origin": "foundation",
   "quizDistractors": [
     "A type assertion validates the runtime value automatically.",
     "Compile-time types replace server validation and permission checks."
@@ -76,4 +76,4 @@ Explain the example aloud, predict its inferred types, and describe one runtime 
 
 ## Keep exploring
 
-Read the [official reference](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html). Continue through the [Advanced TypeScript & runtime contracts](#/paths/advanced-typescript) learning path.
+Read the [official reference](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html). Continue through the [Advanced TypeScript & runtime contracts](/paths/advanced-typescript) learning path.

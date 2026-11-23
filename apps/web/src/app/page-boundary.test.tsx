@@ -20,7 +20,7 @@ test("a page failure offers recovery and navigation resets the error state", () 
       screen
         .getByRole("link", { name: "Back to overview" })
         .getAttribute("href"),
-    ).toBe("#/");
+    ).toBe("/");
     rerender(
       <PageBoundary key="healthy">
         <h1>A readable note</h1>

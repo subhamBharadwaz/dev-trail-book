@@ -10,7 +10,7 @@ export function TopicRow({
   const category = categories.find((item) => item.id === topic.category)!;
   return (
     <a
-      href={`#/topic/${topic.slug}`}
+      href={`/topic/${topic.slug}`}
       className="group flex min-w-0 items-center gap-3 border-b border-line py-4"
     >
       <span

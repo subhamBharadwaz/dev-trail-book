@@ -35,19 +35,19 @@ export function TodayPage() {
       description="Start with what you can do today. Choose your available time, make a real attempt, and leave a small piece of evidence."
     >
       <a
-        href="#/readiness"
+        href="/readiness"
         className="inline-flex min-h-11 items-center text-base font-medium text-green"
       >
         See your weekly readiness →
       </a>
       <a
-        href="#/mistakes"
+        href="/mistakes"
         className="flex min-h-14 items-center justify-between gap-4 rounded-xl border border-line bg-surface p-5 text-base font-medium text-green"
       >
         Mistake notebook <span>{mistakesDue} to retry →</span>
       </a>
       <a
-        href="#/interviews"
+        href="/interviews"
         className="inline-flex min-h-11 items-center text-base font-medium text-green"
       >
         Practice a timed mock interview →
@@ -184,7 +184,7 @@ export function TodayPage() {
           get reminders after two and seven days.
         </p>
         <a
-          href="#/evidence"
+          href="/evidence"
           className="mt-3 inline-flex min-h-11 items-center gap-2 font-medium text-green"
         >
           {due.length

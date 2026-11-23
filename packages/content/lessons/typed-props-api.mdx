@@ -4,8 +4,8 @@ export const meta = {
   title: "Typed props, unknown data & runtime checks",
   description: "Keep compile-time guarantees separate from external input.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["typescript", "week-1", "interview-prep"],
+  level: "Core concept",
+  tags: ["typescript", "practice", "practice"],
   questions: [
     {
       question: "Does response.json() validate an interface?",
@@ -31,9 +31,7 @@ export const meta = {
   source: "https://www.typescriptlang.org/docs/handbook/2/narrowing.html",
   code: 'type User = { id: number; name: string };\nfunction isUser(value: unknown): value is User {\n return typeof value === "object" && value !== null\n && "id" in value && typeof value.id === "number"\n && "name" in value && typeof value.name === "string";\n}\nconst data: unknown = await response.json();\nif (!Array.isArray(data) || !data.every(isUser)) {\n throw new Error("Unexpected user response");\n}\n// data is now User[] within this branch.',
   codeLanguage: "ts",
-  origin: "study-plan",
-  planWeek: 1,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "Yes. The interface is embedded in the HTTP response.",
     "Yes. A type assertion performs full runtime validation.",
@@ -81,7 +79,6 @@ Validate an array containing one malformed user. Render a clear error instead of
 
 Read the [technical reference](https://www.typescriptlang.org/docs/handbook/2/narrowing.html) for the full contract and check behavior against your project version.
 
-Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
 
 ## Runtime narrowing and typed form boundaries
 

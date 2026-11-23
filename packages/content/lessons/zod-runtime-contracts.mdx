@@ -32,7 +32,7 @@ export const meta = {
   "source": "https://zod.dev/basics",
   "code": "import * as z from \"zod\";\nconst NoteInput = z.strictObject({\n  title: z.string().trim().min(1).max(200),\n  tags: z.array(z.string().min(1).max(40)).max(8),\n});\ntype NoteInput = z.infer<typeof NoteInput>;\nfunction validateNote(raw: unknown) {\n  const result = NoteInput.safeParse(raw);\n  if (!result.success) {\n    return { ok: false as const, issues: result.error.issues };\n  }\n  return { ok: true as const, data: result.data };\n}",
   "codeLanguage": "ts",
-  "origin": "discussion",
+  "origin": "foundation",
   "quizDistractors": [
     "A type assertion validates the runtime value automatically.",
     "Compile-time types replace server validation and permission checks."
@@ -79,4 +79,4 @@ Explain the example aloud, predict its inferred types, and describe one runtime 
 
 ## Keep exploring
 
-Read the [official reference](https://zod.dev/basics). Continue through the [Advanced TypeScript & runtime contracts](#/paths/advanced-typescript) learning path.
+Read the [official reference](https://zod.dev/basics). Continue through the [Advanced TypeScript & runtime contracts](/paths/advanced-typescript) learning path.

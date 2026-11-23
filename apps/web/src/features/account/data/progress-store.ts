@@ -1,3 +1,4 @@
+import { browserStorage } from "@/lib/browser-storage";
 import { useSyncExternalStore } from "react";
 import { createProgressStore } from "@trailbook/sync";
 export type {
@@ -6,9 +7,14 @@ export type {
   Pending,
   ProgressSnapshot,
 } from "@trailbook/sync";
-export const progress = createProgressStore(localStorage, () =>
+export const progress = createProgressStore(browserStorage, () =>
   crypto.randomUUID(),
 );
+const serverSnapshot = progress.getSnapshot();
 export function useCloudProgress() {
-  return useSyncExternalStore(progress.subscribe, progress.getSnapshot);
+  return useSyncExternalStore(
+    progress.subscribe,
+    progress.getSnapshot,
+    () => serverSnapshot,
+  );
 }

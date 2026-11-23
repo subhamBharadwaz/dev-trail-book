@@ -4,8 +4,8 @@ export const meta = {
   title: "REST, validation & pagination",
   description: "Define a contract that callers can reason about.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["backend", "week-4", "interview-prep"],
+  level: "Core concept",
+  tags: ["backend", "practice", "practice"],
   questions: [
     {
       question: "Why should the server bound page size?",
@@ -26,9 +26,7 @@ export const meta = {
   source: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods",
   code: 'function parsePage(url: URL) {\n  const raw = url.searchParams.get("limit") ?? "20";\n  if (!/^\\d+$/.test(raw)) throw new Error("Invalid page size");\n  const limit = Number(raw);\n  if (!Number.isSafeInteger(limit) || limit < 1 || limit > 100) {\n    throw new Error("Page size must be 1–100");\n  }\n  return { limit, cursor: url.searchParams.get("cursor") };\n}\n// Decode and validate the cursor, then query within the current user scope.',
   codeLanguage: "ts",
-  origin: "study-plan",
-  planWeek: 4,
-  planPages: [4],
+  origin: "foundation",
   quizDistractors: [
     "Only the browser should limit page size.",
     "An arbitrarily large page size is always safe if the response is JSON.",
@@ -69,5 +67,3 @@ Specify a journal list response with items, nextCursor, and a stable sort. Test 
 ## Keep exploring
 
 Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 4, Week 4. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

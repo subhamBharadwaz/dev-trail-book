@@ -5,8 +5,8 @@ export const meta = {
   description:
     "Follow how returned values and thrown errors settle the next promise.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["javascript", "week-1", "interview-prep"],
+  level: "Core concept",
+  tags: ["javascript", "practice", "practice"],
   questions: [
     {
       question:
@@ -34,14 +34,11 @@ export const meta = {
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
   code: "Promise.resolve(2)\n .then(value => value * 3)\n .then(value => { throw new Error(`Unexpected ${value}`); })\n .catch(error => ({ ok: false, message: error.message }))\n .then(result => console.log(result));\n// catch returns a value here, so the final step is fulfilled.\n// A finally handler normally preserves the earlier outcome,\n// but a thrown error or rejected return can replace it.",
   codeLanguage: "js",
-  origin: "study-plan",
-  planWeek: 1,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "Yes. Rejecting the combined promise automatically aborts every input operation.",
     "Yes. Promise.all rolls back all side effects of earlier operations.",
   ],
-  planRecordedStatus: "covered",
 };
 
 ## The idea
@@ -79,7 +76,6 @@ Build a three-step chain with one rejected step. Compare recovery by returning a
 
 Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) for the full contract and check behavior against your project version.
 
-Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
 
 ## Combinators, ordering and failure behavior
 

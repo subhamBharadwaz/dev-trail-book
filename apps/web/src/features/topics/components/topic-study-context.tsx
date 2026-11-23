@@ -16,7 +16,7 @@ export function TopicStudyContext({ topic }: { topic: Topic }) {
                 <li key={slug}>
                   <a
                     className="text-green underline underline-offset-4"
-                    href={`#/topic/${slug}`}
+                    href={`/topic/${slug}`}
                   >
                     {prerequisite.title}
                   </a>

@@ -4,8 +4,8 @@ export const meta = {
   title: "this, call sites & arrow functions",
   description: "Find the receiver by looking at how a function is called.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["javascript", "week-1", "interview-prep"],
+  level: "Core concept",
+  tags: ["javascript", "practice", "practice"],
   questions: [
     {
       question:
@@ -33,9 +33,7 @@ export const meta = {
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this",
   code: 'const account = {\n name: "Trailbook",\n describe() { return this.name; },\n};\nconsole.log(account.describe()); // Trailbook\nconst bound = account.describe.bind(account);\nconsole.log(bound()); // Trailbook\n// account.describe.call({ name: "Notes" }) => Notes',
   codeLanguage: "js",
-  origin: "study-plan",
-  planWeek: 1,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "Yes. Every ordinary function captures lexical this.",
     "Yes. Defining a method inside an object permanently binds it.",
@@ -77,7 +75,6 @@ Extract describe into a variable, call it, then repair the call with bind. Expla
 
 Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this) for the full contract and check behavior against your project version.
 
-Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
 
 ## Call-site debugging drill
 

@@ -4,8 +4,8 @@ export const meta = {
   title: "Authentication, authorization, sessions & OAuth",
   description: "Prove identity separately from granting permission.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["security", "week-4", "interview-prep"],
+  level: "Core concept",
+  tags: ["security", "practice", "practice"],
   questions: [
     {
       question: "Does authentication automatically authorize every record?",
@@ -27,9 +27,7 @@ export const meta = {
     "https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html",
   code: "async function readEntry(request, entryId) {\n  const session = await authenticateRequest(request);\n  if (!session) return { status: 401 };\n  const entry = await db.entries.findFirst({\n    where: { id: entryId, ownerId: session.userId },\n  });\n  if (!entry) return { status: 404 };\n  return { status: 200, data: toEntryView(entry) };\n}",
   codeLanguage: "ts",
-  origin: "study-plan",
-  planWeek: 4,
-  planPages: [4],
+  origin: "foundation",
   quizDistractors: [
     "Yes. Any authenticated user may access every record by default.",
     "Yes. A valid token removes the need to check resource ownership.",
@@ -69,5 +67,3 @@ Create a two-user test: each user can read their own entry but cannot read or ed
 ## Keep exploring
 
 Read the [technical reference](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 4, Week 4. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

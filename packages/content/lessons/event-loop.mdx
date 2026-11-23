@@ -4,8 +4,8 @@ export const meta = {
   title: "The event loop, tasks & microtasks",
   description: "Predict execution order before running the code.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["javascript", "week-1", "interview-prep"],
+  level: "Core concept",
+  tags: ["javascript", "practice", "practice"],
   questions: [
     {
       question: "Does a zero-delay timer run immediately?",
@@ -27,14 +27,11 @@ export const meta = {
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model",
   code: 'console.log("A");\nsetTimeout(() => console.log("timer"), 0);\nPromise.resolve().then(() => console.log("promise"));\nqueueMicrotask(() => console.log("microtask"));\nconsole.log("B");\n// A, B, promise, microtask, timer',
   codeLanguage: "js",
-  origin: "study-plan",
-  planWeek: 1,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "Yes. A zero-delay timer interrupts synchronous code.",
     "Yes. Timers always run before promise callbacks.",
   ],
-  planRecordedStatus: "covered",
 };
 
 ## The idea
@@ -67,5 +64,3 @@ Add a promise inside the timer and a timer inside a promise. Write the complete 
 ## Keep exploring
 
 Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

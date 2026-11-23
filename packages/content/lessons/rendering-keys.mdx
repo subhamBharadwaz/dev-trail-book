@@ -4,8 +4,8 @@ export const meta = {
   title: "Rendering, reconciliation & stable keys",
   description: "Keep identity stable when a list changes.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["react", "week-2", "interview-prep"],
+  level: "Core concept",
+  tags: ["react", "practice", "practice"],
   questions: [
     {
       question: "Does a re-render always replace the DOM?",
@@ -26,9 +26,7 @@ export const meta = {
   source: "https://react.dev/learn/rendering-lists",
   code: "function Notes({ notes }) {\n  return <ul>{notes.map(note =>\n    <NoteRow key={note.id} note={note} />\n  )}</ul>;\n}\n// Preserve note.id when editing or reordering a note.",
   codeLanguage: "tsx",
-  origin: "study-plan",
-  planWeek: 2,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "Yes. Every re-render deletes and rebuilds the whole DOM.",
     "A re-render always remounts every child.",
@@ -69,5 +67,3 @@ Build an editable list and insert an item at the start. Compare stable IDs with 
 ## Keep exploring
 
 Read the [technical reference](https://react.dev/learn/rendering-lists) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 3, Week 2. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
