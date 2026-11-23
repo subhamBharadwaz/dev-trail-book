@@ -1,3 +1,4 @@
+import { FirstSession } from "@/features/platform/components/first-session";
 import {
   ArrowRight,
   BookOpen,
@@ -99,6 +100,7 @@ export function OverviewPage() {
           </div>
         ))}
       </dl>
+      <FirstSession />
       <section aria-labelledby="practice-heading" className="py-9 sm:py-10">
         <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
           <div>
@@ -201,13 +203,19 @@ export function OverviewPage() {
             id="foundations-heading"
             className="text-xl font-medium tracking-tight"
           >
-            A few foundations worth revisiting
+            Five lessons to try
           </h2>
           <span className="text-sm text-muted-ink">
             Understand the why. Then try the how.
           </span>
         </div>
-        {["closures", "effects", "discriminated-unions"].map((slug) => (
+        {[
+          "closures",
+          "event-loop",
+          "async-await",
+          "discriminated-unions",
+          "binary-search",
+        ].map((slug) => (
           <TopicRow
             key={slug}
             topic={topics.find((topic) => topic.slug === slug)!}
@@ -215,16 +223,6 @@ export function OverviewPage() {
           />
         ))}
       </section>
-      <footer className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-line py-6 text-sm leading-7 text-muted-ink">
-        <p>Your pace. Your progress. Your trailbook.</p>
-        <a
-          href="/today"
-          className="inline-flex min-h-11 items-center gap-2 text-green hover:underline"
-        >
-          Make time for one good session
-          <ArrowRight size={14} aria-hidden="true" />
-        </a>
-      </footer>
     </div>
   );
 }

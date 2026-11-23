@@ -1,8 +1,6 @@
 {
   "accessible-ui": {
-    "prerequisites": [
-      "semantic-responsive"
-    ],
+    "prerequisites": ["semantic-responsive"],
     "recall": "Without looking: Is an icon enough to name a button?",
     "exercise": {
       "task": "Build the named lesson tabs shown in the example and verify selection using only the keyboard.",
@@ -25,10 +23,7 @@
     "next": "browser-rendering"
   },
   "actions-route-handlers": {
-    "prerequisites": [
-      "http-basics",
-      "authenticated-mutations"
-    ],
+    "prerequisites": ["http-basics", "authenticated-mutations"],
     "recall": "Without looking: Does using a Server Action remove the need for authorization?",
     "exercise": {
       "task": "Trace the example operation through an Action and describe the equivalent HTTP handler contract.",
@@ -51,10 +46,7 @@
     "next": "redirect-errors"
   },
   "ai-cost-boundaries": {
-    "prerequisites": [
-      "http-basics",
-      "structured-output"
-    ],
+    "prerequisites": ["http-basics", "structured-output"],
     "recall": "Without looking: Is time to first output the same as total generation time?",
     "exercise": {
       "task": "Reconstruct the example request budget and identify where usage, latency and private data are bounded.",
@@ -77,10 +69,7 @@
     "next": "ai-streaming"
   },
   "ai-streaming": {
-    "prerequisites": [
-      "async-await",
-      "structured-output"
-    ],
+    "prerequisites": ["async-await", "structured-output"],
     "recall": "Without looking: Does a network chunk always equal one complete model message?",
     "exercise": {
       "task": "Recreate the stream lifecycle in the example, including stop, retry and failed completion.",
@@ -103,10 +92,7 @@
     "next": "retrieval-evaluation"
   },
   "api-validation-errors": {
-    "prerequisites": [
-      "http-basics",
-      "typed-props-api"
-    ],
+    "prerequisites": ["http-basics", "typed-props-api"],
     "recall": "Without looking: Does fetch reject on a 404 response?",
     "exercise": {
       "task": "Reproduce the example input validation and map invalid input to the documented response.",
@@ -129,9 +115,7 @@
     "next": "authenticated-mutations"
   },
   "application-scorecard": {
-    "prerequisites": [
-      "daily-learning-loop"
-    ],
+    "prerequisites": ["daily-learning-loop"],
     "recall": "Without looking: Does hitting the weekly application target guarantee an offer?",
     "exercise": {
       "task": "Recreate a weekly scorecard using the example and explain the next process adjustment.",
@@ -154,9 +138,7 @@
     "next": "frontend-system-design"
   },
   "async-await": {
-    "prerequisites": [
-      "event-loop"
-    ],
+    "prerequisites": ["event-loop"],
     "recall": "Without looking: Does fetch reject for a 404?",
     "exercise": {
       "task": "Trace the awaited requests in the example and implement the same success and failure behavior.",
@@ -173,15 +155,13 @@
     },
     "review": {
       "revisedOn": "2026-11-19",
-      "reviewedOn": null,
-      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+      "reviewedOn": "2026-11-23",
+      "versionNote": "Explanation checked against the linked technical reference on 23 November 2026. Both displayed code examples executed in Bun 1.4.4 with regression checks. This is not a browser-device test or a verification of every exercise variation."
     },
     "next": "debounce-throttle"
   },
   "auth-sessions-oauth": {
-    "prerequisites": [
-      "http-basics"
-    ],
+    "prerequisites": ["http-basics"],
     "recall": "Without looking: Does authentication automatically authorize every record?",
     "exercise": {
       "task": "Trace the example session from sign-in to a protected record lookup.",
@@ -204,10 +184,7 @@
     "next": "security-boundary-drills"
   },
   "authenticated-mutations": {
-    "prerequisites": [
-      "auth-sessions-oauth",
-      "typed-props-api"
-    ],
+    "prerequisites": ["auth-sessions-oauth", "typed-props-api"],
     "recall": "Without looking: Where should ownership be enforced for an update?",
     "exercise": {
       "task": "Recreate the example mutation in the order validate, authenticate, authorize and write.",
@@ -230,10 +207,7 @@
     "next": "idempotency"
   },
   "behavior-testing": {
-    "prerequisites": [
-      "thinking-in-react",
-      "async-await"
-    ],
+    "prerequisites": ["thinking-in-react", "async-await"],
     "recall": "Without looking: Should a test wait a fixed 500 ms for every async update?",
     "exercise": {
       "task": "Recreate the behavioral test and explain which user-visible failure makes it fail.",
@@ -256,9 +230,7 @@
     "next": "debug-build-spec"
   },
   "binary-search": {
-    "prerequisites": [
-      "dsa-method-complexity"
-    ],
+    "prerequisites": ["dsa-method-complexity"],
     "recall": "Without looking: Does lower bound always return an exact target match?",
     "exercise": {
       "task": "Implement the lesson's half-open binary search and explain every boundary update.",
@@ -275,15 +247,13 @@
     },
     "review": {
       "revisedOn": "2026-11-19",
-      "reviewedOn": null,
-      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+      "reviewedOn": "2026-11-23",
+      "versionNote": "Explanation checked against the linked technical reference on 23 November 2026. Both displayed code examples executed in Bun 1.4.4 with regression checks. This is not a browser-device test or a verification of every exercise variation."
     },
     "next": "dsa-40-problem-bank"
   },
   "browser-rendering": {
-    "prerequisites": [
-      "semantic-responsive"
-    ],
+    "prerequisites": ["semantic-responsive"],
     "recall": "Without looking: Why can a geometry read be expensive?",
     "exercise": {
       "task": "Trace the example from style work through layout and paint.",
@@ -306,9 +276,7 @@
     "next": "http-basics"
   },
   "caching-revalidation": {
-    "prerequisites": [
-      "next-request-trace"
-    ],
+    "prerequisites": ["next-request-trace"],
     "recall": "Without looking: Does a browser cache and a server data cache have the same lifetime?",
     "exercise": {
       "task": "Explain each cache scope in the example and write an explicit freshness policy.",
@@ -331,9 +299,7 @@
     "next": "next-route-states"
   },
   "closures": {
-    "prerequisites": [
-      "scope-hoisting"
-    ],
+    "prerequisites": ["scope-hoisting"],
     "recall": "Without looking: Does a closure copy a variable?",
     "exercise": {
       "task": "Recreate the closure example and predict what each function reads after the outer call returns.",
@@ -350,15 +316,13 @@
     },
     "review": {
       "revisedOn": "2026-11-19",
-      "reviewedOn": null,
-      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+      "reviewedOn": "2026-11-23",
+      "versionNote": "Explanation checked against the linked technical reference on 23 November 2026. Both displayed code examples executed in Bun 1.4.4 with regression checks. This is not a browser-device test or a verification of every exercise variation."
     },
     "next": "event-loop"
   },
   "controlled-inputs": {
-    "prerequisites": [
-      "thinking-in-react"
-    ],
+    "prerequisites": ["thinking-in-react"],
     "recall": "Without looking: What makes an input controlled?",
     "exercise": {
       "task": "Recreate the controlled form example with a single clear owner for its value.",
@@ -404,10 +368,7 @@
     "next": "application-scorecard"
   },
   "debounce-throttle": {
-    "prerequisites": [
-      "closures",
-      "event-loop"
-    ],
+    "prerequisites": ["closures", "event-loop"],
     "recall": "Without looking: Does debouncing guarantee that an older request cannot win?",
     "exercise": {
       "task": "Recreate the debounce and throttle examples and explain their different timing contracts.",
@@ -430,10 +391,7 @@
     "next": "promise-chains"
   },
   "debug-build-spec": {
-    "prerequisites": [
-      "thinking-in-react",
-      "behavior-testing"
-    ],
+    "prerequisites": ["thinking-in-react", "behavior-testing"],
     "recall": "Without looking: What should happen before fixing a reported bug?",
     "exercise": {
       "task": "Recreate the example timed-task plan and isolate one failing UI behavior.",
@@ -456,9 +414,7 @@
     "next": "performance-profiling"
   },
   "december-buffer": {
-    "prerequisites": [
-      "mock-company-prep"
-    ],
+    "prerequisites": ["mock-company-prep"],
     "recall": "Without looking: What does the deadline rule promise?",
     "exercise": {
       "task": "Turn the example final buffer into a prioritized follow-up plan.",
@@ -481,9 +437,7 @@
     "next": "pdf-coverage-checklist"
   },
   "discriminated-unions": {
-    "prerequisites": [
-      "typed-props-api"
-    ],
+    "prerequisites": ["typed-props-api"],
     "recall": "Without looking: Does TypeScript validate API responses?",
     "exercise": {
       "task": "Recreate LoadState and a renderer that handles each status without contradictory flags.",
@@ -500,15 +454,13 @@
     },
     "review": {
       "revisedOn": "2026-11-19",
-      "reviewedOn": null,
-      "versionNote": "TypeScript concepts; compiler options and inference should be checked with your project compiler."
+      "reviewedOn": "2026-11-23",
+      "versionNote": "Explanation checked against the linked technical reference on 23 November 2026. Both displayed code examples executed in Bun 1.4.4 with regression checks; the union example was also checked with TypeScript 7 strict mode. Browser rendering and every exercise variation were not verified."
     },
     "next": "ts-generics-constraints"
   },
   "dsa-40-problem-bank": {
-    "prerequisites": [
-      "dsa-method-complexity"
-    ],
+    "prerequisites": ["dsa-method-complexity"],
     "recall": "Without looking: When is a problem understood?",
     "exercise": {
       "task": "Pick one problem from the bank and complete the lesson's first solve and re-solve record.",
@@ -554,9 +506,7 @@
     "next": "binary-search"
   },
   "effects": {
-    "prerequisites": [
-      "thinking-in-react"
-    ],
+    "prerequisites": ["thinking-in-react"],
     "recall": "Without looking: Why does an Effect run twice in development?",
     "exercise": {
       "task": "Recreate the example using derived render data instead of unnecessary synchronization.",
@@ -579,9 +529,7 @@
     "next": "optimistic-forms"
   },
   "event-loop": {
-    "prerequisites": [
-      "scope-hoisting"
-    ],
+    "prerequisites": ["scope-hoisting"],
     "recall": "Without looking: Does a zero-delay timer run immediately?",
     "exercise": {
       "task": "Predict the logging order in the example before running it.",
@@ -598,16 +546,13 @@
     },
     "review": {
       "revisedOn": "2026-11-19",
-      "reviewedOn": null,
-      "versionNote": "Concept-focused lesson; adapt environment-specific APIs to your project."
+      "reviewedOn": "2026-11-23",
+      "versionNote": "Explanation checked against the linked technical reference on 23 November 2026. Both displayed code examples executed in Bun 1.4.4 with regression checks. This is not a browser-device test or a verification of every exercise variation."
     },
     "next": "async-await"
   },
   "frontend-system-design": {
-    "prerequisites": [
-      "http-basics",
-      "thinking-in-react"
-    ],
+    "prerequisites": ["http-basics", "thinking-in-react"],
     "recall": "Without looking: What comes before choosing libraries in a design interview?",
     "exercise": {
       "task": "Reproduce the example frontend design answer with data flow, boundaries and failure states.",
@@ -630,9 +575,7 @@
     "next": "mock-company-prep"
   },
   "group-anagrams": {
-    "prerequisites": [
-      "hashmap-practice"
-    ],
+    "prerequisites": ["hashmap-practice"],
     "recall": "Without looking: Why do anagrams share a sorted-character key?",
     "exercise": {
       "task": "Implement grouping with a canonical key and explain why equivalent words share a bucket.",
@@ -655,9 +598,7 @@
     "next": "heap-basics"
   },
   "hashmap-practice": {
-    "prerequisites": [
-      "dsa-method-complexity"
-    ],
+    "prerequisites": ["dsa-method-complexity"],
     "recall": "Without looking: When is a Set sufficient instead of a count map?",
     "exercise": {
       "task": "Recreate the duplicate and frequency examples using Set and Map.",
@@ -680,9 +621,7 @@
     "next": "group-anagrams"
   },
   "heap-basics": {
-    "prerequisites": [
-      "dsa-method-complexity"
-    ],
+    "prerequisites": ["dsa-method-complexity"],
     "recall": "Without looking: Is a heap array globally sorted?",
     "exercise": {
       "task": "Recreate the example heap operation and state the parent-child invariant.",
@@ -728,9 +667,7 @@
     "next": null
   },
   "hydration-rsc": {
-    "prerequisites": [
-      "rsc-boundaries"
-    ],
+    "prerequisites": ["rsc-boundaries"],
     "recall": "Without looking: Is hydration the same thing as receiving HTML?",
     "exercise": {
       "task": "Trace the example HTML, RSC payload and client JavaScript to their separate roles.",
@@ -753,10 +690,7 @@
     "next": "next-request-trace"
   },
   "idempotency": {
-    "prerequisites": [
-      "http-basics",
-      "authenticated-mutations"
-    ],
+    "prerequisites": ["http-basics", "authenticated-mutations"],
     "recall": "Without looking: Is disabling a submit button enough to make a mutation idempotent?",
     "exercise": {
       "task": "Recreate the retry example using the same operation key and payload.",
@@ -779,9 +713,7 @@
     "next": "rest-pagination"
   },
   "layout-form-details": {
-    "prerequisites": [
-      "semantic-responsive"
-    ],
+    "prerequisites": ["semantic-responsive"],
     "recall": "Without looking: Why does a long code line break a flex layout?",
     "exercise": {
       "task": "Recreate the box-model example and compute content and outer widths.",
@@ -804,9 +736,7 @@
     "next": "tailwind-tokens"
   },
   "merge-intervals": {
-    "prerequisites": [
-      "dsa-method-complexity"
-    ],
+    "prerequisites": ["dsa-method-complexity"],
     "recall": "Without looking: Can overlap be decided without defining endpoint semantics?",
     "exercise": {
       "task": "Implement the example interval merge after sorting by start.",
@@ -829,9 +759,7 @@
     "next": "sliding-window"
   },
   "mock-company-prep": {
-    "prerequisites": [
-      "daily-learning-loop"
-    ],
+    "prerequisites": ["daily-learning-loop"],
     "recall": "Without looking: What should you do after reading the corrected mock solution?",
     "exercise": {
       "task": "Reproduce the example mock session and turn each miss into one repair action.",
@@ -854,10 +782,7 @@
     "next": "december-buffer"
   },
   "next-request-trace": {
-    "prerequisites": [
-      "http-basics",
-      "rsc-boundaries"
-    ],
+    "prerequisites": ["http-basics", "rsc-boundaries"],
     "recall": "Without looking: Are SSR and RSC interchangeable?",
     "exercise": {
       "task": "Trace the example route from request to serialized props and client interaction.",
@@ -880,9 +805,7 @@
     "next": "caching-revalidation"
   },
   "next-route-states": {
-    "prerequisites": [
-      "rsc-boundaries"
-    ],
+    "prerequisites": ["rsc-boundaries"],
     "recall": "Without looking: Is an empty successful collection the same as a failed request?",
     "exercise": {
       "task": "Recreate the example route-state map for loading, error and missing data.",
@@ -905,10 +828,7 @@
     "next": "server-data-fetching"
   },
   "optimistic-forms": {
-    "prerequisites": [
-      "controlled-inputs",
-      "async-await"
-    ],
+    "prerequisites": ["controlled-inputs", "async-await"],
     "recall": "Without looking: Is optimistic state the final source of truth?",
     "exercise": {
       "task": "Recreate the example optimistic update with pending and rollback behavior.",
@@ -931,9 +851,7 @@
     "next": "reducers-context-refs"
   },
   "pdf-coverage-checklist": {
-    "prerequisites": [
-      "daily-learning-loop"
-    ],
+    "prerequisites": ["daily-learning-loop"],
     "recall": "Without looking: Does reading every note make you interview-ready?",
     "exercise": {
       "task": "Use the example checklist to separate topic coverage from demonstrated readiness.",
@@ -956,9 +874,7 @@
     "next": "project-stories"
   },
   "performance-investigation": {
-    "prerequisites": [
-      "performance-profiling"
-    ],
+    "prerequisites": ["performance-profiling"],
     "recall": "Without looking: How do you identify a request waterfall?",
     "exercise": {
       "task": "Reproduce the worked request comparison and choose the measurement that tests your hypothesis.",
@@ -981,9 +897,7 @@
     "next": null
   },
   "performance-profiling": {
-    "prerequisites": [
-      "browser-rendering"
-    ],
+    "prerequisites": ["browser-rendering"],
     "recall": "Without looking: Should every calculation be memoized before profiling?",
     "exercise": {
       "task": "Use the example investigation to choose Network, React, browser or bundle tooling.",
@@ -1006,9 +920,7 @@
     "next": "performance-investigation"
   },
   "project-stories": {
-    "prerequisites": [
-      "mock-company-prep"
-    ],
+    "prerequisites": ["mock-company-prep"],
     "recall": "Without looking: What should you do if a project outcome was not measured?",
     "exercise": {
       "task": "Prepare the example project story around one concrete decision and its evidence.",
@@ -1031,9 +943,7 @@
     "next": null
   },
   "promise-chains": {
-    "prerequisites": [
-      "event-loop"
-    ],
+    "prerequisites": ["event-loop"],
     "recall": "Without looking: Does Promise.all cancel the other operations when one rejects?",
     "exercise": {
       "task": "Trace the example then/catch chain and reproduce its final resolved or rejected state.",
@@ -1056,9 +966,7 @@
     "next": "this-binding"
   },
   "prototypes-classes": {
-    "prerequisites": [
-      "this-binding"
-    ],
+    "prerequisites": ["this-binding"],
     "recall": "Without looking: Are ordinary class methods copied into every instance?",
     "exercise": {
       "task": "Recreate the example instances and identify their own versus inherited members.",
@@ -1081,10 +989,7 @@
     "next": null
   },
   "react-render-debugging": {
-    "prerequisites": [
-      "rendering-keys",
-      "effects"
-    ],
+    "prerequisites": ["rendering-keys", "effects"],
     "recall": "Without looking: Does every React render update the DOM?",
     "exercise": {
       "task": "Recreate the example bug and isolate identity, state ownership or synchronization as its cause.",
@@ -1107,10 +1012,7 @@
     "next": "stale-closures"
   },
   "read-only-tools": {
-    "prerequisites": [
-      "typed-props-api",
-      "auth-sessions-oauth"
-    ],
+    "prerequisites": ["typed-props-api", "auth-sessions-oauth"],
     "recall": "Without looking: Does a read-only tool need authorization?",
     "exercise": {
       "task": "Recreate the tool contract and validate both arguments and its bounded result.",
@@ -1133,9 +1035,7 @@
     "next": "structured-output"
   },
   "redirect-errors": {
-    "prerequisites": [
-      "actions-route-handlers"
-    ],
+    "prerequisites": ["actions-route-handlers"],
     "recall": "Without looking: Why can redirect inside a try block produce a false save error?",
     "exercise": {
       "task": "Reproduce the success path with redirect outside the mutation error handler.",
@@ -1158,9 +1058,7 @@
     "next": "rsc-boundaries"
   },
   "reducers-context-refs": {
-    "prerequisites": [
-      "thinking-in-react"
-    ],
+    "prerequisites": ["thinking-in-react"],
     "recall": "Without looking: Does changing ref.current trigger a render?",
     "exercise": {
       "task": "Recreate the example state transition and distinguish reducer state from a mutable ref.",
@@ -1183,9 +1081,7 @@
     "next": "rendering-keys"
   },
   "rendering-keys": {
-    "prerequisites": [
-      "thinking-in-react"
-    ],
+    "prerequisites": ["thinking-in-react"],
     "recall": "Without looking: Does a re-render always replace the DOM?",
     "exercise": {
       "task": "Recreate the example list and preserve the right item state after reordering.",
@@ -1208,10 +1104,7 @@
     "next": "react-render-debugging"
   },
   "rest-pagination": {
-    "prerequisites": [
-      "http-basics",
-      "typed-props-api"
-    ],
+    "prerequisites": ["http-basics", "typed-props-api"],
     "recall": "Without looking: Why should the server bound page size?",
     "exercise": {
       "task": "Reproduce the example page request and define a stable cursor order.",
@@ -1234,9 +1127,7 @@
     "next": null
   },
   "retrieval-evaluation": {
-    "prerequisites": [
-      "structured-output"
-    ],
+    "prerequisites": ["structured-output"],
     "recall": "Without looking: What should happen when retrieved documents do not support the requested fact?",
     "exercise": {
       "task": "Recreate the lesson's small evaluation table and inspect failures by case.",
@@ -1259,9 +1150,7 @@
     "next": null
   },
   "rsc-boundaries": {
-    "prerequisites": [
-      "thinking-in-react"
-    ],
+    "prerequisites": ["thinking-in-react"],
     "recall": "Without looking: Does use client mean the component can never render initial HTML on the server?",
     "exercise": {
       "task": "Recreate the example server-to-client view model without exposing private fields.",
@@ -1307,10 +1196,7 @@
     "next": "closures"
   },
   "search-abort-races": {
-    "prerequisites": [
-      "debounce-throttle",
-      "async-await"
-    ],
+    "prerequisites": ["debounce-throttle", "async-await"],
     "recall": "Without looking: Should an aborted search show a failure message?",
     "exercise": {
       "task": "Recreate the example search and prevent a stale response from replacing the latest result.",
@@ -1333,10 +1219,7 @@
     "next": "thinking-in-react"
   },
   "security-boundary-drills": {
-    "prerequisites": [
-      "http-basics",
-      "auth-sessions-oauth"
-    ],
+    "prerequisites": ["http-basics", "auth-sessions-oauth"],
     "recall": "Without looking: Does CORS authorize a caller?",
     "exercise": {
       "task": "Map the example threats to the exact server or browser boundary they cross.",
@@ -1382,10 +1265,7 @@
     "next": "layout-form-details"
   },
   "server-data-fetching": {
-    "prerequisites": [
-      "rsc-boundaries",
-      "http-basics"
-    ],
+    "prerequisites": ["rsc-boundaries", "http-basics"],
     "recall": "Without looking: Where would you start an initial private journal fetch in the App Router?",
     "exercise": {
       "task": "Recreate the example initial fetch at its server boundary and pass a small view model onward.",
@@ -1408,9 +1288,7 @@
     "next": "streaming-suspense"
   },
   "sliding-window": {
-    "prerequisites": [
-      "hashmap-practice"
-    ],
+    "prerequisites": ["hashmap-practice"],
     "recall": "Without looking: Why use Math.max when moving the left boundary?",
     "exercise": {
       "task": "Implement the example longest-unique-substring window and state its invariant.",
@@ -1433,9 +1311,7 @@
     "next": "stack-patterns"
   },
   "sql-indexes-transactions": {
-    "prerequisites": [
-      "sql-joins"
-    ],
+    "prerequisites": ["sql-joins"],
     "recall": "Without looking: Is adding an index always a performance improvement?",
     "exercise": {
       "task": "Explain the example index, transaction and batched query as three different mechanisms.",
@@ -1458,9 +1334,7 @@
     "next": "sql-query-debugging"
   },
   "sql-joins": {
-    "prerequisites": [
-      "http-basics"
-    ],
+    "prerequisites": ["http-basics"],
     "recall": "Without looking: Does a LEFT JOIN drop a parent with no matching child?",
     "exercise": {
       "task": "Reproduce the example join and explain each resulting row and its cardinality.",
@@ -1483,10 +1357,7 @@
     "next": "sql-indexes-transactions"
   },
   "sql-query-debugging": {
-    "prerequisites": [
-      "sql-joins",
-      "sql-indexes-transactions"
-    ],
+    "prerequisites": ["sql-joins", "sql-indexes-transactions"],
     "recall": "Without looking: Why can LEFT JOIN plus WHERE child.active = true drop empty parents?",
     "exercise": {
       "task": "Trace the example query issue and choose a plan check, batching change or atomic write.",
@@ -1509,9 +1380,7 @@
     "next": null
   },
   "stack-patterns": {
-    "prerequisites": [
-      "dsa-method-complexity"
-    ],
+    "prerequisites": ["dsa-method-complexity"],
     "recall": "Without looking: Why is counting opening and closing brackets insufficient?",
     "exercise": {
       "task": "Implement the example bracket matcher using a stack of unfinished openings.",
@@ -1534,10 +1403,7 @@
     "next": "tree-bfs-dfs"
   },
   "stale-closures": {
-    "prerequisites": [
-      "closures",
-      "thinking-in-react"
-    ],
+    "prerequisites": ["closures", "thinking-in-react"],
     "recall": "Without looking: Why can a callback read an old state value?",
     "exercise": {
       "task": "Recreate the delayed callback and explain which render snapshot it reads.",
@@ -1560,9 +1426,7 @@
     "next": null
   },
   "streaming-suspense": {
-    "prerequisites": [
-      "server-data-fetching"
-    ],
+    "prerequisites": ["server-data-fetching"],
     "recall": "Without looking: Does Suspense make the database query itself faster?",
     "exercise": {
       "task": "Recreate the example loading boundary around an independently slow section.",
@@ -1585,9 +1449,7 @@
     "next": null
   },
   "structured-output": {
-    "prerequisites": [
-      "typed-props-api"
-    ],
+    "prerequisites": ["typed-props-api"],
     "recall": "Without looking: Does valid JSON guarantee the application’s expected schema?",
     "exercise": {
       "task": "Reproduce the example output schema and handle invalid generated data explicitly.",
@@ -1610,9 +1472,7 @@
     "next": "ai-cost-boundaries"
   },
   "tailwind-tokens": {
-    "prerequisites": [
-      "semantic-responsive"
-    ],
+    "prerequisites": ["semantic-responsive"],
     "recall": "Without looking: Should every value be a token?",
     "exercise": {
       "task": "Recreate the example semantic tokens and use them for one consistent component.",
@@ -1658,9 +1518,7 @@
     "next": "controlled-inputs"
   },
   "this-binding": {
-    "prerequisites": [
-      "scope-hoisting"
-    ],
+    "prerequisites": ["scope-hoisting"],
     "recall": "Without looking: Does an ordinary function keep this from where it was defined?",
     "exercise": {
       "task": "Trace the example method calls and predict the receiver at each call site.",
@@ -1683,9 +1541,7 @@
     "next": "prototypes-classes"
   },
   "tree-bfs-dfs": {
-    "prerequisites": [
-      "stack-patterns"
-    ],
+    "prerequisites": ["stack-patterns"],
     "recall": "Without looking: Which traversal naturally visits a tree level by level?",
     "exercise": {
       "task": "Implement the example breadth-first and depth-first traversals and predict their order.",
@@ -1708,9 +1564,7 @@
     "next": "two-pointers"
   },
   "ts-ai-api-boundaries": {
-    "prerequisites": [
-      "zod-runtime-contracts"
-    ],
+    "prerequisites": ["zod-runtime-contracts"],
     "recall": "Without looking: Does structured output guarantee truth?",
     "exercise": {
       "task": "Recreate decode and return a distinct result for malformed JSON and invalid schema.",
@@ -1733,9 +1587,7 @@
     "next": null
   },
   "ts-conditional-infer": {
-    "prerequisites": [
-      "ts-generics-constraints"
-    ],
+    "prerequisites": ["ts-generics-constraints"],
     "recall": "Without looking: What does infer do?",
     "exercise": {
       "task": "Recreate ElementOf and compare distributing with whole-union conditionals.",
@@ -1758,9 +1610,7 @@
     "next": "ts-literals-satisfies"
   },
   "ts-generics-constraints": {
-    "prerequisites": [
-      "typed-props-api"
-    ],
+    "prerequisites": ["typed-props-api"],
     "recall": "Without looking: How is T different from any?",
     "exercise": {
       "task": "Recreate get with an object/key relationship and infer the returned property type.",
@@ -1783,9 +1633,7 @@
     "next": "ts-mapped-utility-types"
   },
   "ts-literals-satisfies": {
-    "prerequisites": [
-      "ts-mapped-utility-types"
-    ],
+    "prerequisites": ["ts-mapped-utility-types"],
     "recall": "Without looking: Is satisfies a runtime check?",
     "exercise": {
       "task": "Recreate the checked route map and derive its key and event-name types.",
@@ -1808,9 +1656,7 @@
     "next": "ts-narrowing-never"
   },
   "ts-mapped-utility-types": {
-    "prerequisites": [
-      "ts-generics-constraints"
-    ],
+    "prerequisites": ["ts-generics-constraints"],
     "recall": "Without looking: Is Partial recursive?",
     "exercise": {
       "task": "Recreate RenameNote and its remapped event callbacks without duplicating field types.",
@@ -1833,9 +1679,7 @@
     "next": "ts-conditional-infer"
   },
   "ts-narrowing-never": {
-    "prerequisites": [
-      "discriminated-unions"
-    ],
+    "prerequisites": ["discriminated-unions"],
     "recall": "Without looking: Why can never enforce exhaustiveness?",
     "exercise": {
       "task": "Recreate the exhaustive state renderer and demonstrate an unhandled variant error.",
@@ -1858,10 +1702,7 @@
     "next": "ts-strictness-modules"
   },
   "ts-react-contracts": {
-    "prerequisites": [
-      "ts-generics-constraints",
-      "controlled-inputs"
-    ],
+    "prerequisites": ["ts-generics-constraints", "controlled-inputs"],
     "recall": "Without looking: Why use a prop union?",
     "exercise": {
       "task": "Recreate List so its item type flows into both getKey and renderItem.",
@@ -1884,9 +1725,7 @@
     "next": "zod-runtime-contracts"
   },
   "ts-strictness-modules": {
-    "prerequisites": [
-      "typed-props-api"
-    ],
+    "prerequisites": ["typed-props-api"],
     "recall": "Without looking: Does strict enable noUncheckedIndexedAccess?",
     "exercise": {
       "task": "Recreate the safe array read under noUncheckedIndexedAccess.",
@@ -1909,9 +1748,7 @@
     "next": "ts-react-contracts"
   },
   "two-pointers": {
-    "prerequisites": [
-      "dsa-method-complexity"
-    ],
+    "prerequisites": ["dsa-method-complexity"],
     "recall": "Without looking: Why does moving the left pointer help when the sorted pair sum is too small?",
     "exercise": {
       "task": "Recreate the sorted pair or palindrome example and justify each pointer move.",
@@ -1934,9 +1771,7 @@
     "next": "two-sum-hashmap"
   },
   "two-sum-hashmap": {
-    "prerequisites": [
-      "hashmap-practice"
-    ],
+    "prerequisites": ["hashmap-practice"],
     "recall": "Without looking: Why check the complement before inserting the current index?",
     "exercise": {
       "task": "Implement the example complement lookup without reusing the same element.",
@@ -1959,9 +1794,7 @@
     "next": null
   },
   "typed-props-api": {
-    "prerequisites": [
-      "http-basics"
-    ],
+    "prerequisites": ["http-basics"],
     "recall": "Without looking: Does response.json() validate an interface?",
     "exercise": {
       "task": "Recreate the unknown-to-User validation and reject a malformed array element.",
@@ -1984,9 +1817,7 @@
     "next": "discriminated-unions"
   },
   "vercel-deploy": {
-    "prerequisites": [
-      "vite-mdx"
-    ],
+    "prerequisites": ["vite-mdx"],
     "recall": "Without looking: Are VITE_ variables secret?",
     "exercise": {
       "task": "Recreate the example build-output explanation and distinguish public config from secrets.",
@@ -2009,9 +1840,7 @@
     "next": null
   },
   "vite-mdx": {
-    "prerequisites": [
-      "semantic-responsive"
-    ],
+    "prerequisites": ["semantic-responsive"],
     "recall": "Without looking: Why MDX instead of plain Markdown?",
     "exercise": {
       "task": "Recreate the example MDX build setup and add one metadata-backed lesson.",
@@ -2034,10 +1863,7 @@
     "next": "vercel-deploy"
   },
   "web-security": {
-    "prerequisites": [
-      "http-basics",
-      "auth-sessions-oauth"
-    ],
+    "prerequisites": ["http-basics", "auth-sessions-oauth"],
     "recall": "Without looking: Does CORS replace server authorization?",
     "exercise": {
       "task": "Recreate the example parameterized query and explain the other security boundaries separately.",
@@ -2060,9 +1886,7 @@
     "next": null
   },
   "zod-runtime-contracts": {
-    "prerequisites": [
-      "typed-props-api"
-    ],
+    "prerequisites": ["typed-props-api"],
     "recall": "Without looking: What is z.infer?",
     "exercise": {
       "task": "Recreate NoteInput and return the parsed, normalized value after safeParse.",
@@ -2085,9 +1909,7 @@
     "next": "zod-transforms-refinements"
   },
   "zod-transforms-refinements": {
-    "prerequisites": [
-      "zod-runtime-contracts"
-    ],
+    "prerequisites": ["zod-runtime-contracts"],
     "recall": "Without looking: Is z.infer the raw input type?",
     "exercise": {
       "task": "Recreate Minutes and Passwords with distinct input and output types.",

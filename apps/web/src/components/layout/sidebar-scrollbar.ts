@@ -1,0 +1,2 @@
+export const sidebarScrollbar =
+  "[scrollbar-width:thin] [scrollbar-color:var(--line)_transparent] hover:[scrollbar-color:var(--muted-ink)_transparent] focus-within:[scrollbar-color:var(--muted-ink)_transparent] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-line [&::-webkit-scrollbar-thumb:hover]:bg-muted-ink [&::-webkit-scrollbar-corner]:bg-transparent [&::-webkit-scrollbar-button]:hidden";

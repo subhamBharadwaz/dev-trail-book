@@ -1,0 +1,18 @@
+name: Lesson or feature suggestion
+description: Suggest a topic, example or improvement.
+title: "[Idea]: "
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: What are you trying to learn or do?
+      description: Include your current level and what feels confusing or missing.
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: What would help?
+      description: Describe a useful example, visual or improvement.
+    validations:
+      required: true
