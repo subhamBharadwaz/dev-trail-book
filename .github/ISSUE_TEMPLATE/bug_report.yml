@@ -1,0 +1,33 @@
+name: Bug or content correction
+description: Report a broken feature or an inaccurate explanation.
+title: "[Fix]: "
+body:
+  - type: markdown
+    attributes:
+      value: "Reports are public. Do not include account details, sign-in links, tokens, private code, study backups or journal entries."
+  - type: input
+    id: page
+    attributes:
+      label: Page URL
+      placeholder: https://dev-trailbook.pages.dev/topic/closures/
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened or needs correcting?
+      description: Include reproduction steps or the sentence/code in question.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior or proposed correction
+      description: Link an authoritative source for content corrections when possible.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Device and browser
+      placeholder: Android phone, Chrome; or desktop, Firefox

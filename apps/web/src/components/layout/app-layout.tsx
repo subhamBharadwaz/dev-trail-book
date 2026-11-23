@@ -1,3 +1,5 @@
+import { SiteFooter } from "@/features/platform/components/site-footer";
+import { sidebarScrollbar } from "./sidebar-scrollbar";
 import { type ReactNode } from "react";
 import type { AppRoute } from "@/app/routes";
 import { Sidebar } from "./sidebar";
@@ -21,7 +23,9 @@ export function AppLayout({
       >
         Skip to content
       </a>
-      <aside className="fixed inset-y-0 left-0 z-20 hidden w-64 flex-col overflow-y-auto overscroll-contain border-r border-line bg-sidebar-bg px-4 pt-7 xl:flex">
+      <aside
+        className={`${sidebarScrollbar} fixed inset-y-0 left-0 z-20 hidden w-64 flex-col overflow-y-auto overscroll-contain border-r border-line bg-sidebar-bg px-4 pt-7 xl:flex`}
+      >
         <Sidebar route={route} />
       </aside>
       <div className="min-w-0 xl:ml-64">
@@ -29,6 +33,7 @@ export function AppLayout({
         <main id="main-content" tabIndex={-1} className="@container min-w-0">
           {children}
         </main>
+        <SiteFooter />
       </div>
     </div>
   );

@@ -184,3 +184,7 @@ The web build uses Astro 7 with the official React integration. Public lessons, 
 Canonical URLs, Open Graph/X cards and the approved OG image are emitted in HTML. The generated sitemap includes public learning pages and excludes account and personal study routes, which carry `noindex`. Old `#/topic/...` links redirect in the browser to real paths; authentication token fragments are not treated as navigation. The production origin remains `https://dev-trailbook.pages.dev`; update the Astro site setting and social image origin if the domain changes.
 
 The build verifies readable lesson HTML, canonical metadata, sitemap coverage, noindex workspace pages and social assets. Existing React tests still use the Vite test harness. Astro template checking currently reports an upstream incompatibility with the installed TypeScript 7.0 compiler; the production Astro compiler and TypeScript app checks run separately. Do not report `astro check` as passing until this compatibility limitation is resolved.
+
+## Public beta
+
+New learners can begin at `/start-here`. Public About, privacy/data and feedback pages are linked from the site footer. See [the launch review](docs/public-beta-launch.md) for the scoped lesson review, deployment checks and remaining Search Console/device steps.

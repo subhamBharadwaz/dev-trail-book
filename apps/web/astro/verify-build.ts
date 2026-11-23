@@ -1,3 +1,4 @@
+import { publicPages } from "../src/features/platform/data/public-pages";
 import { readFile, access } from "node:fs/promises";
 import { topics } from "@trailbook/content/native";
 const output = new URL("../dist/", import.meta.url);
@@ -38,7 +39,22 @@ for (const route of [
   if (!(await read(`${route}/index.html`)).includes("noindex, follow"))
     throw new Error(`Workspace indexable: ${route}`);
 }
+for (const route of Object.keys(publicPages)) {
+  const html = await read(`${route}/index.html`);
+  if (!html.includes("<h1") || html.includes('content="noindex'))
+    throw new Error(`Public page not readable/indexable: ${route}`);
+  if (!html.includes(`https://dev-trailbook.pages.dev/${route}/`))
+    throw new Error(`Public page canonical missing: ${route}`);
+}
+const home = await read("index.html");
+if (!home.includes('name="google-site-verification"'))
+  throw new Error("Google verification tag missing");
+if (!home.includes("Find your starting point"))
+  throw new Error("First-visit guide missing");
 const sitemap = await read("sitemap-0.xml");
+for (const route of Object.keys(publicPages))
+  if (!sitemap.includes(`/${route}/`))
+    throw new Error(`Public page missing from sitemap: ${route}`);
 for (const topic of topics)
   if (!sitemap.includes(`/topic/${topic.slug}/`))
     throw new Error(`Missing lesson in sitemap: ${topic.slug}`);

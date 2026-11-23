@@ -3,19 +3,21 @@ import '../../src/index.css';
 import '@fontsource-variable/jetbrains-mono';
 import App from '../../src/App';
 import { ClientRouter } from 'astro:transitions';
+import {publicPages} from '../../src/features/platform/data/public-pages';
 import {topics} from '@trailbook/content/native';
 import {categories} from '@trailbook/content/categories';
 import {learningPaths} from '../../src/features/learning-paths/data/learning-paths';
 export function getStaticPaths(){
 const ids=learningPaths.map(s=>s.id);
-return [undefined,'topics','questions','facts','paths','roadmap','account','today','evidence','mistakes','interviews','readiness','backup','saved','practice',...topics.map(t=>`topic/${t.slug}`),...categories.map(c=>`category/${c.id}`),...ids.flatMap(id=>[`paths/${id}`,`practice/path/${id}`])].map(path=>({params:{path}}));
+return [undefined,...Object.keys(publicPages),'topics','questions','facts','paths','roadmap','account','today','evidence','mistakes','interviews','readiness','backup','saved','practice',...topics.map(t=>`topic/${t.slug}`),...categories.map(c=>`category/${c.id}`),...ids.flatMap(id=>[`paths/${id}`,`practice/path/${id}`])].map(path=>({params:{path}}));
 }
 const route=Astro.params.path||'';
 const topic=route.startsWith('topic/')?topics.find(t=>t.slug===route.slice(6)):undefined;
 const category=route.startsWith('category/')?categories.find(c=>c.id===route.slice(9)):undefined;
 const stage=route.startsWith('paths/')?learningPaths.find(s=>s.id===route.slice(6)):undefined;
 const personal=/^(account|today|evidence|mistakes|interviews|readiness|backup|saved|practice)(\/|$)/.test(route);
-const title=topic?.title||category?.name||stage?.title||({'':'Learn it. Build it. Explain it.',topics:'All topics',questions:'Questions & answers',facts:'Must-know facts',paths:'Learning paths',roadmap:'Learning roadmap'} as Record<string,string>)[route]||'Your study workspace';
+const publicPage=publicPages[route as keyof typeof publicPages];
+const title=publicPage?.title||topic?.title||category?.name||stage?.title||({'':'Learn it. Build it. Explain it.',topics:'All topics',questions:'Questions & answers',facts:'Must-know facts',paths:'Learning paths',roadmap:'Learning roadmap'} as Record<string,string>)[route]||'Your study workspace';
 const pageTitle=`${title} · Dev Trailbook`;
 const descriptions: Record<string, string> = {
   '': 'Learn frontend development from web foundations to advanced React and TypeScript, with visual lessons, worked code and focused practice.',
@@ -25,10 +27,10 @@ const descriptions: Record<string, string> = {
   paths: 'Follow self-paced frontend learning paths from HTML and CSS foundations to advanced TypeScript, React and shipping applications.',
   roadmap: 'Plan your frontend learning journey through foundations, JavaScript, TypeScript, React and practical application development.'
 };
-const description=topic?.description||category?.description||stage?.description||descriptions[route]||'Your personal study workspace for frontend learning and practice.';
+const description=publicPage?.description||topic?.description||category?.description||stage?.description||descriptions[route]||'Your personal study workspace for frontend learning and practice.';
 const canonical=new URL(Astro.url.pathname,'https://dev-trailbook.pages.dev').href;
 ---
-<!doctype html><html lang="en" class="scheme-light dark:scheme-dark" transition:animate="none"><head><ClientRouter fallback="swap"/><meta charset="UTF-8"/>    <link rel="icon" type="image/svg+xml" href="/trailbook.svg" />
+<!doctype html><html lang="en" class="[&[data-theme-reveal]]:[view-transition-name:root] [&[data-theme-reveal]::view-transition-old(root)]:animate-none [&[data-theme-reveal]::view-transition-new(root)]:animate-none [&[data-theme-reveal]::view-transition-old(root)]:mix-blend-normal [&[data-theme-reveal]::view-transition-new(root)]:mix-blend-normal [&[data-theme-reveal]::view-transition-old(root)]:z-0 [&[data-theme-reveal]::view-transition-new(root)]:z-10 scheme-light dark:scheme-dark" transition:animate="none"><head><ClientRouter fallback="swap"/><meta charset="UTF-8"/><meta name="google-site-verification" content="GmdrVBF2fkWIxwV40fJix7H47yt7l-FqFkxuQWYJM3E"/>    <link rel="icon" type="image/svg+xml" href="/trailbook.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="canonical" href={canonical} />
     <meta name="robots" content={personal ? "noindex, follow" : "index, follow, max-image-preview:large"} />

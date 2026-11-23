@@ -1,3 +1,4 @@
+import { PublicPage } from "@/pages/public-page";
 import { lazy, Suspense } from "react";
 import { OverviewPage } from "@/pages/overview-page";
 import { CollectionPage } from "@/pages/collection-page";
@@ -61,6 +62,8 @@ const RoadmapPage = lazy(() =>
 );
 export function AppRoutes({ route }: { route: AppRoute }) {
   switch (route.kind) {
+    case "public-page":
+      return <PublicPage page={route.page} />;
     case "backup":
       return (
         <Suspense fallback={loading}>

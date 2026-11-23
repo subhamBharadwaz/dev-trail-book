@@ -1,3 +1,4 @@
+import { sidebarScrollbar } from "./sidebar-scrollbar";
 import { useEffect, useState } from "react";
 import {
   Dialog,
@@ -27,7 +28,9 @@ export function MobileNavigation({ route }: { route: AppRoute }) {
       >
         <Menu size={20} />
       </DialogTrigger>
-      <DialogContent className="fixed inset-y-0 left-0 m-0 flex h-dvh max-h-none w-80 max-w-[calc(100vw-2rem)] flex-col overflow-y-auto overscroll-contain border-0 border-r border-line bg-sidebar-bg px-[17px] pt-16 text-ink backdrop:bg-[#211e1a99] backdrop:backdrop-blur-[3px]">
+      <DialogContent
+        className={`${sidebarScrollbar} fixed inset-y-0 left-0 m-0 flex h-dvh max-h-none w-80 max-w-[calc(100vw-2rem)] flex-col overflow-y-auto overscroll-contain border-0 border-r border-line bg-sidebar-bg px-[17px] pt-16 text-ink backdrop:bg-[#211e1a99] backdrop:backdrop-blur-[3px]`}
+      >
         <DialogTitle className="sr-only">Navigation</DialogTitle>
         <DialogClose
           className="absolute right-2 top-[7px] grid size-11 place-items-center rounded border-0 bg-transparent text-muted-ink hover:bg-surface-hover hover:text-ink"

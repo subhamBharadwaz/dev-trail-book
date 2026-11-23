@@ -1,3 +1,7 @@
+import {
+  publicPages,
+  type PublicPageId,
+} from "@/features/platform/data/public-pages";
 import { navigateWithinApp } from "./navigation";
 import {
   learningPathById,
@@ -19,6 +23,7 @@ export interface CollectionRoute {
   category?: Category;
 }
 export type AppRoute =
+  | { kind: "public-page"; path: string; title: string; page: PublicPageId }
   | {
       kind:
         | "today"
@@ -55,6 +60,14 @@ const collectionTitles = {
   facts: "Must-know facts",
 };
 export function resolveRoute(path: string): AppRoute {
+  const page = path.slice(1);
+  if (Object.hasOwn(publicPages, page))
+    return {
+      kind: "public-page",
+      path,
+      page: page as PublicPageId,
+      title: publicPages[page as PublicPageId].title,
+    };
   if (path === "/backup")
     return { kind: "backup", path, title: "Export & restore" };
   if (path === "/readiness")

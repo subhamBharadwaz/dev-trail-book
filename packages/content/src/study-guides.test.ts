@@ -16,7 +16,17 @@ test("every lesson has specific practice, a reference and honest review metadata
     expect(guide.exercise.solutionNotes.length).toBeGreaterThan(0);
     expect(topic.code.length).toBeGreaterThan(20);
     expect(guide.recall).toContain(topic.questions[0].question);
-    expect(guide.review.reviewedOn).toBeNull();
+    const reviewed = new Set([
+      "closures",
+      "async-await",
+      "event-loop",
+      "binary-search",
+      "discriminated-unions",
+    ]);
+    if (reviewed.has(topic.slug)) {
+      expect(guide.review.reviewedOn).toBe("2026-11-23");
+      expect(guide.review.versionNote).toContain("regression checks");
+    } else expect(guide.review.reviewedOn).toBeNull();
     expect(guide.review.versionNote.length).toBeGreaterThan(35);
     for (const pre of guide.prerequisites) {
       expect(pre).not.toBe(topic.slug);
