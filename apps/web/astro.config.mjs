@@ -13,7 +13,7 @@ export default defineConfig({
     react({ experimentalDisableStreaming: true }),
     sitemap({
       filter: (u) =>
-        !/^\/(account|today|evidence|mistakes|interviews|readiness|backup|saved|practice)(\/|$)/.test(
+        !/^\/(review|account|today|evidence|mistakes|interviews|readiness|backup|saved|practice)(\/|$)/.test(
           new URL(u).pathname,
         ),
     }),

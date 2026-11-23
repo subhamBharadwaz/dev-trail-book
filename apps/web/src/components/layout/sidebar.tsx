@@ -1,9 +1,10 @@
+import { SidebarTopics } from "./sidebar-topics";
 import { SidebarProfile } from "@/features/account/components/sidebar-profile";
 import { Fragment } from "react";
 import { ProgressMeter } from "@/components/ui/progress-meter";
 import { BookOpen, Sprout } from "lucide-react";
 import { workspaceNavigation } from "@/config/navigation";
-import { categories, topics } from "@/features/topics/data/content";
+import { topics } from "@/features/topics/data/content";
 import { useReadingState } from "@/hooks/use-reading-state";
 import type { AppRoute } from "@/app/routes";
 export function Sidebar({
@@ -15,12 +16,6 @@ export function Sidebar({
 }) {
   const { saved, read } = useReadingState();
   const readCount = topics.filter((topic) => read.includes(topic.slug)).length;
-  const activeCategory =
-    route.kind === "topic"
-      ? route.topic.category
-      : route.kind === "collection"
-        ? route.category?.id
-        : undefined;
   return (
     <>
       <a
@@ -50,6 +45,7 @@ export function Sidebar({
                 "/topics",
                 "/today",
                 "/practice",
+                "/review",
                 "/interviews",
                 "/mistakes",
                 "/readiness",
@@ -66,6 +62,7 @@ export function Sidebar({
                 "/topics",
                 "/today",
                 "/practice",
+                "/review",
                 "/interviews",
                 "/mistakes",
                 "/readiness",
@@ -119,25 +116,7 @@ export function Sidebar({
         <span className="mx-3 mb-3 block text-sm font-medium tracking-wider text-muted-ink">
           TOPICS
         </span>
-        {categories.map((item) => (
-          <a
-            onClick={onNavigate}
-            key={item.id}
-            className="my-1 flex border border-transparent min-h-11 items-center gap-2.5 rounded-md px-3 py-2 text-sm text-muted-ink hover:bg-surface-hover hover:text-ink aria-[current=page]:border-transparent aria-[current=page]:bg-green-soft aria-[current=page]:font-medium aria-[current=page]:text-green"
-            href={`/category/${item.id}`}
-            aria-current={activeCategory === item.id ? "page" : undefined}
-          >
-            <span
-              className={`grid size-7 shrink-0 place-items-center rounded text-sm font-semibold tracking-[-.5px] ${item.color}`}
-            >
-              {item.symbol}
-            </span>
-            <span>{item.name}</span>
-            <span className="ml-auto text-sm text-muted-ink">
-              {topics.filter((topic) => topic.category === item.id).length}
-            </span>
-          </a>
-        ))}
+        <SidebarTopics route={route} onNavigate={onNavigate} />
       </nav>
       <div className="mt-auto pt-8">
         <div className="rounded-lg border border-line bg-page px-[13px] py-[15px] [&>div:first-child]:flex [&>div:first-child]:items-center [&>div:first-child]:gap-[7px] [&>div:first-child]:text-sm [&>div:first-child]:text-green [&_strong]:font-medium [&_p]:mt-2 [&_p]:text-sm [&_p]:text-muted-ink [&>span]:text-sm [&>span]:text-muted-ink">

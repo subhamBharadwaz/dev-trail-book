@@ -32,7 +32,8 @@ export type AppRoute =
         | "mistakes"
         | "interviews"
         | "readiness"
-        | "backup";
+        | "backup"
+        | "review";
       path: string;
       title: string;
     }
@@ -60,6 +61,8 @@ const collectionTitles = {
   facts: "Must-know facts",
 };
 export function resolveRoute(path: string): AppRoute {
+  if (path === "/review")
+    return { kind: "review", path, title: "Review schedule" };
   const page = path.slice(1);
   if (Object.hasOwn(publicPages, page))
     return {

@@ -14,9 +14,9 @@ export const meta = {
         "When the algorithm only needs membership or uniqueness. Use counts when multiplicity changes the answer.",
     },
     {
-      question: "Are these the exact original HashMap #3–4 problems?",
+      question: "Which problems help distinguish membership from frequency counting?",
       answer:
-        "The plan did not name them. They are explicit equivalent exercises; keep your original list if it is available.",
+        "Contains Duplicate uses membership checks; Valid Anagram compares character frequencies. Practice both to understand when a Set or a Map fits.",
     },
     {
       question: "Why is a Set insufficient for an anagram check?",
@@ -42,7 +42,7 @@ export const meta = {
 
 ## The idea
 
- Use your existing list if you have it; this site offers Contains Duplicate and Valid Anagram as clearly labelled equivalents. One uses a set for membership; the other uses a map for counts.
+Practice Contains Duplicate and Valid Anagram. One uses a set for membership; the other uses a map for counts.
 
 ## Why it matters
 
@@ -69,7 +69,7 @@ function frequencies(text) {
 
 ## Common mistakes
 
-Do not silently replace the original exercise list. These are replacements only where the original names are unavailable.
+Do not use a Set when repeated occurrences affect the answer. Define how to handle empty input, case and whitespace before implementing frequency comparisons.
 
 ## Try it yourself
 

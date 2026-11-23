@@ -35,26 +35,15 @@ test("hints, recall comparison and solutions remain concealed until deliberately
   expect(screen.getByText("Why this approach")).toBeTruthy();
   expect(screen.getByText(/not an automatic grader/)).toBeTruthy();
 });
-test("review status makes no false technical verification claim and prerequisites link to lessons", async () => {
+test("lesson preparation links prerequisites without publishing editorial review notes", () => {
   render(<TopicStudyContext topic={topic} />);
   expect(
     screen.getByRole("link", { name: /Typed props/ }).getAttribute("href"),
   ).toBe("/topic/typed-props-api");
-  const agent = createAgent();
-  await act(async () => {
-    const result = await agent.act({
-      steps: [
-        {
-          ref: "Content review & version notes",
-          action: "setOpen",
-          args: [true],
-        },
-      ],
-    });
-    expect(result.ok, result.error?.message).toBe(true);
-  });
-  expect(screen.getByText(/Pending\. The revision date/)).toBeTruthy();
-  expect(screen.getByText(/Zod 4 APIs/)).toBeTruthy();
+  expect(screen.queryByText("Content review & version notes")).toBeNull();
+  expect(
+    screen.queryByText(/Technical review|Study guidance revised/),
+  ).toBeNull();
 });
 test("confidence is keyboard accessible, persists on remount and stays separate from read state", async () => {
   const user = userEvent.setup();

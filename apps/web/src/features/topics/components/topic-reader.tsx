@@ -1,3 +1,4 @@
+import { isPlayground } from "@/features/playgrounds/examples";
 import { useHydrated } from "@/hooks/use-hydrated";
 import { useAccount } from "@/features/account/hooks/use-account";
 import { TopicStudyContext } from "./topic-study-context";
@@ -21,6 +22,11 @@ import { CodeBlock } from "@/components/content/code-block";
 import { Questions } from "./topic-questions";
 import { Facts } from "./topic-facts";
 import { categories, type Topic } from "../data/content";
+const LessonPlayground = lazy(() =>
+  import("@/features/playgrounds/lesson-playground").then((module) => ({
+    default: module.LessonPlayground,
+  })),
+);
 const TopicVisual = lazy(() =>
   import("@/features/explainers/topic-visual").then((module) => ({
     default: module.TopicVisual,
@@ -134,6 +140,17 @@ export function TopicReader({
                 <topic.Content components={components} />
               </Suspense>
             </Prose>
+            {hydrated && isPlayground(topic.slug) && (
+              <Suspense
+                fallback={
+                  <p role="status" className="my-8 text-sm text-muted-ink">
+                    Loading the code playground…
+                  </p>
+                }
+              >
+                <LessonPlayground key={topic.slug} slug={topic.slug} />
+              </Suspense>
+            )}
             <TopicWorkshop key={topic.slug} topic={topic} />
             <div className="my-[26px] flex items-start gap-3 rounded-md border border-line bg-green-soft p-[18px] text-sm leading-[1.8] text-green [&_strong]:text-sm [&_strong]:font-medium [&_p]:mt-[3px] [&_p]:text-sm [&_p]:text-ink [&>svg]:mt-0.5">
               <Lightbulb size={19} />

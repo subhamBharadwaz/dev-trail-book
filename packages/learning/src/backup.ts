@@ -1,3 +1,4 @@
+import { parseQuestionReview, reviewKey } from "./reviews";
 import { parseConfidence } from "./confidence";
 import type { Json } from "@trailbook/sync";
 import { parseMistake } from "./mistakes";
@@ -52,7 +53,7 @@ export function validStudyRecord(key: string, value: unknown): value is Json {
   const day =
     /^prep\/day\/(\d{4}-\d{2}-\d{2})\/(routine|task\/[a-z0-9-]+)$/.exec(key);
   const practice = new RegExp(
-    `^practice/(session|preferences|mistake|interview|interview-position|interview-debrief)/${id}$`,
+    `^practice/(session|preferences|review|mistake|interview|interview-position|interview-debrief)/${id}$`,
   ).test(key);
   const answer = new RegExp(`^practice/interview-answer/${id}/${id}$`).test(
     key,
@@ -69,6 +70,10 @@ export function validStudyRecord(key: string, value: unknown): value is Json {
     return false;
   if (day && !validDate(day[1])) return false;
   if (value === null) return true;
+  if (key.startsWith("practice/review/")) {
+    const review = parseQuestionReview(value);
+    return review !== null && key === reviewKey(review.cardId);
+  }
   if (confidence) return parseConfidence(value) !== null;
   if (reading) return typeof value === "boolean";
   if (entry)

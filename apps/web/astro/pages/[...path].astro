@@ -9,13 +9,13 @@ import {categories} from '@trailbook/content/categories';
 import {learningPaths} from '../../src/features/learning-paths/data/learning-paths';
 export function getStaticPaths(){
 const ids=learningPaths.map(s=>s.id);
-return [undefined,...Object.keys(publicPages),'topics','questions','facts','paths','roadmap','account','today','evidence','mistakes','interviews','readiness','backup','saved','practice',...topics.map(t=>`topic/${t.slug}`),...categories.map(c=>`category/${c.id}`),...ids.flatMap(id=>[`paths/${id}`,`practice/path/${id}`])].map(path=>({params:{path}}));
+return [undefined,...Object.keys(publicPages),'topics','questions','facts','paths','roadmap','review','account','today','evidence','mistakes','interviews','readiness','backup','saved','practice',...topics.map(t=>`topic/${t.slug}`),...categories.map(c=>`category/${c.id}`),...ids.flatMap(id=>[`paths/${id}`,`practice/path/${id}`])].map(path=>({params:{path}}));
 }
 const route=Astro.params.path||'';
 const topic=route.startsWith('topic/')?topics.find(t=>t.slug===route.slice(6)):undefined;
 const category=route.startsWith('category/')?categories.find(c=>c.id===route.slice(9)):undefined;
 const stage=route.startsWith('paths/')?learningPaths.find(s=>s.id===route.slice(6)):undefined;
-const personal=/^(account|today|evidence|mistakes|interviews|readiness|backup|saved|practice)(\/|$)/.test(route);
+const personal=/^(review|account|today|evidence|mistakes|interviews|readiness|backup|saved|practice)(\/|$)/.test(route);
 const publicPage=publicPages[route as keyof typeof publicPages];
 const title=publicPage?.title||topic?.title||category?.name||stage?.title||({'':'Learn it. Build it. Explain it.',topics:'All topics',questions:'Questions & answers',facts:'Must-know facts',paths:'Learning paths',roadmap:'Learning roadmap'} as Record<string,string>)[route]||'Your study workspace';
 const pageTitle=`${title} · Dev Trailbook`;
