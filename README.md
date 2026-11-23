@@ -39,9 +39,9 @@ flowchart TD
 
 The notebook turns missed answers into something to revisit. Mock interviews make room for timed practice and honest reflection. Weekly readiness brings these records together to suggest where the next study session would help.
 
-![Weekly readiness in the night theme](docs/images/weekly-readiness.png)
+<img width="1872" height="1001" alt="Dev Trailbook desktop application" src="https://github.com/user-attachments/assets/736285e9-b6be-4ab0-9d59-c698cb540636" />
 
-_Screenshots show the running web application with demonstration study data._
+_Dev Trailbook on desktop._
 
 ## Architecture
 
