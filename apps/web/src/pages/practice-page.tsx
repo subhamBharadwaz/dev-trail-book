@@ -49,7 +49,7 @@ export function PracticePage({ path }: { path?: LearningPath }) {
           <div>
             <p className="text-sm text-muted-ink">Practicing this path</p>
             <a
-              href={`#/paths/${path.id}`}
+              href={`/paths/${path.id}`}
               className="mt-1.5 block text-sm font-medium text-green"
             >
               {path.title}
@@ -80,13 +80,13 @@ export function PracticePage({ path }: { path?: LearningPath }) {
         </span>
       </div>
       <a
-        href="#/mistakes"
+        href="/mistakes"
         className="mb-6 inline-flex min-h-11 items-center text-base font-medium text-green"
       >
         Open mistake notebook →
       </a>
       <a
-        href="#/interviews"
+        href="/interviews"
         className="mb-6 ml-5 inline-flex min-h-11 items-center text-base font-medium text-green"
       >
         Try a timed mock interview →
@@ -135,7 +135,7 @@ export function PracticePage({ path }: { path?: LearningPath }) {
         </TabsPanel>
       </Tabs>
       {path && (
-        <a href="#/practice" className="mt-7 inline-flex text-sm text-green">
+        <a href="/practice" className="mt-7 inline-flex text-sm text-green">
           Explore practice across all collections
         </a>
       )}

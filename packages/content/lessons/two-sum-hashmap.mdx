@@ -4,8 +4,8 @@ export const meta = {
   title: "Two Sum & the complement map",
   description: "Trade a repeated search for remembered values.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["dsa", "week-1", "interview-prep"],
+  level: "Core concept",
+  tags: ["dsa", "practice", "practice"],
   questions: [
     {
       question: "Why check the complement before inserting the current index?",
@@ -26,14 +26,11 @@ export const meta = {
   source: "https://leetcode.com/problems/two-sum/description/",
   code: "function twoSum(nums, target) {\n  const seen = new Map();\n  for (let i = 0; i < nums.length; i++) {\n    const needed = target - nums[i];\n    if (seen.has(needed)) return [seen.get(needed), i];\n    seen.set(nums[i], i);\n  }\n  return null;\n}\nconsole.log(twoSum([3, 3], 6)); // [0, 1]",
   codeLanguage: "js",
-  origin: "study-plan",
-  planWeek: 1,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "To allow the same element to match itself twice.",
     "Because Map cannot store index zero.",
   ],
-  planRecordedStatus: "pending",
 };
 
 ## The idea
@@ -70,5 +67,3 @@ Attempt [2,7,11,15] with target 9 and [3,3] with target 6. Re-solve without note
 ## Keep exploring
 
 Read the [technical reference](https://leetcode.com/problems/two-sum/description/) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

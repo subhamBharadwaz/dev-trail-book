@@ -17,42 +17,41 @@ export function StudyHero({
       className="grid gap-8 border-b border-line pb-9 @min-[700px]:grid-cols-[minmax(0,1.2fr)_minmax(0,0.85fr)] @min-[700px]:gap-6 @min-[1050px]:gap-10 @min-[700px]:pb-11"
     >
       <div className="min-w-0 py-1 @min-[700px]:py-4">
-        <p className="flex items-center gap-2 text-sm font-medium text-green">
+        <p className="inline-flex items-center gap-2 rounded-md bg-[var(--peach)] px-2.5 py-1.5 text-xs font-semibold text-[#1d1b18]">
           <span aria-hidden="true" className="size-1.5 rounded-full bg-green" />
-          A LITTLE PROGRESS. EVERY DAY.
+          FRONTEND FIRST. AT YOUR PACE.
         </p>
-        <h1 className="mt-5 max-w-xl text-[clamp(2.5rem,5vw,4.5rem)] font-medium leading-[1.06] tracking-[-0.055em] text-ink">
+        <h1 className="mt-5 max-w-xl text-[clamp(2.25rem,4vw,3.75rem)] font-bold leading-[1.1] tracking-[-0.045em] text-ink">
           Learn it.
           <br />
           Build it.
           <br />
-          <span className="text-green">Explain it.</span>
+          <span>Explain it.</span>
         </h1>
-        <p className="mt-5 max-w-[430px] text-base leading-8 text-muted-ink">
-          Close the gap between knowing a concept and using it. One focused
-          session at a time.
+        <p className="mt-5 max-w-[330px] text-base leading-7 text-muted-ink">
+          From web foundations to confident frontend development.
         </p>
-        <div className="mt-7 flex flex-wrap items-center gap-3">
+        <div className="mt-5 flex max-w-[280px] flex-col items-stretch gap-3">
           <a
-            href="#/today"
-            className="inline-flex min-h-12 items-center justify-center gap-3 rounded-lg bg-green px-5 py-3 text-sm font-medium text-page hover:bg-green/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green"
+            href="/paths/plan-week-1"
+            className="inline-flex min-h-12 items-center justify-center gap-3 rounded-lg border border-[var(--edge)] bg-[var(--button-fill)] px-5 py-3 text-sm font-semibold text-[var(--button-ink)] shadow-[2px_3px_0_var(--edge)] hover:brightness-95 active:translate-y-px active:shadow-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green"
           >
-            Start today’s session
+            Start learning
             <ArrowRight size={17} aria-hidden="true" />
           </a>
           <a
-            href="#/topics"
-            className="inline-flex min-h-12 items-center gap-2 rounded-lg px-3 text-sm font-medium text-ink hover:bg-surface focus-visible:outline-2 focus-visible:outline-green"
+            href="/topics"
+            className="inline-flex min-h-12 items-center gap-2 rounded-lg border border-[var(--edge)] bg-surface px-3 text-sm font-medium text-ink shadow-[2px_2px_0_var(--edge)] hover:bg-surface-hover focus-visible:outline-2 focus-visible:outline-green"
           >
-            Browse all topics
+            Explore topics
             <ArrowRight size={15} aria-hidden="true" />
           </a>
         </div>
       </div>
-      <div className="min-w-0 self-center rounded-2xl border border-line bg-surface p-5 sm:p-6">
+      <div className="min-w-0 self-center rounded-xl border border-[var(--edge)] bg-surface bg-[linear-gradient(color-mix(in_srgb,var(--line)_25%,transparent)_1px,transparent_1px),linear-gradient(90deg,color-mix(in_srgb,var(--line)_25%,transparent)_1px,transparent_1px)] bg-size-[20px_20px] p-5 sm:p-6">
         <div className="flex items-center justify-between gap-4">
           <p className="text-sm font-medium text-muted-ink">
-            {allRead ? "WORTH ANOTHER LOOK" : "YOUR NEXT SMALL STEP"}
+            {allRead ? "WORTH ANOTHER LOOK" : "YOUR NEXT STEP"}
           </p>
           <BookOpen
             size={18}
@@ -60,7 +59,7 @@ export function StudyHero({
             className="shrink-0 text-green"
           />
         </div>
-        <p className="mt-7 text-sm text-green">
+        <p className="sr-only">
           {allRead
             ? "Revisit a core concept"
             : readCount
@@ -68,12 +67,14 @@ export function StudyHero({
               : "Start with a strong foundation"}
         </p>
         <h2 className="mt-2 text-2xl font-medium leading-snug tracking-tight text-ink">
-          {topic.title}
+          {readCount === 0 ? "Web foundations" : topic.title}
         </h2>
         <p className="mt-3 text-sm leading-7 text-muted-ink">
-          {topic.description}
+          {readCount === 0
+            ? "Semantic HTML, responsive CSS, and how the browser works."
+            : topic.description}
         </p>
-        <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted-ink">
+        <div className="mt-5 inline-flex flex-wrap gap-x-4 gap-y-2 rounded-md bg-[var(--peach)] px-2 py-1 text-sm text-[#1d1b18]">
           <span className="inline-flex items-center gap-1.5">
             <Clock3 size={14} aria-hidden="true" />
             {topic.minutes} min read
@@ -81,10 +82,16 @@ export function StudyHero({
           <span>{topic.questions.length} recall questions</span>
         </div>
         <a
-          href={`#/topic/${topic.slug}`}
-          className="mt-6 flex min-h-12 items-center justify-between gap-3 rounded-lg border border-line bg-page px-4 py-3 text-sm font-medium text-green hover:border-green focus-visible:outline-2 focus-visible:outline-green"
+          href={
+            readCount === 0 ? "/paths/plan-week-1" : `/topic/${topic.slug}`
+          }
+          className="mt-6 flex min-h-12 items-center justify-between gap-3 rounded-lg border border-[var(--edge)] bg-page px-4 py-3 text-sm font-medium text-ink shadow-[2px_2px_0_var(--edge)] hover:bg-surface-hover focus-visible:outline-2 focus-visible:outline-green"
         >
-          {allRead ? "Review this lesson" : "Open this lesson"}
+          {allRead
+            ? "Review this lesson"
+            : readCount === 0
+              ? "Open learning path"
+              : "Open this lesson"}
           <CornerDownRight size={17} aria-hidden="true" />
         </a>
         <div className="mt-7 border-t border-line pt-5">

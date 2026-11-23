@@ -32,3 +32,6 @@ dist-ssr
 apps/mobile/android
 apps/mobile/ios
 *.tsbuildinfo
+
+# Astro generated types
+.astro/

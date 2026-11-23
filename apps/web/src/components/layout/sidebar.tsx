@@ -1,3 +1,5 @@
+import { SidebarProfile } from "@/features/account/components/sidebar-profile";
+import { Fragment } from "react";
 import { ProgressMeter } from "@/components/ui/progress-meter";
 import { BookOpen, Sprout } from "lucide-react";
 import { workspaceNavigation } from "@/config/navigation";
@@ -23,8 +25,8 @@ export function Sidebar({
     <>
       <a
         onClick={onNavigate}
-        className="flex items-center gap-2.5 px-[9px] text-[19px] font-semibold leading-[1.1] tracking-[-.7px] [&_small]:mt-1.5 [&_small]:block [&_small]:text-sm [&_small]:font-normal [&_small]:tracking-normal [&_small]:text-muted-ink"
-        href="#/"
+        className="flex items-center gap-2.5 px-[9px] text-[19px] font-semibold leading-[1.1] tracking-[-.7px] [&_small]:mt-1.5 [&_small]:block [&_small]:text-xs [&_small]:font-normal [&_small]:tracking-normal [&_small]:text-muted-ink"
+        href="/"
       >
         <span className="grid h-[37px] w-[35px] place-items-center rounded-[9px] border border-line bg-page text-green">
           <BookOpen size={19} />
@@ -34,51 +36,95 @@ export function Sidebar({
           <small>Learn. Build. Explain.</small>
         </span>
       </a>
-      <div className="mx-[11px] mb-[27px] mt-7 flex items-center gap-[7px] text-xs tracking-[1px] text-muted-ink">
-        <span className="inline-block size-[5px] shrink-0 rounded-full bg-[#47835c]" />
-        YOUR STUDY SPACE
-      </div>
-      <nav aria-label="Main navigation">
+      <nav aria-label="Main navigation" className="mt-8">
         <span className="mx-3 mb-3 block text-sm font-medium tracking-wider text-muted-ink">
-          WORKSPACE
+          LEARN
         </span>
-        {workspaceNavigation.map(({ href, name, Icon }) => (
-          <a
-            onClick={onNavigate}
-            key={href}
-            className="my-0.5 flex min-h-11 items-center gap-2.5 rounded-md px-3 py-2 text-sm text-muted-ink hover:bg-surface-hover hover:text-ink aria-[current=page]:bg-green-soft aria-[current=page]:font-medium aria-[current=page]:text-green"
-            href={`#${href}`}
-            aria-current={
-              route.path === href ||
-              (href === "/paths" && route.kind === "learning-paths") ||
-              (href === "/practice" && route.kind === "practice")
-                ? "page"
-                : undefined
-            }
-          >
-            <Icon size={17} />
-            <span>{name}</span>
-            {href === "/saved" && (
-              <span className="ml-auto text-sm text-muted-ink">
-                {
-                  saved.filter((slug) =>
-                    topics.some((item) => item.slug === slug),
-                  ).length
+        {[...workspaceNavigation]
+          .sort(
+            (a, b) =>
+              [
+                "/",
+                "/roadmap",
+                "/paths",
+                "/topics",
+                "/today",
+                "/practice",
+                "/interviews",
+                "/mistakes",
+                "/readiness",
+                "/evidence",
+                "/saved",
+                "/questions",
+                "/facts",
+                "/account",
+              ].indexOf(a.href) -
+              [
+                "/",
+                "/roadmap",
+                "/paths",
+                "/topics",
+                "/today",
+                "/practice",
+                "/interviews",
+                "/mistakes",
+                "/readiness",
+                "/evidence",
+                "/saved",
+                "/questions",
+                "/facts",
+                "/account",
+              ].indexOf(b.href),
+          )
+          .map(({ href, name, Icon }) => (
+            <Fragment key={href}>
+              {href === "/today" && (
+                <p className="mx-3 mb-3 mt-7 text-sm font-bold text-ink">
+                  PRACTICE
+                </p>
+              )}
+              {href === "/readiness" && (
+                <p className="mx-3 mb-3 mt-7 text-sm font-bold text-ink">
+                  YOUR WORKSPACE
+                </p>
+              )}
+              <a
+                onClick={onNavigate}
+                key={href}
+                className="my-1 flex border border-transparent min-h-11 items-center gap-2.5 rounded-md px-3 py-2 text-sm text-muted-ink hover:bg-surface-hover hover:text-ink aria-[current=page]:border-transparent aria-[current=page]:bg-green-soft aria-[current=page]:font-medium aria-[current=page]:text-green"
+                href={href}
+                aria-current={
+                  route.path === href ||
+                  (href === "/paths" && route.kind === "learning-paths") ||
+                  (href === "/practice" && route.kind === "practice")
+                    ? "page"
+                    : undefined
                 }
-              </span>
-            )}
-          </a>
-        ))}
+              >
+                <Icon size={17} />
+                <span>{name}</span>
+                {href === "/saved" && (
+                  <span className="ml-auto text-sm text-muted-ink">
+                    {
+                      saved.filter((slug) =>
+                        topics.some((item) => item.slug === slug),
+                      ).length
+                    }
+                  </span>
+                )}
+              </a>
+            </Fragment>
+          ))}
         <div className="mx-[11px] my-[23px] h-px bg-line" />
         <span className="mx-3 mb-3 block text-sm font-medium tracking-wider text-muted-ink">
-          THE COLLECTION
+          TOPICS
         </span>
         {categories.map((item) => (
           <a
             onClick={onNavigate}
             key={item.id}
-            className="my-0.5 flex min-h-11 items-center gap-2.5 rounded-md px-3 py-2 text-sm text-muted-ink hover:bg-surface-hover hover:text-ink aria-[current=page]:bg-green-soft aria-[current=page]:font-medium aria-[current=page]:text-green"
-            href={`#/category/${item.id}`}
+            className="my-1 flex border border-transparent min-h-11 items-center gap-2.5 rounded-md px-3 py-2 text-sm text-muted-ink hover:bg-surface-hover hover:text-ink aria-[current=page]:border-transparent aria-[current=page]:bg-green-soft aria-[current=page]:font-medium aria-[current=page]:text-green"
+            href={`/category/${item.id}`}
             aria-current={activeCategory === item.id ? "page" : undefined}
           >
             <span
@@ -111,16 +157,7 @@ export function Sidebar({
             {readCount} of {topics.length} topics explored
           </span>
         </div>
-        <div className="flex h-[77px] items-center gap-[9px] [&_strong]:block [&_strong]:text-sm [&_strong]:font-medium [&_div_span]:mt-[3px] [&_div_span]:block [&_div_span]:text-sm [&_div_span]:text-muted-ink [&>span:last-child]:ml-auto [&>span:last-child]:mr-2">
-          <span className="grid size-[29px] place-items-center rounded-full border border-line bg-[#ecece3] text-sm text-[#686b55]">
-            W
-          </span>
-          <div>
-            <strong>Your trailbook</strong>
-            <span>A work in progress</span>
-          </div>
-          <span className="inline-block size-[5px] shrink-0 rounded-full bg-[#47835c]" />
-        </div>
+        <SidebarProfile onNavigate={onNavigate} />
       </div>
     </>
   );

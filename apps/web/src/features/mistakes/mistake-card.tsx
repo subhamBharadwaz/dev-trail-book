@@ -135,7 +135,7 @@ export function MistakeCard({
         {m.topicSlug && (
           <a
             className="inline-flex min-h-11 items-center text-sm font-medium text-green"
-            href={`#/topic/${m.topicSlug}`}
+            href={`/topic/${m.topicSlug}`}
           >
             Read lesson →
           </a>

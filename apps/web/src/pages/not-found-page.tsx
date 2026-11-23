@@ -6,8 +6,8 @@ export function NotFoundPage() {
       <h1>That trail hasn’t been written yet.</h1>
       <p>The topic or category could not be found.</p>
       <a
-        className="inline-flex min-h-[35px] items-center justify-center gap-3 whitespace-nowrap rounded px-[13px] py-[9px] text-sm font-medium bg-[#2c684e] text-white hover:bg-[#20513b]"
-        href="#/topics"
+        className="inline-flex min-h-[35px] items-center justify-center gap-3 whitespace-nowrap rounded px-[13px] py-[9px] text-sm font-medium border border-[var(--edge)] bg-[var(--button-fill)] text-[var(--button-ink)] shadow-[2px_2px_0_var(--edge)] hover:brightness-95"
+        href="/topics"
       >
         Explore all topics
         <ArrowRight size={15} />

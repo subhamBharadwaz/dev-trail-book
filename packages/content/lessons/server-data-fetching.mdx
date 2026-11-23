@@ -4,8 +4,8 @@ export const meta = {
   title: "Where the initial journal fetch belongs",
   description: "Load initial server-owned data near the route.",
   minutes: 6,
-  level: "Discussion recap",
-  tags: ["nextjs", "week-3", "interview-prep"],
+  level: "Core concept",
+  tags: ["nextjs", "practice", "practice"],
   questions: [
     {
       question:
@@ -27,17 +27,11 @@ export const meta = {
   source: "https://nextjs.org/docs/app/getting-started/fetching-data",
   code: "export default async function JournalPage() {\n  const user = await requireUser();\n  const [entries, tags] = await Promise.all([\n    getEntriesForUser(user.id),\n    getTagsForUser(user.id),\n  ]);\n  return <JournalView entries={entries} tags={tags} />;\n}\n// The data functions enforce access and expose a safe view model.",
   codeLanguage: "tsx",
-  origin: "discussion",
-  planWeek: 3,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "Always fetch initial server-owned data in a browser Effect.",
     "Put database credentials in props so the client can load the journal.",
   ],
-  discussionSource: {
-    title: "Full Stack Interview prep",
-    url: "https://chatgpt.com/c/6acfd806-4990-83ee-b4f6-b94dd1dabdc4",
-  },
 };
 
 ## The idea
@@ -73,5 +67,3 @@ Explain the journal route from request to database to rendered output. Identify 
 ## Keep exploring
 
 Read the [technical reference](https://nextjs.org/docs/app/getting-started/fetching-data) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 3, Week 3. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF. The explanation also uses the accessible discussion excerpt.

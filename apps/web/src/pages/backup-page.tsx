@@ -88,7 +88,7 @@ export function BackupPage() {
           Download study backup
         </Button>
         {Object.keys(state.conflicts).length > 0 && (
-          <a href="#/account" className="block text-green">
+          <a href="/account" className="block text-green">
             Resolve sync conflicts before exporting →
           </a>
         )}
@@ -259,7 +259,7 @@ export function BackupPage() {
         </Button>
       )}
       <a
-        href="#/account"
+        href="/account"
         className="inline-flex min-h-11 items-center text-green"
       >
         Account & sync →

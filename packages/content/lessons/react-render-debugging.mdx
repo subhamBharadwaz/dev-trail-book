@@ -5,7 +5,7 @@ export const meta = {
   description: "Debug state ownership and identity before adding memoization.",
   minutes: 12,
   level: "Interview depth",
-  tags: ["pdf-audit", "micro-topics", "week-5"],
+  tags: ["practice", "micro-topics", "practice"],
   questions: [
     {
       question: "Does every React render update the DOM?",
@@ -36,9 +36,7 @@ export const meta = {
   source: "https://react.dev/learn/you-might-not-need-an-effect",
   code: 'type Result = { ok: true } | { ok: false; message: string };\nasync function submitTitle(form: FormData): Promise<Result> {\n  const raw = form.get("title");\n  if (typeof raw !== "string" || !raw.trim())\n    return { ok: false, message: "Enter a title" };\n  try {\n    const response = await fetch("/api/notes", {\n      method: "POST", headers: { "Content-Type": "application/json" },\n      body: JSON.stringify({ title: raw.trim() }),\n    });\n    if (!response.ok) return { ok: false, message: "Save failed. Try again." };\n    return { ok: true };\n  } catch {\n    return { ok: false, message: "Connection failed. Check before retrying." };\n  }\n}',
   codeLanguage: "ts",
-  origin: "study-plan",
-  planWeek: 5,
-  planPages: [4],
+  origin: "foundation",
   quizDistractors: [
     "This can be assumed without checking inputs, ownership, or failures.",
     "The UI alone guarantees correctness for all callers.",
@@ -113,4 +111,4 @@ Create a failing row-reorder test and fix it using stable keys. Then test two ov
 
 ## Keep exploring
 
-[Official reference](https://react.dev/learn/you-might-not-need-an-effect). Study-plan expansion, page 4.
+[Official reference](https://react.dev/learn/you-might-not-need-an-effect).

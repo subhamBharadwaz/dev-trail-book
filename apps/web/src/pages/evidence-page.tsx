@@ -152,7 +152,7 @@ export function EvidencePage() {
                 : "Record a problem, a spoken explanation or a timed task. You can include unsuccessful attempts and use them to choose the next repair."}
             </p>
             <a
-              href="#/today"
+              href="/today"
               className="mt-4 inline-flex min-h-11 items-center gap-2 font-medium text-green"
             >
               Choose today’s practice

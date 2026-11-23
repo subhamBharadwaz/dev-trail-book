@@ -6,7 +6,7 @@ export const meta = {
     "Explain HTML generation, component execution and hydration as separate mechanisms.",
   minutes: 12,
   level: "Interview depth",
-  tags: ["pdf-audit", "micro-topics", "week-3"],
+  tags: ["practice", "micro-topics", "practice"],
   questions: [
     {
       question: "Are SSR and RSC interchangeable?",
@@ -39,9 +39,7 @@ export const meta = {
     "https://nextjs.org/docs/app/getting-started/server-and-client-components",
   code: '// app/notes/page.tsx \u2014 Server Component\nimport { NotesFilter } from "./notes-filter";\nexport default async function Page() {\n  const rows = await readAuthorizedNotes(); // app-owned server data access\n  return <NotesFilter notes={rows.map(row => ({\n    id: row.id, title: row.title, createdAt: row.createdAt.toISOString(),\n  }))} />;\n}\n// NotesFilter lives in a separate file beginning with "use client".\n// readAuthorizedNotes must authenticate and scope the database query.',
   codeLanguage: "tsx",
-  origin: "study-plan",
-  planWeek: 3,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "This can be assumed without checking inputs, ownership, or failures.",
     "The UI alone guarantees correctness for all callers.",
@@ -121,4 +119,4 @@ Trace your own route on initial load, client navigation, mutation and refresh. L
 
 ## Keep exploring
 
-[Official reference](https://nextjs.org/docs/app/getting-started/server-and-client-components). Study-plan expansion, page 3.
+[Official reference](https://nextjs.org/docs/app/getting-started/server-and-client-components).

@@ -6,7 +6,7 @@ export const meta = {
     "Make database correctness and performance visible with concrete queries.",
   minutes: 12,
   level: "Interview depth",
-  tags: ["pdf-audit", "micro-topics", "week-4"],
+  tags: ["practice", "micro-topics", "practice"],
   questions: [
     {
       question:
@@ -38,9 +38,7 @@ export const meta = {
   source: "https://www.postgresql.org/docs/current/transaction-iso.html",
   code: "-- Parameter $1 is the authenticated owner.\nSELECT n.id, n.title, COUNT(c.id) AS comment_count\nFROM notes n LEFT JOIN comments c ON c.note_id = n.id\nWHERE n.owner_id = $1\nGROUP BY n.id, n.title\nORDER BY n.id;\n\n-- Atomic stock reservation; inspect affected rows / RETURNING.\nUPDATE inventory SET available = available - 1\nWHERE id = $1 AND available > 0\nRETURNING available;\n\n-- Candidate index for an owner's ordered feed; measure before keeping.\nCREATE INDEX notes_owner_created_id ON notes(owner_id, created_at DESC, id DESC);",
   codeLanguage: "sql",
-  origin: "study-plan",
-  planWeek: 4,
-  planPages: [4],
+  origin: "foundation",
   quizDistractors: [
     "This can be assumed without checking inputs, ownership, or failures.",
     "The UI alone guarantees correctness for all callers.",
@@ -110,4 +108,4 @@ Seed owners with zero, one and many notes/comments. Test join counts. Run two co
 
 ## Keep exploring
 
-[Official reference](https://www.postgresql.org/docs/current/transaction-iso.html). Study-plan expansion, page 4.
+[Official reference](https://www.postgresql.org/docs/current/transaction-iso.html).

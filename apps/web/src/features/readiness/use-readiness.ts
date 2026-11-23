@@ -1,3 +1,4 @@
+import { navigateWithinApp } from "@/app/navigation";
 import { buildReadiness } from "@trailbook/learning/readiness";
 import { preparationRecords } from "@trailbook/learning/preparation-records";
 import { currentInterviewKey } from "@trailbook/learning/interviews";
@@ -26,8 +27,9 @@ export function useReadiness() {
 export function openReadinessAction(action: ReadinessAction) {
   if (action.sessionId)
     studyStore().write({ [currentInterviewKey]: action.sessionId });
-  window.location.hash =
+  void navigateWithinApp(
     action.target === "topic"
-      ? `#/topic/${action.slug}`
-      : `#/${action.target === "journal" ? "evidence" : action.target}`;
+      ? `/topic/${action.slug}`
+      : `/${action.target === "journal" ? "evidence" : action.target}`,
+  );
 }

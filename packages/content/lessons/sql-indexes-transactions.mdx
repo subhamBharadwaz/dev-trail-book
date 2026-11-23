@@ -4,8 +4,8 @@ export const meta = {
   title: "Indexes, transactions & N+1 queries",
   description: "Measure query behavior and protect multi-write invariants.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["databases", "week-4", "interview-prep"],
+  level: "Core concept",
+  tags: ["databases", "practice", "practice"],
   questions: [
     {
       question: "Is adding an index always a performance improvement?",
@@ -26,9 +26,7 @@ export const meta = {
   source: "https://www.postgresql.org/docs/current/indexes.html",
   code: "CREATE INDEX entries_owner_created_id\nON entries (owner_id, created_at DESC, id DESC);\n\nBEGIN;\nINSERT INTO entries (id, owner_id, title) VALUES ($1, $2, $3);\nINSERT INTO entry_tags (entry_id, tag_id) VALUES ($1, $4);\nCOMMIT;\n-- Roll back the transaction if either required write fails.",
   codeLanguage: "sql",
-  origin: "study-plan",
-  planWeek: 4,
-  planPages: [4],
+  origin: "foundation",
   quizDistractors: [
     "Yes. Every additional index makes all queries and writes faster.",
     "Yes. Indexes have no storage or write cost.",
@@ -67,5 +65,3 @@ Compare loading tags one entry at a time with one batched query. Measure query c
 ## Keep exploring
 
 Read the [technical reference](https://www.postgresql.org/docs/current/indexes.html) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 4, Week 4. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

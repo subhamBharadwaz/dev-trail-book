@@ -4,8 +4,8 @@ export const meta = {
   title: "Binary search with a half-open interval",
   description: "Keep the candidate range and exit condition consistent.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["dsa", "week-3", "interview-prep"],
+  level: "Core concept",
+  tags: ["dsa", "practice", "practice"],
   questions: [
     {
       question: "Does lower bound always return an exact target match?",
@@ -26,9 +26,7 @@ export const meta = {
   source: "https://cp-algorithms.com/num_methods/binary_search.html",
   code: "function lowerBound(nums, target) {\n  let left = 0, right = nums.length;\n  while (left < right) {\n    const mid = left + Math.floor((right - left) / 2);\n    if (nums[mid] < target) left = mid + 1;\n    else right = mid;\n  }\n  return left;\n}\n// O(log n) time, O(1) extra space for sorted random-access input.",
   codeLanguage: "js",
-  origin: "study-plan",
-  planWeek: 3,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "Yes. A lower-bound result always proves the target exists.",
     "Yes. It returns -1 whenever there is no exact match.",
@@ -70,5 +68,3 @@ Test empty input, one element, duplicate targets, and targets below or above the
 ## Keep exploring
 
 Read the [technical reference](https://cp-algorithms.com/num_methods/binary_search.html) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 3, Week 3. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

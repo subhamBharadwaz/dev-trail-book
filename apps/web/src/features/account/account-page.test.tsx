@@ -3,11 +3,14 @@ import userEvent from "@testing-library/user-event";
 import { createAgent } from "@ui-sdk/react/agent";
 import { expect, test, vi } from "vitest";
 const mocks = vi.hoisted(() => ({
+  oauth: vi.fn().mockResolvedValue({ error: null }),
   signIn: vi.fn().mockResolvedValue({ error: null }),
 }));
 vi.mock("./data/supabase", () => ({
   cloudConfigured: true,
-  getSupabase: async () => ({ auth: { signInWithOtp: mocks.signIn } }),
+  getSupabase: async () => ({
+    auth: { signInWithOtp: mocks.signIn, signInWithOAuth: mocks.oauth },
+  }),
 }));
 import { AccountPage } from "@/pages/account-page";
 const agent = createAgent();
@@ -91,4 +94,25 @@ test("signed-in import requires review and keeps existing cloud records", async 
   expect(progress.values()["reading/read/effects"]).toBe(true);
   view.unmount();
   progress.activate(null);
+});
+
+test("GitHub sign-in starts only on explicit click and reports provider failure", async () => {
+  const user = userEvent.setup();
+  mocks.oauth.mockResolvedValueOnce({ error: new Error("Provider disabled") });
+  render(<AccountPage />);
+  await user.click(
+    screen.getByRole("button", { name: "Continue with GitHub" }),
+  );
+  expect(mocks.oauth).toHaveBeenCalledWith({
+    provider: "github",
+    options: { redirectTo: `${window.location.origin}/` },
+  });
+  expect(screen.getByRole("alert").textContent).toContain(
+    "GitHub sign-in could not start",
+  );
+  expect(
+    screen
+      .getByRole("button", { name: "Continue with GitHub" })
+      .hasAttribute("disabled"),
+  ).toBe(false);
 });

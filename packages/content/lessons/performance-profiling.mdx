@@ -4,8 +4,8 @@ export const meta = {
   title: "Profile first: bundles, waterfalls & render cost",
   description: "Choose a fix using evidence from the slow interaction.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["testing", "week-5", "interview-prep"],
+  level: "Core concept",
+  tags: ["testing", "practice", "practice"],
   questions: [
     {
       question: "Should every calculation be memoized before profiling?",
@@ -26,9 +26,7 @@ export const meta = {
   source: "https://react.dev/reference/react/Profiler",
   code: "const start = performance.now();\nconst visible = topics.filter(matchesQuery);\nconst duration = performance.now() - start;\nconsole.log({ duration, count: visible.length });\n// Pair a local measurement with a full interaction trace.\n// A tiny filtering duration is not evidence to add useMemo everywhere.",
   codeLanguage: "js",
-  origin: "study-plan",
-  planWeek: 5,
-  planPages: [4],
+  origin: "foundation",
   quizDistractors: [
     "Yes. useMemo always makes every calculation faster.",
     "Yes. Rendering a component once is proof that it needs memoization.",
@@ -65,5 +63,3 @@ Profile a filterable page and record its slowest user-visible interaction. Imple
 ## Keep exploring
 
 Read the [technical reference](https://react.dev/reference/react/Profiler) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 4, Week 5. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

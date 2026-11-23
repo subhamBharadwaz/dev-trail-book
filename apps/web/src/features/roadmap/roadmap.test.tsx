@@ -1,32 +1,34 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { expect, test } from "vitest";
 import { ReadingProvider } from "@/app/reading-provider";
 import { RoadmapPage } from "@/pages/roadmap-page";
-
-test("the roadmap exposes source limits and lets readers open future stages", async () => {
-  const user = userEvent.setup();
+test("newcomers can start with frontend foundations without a document or calendar", () => {
   render(
     <ReadingProvider>
       <RoadmapPage />
     </ReadingProvider>,
   );
   expect(
-    screen.getByRole("heading", { name: "Your study roadmap." }),
-  ).toBeTruthy();
-  expect(screen.getByText(/Older unseen chat turns/)).toBeTruthy();
-  expect(screen.getByText(/0 marked as read/)).toBeTruthy();
-  await user.click(
-    screen.getByRole("button", { name: /Full-stack reliability/ }),
-  );
-  expect(
-    screen.getByRole("link", { name: "SQL joins & relationship cardinality" }),
+    screen.getByRole("heading", { name: "Your learning roadmap." }),
   ).toBeTruthy();
   expect(
     screen
-      .getByRole("link", { name: "Practice these topics →" })
+      .getByRole("link", { name: "Start with the foundations" })
       .getAttribute("href"),
-  ).toBe("#/practice/path/plan-week-4");
+  ).toBe("/paths/plan-week-1");
+  expect(
+    screen.getByRole("heading", { name: "JavaScript essentials" }),
+  ).toBeTruthy();
+  expect(
+    screen.getByRole("heading", { name: "Beyond the frontend" }),
+  ).toBeTruthy();
+  expect(screen.getAllByText("OPTIONAL EXTENSION")).toHaveLength(2);
+  expect(
+    screen.getAllByRole("link", { name: "Practice these topics →" }),
+  ).toHaveLength(10);
+  expect(document.body.textContent).not.toMatch(
+    /PDF|December 2026|original schedule|recovered transcripts/i,
+  );
   expect(JSON.parse(localStorage.getItem("trailbook:read") || "[]")).toEqual(
     [],
   );

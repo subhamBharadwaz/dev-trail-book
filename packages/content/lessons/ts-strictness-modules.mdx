@@ -32,7 +32,7 @@ export const meta = {
   "source": "https://www.typescriptlang.org/tsconfig/",
   "code": "type Preferences = { theme?: \"light\" | \"dark\" };\nconst values: string[] = [];\nconst first = values[0]; // string | undefined with noUncheckedIndexedAccess\nif (first !== undefined) console.log(first.toUpperCase());\n\n// tsconfig.json options for a gradual safety pass:\n// \"strict\": true,\n// \"noUncheckedIndexedAccess\": true,\n// \"exactOptionalPropertyTypes\": true\n// With exactOptionalPropertyTypes, { theme: undefined } is rejected\n// unless undefined is explicitly included in the property's type.",
   "codeLanguage": "ts",
-  "origin": "discussion",
+  "origin": "foundation",
   "quizDistractors": [
     "A type assertion validates the runtime value automatically.",
     "Compile-time types replace server validation and permission checks."
@@ -77,4 +77,4 @@ Explain the example aloud, predict its inferred types, and describe one runtime 
 
 ## Keep exploring
 
-Read the [official reference](https://www.typescriptlang.org/tsconfig/). Continue through the [Advanced TypeScript & runtime contracts](#/paths/advanced-typescript) learning path.
+Read the [official reference](https://www.typescriptlang.org/tsconfig/). Continue through the [Advanced TypeScript & runtime contracts](/paths/advanced-typescript) learning path.

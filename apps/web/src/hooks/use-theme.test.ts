@@ -70,3 +70,27 @@ test("theme switching works when storage is blocked", () => {
   act(() => result.current.setDark(false));
   expect(document.documentElement.classList.contains("dark")).toBe(false);
 });
+
+test("Astro navigation preserves the selected theme before and after a page swap", () => {
+  deviceTheme(false);
+  const { result } = renderHook(useTheme);
+  act(() => result.current.setDark(true));
+  const nextDocument = document.implementation.createHTMLDocument("Home");
+  document.dispatchEvent(
+    Object.assign(new Event("astro:before-swap"), {
+      newDocument: nextDocument,
+    }),
+  );
+  expect(nextDocument.documentElement.classList.contains("dark")).toBe(true);
+  document.documentElement.classList.remove("dark");
+  document.dispatchEvent(new Event("astro:after-swap"));
+  expect(document.documentElement.classList.contains("dark")).toBe(true);
+  expect(result.current.dark).toBe(true);
+  act(() => result.current.setDark(false));
+  document.dispatchEvent(
+    Object.assign(new Event("astro:before-swap"), {
+      newDocument: nextDocument,
+    }),
+  );
+  expect(nextDocument.documentElement.classList.contains("dark")).toBe(false);
+});

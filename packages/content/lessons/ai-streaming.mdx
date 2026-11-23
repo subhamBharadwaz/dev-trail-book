@@ -4,8 +4,8 @@ export const meta = {
   title: "Streaming AI output: stop, retry & failures",
   description: "Treat partial output as an unfinished result.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["ai", "week-6", "interview-prep"],
+  level: "Core concept",
+  tags: ["ai", "practice", "practice"],
   questions: [
     {
       question: "Does a network chunk always equal one complete model message?",
@@ -37,14 +37,11 @@ export const meta = {
     "https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams",
   code: 'async function readTextStream(signal, onChunk) {\n  const response = await fetch("/api/answer", { method: "POST", signal });\n  if (!response.ok || !response.body) throw new Error("Stream unavailable");\n  const reader = response.body.pipeThrough(new TextDecoderStream()).getReader();\n  try {\n    while (true) {\n      const { done, value } = await reader.read();\n      if (done) break;\n      onChunk(value);\n    }\n  } finally { reader.releaseLock(); }\n}\n// The caller owns AbortController, pending UI, cancellation, and retry.',
   codeLanguage: "ts",
-  origin: "study-plan",
-  planWeek: 6,
-  planPages: [4],
+  origin: "foundation",
   quizDistractors: [
     "Yes. Every chunk is guaranteed to contain one complete logical message.",
     "Yes. UTF-8 characters and application events always align with network chunks.",
   ],
-  planRecordedStatus: "covered",
 };
 
 ## The idea
@@ -87,7 +84,6 @@ Create a small existing-project streaming feature with Stop, retry, partial outp
 
 Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams) for the full contract and check behavior against your project version.
 
-Study-plan reference: December 2026 job plan, page 4, Week 6. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
 
 ## Caller ownership: Stop, retry and obsolete results
 

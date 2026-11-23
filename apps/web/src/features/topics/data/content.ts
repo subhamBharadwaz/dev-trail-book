@@ -16,11 +16,36 @@ const metadata = import.meta.glob<{ meta: TopicMeta; searchText: string }>(
 const lessons = import.meta.glob<{ default: Topic["Content"] }>(
   "../../../../../../packages/content/lessons/*.mdx",
 );
+const pendingLessons = new Map<
+  string,
+  Promise<{ default: Topic["Content"] }>
+>();
+function loadLesson(path: string) {
+  let pending = pendingLessons.get(path);
+  if (!pending) {
+    pending = lessons[path]();
+    pendingLessons.set(path, pending);
+    void pending.catch(() => pendingLessons.delete(path));
+  }
+  return pending;
+}
+export function preloadTopic(slug: string) {
+  const path = Object.keys(lessons).find((path) =>
+    path.endsWith(`/${slug}.mdx`),
+  );
+  return path ? loadLesson(path) : Promise.resolve();
+}
+const serverLessons = import.meta.env.SSR
+  ? import.meta.glob<{ default: Topic["Content"] }>(
+      "../../../../../../packages/content/lessons/*.mdx",
+      { eager: true },
+    )
+  : {};
 export const topics: Topic[] = Object.entries(metadata).map(
   ([path, module]) => ({
     ...module.meta,
     study: studyGuides[module.meta.slug],
-    Content: lazy(lessons[path]),
+    Content: serverLessons[path]?.default ?? lazy(() => loadLesson(path)),
     searchText: (
       JSON.stringify(module.meta) +
       " " +

@@ -5,9 +5,9 @@ export function CategoryCard({ category }: { category: Category }) {
   return (
     <a
       className="@container/card flex min-w-0 flex-col rounded-lg border border-line bg-page px-[14px] pt-4 transition-colors hover:border-green hover:bg-surface min-[1201px]:px-[18px] min-[1201px]:pt-[18px] [&_h3]:mt-[17px] [&_h3]:text-sm [&_h3]:font-medium min-[701px]:[&_h3]:text-sm [&>p]:mb-[14px] [&>p]:flex-1 [&>p]:mt-[7px] [&>p]:text-sm [&>p]:leading-[1.6] [&>p]:text-muted-ink min-[701px]:[&>p]:mb-5 min-[701px]:[&>p]:text-sm"
-      href={`#/category/${category.id}`}
+      href={`/category/${category.id}`}
     >
-      <div className="flex items-center justify-between [&>svg]:w-[13px] [&>svg]:text-[#9ca69b]">
+      <div className="flex items-center justify-between [&>svg]:w-[13px] [&>svg]:text-muted-ink">
         <span
           className={`grid size-[33px] shrink-0 place-items-center rounded-lg text-sm font-semibold tracking-[-.6px] ${category.color}`}
         >

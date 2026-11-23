@@ -1,0 +1,23 @@
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { expect, test } from "vitest";
+import { ThemeToggle } from "./theme-toggle";
+test("the sun and moon pill keeps exactly one mode selected and persists explicit choices", async () => {
+  const user = userEvent.setup();
+  render(<ThemeToggle />);
+  const light = screen.getByRole("button", { name: "Light theme" });
+  const dark = screen.getByRole("button", { name: "Dark theme" });
+  light.focus();
+  await user.keyboard(" ");
+  expect(light.getAttribute("aria-pressed")).toBe("true");
+  expect(dark.getAttribute("aria-pressed")).toBe("false");
+  dark.focus();
+  await user.keyboard(" ");
+  expect(document.documentElement.classList.contains("dark")).toBe(true);
+  expect(localStorage.getItem("trailbook:theme")).toBe("dark");
+  await user.click(dark);
+  expect(dark.getAttribute("aria-pressed")).toBe("true");
+  await user.click(light);
+  expect(document.documentElement.classList.contains("dark")).toBe(false);
+  expect(localStorage.getItem("trailbook:theme")).toBe("light");
+});

@@ -186,7 +186,7 @@ export function InterviewSession({
       {completed && prompt.topicSlug && (
         <a
           className="inline-flex min-h-11 items-center font-medium text-green"
-          href={`#/topic/${prompt.topicSlug}`}
+          href={`/topic/${prompt.topicSlug}`}
         >
           Revisit this lesson →
         </a>

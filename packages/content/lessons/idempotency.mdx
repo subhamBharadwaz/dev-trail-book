@@ -4,8 +4,8 @@ export const meta = {
   title: "Idempotency & safe retries",
   description: "Keep a repeated command from creating duplicate work.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["backend", "week-4", "interview-prep"],
+  level: "Core concept",
+  tags: ["backend", "practice", "practice"],
   questions: [
     {
       question:
@@ -28,9 +28,7 @@ export const meta = {
   source: "https://developer.mozilla.org/en-US/docs/Glossary/Idempotent",
   code: "// Illustrative service contract, not an in-memory production store.\nasync function createOnce(userId, key, payload) {\n  return db.transaction(async tx => {\n    const previous = await tx.findRequest(userId, key);\n    if (previous) return requireSamePayload(previous, payload);\n    const result = await tx.createEntry(userId, payload);\n    await tx.saveRequest(userId, key, payload, result);\n    return result;\n  });\n}\n// A unique database key handles concurrent attempts; retry that conflict safely.",
   codeLanguage: "ts",
-  origin: "study-plan",
-  planWeek: 4,
-  planPages: [4],
+  origin: "foundation",
   quizDistractors: [
     "Yes. A disabled button guarantees that the server never receives a duplicate.",
     "Yes. The browser automatically rolls back a write after a timeout.",
@@ -72,5 +70,3 @@ Simulate a successful write whose response is lost. Retry the same command and v
 ## Keep exploring
 
 Read the [technical reference](https://developer.mozilla.org/en-US/docs/Glossary/Idempotent) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 4, Week 4. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

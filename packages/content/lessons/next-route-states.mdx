@@ -4,8 +4,8 @@ export const meta = {
   title: "Layouts, loading, errors & missing pages",
   description: "Give each route outcome a deliberate UI.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["nextjs", "week-3", "interview-prep"],
+  level: "Core concept",
+  tags: ["nextjs", "practice", "practice"],
   questions: [
     {
       question:
@@ -27,9 +27,7 @@ export const meta = {
   source: "https://nextjs.org/docs/app/getting-started/error-handling",
   code: '// app/journal/[id]/page.tsx\nimport { notFound } from "next/navigation";\nexport default async function EntryPage({ params }) {\n  const { id } = await params;\n  const entry = await getEntryForCurrentUser(id);\n  if (!entry) notFound();\n  return <article><h1>{entry.title}</h1></article>;\n}\n// Add segment loading.tsx, error.tsx, and not-found.tsx as needed.',
   codeLanguage: "tsx",
-  origin: "study-plan",
-  planWeek: 3,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "Yes. Empty results should always render a server-error page.",
     "Yes. A missing item always means the network request failed.",
@@ -73,5 +71,3 @@ Test a slow journal read, an empty account, an absent entry, and an unexpected d
 ## Keep exploring
 
 Read the [technical reference](https://nextjs.org/docs/app/getting-started/error-handling) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 3, Week 3. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

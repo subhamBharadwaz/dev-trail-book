@@ -9,19 +9,18 @@ import {
 } from "@ui-sdk/react/command";
 import { ArrowRight, BookOpen, Search } from "lucide-react";
 import { navigateToTopic, topicHref } from "@/app/routes";
+import { filterTopics, matchesTopic } from "@/features/topics/data/content";
 import {
-  filterTopics,
-  matchesTopic,
-  topicBySlug,
-  topics,
-} from "@/features/topics/data/content";
+  searchTopics as topics,
+  searchTopicBySlug as topicBySlug,
+} from "../data/search-index";
 interface TopicSearchProps {
   onSelect: () => void;
   closeButton?: ReactNode;
 }
 export function TopicSearch({ onSelect, closeButton }: TopicSearchProps) {
   const [query, setQuery] = useState("");
-  const results = filterTopics(query);
+  const results = filterTopics(query, topics);
   return (
     <Command
       aria-label="Topic search"

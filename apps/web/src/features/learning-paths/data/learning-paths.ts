@@ -2,27 +2,6 @@ import { studyWeeks } from "@/features/roadmap/data/study-plan";
 import { topicBySlug } from "@/features/topics/data/content";
 export const learningPaths = [
   {
-    id: "advanced-typescript",
-    title: "Advanced TypeScript & runtime contracts",
-    description:
-      "From generics and type transformations to Zod-validated APIs and AI boundaries. Study in order, then implement each exercise.",
-    level: "After TypeScript foundations",
-    slugs: [
-      "typed-props-api",
-      "discriminated-unions",
-      "ts-generics-constraints",
-      "ts-mapped-utility-types",
-      "ts-conditional-infer",
-      "ts-literals-satisfies",
-      "ts-narrowing-never",
-      "ts-strictness-modules",
-      "ts-react-contracts",
-      "zod-runtime-contracts",
-      "zod-transforms-refinements",
-      "ts-ai-api-boundaries",
-    ],
-  },
-  {
     id: "web-foundations",
     title: "Understand the foundations",
     description:
@@ -46,11 +25,32 @@ export const learningPaths = [
     level: "Put it into practice",
     slugs: ["tailwind-tokens", "vite-mdx", "vercel-deploy"],
   },
+  {
+    id: "advanced-typescript",
+    title: "Advanced TypeScript & runtime contracts",
+    description:
+      "From generics and type transformations to Zod-validated APIs and AI boundaries. Study in order, then implement each exercise.",
+    level: "After TypeScript foundations",
+    slugs: [
+      "typed-props-api",
+      "discriminated-unions",
+      "ts-generics-constraints",
+      "ts-mapped-utility-types",
+      "ts-conditional-infer",
+      "ts-literals-satisfies",
+      "ts-narrowing-never",
+      "ts-strictness-modules",
+      "ts-react-contracts",
+      "zod-runtime-contracts",
+      "zod-transforms-refinements",
+      "ts-ai-api-boundaries",
+    ],
+  },
   ...studyWeeks.map((week) => ({
     id: week.id,
-    title: `${week.number === 10 ? "Final buffer" : `Week ${week.number}`}: ${week.title}`,
+    title: `Stage ${week.number}: ${week.title}`,
     description: week.description,
-    level: `Study plan · ${week.dates}`,
+    level: week.number >= 9 ? "Optional extension" : "Self-paced frontend path",
     slugs: week.slugs,
   })),
 ];

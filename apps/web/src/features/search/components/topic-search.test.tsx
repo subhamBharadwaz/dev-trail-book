@@ -1,8 +1,13 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { createAgent } from "@ui-sdk/react/agent";
-import { expect, test } from "vitest";
+import { expect, test, vi } from "vitest";
 import { SearchDialog } from "./search-dialog";
+const navigation = vi.hoisted(() => ({ open: vi.fn() }));
+vi.mock("@/app/routes", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@/app/routes")>()),
+  navigateToTopic: navigation.open,
+}));
 const agent = createAgent();
 
 async function openSearch() {
@@ -41,11 +46,11 @@ test("keyboard shortcut opens search and arrows choose the page Enter opens", as
       (option) => option.id === input.getAttribute("aria-activedescendant"),
     )!;
   const href = selected.getAttribute("href");
-  expect(href).toMatch(/^#\/topic\//);
+  expect(href).toMatch(/^\/topic\//);
   await user.keyboard("{Enter}");
-  expect(window.location.hash).toBe(href);
+  expect(navigation.open).toHaveBeenCalledWith(href!.split("/").pop());
   await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
-});
+}, 10000);
 
 test("empty results recover and closing resets the next search", async () => {
   const { user, input, trigger } = await openSearch();

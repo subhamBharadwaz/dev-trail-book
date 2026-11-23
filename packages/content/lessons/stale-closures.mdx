@@ -4,8 +4,8 @@ export const meta = {
   title: "State snapshots & stale closures",
   description: "Understand why a delayed callback sees an older render.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["react", "week-1", "interview-prep"],
+  level: "Core concept",
+  tags: ["react", "practice", "practice"],
   questions: [
     {
       question: "Why can a callback read an old state value?",
@@ -26,9 +26,7 @@ export const meta = {
   source: "https://react.dev/learn/state-as-a-snapshot",
   code: 'import { useState } from "react";\nexport function DelayedCounter() {\n  const [count, setCount] = useState(0);\n  function addLater() {\n    setTimeout(() => setCount(current => current + 1), 300);\n  }\n  return <button onClick={addLater}>{count}</button>;\n}',
   codeLanguage: "tsx",
-  origin: "study-plan",
-  planWeek: 1,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "A later render edits all existing closure bindings in place.",
     "React state can only be read inside useEffect.",
@@ -67,5 +65,3 @@ Click the delayed counter five times quickly. Compare count + 1 with current =&g
 ## Keep exploring
 
 Read the [technical reference](https://react.dev/learn/state-as-a-snapshot) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

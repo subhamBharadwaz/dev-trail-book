@@ -47,7 +47,7 @@ test("empty states and named next-action controls work through the agent bridge"
     });
     expect(result.ok, result.error?.message).toBe(true);
   });
-  expect(location.hash).toBe("#/interviews");
+  expect(location.pathname).toBe("/interviews");
 });
 test("legacy guest journal and reading data are included alongside new feature records", () => {
   const date = day();
@@ -111,7 +111,7 @@ test("account changes update the dashboard and opening a mock selects the correc
   await user.click(
     screen.getByRole("button", { name: `Review mock 1 from ${day()}` }),
   );
-  expect(location.hash).toBe("#/interviews");
+  expect(location.pathname).toBe("/interviews");
   expect(progress.values()[currentInterviewKey]).toBe(s.id);
   act(() => progress.activate("bob-readiness"));
   expect(screen.queryByText("0% self-rated")).toBeNull();

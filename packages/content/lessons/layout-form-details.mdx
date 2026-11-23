@@ -6,7 +6,7 @@ export const meta = {
     "Build a narrow-screen form that stays usable with keyboard navigation and long content.",
   minutes: 12,
   level: "Interview depth",
-  tags: ["pdf-audit", "micro-topics", "week-2"],
+  tags: ["practice", "micro-topics", "practice"],
   questions: [
     {
       question: "Why does a long code line break a flex layout?",
@@ -38,9 +38,7 @@ export const meta = {
     "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout",
   code: 'function EmailField({ error }: { error?: string }) {\n  return (\n    <div className="min-w-0 space-y-2">\n      <label htmlFor="email" className="block font-medium">Email</label>\n      <input id="email" name="email" type="email" autoComplete="email"\n        required aria-invalid={Boolean(error)}\n        aria-describedby={error ? "email-error" : undefined}\n        className="box-border w-full rounded-md border px-3 py-2 focus-visible:outline-2 focus-visible:outline-offset-2" />\n      {error && <p id="email-error" role="alert">{error}</p>}\n    </div>\n  );\n}',
   codeLanguage: "tsx",
-  origin: "study-plan",
-  planWeek: 2,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "This can be assumed without checking inputs, ownership, or failures.",
     "The UI alone guarantees correctness for all callers.",
@@ -118,4 +116,4 @@ Build the same list with Flexbox and Grid using Tailwind only. Explain the trade
 
 ## Keep exploring
 
-[Official reference](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout). Study-plan expansion, page 3.
+[Official reference](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout).

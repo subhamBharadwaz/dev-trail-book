@@ -25,7 +25,7 @@ export class PageBoundary extends Component<
         <div className="flex items-center gap-5">
           <Button onClick={() => window.location.reload()}>Reload page</Button>
           <a
-            href="#/"
+            href="/"
             className="text-sm text-green underline underline-offset-4"
           >
             Back to overview

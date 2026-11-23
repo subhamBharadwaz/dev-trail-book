@@ -1,0 +1,88 @@
+---
+import '../../src/index.css';
+import '@fontsource-variable/jetbrains-mono';
+import App from '../../src/App';
+import { ClientRouter } from 'astro:transitions';
+import {topics} from '@trailbook/content/native';
+import {categories} from '@trailbook/content/categories';
+import {learningPaths} from '../../src/features/learning-paths/data/learning-paths';
+export function getStaticPaths(){
+const ids=learningPaths.map(s=>s.id);
+return [undefined,'topics','questions','facts','paths','roadmap','account','today','evidence','mistakes','interviews','readiness','backup','saved','practice',...topics.map(t=>`topic/${t.slug}`),...categories.map(c=>`category/${c.id}`),...ids.flatMap(id=>[`paths/${id}`,`practice/path/${id}`])].map(path=>({params:{path}}));
+}
+const route=Astro.params.path||'';
+const topic=route.startsWith('topic/')?topics.find(t=>t.slug===route.slice(6)):undefined;
+const category=route.startsWith('category/')?categories.find(c=>c.id===route.slice(9)):undefined;
+const stage=route.startsWith('paths/')?learningPaths.find(s=>s.id===route.slice(6)):undefined;
+const personal=/^(account|today|evidence|mistakes|interviews|readiness|backup|saved|practice)(\/|$)/.test(route);
+const title=topic?.title||category?.name||stage?.title||({'':'Learn it. Build it. Explain it.',topics:'All topics',questions:'Questions & answers',facts:'Must-know facts',paths:'Learning paths',roadmap:'Learning roadmap'} as Record<string,string>)[route]||'Your study workspace';
+const pageTitle=`${title} · Dev Trailbook`;
+const descriptions: Record<string, string> = {
+  '': 'Learn frontend development from web foundations to advanced React and TypeScript, with visual lessons, worked code and focused practice.',
+  topics: 'Explore frontend lessons in JavaScript, TypeScript, React, CSS and browser fundamentals, with worked examples and practical exercises.',
+  questions: 'Practice frontend interview questions with explanations covering JavaScript, TypeScript, React, browsers and application design.',
+  facts: 'Review essential frontend concepts, common mistakes and must-know facts across JavaScript, TypeScript, React and web fundamentals.',
+  paths: 'Follow self-paced frontend learning paths from HTML and CSS foundations to advanced TypeScript, React and shipping applications.',
+  roadmap: 'Plan your frontend learning journey through foundations, JavaScript, TypeScript, React and practical application development.'
+};
+const description=topic?.description||category?.description||stage?.description||descriptions[route]||'Your personal study workspace for frontend learning and practice.';
+const canonical=new URL(Astro.url.pathname,'https://dev-trailbook.pages.dev').href;
+---
+<!doctype html><html lang="en" class="scheme-light dark:scheme-dark" transition:animate="none"><head><ClientRouter fallback="swap"/><meta charset="UTF-8"/>    <link rel="icon" type="image/svg+xml" href="/trailbook.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content={personal ? "noindex, follow" : "index, follow, max-image-preview:large"} />
+    <meta name="theme-color" content="#211e1a" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Dev Trailbook" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      property="og:title"
+      content={pageTitle}
+    />
+    <meta
+      property="og:description"
+      content={description}
+    />
+    <meta property="og:url" content={canonical} />
+    <meta
+      property="og:image"
+      content="https://dev-trailbook.pages.dev/og-image.jpg"
+    />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1734" />
+    <meta property="og:image:height" content="907" />
+    <meta
+      property="og:image:alt"
+      content="Dev Trailbook: Learn it. Build it. Explain it. A preview of the frontend learning workspace with visual lessons and real practice."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content={pageTitle}
+    />
+    <meta
+      name="twitter:description"
+      content={description}
+    />
+    <meta
+      name="twitter:image"
+      content="https://dev-trailbook.pages.dev/og-image.jpg"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="Dev Trailbook frontend learning platform preview."
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Dev Trailbook",
+        "url": "https://dev-trailbook.pages.dev/",
+        "description": "A frontend-first, self-paced learning platform with visual lessons and practical exercises.",
+        "inLanguage": "en"
+      }
+    </script>
+<title>{pageTitle}</title><meta name="description" content={description}/><script is:inline>(()=>{let p='system';try{p=localStorage.getItem('trailbook:theme')||'system'}catch{}document.documentElement.classList.toggle('dark',p==='dark'||(p!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches));if(location.hash.startsWith('#/'))location.replace(location.hash.slice(1));})();</script></head><body class="[--page:#f4ebe0] [--surface:#f8f0e6] [--surface-hover:#e9dfd0] [--ink:#1d1b18] [--muted-ink:#6f6961] [--line:#c8bdad] [--green:#40562b] [--green-soft:#d1dfa6] [--sidebar-bg:#eee5d8] [--button-fill:#cddd9d] [--button-ink:#1d1b18] [--edge:#29251f] [--violet:#e7ddf5] [--peach:#f6d3b5] dark:[--page:#211e1a] dark:[--surface:#26231e] dark:[--surface-hover:#302b24] dark:[--ink:#efe6d6] dark:[--muted-ink:#b5aa99] dark:[--line:#51493e] dark:[--green:#c1d6a3] dark:[--green-soft:#3f4c2b] dark:[--sidebar-bg:#25211c] dark:[--button-fill:#4b5e2f] dark:[--button-ink:#efe6d6] dark:[--edge:#c6bfb7] dark:[--violet:#493563] dark:[--peach:#f6d3b5] [--background:var(--page)] [--foreground:var(--ink)] [--card:var(--surface)] [--card-foreground:var(--ink)] [--popover:var(--surface)] [--popover-foreground:var(--ink)] [--primary:var(--button-fill)] [--primary-foreground:var(--button-ink)] [--secondary:var(--surface-hover)] [--secondary-foreground:var(--ink)] [--muted:var(--surface-hover)] [--muted-foreground:var(--muted-ink)] [--accent:var(--green-soft)] [--accent-foreground:var(--ink)] [--border:var(--line)] [--input:var(--line)] [--ring:var(--green)] [--sidebar:var(--sidebar-bg)] [--radius:0.5rem] [--font-sans:JetBrains_Mono_Variable,ui-monospace,monospace] [--font-heading:var(--font-sans)] [--font-mono:var(--font-sans)] m-0 [font-family:JetBrains_Mono_Variable,ui-monospace,monospace] bg-page text-base text-ink antialiased [&_button]:cursor-pointer [&_button:disabled]:cursor-default [&_svg]:shrink-0 [&_button_svg]:pointer-events-none [&_button:focus-visible]:outline-2 [&_button:focus-visible]:outline-green [&_button:focus-visible]:outline-offset-4 [&_a:focus-visible]:outline-2 [&_a:focus-visible]:outline-green [&_a:focus-visible]:outline-offset-4 [&_input:focus-visible]:outline-2 [&_input:focus-visible]:outline-green [&_input:focus-visible]:outline-offset-4 motion-reduce:[&_*]:transition-none motion-reduce:[&_*]:animate-none">
+<App client:load initialPath={Astro.url.pathname.replace(/\/$/, "") || "/"} transition:persist="study-workspace" transition:persist-props />
+</body></html>

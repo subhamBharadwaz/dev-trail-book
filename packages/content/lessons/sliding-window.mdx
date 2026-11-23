@@ -4,8 +4,8 @@ export const meta = {
   title: "Sliding windows & the longest unique substring",
   description: "Maintain a valid contiguous range as you scan.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["dsa", "week-2", "interview-prep"],
+  level: "Core concept",
+  tags: ["dsa", "practice", "practice"],
   questions: [
     {
       question: "Why use Math.max when moving the left boundary?",
@@ -26,9 +26,7 @@ export const meta = {
   source: "https://usaco.guide/silver/two-pointers",
   code: "function longestUnique(text) {\n  const last = new Map();\n  let left = 0, best = 0;\n  for (let right = 0; right < text.length; right++) {\n    const char = text[right];\n    if (last.has(char)) left = Math.max(left, last.get(char) + 1);\n    last.set(char, right);\n    best = Math.max(best, right - left + 1);\n  }\n  return best;\n}",
   codeLanguage: "js",
-  origin: "study-plan",
-  planWeek: 2,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "To allow the left boundary to move backward whenever a character repeats.",
     "To sort the window without extra storage.",
@@ -71,5 +69,3 @@ Trace abba and abcabcbb by hand, writing left, right, last, and best after each 
 ## Keep exploring
 
 Read the [technical reference](https://usaco.guide/silver/two-pointers) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 3, Week 2. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

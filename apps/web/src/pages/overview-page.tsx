@@ -22,21 +22,21 @@ const shortcuts: {
   number: string;
 }[] = [
   {
-    href: "#/practice",
+    href: "/practice",
     title: "Test your recall",
     description: "Put the notes away. Find out what actually stuck.",
     Icon: Layers3,
     number: "01",
   },
   {
-    href: "#/interviews",
+    href: "/interviews",
     title: "Say it out loud",
     description: "Practice explaining your thinking under a time limit.",
     Icon: Mic2,
     number: "02",
   },
   {
-    href: "#/mistakes",
+    href: "/mistakes",
     title: "Turn a miss into progress",
     description: "Revisit the mistakes that deserve another attempt.",
     Icon: NotebookPen,
@@ -50,10 +50,10 @@ export function OverviewPage() {
     (topic) => topic.slug === "thinking-in-react",
   )!;
   const suggested = [
+    "semantic-responsive",
+    "scope-hoisting",
+    "typed-props-api",
     "thinking-in-react",
-    "closures",
-    "discriminated-unions",
-    "zod-runtime-contracts",
   ].map((slug) => topics.find((topic) => topic.slug === slug)!);
   const next =
     suggested.find((topic) => !read.includes(topic.slug)) ??
@@ -66,7 +66,7 @@ export function OverviewPage() {
   return (
     <div className="mx-auto max-w-[1210px] px-5 pb-4 pt-8 sm:px-8 sm:pt-10 lg:px-10 @min-[1050px]:pt-12">
       <StudyHero topic={next} readCount={readCount} total={topics.length} />
-      <dl className="grid grid-cols-3 gap-3 border-b border-line py-6 sm:gap-6 sm:py-7">
+      <dl className="my-6 grid grid-cols-3 gap-3 rounded-xl border border-line bg-surface px-4 py-5 sm:gap-6 sm:py-7">
         {[
           {
             value: topics.length,
@@ -111,7 +111,7 @@ export function OverviewPage() {
             </h2>
           </div>
           <a
-            href="#/readiness"
+            href="/readiness"
             className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-green hover:underline"
           >
             Check your readiness
@@ -123,7 +123,7 @@ export function OverviewPage() {
             <a
               key={href}
               href={href}
-              className="group flex min-w-0 flex-col rounded-xl border border-line p-5 hover:border-green hover:bg-surface focus-visible:outline-2 focus-visible:outline-green"
+              className="group flex min-w-0 flex-col rounded-xl border border-line bg-surface p-5 hover:border-[var(--edge)] hover:bg-surface focus-visible:outline-2 focus-visible:outline-green"
             >
               <div className="flex items-center justify-between">
                 <Icon size={21} aria-hidden="true" className="text-green" />
@@ -145,14 +145,14 @@ export function OverviewPage() {
       </section>
       <section
         aria-label="Guided learning"
-        className="mb-10 grid gap-4 rounded-xl border border-line bg-green-soft p-5 @min-[650px]:grid-cols-[auto_minmax(0,1fr)_auto] @min-[650px]:items-center sm:p-6"
+        className="mb-10 grid gap-4 rounded-xl border border-line border-l-4 border-l-green bg-surface p-5 @min-[650px]:grid-cols-[auto_minmax(0,1fr)_auto] @min-[650px]:items-center sm:p-6"
       >
         <span className="grid size-11 place-items-center rounded-lg border border-line bg-page text-green">
           <Route size={21} aria-hidden="true" />
         </span>
         <div>
           <h2 className="text-lg font-medium tracking-tight">
-            You don’t have to figure out the order.
+            Build understanding, one concept at a time.
           </h2>
           <p className="mt-2 text-sm leading-7 text-muted-ink">
             Follow a learning path from the fundamentals to advanced TypeScript,
@@ -160,7 +160,7 @@ export function OverviewPage() {
           </p>
         </div>
         <a
-          href="#/paths"
+          href="/paths"
           className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-green hover:underline"
         >
           Find your path
@@ -179,7 +179,7 @@ export function OverviewPage() {
             </h2>
           </div>
           <a
-            href="#/topics"
+            href="/topics"
             className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-green hover:underline"
           >
             View all topics
@@ -218,7 +218,7 @@ export function OverviewPage() {
       <footer className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-line py-6 text-sm leading-7 text-muted-ink">
         <p>Your pace. Your progress. Your trailbook.</p>
         <a
-          href="#/today"
+          href="/today"
           className="inline-flex min-h-11 items-center gap-2 text-green hover:underline"
         >
           Make time for one good session

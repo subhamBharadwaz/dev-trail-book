@@ -4,8 +4,8 @@ export const meta = {
   title: "Structured output & runtime validation",
   description: "A promised schema still needs a checked boundary.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["ai", "week-6", "interview-prep"],
+  level: "Core concept",
+  tags: ["ai", "practice", "practice"],
   questions: [
     {
       question: "Does valid JSON guarantee the application’s expected schema?",
@@ -31,14 +31,11 @@ export const meta = {
   source: "https://json-schema.org/understanding-json-schema",
   code: 'type Summary = { title: string; facts: string[] };\nfunction isSummary(value: unknown): value is Summary {\n  if (typeof value !== "object" || value === null) return false;\n  return "title" in value && typeof value.title === "string"\n    && "facts" in value && Array.isArray(value.facts)\n    && value.facts.every(item => typeof item === "string");\n}\nconst parsed: unknown = JSON.parse(rawModelText);\nif (!isSummary(parsed)) throw new Error("Unexpected summary format");\n// Add length limits and business constraints at the same boundary.',
   codeLanguage: "ts",
-  origin: "study-plan",
-  planWeek: 6,
-  planPages: [4],
+  origin: "foundation",
   quizDistractors: [
     "Yes. JSON.parse guarantees all required application fields.",
     "Yes. Any valid JSON value automatically satisfies a TypeScript interface.",
   ],
-  planRecordedStatus: "covered",
 };
 
 ## The idea
@@ -80,7 +77,6 @@ Test missing facts, a number in the facts array, malformed JSON, and an unexpect
 
 Read the [technical reference](https://json-schema.org/understanding-json-schema) for the full contract and check behavior against your project version.
 
-Study-plan reference: December 2026 job plan, page 4, Week 6. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
 
 ## Validation failure matrix
 

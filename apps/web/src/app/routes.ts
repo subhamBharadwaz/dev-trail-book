@@ -1,3 +1,4 @@
+import { navigateWithinApp } from "./navigation";
 import {
   learningPathById,
   type LearningPath,
@@ -119,8 +120,8 @@ export function resolveRoute(path: string): AppRoute {
   return { kind: "not-found", path, title: "Page not found" };
 }
 export function topicHref(slug: string) {
-  return `#/topic/${slug}`;
+  return `/topic/${slug}`;
 }
 export function navigateToTopic(slug: string) {
-  window.location.hash = topicHref(slug);
+  return navigateWithinApp(topicHref(slug));
 }

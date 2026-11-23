@@ -32,7 +32,7 @@ export const meta = {
   "source": "https://zod.dev/api",
   "code": "import * as z from \"zod\";\nconst Minutes = z.string().regex(/^\\d+$/)\n  .transform(Number).pipe(z.number().int().min(1).max(180));\ntype MinutesInput = z.input<typeof Minutes>; // string\ntype MinutesOutput = z.output<typeof Minutes>; // number\n\nconst Passwords = z.object({\n  password: z.string().min(12),\n  confirm: z.string(),\n}).refine(value => value.password === value.confirm, {\n  message: \"Passwords must match\", path: [\"confirm\"],\n});\nconst result = Minutes.safeParse(\"45\"); // output is 45, not \"45\"",
   "codeLanguage": "ts",
-  "origin": "discussion",
+  "origin": "foundation",
   "quizDistractors": [
     "A type assertion validates the runtime value automatically.",
     "Compile-time types replace server validation and permission checks."
@@ -79,4 +79,4 @@ Explain the example aloud, predict its inferred types, and describe one runtime 
 
 ## Keep exploring
 
-Read the [official reference](https://zod.dev/api). Continue through the [Advanced TypeScript & runtime contracts](#/paths/advanced-typescript) learning path.
+Read the [official reference](https://zod.dev/api). Continue through the [Advanced TypeScript & runtime contracts](/paths/advanced-typescript) learning path.

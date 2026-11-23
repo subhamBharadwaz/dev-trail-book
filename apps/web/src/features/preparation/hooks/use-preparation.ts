@@ -17,6 +17,7 @@ const changed = "trailbook:preparation-changed";
 let memory: Preparation | null = null;
 let cachedRaw: string | null | undefined;
 let snapshot = { state: emptyPreparation, storageError: false };
+const serverSnapshot = snapshot;
 let cloudRef: ProgressSnapshot | undefined;
 let cloudCache = { state: emptyPreparation, storageError: false };
 function getSnapshot() {
@@ -86,5 +87,8 @@ function update(change: (current: Preparation) => Preparation) {
   window.dispatchEvent(new Event(changed));
 }
 export function usePreparation() {
-  return { ...useSyncExternalStore(subscribe, getSnapshot), update };
+  return {
+    ...useSyncExternalStore(subscribe, getSnapshot, () => serverSnapshot),
+    update,
+  };
 }

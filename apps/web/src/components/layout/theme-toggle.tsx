@@ -1,42 +1,33 @@
 import { Toggle } from "@ui-sdk/react/toggle";
-import { Monitor, Moon, Sun } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Moon, Sun } from "lucide-react";
 import { useTheme } from "@/hooks/use-theme";
+const option =
+  "grid size-11 place-items-center rounded-full text-muted-ink hover:text-ink data-pressed:bg-[var(--button-fill)] data-pressed:text-[var(--button-ink)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green";
 export function ThemeToggle() {
-  const { dark, setDark, preference, setPreference } = useTheme();
+  const { dark, setDark } = useTheme();
   return (
-    <div className="flex items-center gap-0.5">
+    <div
+      aria-label="Color theme"
+      className="flex shrink-0 items-center rounded-full border border-line bg-surface p-0.5 shadow-[inset_0_1px_0_#ffffff0a]"
+    >
       <Toggle
-        className="grid size-11 place-items-center rounded-lg border-0 bg-transparent text-muted-ink hover:bg-surface-hover hover:text-ink"
-        aria-label="Dark theme"
-        pressed={dark}
-        onPressedChange={setDark}
-        title={
-          dark
-            ? "Switch to Paper & indigo light"
-            : "Switch to warm night reading"
-        }
+        aria-label="Light theme"
+        title="Paper workbook"
+        pressed={!dark}
+        onPressedChange={() => setDark(false)}
+        className={option}
       >
-        {dark ? (
-          <Sun size={18} aria-hidden="true" />
-        ) : (
-          <Moon size={18} aria-hidden="true" />
-        )}
+        <Sun size={18} aria-hidden="true" />
       </Toggle>
-      <Button
-        variant="ghost"
-        size="icon"
-        aria-label="Use device theme"
-        onClick={() => setPreference("system")}
-        title={
-          preference === "system"
-            ? "Following your device’s light or dark setting"
-            : "Follow your device’s light or dark setting"
-        }
-        className={`size-11 rounded-lg hover:bg-surface-hover ${preference === "system" ? "bg-green-soft text-green" : "text-muted-ink"}`}
+      <Toggle
+        aria-label="Dark theme"
+        title="Warm charcoal"
+        pressed={dark}
+        onPressedChange={() => setDark(true)}
+        className={option}
       >
-        <Monitor size={17} aria-hidden="true" />
-      </Button>
+        <Moon size={18} aria-hidden="true" />
+      </Toggle>
     </div>
   );
 }

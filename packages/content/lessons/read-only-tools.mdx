@@ -4,8 +4,8 @@ export const meta = {
   title: "A small read-only tool with clear boundaries",
   description: "Make tool status and results understandable.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["ai", "week-6", "interview-prep"],
+  level: "Core concept",
+  tags: ["ai", "practice", "practice"],
   questions: [
     {
       question: "Does a read-only tool need authorization?",
@@ -27,9 +27,7 @@ export const meta = {
     "https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/timeout_static",
   code: 'const allowed = new Set(["public-topic-index", "public-glossary"]);\nasync function readCollection(input, user) {\n  if (!allowed.has(input.collection)) throw new Error("Unknown collection");\n  await authorizeCollectionRead(user, input.collection);\n  const response = await fetch(buildAllowedUrl(input.collection), {\n    signal: AbortSignal.timeout(5000),\n  });\n  if (!response.ok) throw new Error("Collection unavailable");\n  return validateCollection(await response.json());\n}',
   codeLanguage: "ts",
-  origin: "study-plan",
-  planWeek: 6,
-  planPages: [4],
+  origin: "foundation",
   quizDistractors: [
     "No. Reading is always public and cannot disclose sensitive data.",
     "No. A model-selected ID should bypass the app’s access checks.",
@@ -70,5 +68,3 @@ Build a tool that reads one permitted note collection. Test an unknown collectio
 ## Keep exploring
 
 Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal/timeout_static) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 4, Week 6. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

@@ -4,8 +4,8 @@ export const meta = {
   title: "Two pointers: sorted pairs & palindromes",
   description: "Use a monotonic move instead of restarting the scan.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["dsa", "week-1", "interview-prep"],
+  level: "Core concept",
+  tags: ["dsa", "practice", "practice"],
   questions: [
     {
       question:
@@ -33,14 +33,11 @@ export const meta = {
   source: "https://usaco.guide/silver/two-pointers",
   code: "function sortedPair(nums, target) {\n let left = 0, right = nums.length - 1;\n while (left < right) {\n const sum = nums[left] + nums[right];\n if (sum === target) return [left, right];\n if (sum < target) left++; else right--;\n }\n return null;\n}\n// nums must already be sorted in ascending order.",
   codeLanguage: "js",
-  origin: "study-plan",
-  planWeek: 1,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "Because moving left always decreases the value.",
     "Because pointer movement works independently of sorting.",
   ],
-  planRecordedStatus: "pending",
 };
 
 ## The idea
@@ -49,7 +46,7 @@ Two-pointer algorithms maintain positions whose movement is justified by an inva
 
 ## Why it matters
 
-The plan’s Two Pointers #1–2 are unnamed. Use Sorted Pair Sum and ASCII Palindrome as equivalent practice if the original list is unavailable. Sorting first changes time cost and may require preserving original indices, so do not conceal that preprocessing.
+Practice Sorted Pair Sum and ASCII Palindrome to compare two useful pointer invariants. Sorting first changes time cost and may require preserving original indices, so do not conceal that preprocessing.
 
 ## A practical example
 
@@ -80,7 +77,6 @@ Implement a second exercise that checks an ASCII-normalized palindrome from both
 
 Read the [technical reference](https://usaco.guide/silver/two-pointers) for the full contract and check behavior against your project version.
 
-Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
 
 ## Complete the second Two Pointers exercise
 
@@ -105,4 +101,4 @@ function isAsciiPalindrome(input: string): boolean {
 }
 ```
 
-The contract deliberately keeps ASCII letters and digits only. Test empty input, punctuation-only input, mixed case, one character and a mismatch. Each pointer advances monotonically: O(n) time. This implementation allocates a lowercase copy, so auxiliary space is O(n); do not claim O(1) total space. This is an explicit equivalent for the second unnamed PDF exercise.
+The contract deliberately keeps ASCII letters and digits only. Test empty input, punctuation-only input, mixed case, one character and a mismatch. Each pointer advances monotonically: O(n) time. This implementation allocates a lowercase copy, so auxiliary space is O(n); do not claim O(1) total space.

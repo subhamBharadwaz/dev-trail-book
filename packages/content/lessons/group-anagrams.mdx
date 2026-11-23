@@ -4,8 +4,8 @@ export const meta = {
   title: "Group Anagrams with canonical keys",
   description: "Choose a representation that identical groups share.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["dsa", "week-1", "interview-prep"],
+  level: "Core concept",
+  tags: ["dsa", "practice", "practice"],
   questions: [
     {
       question: "Why do anagrams share a sorted-character key?",
@@ -27,14 +27,11 @@ export const meta = {
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
   code: 'function groupAnagrams(words) {\n  const groups = new Map();\n  for (const word of words) {\n    const key = word.split("").sort().join("");\n    if (!groups.has(key)) groups.set(key, []);\n    groups.get(key).push(word);\n  }\n  return [...groups.values()];\n}\nconsole.log(groupAnagrams(["eat", "tea", "tan", "ate"]));',
   codeLanguage: "js",
-  origin: "study-plan",
-  planWeek: 1,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "Because every string has the same sorted form.",
     "Because the original word length is always a unique key.",
   ],
-  planRecordedStatus: "pending",
 };
 
 ## The idea
@@ -43,7 +40,7 @@ For lowercase English strings, sorting a word’s characters gives a simple cano
 
 ## Why it matters
 
-Explain the input alphabet before choosing the key. With n words of maximum length k, sorting-based grouping takes roughly O(n k log k) time plus output and key storage. The plan records Group Anagrams as pending; a correct grouping matters more than memorizing one implementation.
+Explain the input alphabet before choosing the key. With n words of maximum length k, sorting-based grouping takes roughly O(n k log k) time plus output and key storage.
 
 ## A practical example
 
@@ -71,5 +68,3 @@ Test duplicate words, empty strings, and unrelated groups. Compare sorting keys 
 ## Keep exploring
 
 Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

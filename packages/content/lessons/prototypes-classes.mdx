@@ -4,8 +4,8 @@ export const meta = {
   title: "Prototypes, classes & shared behavior",
   description: "Trace property lookup through the prototype chain.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["javascript", "week-1", "interview-prep"],
+  level: "Core concept",
+  tags: ["javascript", "practice", "practice"],
   questions: [
     {
       question: "Are ordinary class methods copied into every instance?",
@@ -27,9 +27,7 @@ export const meta = {
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain",
   code: 'class Counter {\n  value = 0;\n  increment() { this.value += 1; }\n}\nconst a = new Counter();\nconst b = new Counter();\na.increment();\nconsole.log(a.value, b.value); // 1, 0\nconsole.log(a.increment === b.increment); // true\nconsole.log(Object.hasOwn(a, "value")); // true',
   codeLanguage: "js",
-  origin: "study-plan",
-  planWeek: 1,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "Yes. Every new instance gets a separate copy of each ordinary method.",
     "Methods are stored only on the constructor and cannot be inherited.",
@@ -72,5 +70,3 @@ Add a getter to Counter, inspect its prototype, and compare it with an arrow fun
 ## Keep exploring
 
 Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

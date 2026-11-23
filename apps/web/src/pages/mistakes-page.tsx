@@ -133,7 +133,7 @@ export function MistakesPage() {
                     : "Add a personal mistake or try a quiz. Missed answers will be saved here."}
                 </p>
                 <a
-                  href="#/practice"
+                  href="/practice"
                   className="mt-5 inline-flex min-h-11 items-center font-medium text-green"
                 >
                   Go to practice →

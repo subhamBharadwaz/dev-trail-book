@@ -1,3 +1,4 @@
+import { GithubSignIn } from "@/features/account/components/github-sign-in";
 import { useState } from "react";
 import { Input } from "@ui-sdk/react/input";
 import { Field, FieldLabel } from "@ui-sdk/react/field";
@@ -68,7 +69,7 @@ export function AccountPage() {
             sign-in will be available once the cloud connection is configured.
           </p>
           <a
-            href="#/today"
+            href="/today"
             className="mt-4 inline-flex min-h-11 items-center text-green"
           >
             Continue today’s practice →
@@ -102,7 +103,8 @@ export function AccountPage() {
             }
           }}
         >
-          <h2 className="text-xl font-medium">Sign in with your email</h2>
+          <GithubSignIn />
+          <h2 className="text-xl font-medium">Or sign in with your email</h2>
           <p className="mt-3 text-base leading-7 text-muted-ink">
             We’ll email you a sign-in link. Your existing browser progress stays
             local until you choose to import it.
@@ -334,7 +336,7 @@ export function AccountPage() {
         </p>
       )}
       <a
-        href="#/backup"
+        href="/backup"
         className="mt-6 inline-flex min-h-11 items-center font-medium text-green"
       >
         Export & restore your study data →

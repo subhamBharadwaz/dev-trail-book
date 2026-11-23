@@ -5,8 +5,8 @@ export const meta = {
   description:
     "Connect validation, ownership, database writes, and safe errors.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["backend", "week-4", "interview-prep"],
+  level: "Core concept",
+  tags: ["backend", "practice", "practice"],
   questions: [
     {
       question: "Where should ownership be enforced for an update?",
@@ -28,9 +28,7 @@ export const meta = {
     "https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html",
   code: 'async function renameEntry(userId, entryId, rawTitle) {\n  if (typeof rawTitle !== "string" || !rawTitle.trim()) {\n    return { ok: false, error: "A title is required" };\n  }\n  const title = rawTitle.trim();\n  if (title.length > 200) return { ok: false, error: "Title is too long" };\n  const result = await db.entries.updateMany({\n    where: { id: entryId, ownerId: userId }, data: { title },\n  });\n  if (result.count !== 1) return { ok: false, error: "Entry unavailable" };\n  return { ok: true };\n}',
   codeLanguage: "ts",
-  origin: "study-plan",
-  planWeek: 4,
-  planPages: [4],
+  origin: "foundation",
   quizDistractors: [
     "Only in the component that renders the edit button.",
     "Only in a query parameter sent by the caller.",
@@ -74,5 +72,3 @@ Exercise invalid input, a missing record, another user’s record, a database fa
 ## Keep exploring
 
 Read the [technical reference](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 4, Week 4. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

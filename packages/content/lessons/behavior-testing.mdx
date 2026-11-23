@@ -4,8 +4,8 @@ export const meta = {
   title: "Test user behavior, async UI & failures",
   description: "Write tests that fail when the experience breaks.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["testing", "week-5", "interview-prep"],
+  level: "Core concept",
+  tags: ["testing", "practice", "practice"],
   questions: [
     {
       question: "Should a test wait a fixed 500 ms for every async update?",
@@ -26,9 +26,7 @@ export const meta = {
   source: "https://testing-library.com/docs/guiding-principles/",
   code: 'test("keeps an error visible after a failed save", async () => {\n  const user = userEvent.setup();\n  render(<EntryForm save={async () => { throw new Error("offline"); }} />);\n  await user.type(screen.getByRole("textbox", { name: "Title" }), "Notes");\n  await user.click(screen.getByRole("button", { name: "Save" }));\n  expect(await screen.findByRole("alert")).toHaveTextContent("Try again");\n  expect(screen.getByRole("textbox", { name: "Title" })).toHaveValue("Notes");\n});\n// The matchers above require the jest-dom Vitest setup.',
   codeLanguage: "tsx",
-  origin: "study-plan",
-  planWeek: 5,
-  planPages: [4],
+  origin: "foundation",
   quizDistractors: [
     "Yes. Fixed sleeps are always more reliable than waiting for an outcome.",
     "Yes. Every asynchronous test must sleep for the longest possible request.",
@@ -74,5 +72,3 @@ Break the error message, remove the label, and disable retry one at a time. Conf
 ## Keep exploring
 
 Read the [technical reference](https://testing-library.com/docs/guiding-principles/) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 4, Week 5. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.

@@ -5,8 +5,8 @@ export const meta = {
   description:
     "Repair the aborted-request error from our user-search exercise.",
   minutes: 8,
-  level: "Discussion recap",
-  tags: ["react", "week-1", "interview-prep"],
+  level: "Core concept",
+  tags: ["react", "practice", "practice"],
   questions: [
     {
       question: "Should an aborted search show a failure message?",
@@ -27,17 +27,11 @@ export const meta = {
   source: "https://developer.mozilla.org/en-US/docs/Web/API/AbortController",
   code: 'useEffect(() => {\n  const controller = new AbortController();\n  let active = true;\n  const timer = setTimeout(async () => {\n    setLoading(true); setError("");\n    try {\n      const response = await fetch(\n        `/api/users?q=${encodeURIComponent(search)}`,\n        { signal: controller.signal }\n      );\n      if (!response.ok) throw new Error("Search failed");\n      const data = await response.json();\n      if (active) setUsers(data);\n    } catch (error) {\n      if (active && !controller.signal.aborted) {\n        setError(error instanceof Error ? error.message : "Search failed");\n      }\n    } finally { if (active) setLoading(false); }\n  }, 300);\n  return () => {\n    active = false; clearTimeout(timer); controller.abort();\n  };\n}, [search]);',
   codeLanguage: "tsx",
-  origin: "discussion",
-  planWeek: 1,
-  planPages: [3],
+  origin: "foundation",
   quizDistractors: [
     "Yes. All cancellations should be displayed as fatal errors.",
     "AbortController automatically retries canceled requests.",
   ],
-  discussionSource: {
-    title: "React User Search App",
-    url: "https://chatgpt.com/c/6adee764-1214-83ee-9ac5-ba46b5a443f2",
-  },
 };
 
 ## The idea
@@ -92,5 +86,3 @@ Test rapid typing, clearing the input, slow responses, a 500 response, and unmou
 ## Keep exploring
 
 Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) for the full contract and check behavior against your project version.
-
-Study-plan reference: December 2026 job plan, page 3, Week 1. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF. The explanation also uses the accessible discussion excerpt.

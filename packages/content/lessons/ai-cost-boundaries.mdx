@@ -4,8 +4,8 @@ export const meta = {
   title: "Context, latency, usage & data boundaries",
   description: "Explain the operating costs of one small AI feature.",
   minutes: 6,
-  level: "Study plan",
-  tags: ["ai", "week-6", "interview-prep"],
+  level: "Core concept",
+  tags: ["ai", "practice", "practice"],
   questions: [
     {
       question: "Is time to first output the same as total generation time?",
@@ -33,9 +33,7 @@ export const meta = {
   source: "https://developer.mozilla.org/en-US/docs/Web/API/Performance/now",
   code: 'const measurement = {\n  requestId: crypto.randomUUID(),\n  startedAt: performance.now(),\n  firstChunkMs: null,\n  totalMs: null,\n  inputTokens: null,\n  outputTokens: null,\n  status: "connecting",\n};\n// When supplied by your integration, attach actual usage and timing.\n// Keep credentials and private prompt text out of routine telemetry.',
   codeLanguage: "ts",
-  origin: "study-plan",
-  planWeek: 6,
-  planPages: [4],
+  origin: "foundation",
   quizDistractors: [
     "Yes. First-output latency and total completion time are always equal.",
     "Yes. Receiving the first chunk means generation has finished.",
@@ -78,7 +76,6 @@ Instrument a tiny streaming feature with status, first-chunk latency, duration, 
 
 Read the [technical reference](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now) for the full contract and check behavior against your project version.
 
-Study-plan reference: December 2026 job plan, page 4, Week 6. This lesson expands the topic named in the plan; it is not a verbatim lesson from the PDF.
 
 ## Context, latency and cost reasoning
 
